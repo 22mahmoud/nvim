@@ -43,3 +43,6 @@
 [submodule "pack/plugins/start/vim-tmux-navigator"]
 	path = pack/plugins/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "pack/plugins/start/formatter.nvim"]
+	path = pack/plugins/start/formatter.nvim
+	url = https://github.com/mhartington/formatter.nvim
