@@ -1,0 +1,45 @@
+[submodule "pack/plugins/start/gruvbox"]
+	path = pack/plugins/start/gruvbox
+	url = https://github.com/gruvbox-community/gruvbox
+[submodule "pack/plugins/start/auto-pairs"]
+	path = pack/plugins/start/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs
+[submodule "pack/plugins/start/completion-nvim"]
+	path = pack/plugins/start/completion-nvim
+	url = https://github.com/nvim-lua/completion-nvim
+[submodule "pack/plugins/start/diagnostic-nvim"]
+	path = pack/plugins/start/diagnostic-nvim
+	url = https://github.com/nvim-lua/diagnostic-nvim
+[submodule "pack/plugins/start/lsp-status.nvim"]
+	path = pack/plugins/start/lsp-status.nvim
+	url = https://github.com/nvim-lua/lsp-status.nvim
+[submodule "pack/plugins/start/nlua.nvim"]
+	path = pack/plugins/start/nlua.nvim
+	url = https://github.com/tjdevries/nlua.nvim
+[submodule "pack/plugins/start/nvim-colorizer.lua"]
+	path = pack/plugins/start/nvim-colorizer.lua
+	url = https://github.com/norcalli/nvim-colorizer.lua
+[submodule "pack/plugins/start/nvim-lspconfig"]
+	path = pack/plugins/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "pack/plugins/start/nvim-treesitter"]
+	path = pack/plugins/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "pack/plugins/start/nvim-tree.lua"]
+	path = pack/plugins/start/nvim-tree.lua
+	url = https://github.com/kyazdani42/nvim-tree.lua
+[submodule "pack/plugins/start/nvim-web-devicons"]
+	path = pack/plugins/start/nvim-web-devicons
+	url = https://github.com/kyazdani42/nvim-web-devicons
+[submodule "pack/plugins/start/plenary.nvim"]
+	path = pack/plugins/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "pack/plugins/start/popup.nvim"]
+	path = pack/plugins/start/popup.nvim
+	url = https://github.com/nvim-lua/popup.nvim
+[submodule "pack/plugins/start/telescope.nvim"]
+	path = pack/plugins/start/telescope.nvim
+	url = https://github.com/nvim-lua/telescope.nvim
+[submodule "pack/plugins/start/vim-tmux-navigator"]
+	path = pack/plugins/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
