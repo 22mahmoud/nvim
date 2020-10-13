@@ -52,3 +52,6 @@
 [submodule "pack/plugins/start/indentLine"]
 	path = pack/plugins/start/indentLine
 	url = https://github.com/Yggdroot/indentLine
+[submodule "pack/plugins/start/vim-svelte-plugin"]
+	path = pack/plugins/start/vim-svelte-plugin
+	url = https://github.com/leafOfTree/vim-svelte-plugin

@@ -22,6 +22,7 @@ require("format").setup(
     typescriptreact = prettier,
     css = prettier,
     html = prettier,
+    svelte = prettier,
     lua = {
       luafmt = function()
         return {

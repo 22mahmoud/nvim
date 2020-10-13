@@ -5,6 +5,8 @@ vim.cmd("packadd diagnostic-nvim")
 vim.cmd("packadd nlua.nvim")
 
 local lsp = require "nvim_lsp"
+local configs = require "nvim_lsp/configs"
+local util = require "nvim_lsp/util"
 local utils = require "utils"
 
 local on_attach = function(client)
@@ -36,6 +38,15 @@ require("nlua.lsp.nvim").setup(
   }
 )
 
+configs.svelte = {
+  default_config = {
+    cmd = {"svelteserver", "--stdio"},
+    filetypes = {"svelte"},
+    root_dir = util.root_pattern("package.json", "tsconfig.json", ".git"),
+    settings = {}
+  }
+}
+
 local servers = {
   {name = "bashls"},
   {name = "vimls"},
@@ -43,6 +54,7 @@ local servers = {
   {name = "jsonls"},
   {name = "rust_analyzer"},
   {name = "vuels"},
+  {name = "svelte"},
   {
     name = "html",
     config = {
