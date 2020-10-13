@@ -46,3 +46,9 @@
 [submodule "pack/plugins/start/formatter.nvim"]
 	path = pack/plugins/start/formatter.nvim
 	url = https://github.com/mhartington/formatter.nvim
+[submodule "pack/plugins/start/minimap.vim"]
+	path = pack/plugins/start/minimap.vim
+	url = https://github.com/wfxr/minimap.vim
+[submodule "pack/plugins/start/indentLine"]
+	path = pack/plugins/start/indentLine
+	url = https://github.com/Yggdroot/indentLine
