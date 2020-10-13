@@ -1,6 +1,6 @@
-# 🪄 ~ Neovim Confi ~ 
+# 🪄 ~ Neovim Config ~ 
 
-[./screenshot.png](./screenhot.png)
+![screenshot of vim](./screenhot.png)
 
 
 
