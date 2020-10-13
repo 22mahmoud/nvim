@@ -1,23 +1,23 @@
 -- load modules
-vim.cmd('packadd! popup.nvim')
-vim.cmd('packadd! plenary.nvim')
-vim.cmd('packadd! telescope.nvim')
+vim.cmd("packadd! popup.nvim")
+vim.cmd("packadd! plenary.nvim")
+vim.cmd("packadd! telescope.nvim")
 
-local actions = require('telescope.actions')
-local utils = require('utils')
+local actions = require("telescope.actions")
+local utils = require("utils")
 
 local mappings = {
   -- horizontal split
   ["<C-x>"] = false,
-  ['<C-s>'] = actions.goto_file_selection_split,
+  ["<C-s>"] = actions.goto_file_selection_split,
   -- next | prev
-  ['j'] = false,
-  ['k'] = false,
-  ['<C-j>'] = actions.move_selection_next,
-  ['<C-k>'] = actions.move_selection_previous
+  ["j"] = false,
+  ["k"] = false,
+  ["<C-j>"] = actions.move_selection_next,
+  ["<C-k>"] = actions.move_selection_previous
 }
 
-require('telescope').setup{
+require("telescope").setup {
   defaults = {
     winblend = 0,
     layout_strategy = "horizontal",
@@ -25,26 +25,16 @@ require('telescope').setup{
     sorting_strategy = "descending",
     prompt_position = "bottom",
     borderchars = {
-      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+      preview = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"}
     },
     mappings = {
       i = mappings,
-      n = mappings,
+      n = mappings
     }
   }
 }
 
-utils.map(
-  'n',
-  '<Leader>p',
-  [[<cmd>lua require'telescope.builtin'.git_files{}<CR>]],
-  {}
-)
+utils.map("n", "<Leader>p", [[<cmd>lua require'telescope.builtin'.git_files{}<CR>]], {})
 
-utils.map(
-  'n',
-  '<Leader>f',
-  [[<cmd>lua require'telescope.builtin'.grep_string{}<CR>]],
-  {}
-)
+utils.map("n", "<Leader>f", [[<cmd>lua require'telescope.builtin'.grep_string{}<CR>]], {})

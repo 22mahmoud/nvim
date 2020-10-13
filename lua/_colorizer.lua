@@ -1,4 +1,4 @@
 -- load packages
-vim.cmd('packadd nvim-colorizer.lua')
+vim.cmd("packadd nvim-colorizer.lua")
 
-require'colorizer'.setup()
+require "colorizer".setup()

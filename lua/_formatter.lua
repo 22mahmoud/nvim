@@ -26,7 +26,16 @@ require("format").setup(
       luafmt = function()
         return {
           exe = "luafmt",
-          args = {"--indent-count", 2, "--stdin"},
+          args = {"--indent-count", 2, "--line-width", 80, "--stdin"},
+          stdin = true
+        }
+      end
+    },
+    rust = {
+      rustfmt = function()
+        return {
+          exe = "rustfmt",
+          args = {},
           stdin = true
         }
       end

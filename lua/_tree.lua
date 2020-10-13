@@ -1,6 +1,6 @@
-local map = require('utils').map
+local map = require("utils").map
 
-vim.g.lua_tree_ignore = { '.git', 'node_modules' }
+vim.g.lua_tree_ignore = {".git", "node_modules"}
 vim.g.lua_tree_auto_open = 1
 vim.g.lua_tree_auto_close = 1
 vim.g.lua_tree_follow = 1
@@ -12,8 +12,8 @@ vim.g.lua_tree_show_icons = {
 }
 
 vim.g.lua_tree_icons = {
-  default = '',
-  git= {
+  default = "",
+  git = {
     unstaged = "✗",
     staged = "✓",
     unmerged = "",
@@ -27,19 +27,26 @@ vim.g.lua_tree_icons = {
 }
 
 vim.g.lua_tree_bindings = {
-  edit_split = {'<C-s>'},
-  create = {'n'}
+  edit_split = {"<C-s>"},
+  create = {"n"}
 }
 
-map('n', '<Leader>e', ':LuaTreeToggle<CR>', {
-  noremap = true,
-  silent = true
-})
+map(
+  "n",
+  "<Leader>e",
+  ":LuaTreeToggle<CR>",
+  {
+    noremap = true,
+    silent = true
+  }
+)
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+  [[
 augroup LuaTreeOverride
   au!
   au FileType LuaTree setlocal nowrap
 augroup END
-]], '')
-
+]],
+  ""
+)
