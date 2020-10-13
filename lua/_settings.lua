@@ -9,10 +9,13 @@ wo.cursorline = true
 wo.relativenumber = true
 wo.signcolumn= 'number'
 
+o.cc = '80'
 o.termguicolors = true
 o.smartindent = true
 o.tabstop = 2
 o.shiftwidth = 2
+o.expandtab = true
+bo.expandtab = true
 bo.tabstop = 2
 bo.smartindent = true
 bo.shiftwidth = 2

@@ -8,15 +8,15 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 vim.g.completion_matching_ignore_case = 1
 
 utils.map(
-	'i',
-	'<Tab>',
-	[[ pumvisible() ? "\<C-n>" : "\<Tab>" ]],
-	{ expr = true }
+  'i',
+  '<Tab>',
+  [[ pumvisible() ? "\<C-n>" : "\<Tab>" ]],
+  { expr = true }
 )
 
 utils.map(
-	'i',
-	'<S-Tab>',
-	[[ pumvisible() ? "\<C-p>" : "\<S-Tab>" ]],
-	{ expr = true }
+  'i',
+  '<S-Tab>',
+  [[ pumvisible() ? "\<C-p>" : "\<S-Tab>" ]],
+  { expr = true }
 )
