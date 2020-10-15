@@ -7,11 +7,11 @@ local home = vim.fn.expand("$XDG_CONFIG_HOME")
 g.mapleader = " "
 
 wo.cursorline = true
-wo.number = true
-wo.relativenumber = true
-wo.signcolumn = "number"
+-- wo.number = true
+-- wo.relativenumber = true
+-- wo.signcolumn = "number"
 
-o.cc = "80"
+o.colorcolumn = "80"
 o.termguicolors = true
 o.smartindent = true
 o.tabstop = 2

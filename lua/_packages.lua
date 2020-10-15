@@ -1,0 +1,12 @@
+-- load packages
+vim.cmd("packadd nvim-lspconfig")
+vim.cmd("packadd completion-nvim")
+vim.cmd("packadd diagnostic-nvim")
+vim.cmd("packadd nlua.nvim")
+vim.cmd("packadd nvim-colorizer.lua")
+vim.cmd("packadd nvim-web-devicons")
+vim.cmd("packadd formatter.nvim")
+vim.cmd("packadd popup.nvim")
+vim.cmd("packadd plenary.nvim")
+vim.cmd("packadd telescope.nvim")
+vim.cmd("packadd nvim-treesitter")

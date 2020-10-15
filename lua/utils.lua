@@ -1,7 +1,7 @@
-local U = {}
+local M = {}
 
 -- Key mapping
-function U.map(mode, key, result, opts)
+function M.map(mode, key, result, opts)
   vim.fn.nvim_set_keymap(
     mode,
     key,
@@ -15,4 +15,15 @@ function U.map(mode, key, result, opts)
   )
 end
 
-return U
+function M.augroup(group, fn)
+  vim.api.nvim_command("augroup " .. group)
+  vim.api.nvim_command("autocmd!")
+  fn()
+  vim.api.nvim_command("augroup END")
+end
+
+function M.get_color(synID, what, mode)
+  return vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(synID)), what, mode)
+end
+
+return M

@@ -1,6 +1,3 @@
--- load packages
-vim.cmd("packadd formatter.nvim")
-
 local map = require("utils").map
 local api = vim.api
 

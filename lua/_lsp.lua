@@ -1,9 +1,3 @@
--- load packages
-vim.cmd("packadd nvim-lspconfig")
-vim.cmd("packadd completion-nvim")
-vim.cmd("packadd diagnostic-nvim")
-vim.cmd("packadd nlua.nvim")
-
 local lsp = require "nvim_lsp"
 local configs = require "nvim_lsp/configs"
 local util = require "nvim_lsp/util"

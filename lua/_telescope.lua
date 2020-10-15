@@ -1,8 +1,3 @@
--- load modules
-vim.cmd("packadd! popup.nvim")
-vim.cmd("packadd! plenary.nvim")
-vim.cmd("packadd! telescope.nvim")
-
 local actions = require("telescope.actions")
 local utils = require("utils")
 
