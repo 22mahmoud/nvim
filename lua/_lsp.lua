@@ -42,50 +42,43 @@ configs.svelte = {
 }
 
 local servers = {
-  {name = "bashls"},
-  {name = "vimls"},
-  {name = "tsserver"},
-  {name = "jsonls"},
-  {name = "rust_analyzer"},
-  {name = "vuels"},
-  {name = "svelte"},
-  {
-    name = "html",
-    config = {
-      filetypes = {"html", "jinja"}
-    }
+  bashls = {},
+  vimls = {},
+  tsserver = {},
+  jsonls = {},
+  clangd = {},
+  svelte = {},
+  html = {
+    filetypes = {"html", "jinja"}
   },
-  {
-    name = "sumneko_lua",
-    config = {
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-            path = vim.split(package.path, ";")
-          },
-          completion = {
-            keywordSnippet = "Disable"
-          },
-          diagnostics = {
-            enable = true,
-            globals = {"vim"}
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-            }
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT",
+          path = vim.split(package.path, ";")
+        },
+        completion = {
+          keywordSnippet = "Disable"
+        },
+        diagnostics = {
+          enable = true,
+          globals = {"vim"}
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           }
         }
       }
     }
   }
-  -- {name = 'cssls'},
+  -- cssls = {},
+  -- vueles = {}
 }
 
-for _, server in ipairs(servers) do
-  local config = server.config or {}
+for server, config in pairs(servers) do
   config.on_attach = on_attach
-  lsp[server.name].setup(config)
+  lsp[server].setup(config)
 end

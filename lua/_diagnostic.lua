@@ -14,17 +14,17 @@ command("autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()")
 
 sign_define(
   "LspDiagnosticsErrorSign",
-  {text = "×", texthl = "LspDiagnosticsError"}
+  {text = "", texthl = "LspDiagnosticsError"}
 )
 sign_define(
   "LspDiagnosticsWarningSign",
-  {text = "!", texthl = "LspDiagnosticsWarning"}
+  {text = "", texthl = "LspDiagnosticsWarning"}
 )
 sign_define(
   "LspDiagnosticsInformationSign",
-  {text = "●", texthl = "LspDiagnosticsInformation"}
+  {text = "כֿ", texthl = "LspDiagnosticsInformation"}
 )
 sign_define(
   "LspDiagnosticsHintSign",
-  {text = " ", texthl = "LspDiagnosticsHint"}
+  {text = "➤", texthl = "LspDiagnosticsHint"}
 )

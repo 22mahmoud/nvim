@@ -17,6 +17,7 @@ require("format").setup(
     javascriptreact = prettier,
     typescript = prettier,
     typescriptreact = prettier,
+    json = prettier,
     css = prettier,
     html = prettier,
     svelte = prettier,
