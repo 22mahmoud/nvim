@@ -6,7 +6,7 @@ local home = vim.fn.expand("$XDG_CONFIG_HOME")
 
 g.mapleader = " "
 
-wo.cursorline = true
+-- wo.cursorline = true
 -- wo.number = true
 -- wo.relativenumber = true
 -- wo.signcolumn = "number"
