@@ -5,7 +5,7 @@ local utils = require "utils"
 
 local on_attach = function(client)
   require "diagnostic".on_attach(client)
-  require "completion".on_attach(client)
+  -- require "completion".on_attach(client)
 
   local opts = {noremap = true, silent = true}
   utils.map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
