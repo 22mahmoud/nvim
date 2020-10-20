@@ -26,7 +26,7 @@ function M.setup()
 
   line = line .. [[ %y ]] -- filetype
 
-  o.laststatus = 2
+  o.laststatus = 0
   o.statusline = line
   o.showmode = true
 end

@@ -21,6 +21,7 @@ require("format").setup(
     css = prettier,
     html = prettier,
     svelte = prettier,
+    vue = prettier,
     lua = {
       luafmt = function()
         return {
