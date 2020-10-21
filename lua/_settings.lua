@@ -11,7 +11,7 @@ g.mapleader = " "
 -- wo.relativenumber = true
 -- wo.signcolumn = "number"
 
-o.colorcolumn = "80"
+wo.colorcolumn = "80"
 o.termguicolors = true
 o.smartindent = true
 o.tabstop = 2
