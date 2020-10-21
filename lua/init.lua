@@ -10,7 +10,7 @@ require "_diagnostic"
 require "_treesitter"
 require "_telescope"
 require "_devicons"
-require "_status".setup()
+require "_status"
 require "_tree"
 require "_formatter"
 require "_minimap"

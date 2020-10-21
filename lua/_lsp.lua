@@ -48,6 +48,7 @@ local servers = {
   jsonls = {},
   clangd = {},
   svelte = {},
+  metals = {},
   html = {
     filetypes = {"html", "jinja"}
   },
