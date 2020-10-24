@@ -1,5 +1,6 @@
 local map = require("utils").map
 
+vim.g.lua_tree_side = 'left'
 vim.g.lua_tree_ignore = {".git", "node_modules"}
 vim.g.lua_tree_auto_open = 1
 vim.g.lua_tree_auto_close = 1
