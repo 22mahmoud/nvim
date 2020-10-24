@@ -46,7 +46,7 @@ local servers = {
   vimls = {},
   tsserver = {},
   jsonls = {},
-  clangd = {},
+  -- clangd = {},
   svelte = {},
   metals = {},
   html = {
@@ -64,7 +64,7 @@ local servers = {
         },
         diagnostics = {
           enable = true,
-          globals = {"vim"}
+          globals = {"vim", "mp"}
         },
         workspace = {
           library = {

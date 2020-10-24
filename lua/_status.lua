@@ -24,3 +24,4 @@ line = line .. [[ %y ]] -- filetype
 
 o.laststatus = 2
 o.statusline = line
+o.showmode = true
