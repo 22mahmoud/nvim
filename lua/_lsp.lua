@@ -1,10 +1,10 @@
 local lspconfig = require "lspconfig"
 local configs = require "lspconfig/configs"
--- local completion = require "completion"
+local completion = require "completion"
 local utils = require "utils"
 
 local on_attach = function(client)
-  -- completion.on_attach(client)
+  completion.on_attach(client)
 
   local opts = {noremap = true, silent = true}
   utils.map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
