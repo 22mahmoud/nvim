@@ -1,7 +1,6 @@
 -- load packages
 vim.cmd("packadd nvim-lspconfig")
 vim.cmd("packadd completion-nvim")
-vim.cmd("packadd diagnostic-nvim")
 vim.cmd("packadd nlua.nvim")
 vim.cmd("packadd nvim-colorizer.lua")
 vim.cmd("packadd nvim-web-devicons")

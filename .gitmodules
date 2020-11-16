@@ -13,9 +13,6 @@
 [submodule "pack/plugins/start/lsp-status.nvim"]
 	path = pack/plugins/start/lsp-status.nvim
 	url = https://github.com/nvim-lua/lsp-status.nvim
-[submodule "pack/plugins/start/nlua.nvim"]
-	path = pack/plugins/start/nlua.nvim
-	url = https://github.com/tjdevries/nlua.nvim
 [submodule "pack/plugins/start/nvim-colorizer.lua"]
 	path = pack/plugins/start/nvim-colorizer.lua
 	url = https://github.com/norcalli/nvim-colorizer.lua
@@ -61,3 +58,6 @@
 [submodule "pack/plugins/start/vim-nightfly-guicolors"]
 	path = pack/plugins/start/vim-nightfly-guicolors
 	url = https://github.com/bluz71/vim-nightfly-guicolors
+[submodule "pack/plugins/start/nlua.nvim"]
+	path = pack/plugins/start/nlua.nvim
+	url = git@github.com:tjdevries/nlua.nvim.git
