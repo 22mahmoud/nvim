@@ -1,9 +1,10 @@
 local lspconfig = require "lspconfig"
 local configs = require "lspconfig/configs"
+-- local completion = require "completion"
 local utils = require "utils"
 
-local on_attach = function()
-  require "completion".on_attach()
+local on_attach = function(client)
+  -- completion.on_attach(client)
 
   local opts = {noremap = true, silent = true}
   utils.map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -26,7 +27,7 @@ end
 require("nlua.lsp.nvim").setup(
   lspconfig,
   {
-    on_attach = on_attach,
+    on_attach = on_attach
   }
 )
 
