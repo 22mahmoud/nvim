@@ -56,7 +56,7 @@ local servers = {
     filetypes = {"html", "jinja"}
   },
   vuels = {}
-  cssls = {},
+  -- cssls = {},
 }
 
 for server, config in pairs(servers) do
