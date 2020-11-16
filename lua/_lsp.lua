@@ -55,31 +55,8 @@ local servers = {
   html = {
     filetypes = {"html", "jinja"}
   },
-  -- sumneko_lua = {
-  --   settings = {
-  --     Lua = {
-  --       runtime = {
-  --         version = "LuaJIT",
-  --         path = vim.split(package.path, ";")
-  --       },
-  --       completion = {
-  --         keywordSnippet = "Disable"
-  --       },
-  --       diagnostics = {
-  --         enable = true,
-  --         globals = {"vim", "mp"}
-  --       },
-  --       workspace = {
-  --         library = {
-  --           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-  --           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-  --         }
-  --       }
-  --     }
-  --   }
-  -- },
   vuels = {}
-  -- cssls = {},
+  cssls = {},
 }
 
 for server, config in pairs(servers) do
