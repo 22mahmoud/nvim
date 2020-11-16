@@ -2,8 +2,8 @@ local lspconfig = require "lspconfig"
 local configs = require "lspconfig/configs"
 local utils = require "utils"
 
-local on_attach = function(client)
-  require "completion".on_attach(client)
+local on_attach = function()
+  require "completion".on_attach()
 
   local opts = {noremap = true, silent = true}
   utils.map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -27,9 +27,6 @@ require("nlua.lsp.nvim").setup(
   lspconfig,
   {
     on_attach = on_attach,
-    globals = {
-      "vim"
-    }
   }
 )
 
@@ -57,29 +54,29 @@ local servers = {
   html = {
     filetypes = {"html", "jinja"}
   },
-  --  sumneko_lua = {
-  --    settings = {
-  --      Lua = {
-  --        runtime = {
-  --          version = "LuaJIT",
-  --          path = vim.split(package.path, ";")
-  --        },
-  --        completion = {
-  --          keywordSnippet = "Disable"
-  --        },
-  --        diagnostics = {
-  --          enable = true,
-  --          globals = {"vim", "mp"}
-  --        },
-  --        workspace = {
-  --          library = {
-  --            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-  --            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-  --          }
-  --        }
-  --      }
-  --    }
-  --  },
+  -- sumneko_lua = {
+  --   settings = {
+  --     Lua = {
+  --       runtime = {
+  --         version = "LuaJIT",
+  --         path = vim.split(package.path, ";")
+  --       },
+  --       completion = {
+  --         keywordSnippet = "Disable"
+  --       },
+  --       diagnostics = {
+  --         enable = true,
+  --         globals = {"vim", "mp"}
+  --       },
+  --       workspace = {
+  --         library = {
+  --           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+  --           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+  --         }
+  --       }
+  --     }
+  --   }
+  -- },
   vuels = {}
   -- cssls = {},
 }
