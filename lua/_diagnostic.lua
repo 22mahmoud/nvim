@@ -29,7 +29,7 @@ vim.api.nvim_command(
 
 sign_define(
   "LspDiagnosticsSignError",
-  {text = "", texthl = "LspDiagnosticsError"}
+  {text = "", texthl = "LspDiagnosticsError"}
 )
 
 sign_define(
@@ -39,10 +39,10 @@ sign_define(
 
 sign_define(
   "LspDiagnosticsSignInformation",
-  {text = "כֿ", texthl = "LspDiagnosticsInformation"}
+  {text = "", texthl = "LspDiagnosticsInformation"}
 )
 
 sign_define(
   "LspDiagnosticsSignHint",
-  {text = "➤", texthl = "LspDiagnosticsHint"}
+  {text = "", texthl = "LspDiagnosticsHint"}
 )
