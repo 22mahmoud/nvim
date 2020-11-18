@@ -1,6 +1,6 @@
 local map = require("utils").map
 
-vim.g.lua_tree_side = 'left'
+vim.g.lua_tree_side = "left"
 vim.g.lua_tree_ignore = {".git", "node_modules"}
 vim.g.lua_tree_auto_open = 1
 vim.g.lua_tree_auto_close = 1
@@ -13,7 +13,8 @@ vim.g.lua_tree_show_icons = {
 }
 
 vim.g.lua_tree_icons = {
-  default = "",
+  default = "",
+  symlink = "",
   git = {
     unstaged = "✗",
     staged = "✓",
@@ -21,10 +22,7 @@ vim.g.lua_tree_icons = {
     renamed = "➜",
     untracked = "★"
   },
-  folder = {
-    default = "",
-    open = ""
-  }
+  folder = {default = "", open = " "}
 }
 
 vim.g.lua_tree_bindings = {

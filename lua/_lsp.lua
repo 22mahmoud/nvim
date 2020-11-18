@@ -13,7 +13,12 @@ local on_attach = function(client)
   utils.map("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   utils.map("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  utils.map("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opts)
+  utils.map(
+    "n",
+    "gr",
+    "<cmd>lua require'telescope.builtin'.lsp_references()<CR>",
+    opts
+  )
   utils.map(
     "n",
     "<leader>ld",
@@ -22,6 +27,18 @@ local on_attach = function(client)
   )
   utils.map("n", "[c", "<cmd> lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   utils.map("n", "]c", "<cmd> lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+
+  vim.api.nvim_command(
+    "autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()"
+  )
+
+  vim.api.nvim_command(
+    "autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()"
+  )
+
+  vim.api.nvim_command(
+    "autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()"
+  )
 end
 
 require("nlua.lsp.nvim").setup(
@@ -51,7 +68,7 @@ local servers = {
   jsonls = {},
   clangd = {},
   svelte = {},
-  metals = {},
+  jedi_language_server = {},
   html = {
     filetypes = {"html", "jinja"}
   },
