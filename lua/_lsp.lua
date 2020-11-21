@@ -72,11 +72,23 @@ local servers = {
   html = {
     filetypes = {"html", "jinja"}
   },
-  vuels = {}
-  -- cssls = {},
+  vuels = {},
+  cssls = {},
+  gopls = {
+    cmd = {"gopls", "serve"},
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true
+        },
+        staticcheck = true
+      }
+    }
+  }
 }
 
 for server, config in pairs(servers) do
-  config.on_attach = on_attach
-  lspconfig[server].setup(config)
+  lspconfig[server].setup(
+    vim.tbl_deep_extend("force", {on_attach = on_attach}, config)
+  )
 end
