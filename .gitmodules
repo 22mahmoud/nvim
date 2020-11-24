@@ -7,9 +7,6 @@
 [submodule "pack/plugins/start/completion-nvim"]
 	path = pack/plugins/start/completion-nvim
 	url = https://github.com/nvim-lua/completion-nvim
-[submodule "pack/plugins/start/diagnostic-nvim"]
-	path = pack/plugins/start/diagnostic-nvim
-	url = https://github.com/nvim-lua/diagnostic-nvim
 [submodule "pack/plugins/start/lsp-status.nvim"]
 	path = pack/plugins/start/lsp-status.nvim
 	url = https://github.com/nvim-lua/lsp-status.nvim
@@ -52,12 +49,6 @@
 [submodule "pack/plugins/start/vim-vue"]
 	path = pack/plugins/start/vim-vue
 	url = https://github.com/posva/vim-vue
-[submodule "pack/plugins/start/vim-moonfly-colors"]
-	path = pack/plugins/start/vim-moonfly-colors
-	url = https://github.com/bluz71/vim-moonfly-colors
-[submodule "pack/plugins/start/vim-nightfly-guicolors"]
-	path = pack/plugins/start/vim-nightfly-guicolors
-	url = https://github.com/bluz71/vim-nightfly-guicolors
 [submodule "pack/plugins/start/nlua.nvim"]
 	path = pack/plugins/start/nlua.nvim
 	url = git@github.com:tjdevries/nlua.nvim.git
