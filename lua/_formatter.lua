@@ -2,43 +2,48 @@ local map = require("utils").map
 local api = vim.api
 
 local prettier = {
-  prettier = function()
+  function()
     return {
       exe = "prettier",
-      args = {"--stdin-filepath", api.nvim_buf_get_name(0)},
+      args = {"--stdin-filepath", api.nvim_buf_get_name(0), "--single-quote"},
       stdin = true
     }
   end
 }
 
-require("format").setup(
+require("formatter").setup(
   {
-    javascript = prettier,
-    javascriptreact = prettier,
-    typescript = prettier,
-    typescriptreact = prettier,
-    json = prettier,
-    css = prettier,
-    html = prettier,
-    svelte = prettier,
-    vue = prettier,
-    lua = {
-      luafmt = function()
-        return {
-          exe = "luafmt",
-          args = {"--indent-count", 2, "--line-width", 80, "--stdin"},
-          stdin = true
-        }
-      end
-    },
-    rust = {
-      rustfmt = function()
-        return {
-          exe = "rustfmt",
-          args = {},
-          stdin = true
-        }
-      end
+    logging = false,
+    filetype = {
+      javascript = prettier,
+      javascriptreact = prettier,
+      typescript = prettier,
+      typescriptreact = prettier,
+      json = prettier,
+      css = prettier,
+      html = prettier,
+      svelte = prettier,
+      vue = prettier,
+      rust = {
+        -- Rustfmt
+        function()
+          return {
+            exe = "rustfmt",
+            args = {"--emit=stdout"},
+            stdin = true
+          }
+        end
+      },
+      lua = {
+        -- luafmt
+        function()
+          return {
+            exe = "luafmt",
+            args = {"--indent-count", 2, "--stdin"},
+            stdin = true
+          }
+        end
+      }
     }
   }
 )
