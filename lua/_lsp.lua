@@ -69,6 +69,7 @@ local servers = {
   clangd = {},
   svelte = {},
   jedi_language_server = {},
+  jdtls = {},
   html = {
     filetypes = {"html", "jinja"}
   },
