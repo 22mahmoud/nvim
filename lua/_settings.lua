@@ -10,6 +10,8 @@ end
 
 g.mapleader = " "
 
+vim.api.nvim_command('set nocompatible')
+
 -- wo.cursorline = true
 -- wo.number = true
 -- wo.relativenumber = true

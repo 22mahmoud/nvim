@@ -55,3 +55,6 @@
 [submodule "pack/plugins/start/completion-buffers"]
 	path = pack/plugins/start/completion-buffers
 	url = https://github.com/steelsojka/completion-buffers
+[submodule "pack/plugins/start/vimwiki"]
+	path = pack/plugins/start/vimwiki
+	url = https://github.com/vimwiki/vimwiki
