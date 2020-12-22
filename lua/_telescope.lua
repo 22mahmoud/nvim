@@ -20,7 +20,9 @@ local full_theme = {
   show_line = false,
   results_title = "",
   preview_title = "",
-  prompt = ""
+  prompt = "",
+  short_path = true,
+  word_match = "-w"
 }
 
 local mappings = {
@@ -54,27 +56,14 @@ function tele.fd()
   require "telescope.builtin".fd(opts)
 end
 
--- live grep
-function tele.live_grep()
-  local opts = vim.deepcopy(full_theme)
-  opts.prompt_prefix = 'RG>'
-  require'telescope.builtin'.live_grep(opts)
-end
-
--- live grep
 function tele.grep_string()
   local opts = vim.deepcopy(full_theme)
-  opts.prompt_prefix = 'RG>'
-  require'telescope.builtin'.grep_string(opts)
+  opts.prompt_prefix = "RG>"
+  require "telescope.builtin".grep_string(opts)
 end
 
 utils.map("n", "<Leader>p", [[<cmd>lua require'_telescope'.fd{}<CR>]], {})
 
-utils.map(
-  "n",
-  "<Leader>f",
-  [[<cmd>lua require'_telescope'.grep_string{}<CR>]],
-  {}
-)
+utils.map("n", "<Leader>f", [[<cmd>lua require'_telescope'.grep_string{}<CR>]], {})
 
 return tele
