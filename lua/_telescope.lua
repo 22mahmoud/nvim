@@ -62,8 +62,17 @@ function tele.grep_string()
   require "telescope.builtin".grep_string(opts)
 end
 
+function tele.grep_prompt()
+  require('telescope.builtin').grep_string {
+    shorten_path = true,
+    search = vim.fn.input("Grep String > "),
+  }
+end
+
 utils.map("n", "<Leader>p", [[<cmd>lua require'_telescope'.fd{}<CR>]], {})
 
 utils.map("n", "<Leader>f", [[<cmd>lua require'_telescope'.grep_string{}<CR>]], {})
+
+utils.map("n", "<Leader>gp", [[<cmd>lua require'_telescope'.grep_prompt{}<CR>]], {})
 
 return tele
