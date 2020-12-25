@@ -4,6 +4,7 @@ local completion = require "completion"
 local utils = require "utils"
 
 local on_attach = function(client)
+  local resolved_capabilities = client.resolved_capabilities
   completion.on_attach(client)
 
   local opts = {noremap = true, silent = true}
@@ -18,11 +19,18 @@ local on_attach = function(client)
   utils.map("n", "[c", "<cmd> lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   utils.map("n", "]c", "<cmd> lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 
-  vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+  utils.augroup(
+    "LSP",
+    function()
+      vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 
-  vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
-
-  vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()")
+      if resolved_capabilities.document_highlight then
+        vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
+        vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
+        vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()")
+      end
+    end
+  )
 end
 
 require("nlua.lsp.nvim").setup(
