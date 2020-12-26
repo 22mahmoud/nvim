@@ -57,6 +57,7 @@ local servers = {
   clangd = {},
   svelte = {},
   jedi_language_server = {},
+  dockerls = {},
   jdtls = {},
   html = {
     filetypes = {"html", "jinja"}
