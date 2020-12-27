@@ -36,7 +36,8 @@ end
 require("nlua.lsp.nvim").setup(
   lspconfig,
   {
-    on_attach = on_attach
+    on_attach = on_attach,
+    globals = {"vim", "spoon", "hs"}
   }
 )
 
@@ -57,6 +58,7 @@ local servers = {
   clangd = {},
   svelte = {},
   jedi_language_server = {},
+  intelephense = {},
   dockerls = {},
   jdtls = {},
   html = {
