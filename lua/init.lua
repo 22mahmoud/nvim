@@ -1,4 +1,4 @@
-require "_packages"
+-- require "_packages"
 require "_settings"
 require "_autocmd"
 require "_mapping"
