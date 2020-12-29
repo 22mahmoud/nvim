@@ -61,3 +61,6 @@
 [submodule "pack/plugins/start/vim-fugitive"]
 	path = pack/plugins/start/vim-fugitive
 	url = git@github.com:tpope/vim-fugitive.git
+[submodule "pack/plugins/start/git-blame.nvim"]
+	path = pack/plugins/start/git-blame.nvim
+	url = git@github.com:f-person/git-blame.nvim.git
