@@ -64,3 +64,6 @@
 [submodule "pack/plugins/start/git-blame.nvim"]
 	path = pack/plugins/start/git-blame.nvim
 	url = git@github.com:f-person/git-blame.nvim.git
+[submodule "pack/plugins/start/vimspector"]
+	path = pack/plugins/start/vimspector
+	url = https://github.com/puremourning/vimspector
