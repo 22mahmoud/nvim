@@ -33,15 +33,6 @@ local on_attach = function(client)
   )
 end
 
-configs.svelte = {
-  default_config = {
-    cmd = {"svelteserver", "--stdio"},
-    filetypes = {"svelte"},
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-    settings = {}
-  }
-}
-
 local system_name
 if vim.fn.has("mac") == 1 then
   system_name = "macOS"
@@ -67,10 +58,7 @@ local servers = {
   jedi_language_server = {},
   intelephense = {},
   dockerls = {},
-  jdtls = {},
-  html = {
-    filetypes = {"html", "jinja"}
-  },
+  html = {},
   sumneko_lua = {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
