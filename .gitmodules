@@ -64,3 +64,6 @@
 [submodule "pack/plugins/start/csv.vim"]
 	path = pack/plugins/start/csv.vim
 	url = https://github.com/chrisbra/csv.vim
+[submodule "pack/plugins/start/telescope-fzf-writer.nvim"]
+	path = pack/plugins/start/telescope-fzf-writer.nvim
+	url = git@github.com:nvim-telescope/telescope-fzf-writer.nvim.git

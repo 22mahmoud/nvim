@@ -1,29 +1,9 @@
 local actions = require("telescope.actions")
+local sorters = require("telescope.sorters")
+local themes = require('telescope.themes')
 local utils = require("utils")
 
 local tele = {}
-
-local list_theme =
-  require("telescope.themes").get_dropdown(
-  {
-    width = 0.6,
-    prompt = "",
-    results_height = 20,
-    previewer = false
-  }
-)
-
-local full_theme = {
-  winblend = 10,
-  preview_cutoff = 50,
-  width = 0.5,
-  show_line = false,
-  results_title = "",
-  preview_title = "",
-  prompt = "",
-  short_path = true,
-  word_match = "-w"
-}
 
 local mappings = {
   -- horizontal split
@@ -40,39 +20,82 @@ local mappings = {
 
 require("telescope").setup {
   defaults = {
-    prompt_position = "top",
+    prompt_prefix = " >",
+    winblend = 0,
+    preview_cutoff = 120,
+    layout_strategy = "horizontal",
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.1,
+        height_padding = 0.1,
+        preview_width = 0.6
+      },
+      vertical = {
+        width_padding = 0.05,
+        height_padding = 1,
+        preview_height = 0.5
+      }
+    },
+    selection_strategy = "reset",
     sorting_strategy = "ascending",
+    scroll_strategy = "cycle",
+    prompt_position = "top",
+    color_devicons = true,
+    borderchars = {
+      {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+      preview = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"}
+    },
+    file_sorter = sorters.get_fzy_sorter,
+    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
     mappings = {
       i = mappings,
       n = mappings
     }
-  }
+  },
 }
 
 -- Current working directory files
 function tele.fd()
-  local opts = vim.deepcopy(list_theme)
-  opts.prompt_prefix = "Files>"
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false,
+  }
   require "telescope.builtin".fd(opts)
 end
 
-function tele.grep_string()
-  local opts = vim.deepcopy(full_theme)
-  opts.prompt_prefix = "RG>"
-  require "telescope.builtin".grep_string(opts)
+function tele.live_grep()
+ require('telescope').extensions.fzf_writer.staged_grep {
+   shorten_path = true,
+   previewer = false,
+   fzf_separator = "|>",
+ }
 end
 
 function tele.grep_prompt()
-  require('telescope.builtin').grep_string {
+  require("telescope.builtin").grep_string {
     shorten_path = true,
-    search = vim.fn.input("Grep String > "),
+    search = vim.fn.input("Grep String > ")
   }
 end
 
+
+function tele.lsp_code_actions()
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false,
+  }
+
+  require('telescope.builtin').lsp_code_actions(opts)
+end
+
 utils.map("n", "<Leader>p", [[<cmd>lua require'_telescope'.fd{}<CR>]], {})
-
-utils.map("n", "<Leader>f", [[<cmd>lua require'_telescope'.grep_string{}<CR>]], {})
-
+utils.map("n", "<Leader>f", [[<cmd>lua require'_telescope'.live_grep{}<CR>]], {})
 utils.map("n", "<Leader>gp", [[<cmd>lua require'_telescope'.grep_prompt{}<CR>]], {})
 
 return tele
