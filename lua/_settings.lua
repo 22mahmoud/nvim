@@ -10,7 +10,7 @@ end
 
 g.mapleader = " "
 
-vim.api.nvim_command('set nocompatible')
+vim.api.nvim_command("set nocompatible")
 
 -- wo.cursorline = true
 -- wo.number = true
@@ -27,6 +27,7 @@ bo.expandtab = true
 bo.tabstop = 2
 bo.smartindent = true
 bo.shiftwidth = 2
+wo.scrolloff = 8
 
 o.updatetime = 50
 o.hidden = true
