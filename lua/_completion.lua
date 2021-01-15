@@ -28,6 +28,24 @@ vim.g.completion_chain_complete_list = {
   }
 }
 
+vim.g.completion_enable_auto_paren = 1
+vim.g.completion_customize_lsp_label = {
+    Function = " [function]",
+    Method = " [method]",
+    Reference = " [reference]",
+    Enum = " [enum]",
+    Field = "ﰠ [field]",
+    Keyword = " [key]",
+    Variable = " [variable]",
+    Folder = " [folder]",
+    Snippet = " [snippet]",
+    Operator = " [operator]",
+    Module = " [module]",
+    Text = "ﮜ[text]",
+    Class = " [class]",
+    Interface = " [interface]"
+}
+
 utils.map("i", "<Tab>", [[ pumvisible() ? "\<C-n>" : "\<Tab>" ]], {expr = true})
 
 utils.map(
