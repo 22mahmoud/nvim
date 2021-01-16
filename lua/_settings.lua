@@ -5,11 +5,11 @@ vim.g.mapleader = " "
 local apply_options = function(opts)
   for k, v in pairs(opts) do
     if v == true then
-      cmd('set ' .. k)
+      cmd("set " .. k)
     elseif v == false then
-      cmd(string.format('set no%s', k))
+      cmd(string.format("set no%s", k))
     else
-      cmd(string.format('set %s=%s', k, v))
+      cmd(string.format("set %s=%s", k, v))
     end
   end
 end
@@ -34,13 +34,11 @@ local options = {
   termguicolors = true, -- truecolours for better experience
   wrap = false, -- dont wrap lines
   writebackup = false, -- disable backup
-
   -- String value
-  completeopt = 'menu,menuone,noinsert,noselect', -- better completion
+  completeopt = "menu,menuone,noinsert,noselect", -- better completion
   encoding = "UTF-8", -- set encoding
   inccommand = "split", -- incrementally show result of command
   clipboard = "unnamedplus", -- share clipboard
-
   -- Number value
   colorcolumn = 80, -- 80 chars color column
   laststatus = 2, -- always enable statusline
@@ -53,7 +51,7 @@ local options = {
   synmaxcol = 300, -- set limit for syntax highlighting in a single line
   tabstop = 2, -- tabsize
   timeoutlen = 400, -- faster timeout wait time
-  updatetime = 100, -- set faster update time
+  updatetime = 100 -- set faster update time
 }
 
 apply_options(options)

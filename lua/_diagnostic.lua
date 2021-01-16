@@ -1,6 +1,7 @@
 local sign_define = vim.fn.sign_define
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics,
   {
     underline = true,
@@ -14,23 +15,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-sign_define(
-  "LspDiagnosticsSignError",
-  {text = "", texthl = "LspDiagnosticsError"}
-)
+sign_define("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsError"})
 
-sign_define(
-  "LspDiagnosticsSignWarning",
-  {text = "", texthl = "LspDiagnosticsWarning"}
-)
+sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsWarning"})
 
-sign_define(
-  "LspDiagnosticsSignInformation",
-  {text = "", texthl = "LspDiagnosticsInformation"}
-)
+sign_define("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsInformation"})
 
-sign_define(
-  "LspDiagnosticsSignHint",
-  {text = "", texthl = "LspDiagnosticsHint"}
-)
-
+sign_define("LspDiagnosticsSignHint", {text = "", texthl = "LspDiagnosticsHint"})

@@ -10,6 +10,12 @@ try
 
 lua << END
 local plugins = {
+  ["formatter.nvim"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "/home/ashraf/.local/share/nvim/site/pack/packer/opt/formatter.nvim"
+  },
   ["nvim-tree.lua"] = {
     after = { "nvim-web-devicons" },
     loaded = false,
@@ -169,6 +175,10 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
+-- Config for: nlua.nvim
+loadstring("\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0")()
+-- Config for: nvim-colorizer.lua
+loadstring("\27LJ\2\n£\2\0\0\4\0\18\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\2B\0\2\1K\0\1\0\thtml\1\0\1\tmode\15foreground\ttmux\1\0\1\nnames\1\bvim\1\0\1\nnames\2\vstylus\1\0\1\vrgb_fn\2\tsass\1\0\1\vrgb_fn\2\tscss\1\0\1\vrgb_fn\2\bcss\1\5\0\0\15javascript\20javascriptreact\15typescript\20typescriptreact\1\0\1\vrgb_fn\2\nsetup\14colorizer\frequire\0")()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
