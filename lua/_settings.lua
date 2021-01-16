@@ -1,50 +1,59 @@
-local wo = vim.wo
-local o = vim.o
-local bo = vim.bo
-local g = vim.g
-local home = vim.fn.expand("$XDG_CONFIG_HOME")
+local cmd = vim.api.nvim_command
 
-if vim.fn.executable("volta") then
-  vim.g.node_host_prog = vim.fn.trim(vim.fn.system("volta which neovim-node-host"))
+vim.g.mapleader = " "
+
+local apply_options = function(opts)
+  for k, v in pairs(opts) do
+    if v == true then
+      cmd('set ' .. k)
+    elseif v == false then
+      cmd(string.format('set no%s', k))
+    else
+      cmd(string.format('set %s=%s', k, v))
+    end
+  end
 end
 
-g.mapleader = " "
+local options = {
+  -- Boolean value
+  autoindent = true, -- enable autoindent
+  backup = false, -- disable backup
+  cursorline = false, -- disable cursorline
+  expandtab = true, -- use spaces instead of tabs
+  hidden = true, -- keep hidden buffers
+  hlsearch = false, -- don't highlight matching search
+  ignorecase = true, -- case insensitive on search
+  showmode = false, -- don't show mode
+  smartcase = true, -- improve searching using '/'
+  smartindent = true, -- smarter indentation
+  smarttab = true, -- make tab behaviour smarter
+  splitbelow = true, -- split below instead of above
+  splitright = true, -- split right instead of left
+  startofline = false, -- don't go to the start of the line when moving to another file
+  swapfile = false, -- disable swapfile
+  termguicolors = true, -- truecolours for better experience
+  wrap = false, -- dont wrap lines
+  writebackup = false, -- disable backup
 
-vim.api.nvim_command("set nocompatible")
+  -- String value
+  completeopt = 'menu,menuone,noinsert,noselect', -- better completion
+  encoding = "UTF-8", -- set encoding
+  inccommand = "split", -- incrementally show result of command
+  clipboard = "unnamedplus", -- share clipboard
 
--- wo.cursorline = true
--- wo.number = true
--- wo.relativenumber = true
--- wo.signcolumn = "number"
+  -- Number value
+  colorcolumn = 80, -- 80 chars color column
+  laststatus = 2, -- always enable statusline
+  pumheight = 10, -- limit completion items
+  re = 0, -- set regexp engine to auto
+  scrolloff = 8, -- make scrolling better
+  shiftwidth = 2, -- set indentation width
+  sidescroll = 2, -- make scrolling better
+  sidescrolloff = 15, -- make scrolling better
+  synmaxcol = 300, -- set limit for syntax highlighting in a single line
+  tabstop = 2, -- tabsize
+  timeoutlen = 400, -- faster timeout wait time
+  updatetime = 100, -- set faster update time
+}
 
-wo.colorcolumn = "80"
-o.termguicolors = true
-o.smartindent = true
-o.tabstop = 2
-o.shiftwidth = 2
-o.expandtab = true
-bo.expandtab = true
-bo.tabstop = 2
-bo.smartindent = true
-bo.shiftwidth = 2
-wo.scrolloff = 8
-
-o.updatetime = 50
-o.hidden = true
-wo.wrap = false
-
-o.splitbelow = true
-o.splitright = true
-
-o.ignorecase = true
-o.smartcase = true
-
-o.clipboard = "unnamedplus"
-
--- Backup, undo, swap options
-o.undofile = true
-o.backup = true
-o.writebackup = true
-o.backupdir = home .. "/nvim/tmp/dir_backup/"
-o.directory = home .. "/nvim/tmp/dir_swap/," .. o.directory
-o.undodir = home .. "/nvim/tmp/dir_undo/"
+apply_options(options)
