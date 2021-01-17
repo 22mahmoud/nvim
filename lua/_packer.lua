@@ -9,19 +9,19 @@ return require("packer").startup(
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
-        require 'colorizer'.setup {
-          css = { rgb_fn = true; };
-          scss = { rgb_fn = true; };
-          sass = { rgb_fn = true; };
-          stylus = { rgb_fn = true; };
-          vim = { names = true; };
-          tmux = { names = false; };
-          'javascript';
-          'javascriptreact';
-          'typescript';
-          'typescriptreact';
+        require "colorizer".setup {
+          css = {rgb_fn = true},
+          scss = {rgb_fn = true},
+          sass = {rgb_fn = true},
+          stylus = {rgb_fn = true},
+          vim = {names = true},
+          tmux = {names = false},
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
           html = {
-            mode = 'foreground';
+            mode = "foreground"
           }
         }
       end
@@ -47,7 +47,12 @@ return require("packer").startup(
       }
     }
 
-    use "windwp/nvim-autopairs"
+    use {
+      "windwp/nvim-autopairs",
+      config = function()
+        require('nvim-autopairs').setup()
+      end
+    }
 
     -- lua
     use {
@@ -87,7 +92,7 @@ return require("packer").startup(
     use "maxmellon/vim-jsx-pretty"
     use "leafgarland/typescript-vim"
 
-    use 'chrisbra/csv.vim'
-    use 'christoomey/vim-tmux-navigator'
+    use "chrisbra/csv.vim"
+    use "christoomey/vim-tmux-navigator"
   end
 )
