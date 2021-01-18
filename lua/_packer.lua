@@ -50,7 +50,7 @@ return require("packer").startup(
     use {
       "windwp/nvim-autopairs",
       config = function()
-        require('nvim-autopairs').setup()
+        require("nvim-autopairs").setup()
       end
     }
 
@@ -94,5 +94,16 @@ return require("packer").startup(
 
     use "chrisbra/csv.vim"
     use "christoomey/vim-tmux-navigator"
+
+    -- git
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      },
+      config = function()
+        require("gitsigns").setup()
+      end
+    }
   end
 )
