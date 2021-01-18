@@ -4,13 +4,17 @@ local g = vim.g
 -- Don't show the dumb matching stuff.
 vim.cmd [[set shortmess+=c]]
 
+g.completion_sorting = "length"
 g.completion_enable_auto_hover = 0
 g.completion_auto_change_source = 1
 g.completion_matching_ignore_case = 1
+g.completion_trigger_character = {".", "::"}
 g.completion_matching_strategy_list = {"exact", "substring", "fuzzy"}
 g.completion_enable_snippet = "vim-vsnip"
 g.completion_confirm_key = ""
 g.completion_trigger_keyword_length = 2
+g.completion_timer_cycle = 50
+
 g.completion_chain_complete_list = {
   default = {
     {complete_items = {"lsp"}},
@@ -21,6 +25,7 @@ g.completion_chain_complete_list = {
     {mode = "<c-n>"}
   }
 }
+
 g.completion_customize_lsp_label = {
   Function = " [function]",
   Method = " [method]",
@@ -35,6 +40,22 @@ g.completion_customize_lsp_label = {
   Module = " [module]",
   Text = "ﮜ[text]",
   Class = " [class]"
+}
+
+g.completion_items_priority = {
+  Field = 10,
+  Method = 10,
+  Function = 9,
+  Variables = 9,
+  Constant = 9,
+  Interfaces = 8,
+  Class = 8,
+  Struct = 8,
+  Keyword = 8,
+  Treesitter = 8,
+  TabNine = 8,
+  Buffers = 1,
+  File = 2
 }
 
 cmd [[au BufReadPre,BufNewFile * lua require'completion'.on_attach()]]
