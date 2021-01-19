@@ -89,10 +89,10 @@ return require("packer").startup(
     }
 
     -- js,ts,jsx
+    -- because treesitter breaks jsx indentation
     use "maxmellon/vim-jsx-pretty"
     use "leafgarland/typescript-vim"
 
-    use "chrisbra/csv.vim"
     use "christoomey/vim-tmux-navigator"
 
     -- git
