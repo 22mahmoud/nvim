@@ -66,20 +66,9 @@ telescope.setup {
 }
 
 telescope.load_extension("fzy_native")
+telescope.load_extension("dap")
 
 local M = {}
-
---  ["n|<Leader>bb"]     = map_cu('Telescope buffers'):with_noremap():with_silent(),
---  ["n|<Leader>fa"]     = map_cu('DashboardFindWord'):with_noremap():with_silent(),
---  ["n|<Leader>fb"]     = map_cu('DashboardJumpMark'):with_noremap():with_silent(),
---  ["n|<Leader>ff"]     = map_cu('DashboardFindFile'):with_noremap():with_silent(),
---  ["n|<Leader>fg"]     = map_cu('Telescope git_files'):with_noremap():with_silent(),
---  ["n|<Leader>fw"]     = map_cu('Telescope grep_string'):with_noremap():with_silent(),
---  ["n|<Leader>fh"]     = map_cu('DashboardFindHistory'):with_noremap():with_silent(),
---  ["n|<Leader>fl"]     = map_cu('Telescope loclist'):with_noremap():with_silent(),
---  ["n|<Leader>fc"]     = map_cu('Telescope git_commits'):with_noremap():with_silent(),
---  ["n|<Leader>fd"]     = map_cu('Telescope dotfiles path='..os.getenv("HOME")..'/.dotfiles'):with_noremap():with_silent(),
---  ["n|<Leader>fs"]     = map_cu('Telescope gosource'):with_noremap():with_silent(),
 
 function M.fd()
   local opts =
@@ -133,8 +122,21 @@ function M.grep_prompt()
   }
 end
 
+function M.debug_variables()
+  local opts =
+    themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
+
+  require'telescope'.extensions.dap.variables(opts)
+end
+
 map("n", "<leader>p", [[<cmd>lua require'_telescope'.fd{}<CR>]], {noremap = true, silent = true})
 map("n", "<Leader>f", [[<cmd>lua require'_telescope'.live_grep{}<CR>]], {noremap = true, silent = true})
 map("n", "<Leader>gp", [[<cmd>lua require'_telescope'.grep_prompt{}<CR>]], {noremap = true, silent = true})
+map("n", "<Leader>dv", [[<cmd>lua require'_telescope'.debug_variables{}<CR>]], {noremap = true, silent = true})
 
 return M
