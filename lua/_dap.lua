@@ -21,6 +21,30 @@ dap.configurations.javascript = {
   }
 }
 
+dap.configurations.javascriptreact = {
+  {
+    type = "node2",
+    request = "launch",
+    -- program = "${workspaceFolder}/${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal"
+  }
+}
+
+dap.configurations.typescript = {
+  {
+    type = "node2",
+    request = "launch",
+    program = "${workspaceFolder}/${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    console = "integratedTerminal"
+  }
+}
+
 local opts = {
   noremap = true,
   silent = true
