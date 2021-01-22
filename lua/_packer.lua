@@ -105,5 +105,39 @@ return require("packer").startup(
         require("gitsigns").setup()
       end
     }
+
+    -- testing
+    use {
+      "vim-test/vim-test",
+      config = function()
+        vim.cmd [[let test#strategy = "neovim"]]
+      end
+    }
+
+    -- debugging
+    use {
+      "mfussenegger/nvim-dap",
+      config = function()
+        local dap = require("dap")
+
+        dap.adapters.node2 = {
+          type = "executable",
+          command = "node",
+          args = {os.getenv("HOME") .. "/repos/vscode-node-debug2/out/src/nodeDebug.js"}
+        }
+
+        dap.configurations.javascript = {
+          {
+            type = "node2",
+            request = "launch",
+            program = "${workspaceFolder/file}",
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
+            protocol = "inspector",
+            console = "integratedTerminal"
+          }
+        }
+      end
+    }
   end
 )

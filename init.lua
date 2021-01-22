@@ -1,3 +1,4 @@
+vim.cmd[[packadd termdebug]]
 require "_settings"
 require "_packer"
 require "_mappings"
