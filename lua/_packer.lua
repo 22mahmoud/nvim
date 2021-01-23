@@ -117,7 +117,6 @@ return require("packer").startup(
     -- debugging
     use {
       "mfussenegger/nvim-dap",
-      ft = {"javascript", "javascriptreact", "typescript", "typescriptreact"},
       requires = {
         {"theHamsta/nvim-dap-virtual-text"},
         {"nvim-telescope/telescope-dap.nvim"}
