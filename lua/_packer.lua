@@ -39,9 +39,8 @@ return require("packer").startup(
     -- lsp
     use "neovim/nvim-lspconfig"
     use {
-      "nvim-lua/completion-nvim",
+      "hrsh7th/nvim-compe",
       requires = {
-        "steelsojka/completion-buffers",
         "hrsh7th/vim-vsnip",
         "hrsh7th/vim-vsnip-integ"
       }
