@@ -21,10 +21,8 @@ local custom_attach = function(_, buf_nr)
   if filetype ~= "lua" then
     mapper("n", "K", "vim.lsp.buf.hover()")
   end
-  mapper("n", "ga", 'require"_telescope".lsp_code_actions()')
   mapper("n", "gd", "vim.lsp.buf.definition()")
   mapper("n", "gD", "vim.lsp.buf.implementation()")
-  mapper("n", "gr", 'require"_telescope".lsp_references()')
   mapper("n", "<leader>r", "vim.lsp.buf.rename()")
 
   -- diagnostic

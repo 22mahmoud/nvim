@@ -61,15 +61,9 @@ return require("packer").startup(
       }
     }
 
-    -- telescope
     use {
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        "nvim-lua/popup.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-fzy-native.nvim",
-        "nvim-telescope/telescope-fzf-writer.nvim"
-      }
+      "junegunn/fzf.vim",
+      requires = {"junegunn/fzf"}
     }
 
     -- file explorer
