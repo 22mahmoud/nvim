@@ -4,6 +4,15 @@ return require("packer").startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
 
+    use {
+      "brooth/far.vim",
+      config = function()
+        vim.cmd [[
+        let g:far#source = 'rg'
+        let g:far#enable_undo=1
+        ]]
+      end
+    }
     use "tpope/vim-surround"
     use {
       "tpope/vim-repeat",
@@ -39,7 +48,10 @@ return require("packer").startup(
     -- treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate"
+      run = ":TSUpdate",
+      requires = {
+        "nvim-treesitter/nvim-treesitter-textobjects"
+      }
     }
 
     -- lsp
@@ -48,15 +60,8 @@ return require("packer").startup(
       "hrsh7th/nvim-compe",
       requires = {
         "hrsh7th/vim-vsnip",
-        "hrsh7th/vim-vsnip-integ"
+        "norcalli/snippets.nvim"
       }
-    }
-
-    use {
-      "windwp/nvim-autopairs",
-      config = function()
-        require("nvim-autopairs").setup()
-      end
     }
 
     -- lua
@@ -115,6 +120,11 @@ return require("packer").startup(
       config = function()
         vim.cmd [[let test#strategy = "neovim"]]
       end
+    }
+
+    -- autopairs
+    use {
+      "Raimondi/delimitMate"
     }
 
     -- debugging
