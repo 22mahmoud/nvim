@@ -4,6 +4,15 @@ return require("packer").startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
 
+    use "tpope/vim-surround"
+    use {
+      "tpope/vim-repeat",
+      config = function()
+        vim.cmd [[silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)]]
+      end
+    }
+    use "tpope/vim-commentary"
+
     -- themeing, ui
     use "gruvbox-community/gruvbox"
     use {
@@ -30,10 +39,7 @@ return require("packer").startup(
     -- treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
-      opt = true,
-      run = function()
-        vim.cmd [[TSUpdate]]
-      end
+      run = ":TSUpdate"
     }
 
     -- lsp
@@ -92,6 +98,7 @@ return require("packer").startup(
     use "christoomey/vim-tmux-navigator"
 
     -- git
+    use "tpope/vim-fugitive"
     use {
       "lewis6991/gitsigns.nvim",
       requires = {

@@ -51,7 +51,8 @@ local options = {
   synmaxcol = 300, -- set limit for syntax highlighting in a single line
   tabstop = 2, -- tabsize
   timeoutlen = 400, -- faster timeout wait time
-  updatetime = 100 -- set faster update time
+  updatetime = 100, -- set faster update time
+  softtabstop = 2
 }
 
 apply_options(options)
