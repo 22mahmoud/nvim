@@ -59,8 +59,7 @@ return require("packer").startup(
     use {
       "hrsh7th/nvim-compe",
       requires = {
-        "hrsh7th/vim-vsnip",
-        "norcalli/snippets.nvim"
+        "hrsh7th/vim-vsnip"
       }
     }
 
