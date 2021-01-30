@@ -63,7 +63,10 @@ return require("packer").startup(
 
     use {
       "junegunn/fzf.vim",
-      requires = {"junegunn/fzf"}
+      requires = {
+        "junegunn/fzf",
+        "ojroques/nvim-lspfuzzy"
+      }
     }
 
     -- file explorer

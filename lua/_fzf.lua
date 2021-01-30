@@ -10,13 +10,13 @@ g.fzf_action = {
 g.fzf_layout = {
   window = {
     width = 1,
-    height = 0.5,
+    height = 0.4,
     border = "top",
     yoffset = 1
   }
 }
 
-g.fzf_preview_window = {"right:40%"}
+g.fzf_preview_window = {"right:+{2}-/2:hidden", "ctrl-/"}
 
 map("n", "<Leader>p", ":Files<CR>", {noremap = true, silent = true})
 map("n", "<Leader>f", "<ESC>:Rg<CR>", {noremap = true, silent = true})
