@@ -76,9 +76,38 @@ servers.gopls = {
 }
 
 servers.tsserver = {
-  root_dir = function(fname)
-    return util.find_git_ancestor(fname) or util.path.dirname(fname)
-  end
+  root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git", vim.fn.getcwd())
+}
+
+local eslint_d = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+  lintIgnoreExitCode = true,
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  formatStdin = true
+}
+
+servers.efm = {
+  root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+  filetypes = {
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact"
+  },
+  init_options = {
+    documentFormatting = true,
+    codeAction = true
+  },
+  settings = {
+    languages = {
+      typescript = {eslint_d},
+      javascript = {eslint_d},
+      typescriptreact = {eslint_d},
+      javascriptreact = {eslint_d}
+    }
+  }
 }
 
 for server, config in pairs(servers) do
