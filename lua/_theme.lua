@@ -109,7 +109,7 @@ vim.g.gruvbox_invert_signs = 1
 vim.g.gruvbox_invert_tabline = 1
 vim.g.gruvbox_italic = 1
 vim.g.gruvbox_italicize_comments = 1
-vim.g.gruvbox_italicize_strings = 1
+vim.g.gruvbox_italicize_strings = 0
 vim.g.gruvbox_undercurl = 1
 
 vim.cmd('colors gruvbox8')
