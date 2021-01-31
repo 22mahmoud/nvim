@@ -23,7 +23,7 @@ return require("packer").startup(
     use "tpope/vim-commentary"
 
     -- themeing, ui
-    use "gruvbox-community/gruvbox"
+    use {"lifepillar/vim-gruvbox8"}
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
