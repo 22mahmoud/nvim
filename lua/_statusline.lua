@@ -16,7 +16,7 @@ line = line .. [[ %= ]]
 line = line .. [[%#Title#]]
 line = line .. [[ (Ln %l/%L, Col %c) ]]
 
-line = line .. [[%#StatusLineActive#]]
+line = line .. [[%#StatusLineFiletype#]]
 
 line = line .. [[ %y ]] -- filetype
 
