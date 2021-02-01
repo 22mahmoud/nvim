@@ -26,7 +26,7 @@ g.fzf_action = {
 g.fzf_layout = {
   window = {
     width = 1,
-    height = 0.4,
+    height = 0.5,
     border = "top",
     yoffset = 1
   }
