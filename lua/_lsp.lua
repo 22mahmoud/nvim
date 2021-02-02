@@ -12,7 +12,11 @@ local mapper = function(mode, key, result)
   )
 end
 
-local custom_attach = function(client, buf_nr, server)
+-- snippets support
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local custom_attach = function(client, _, server)
   local ft = vim.api.nvim_buf_get_option(0, "filetype")
 
   -- integrate fzf with lsp events
@@ -49,7 +53,15 @@ local custom_attach = function(client, buf_nr, server)
   mapper("n", "<leader>ds", "vim.lsp.diagnostic.show_line_diagnostics()")
 end
 
-nlua.setup(lspconfig, {on_attach = custom_attach, globals = {"use"}})
+nlua.setup(
+  lspconfig,
+  {
+    on_attach = function(client, bufnr)
+      custom_attach(client, bufnr, "sumneko_lua")
+    end,
+    globals = {"use"}
+  }
+)
 
 local servers = {
   bashls = {},
@@ -113,7 +125,7 @@ servers.efm = {
     "html",
     "lua"
   },
-  init_options = {documentFormatting = true, codeAction = true},
+  init_options = {documentFormatting = true},
   settings = {
     languages = {
       typescript = {prettier, eslint_d},

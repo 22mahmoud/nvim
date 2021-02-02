@@ -45,14 +45,14 @@ local options = {
   pumheight = 10, -- limit completion items
   re = 0, -- set regexp engine to auto
   scrolloff = 8, -- make scrolling better
-  shiftwidth = 2, -- set indentation width
   sidescroll = 2, -- make scrolling better
   sidescrolloff = 15, -- make scrolling better
   synmaxcol = 300, -- set limit for syntax highlighting in a single line
   tabstop = 2, -- tabsize
+  softtabstop = 2,
+  shiftwidth = 2, -- set indentation width
   timeoutlen = 400, -- faster timeout wait time
-  updatetime = 100, -- set faster update time
-  softtabstop = 2
+  updatetime = 100, -- set faster update time,
 }
 
 -- use volta(a node version manager) as node provider
