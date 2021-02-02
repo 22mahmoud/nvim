@@ -135,7 +135,7 @@ return require("packer").startup(
     use {
       "vim-test/vim-test",
       config = function()
-        vim.cmd [[let test#strategy = "neovim"]]
+        require("_vim-test")
       end
     }
 
