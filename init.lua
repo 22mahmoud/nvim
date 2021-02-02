@@ -1,12 +1,5 @@
-vim.cmd[[packadd termdebug]]
-require "_settings"
 require "_packer"
+require "_settings"
 require "_mappings"
 require "_theme"
-require "_treesitter"
-require "_lsp"
-require "_diagnostic"
-require "_completion"
-require "_tree"
-require "_fzf"
 require "_statusline"

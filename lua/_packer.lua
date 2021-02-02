@@ -23,6 +23,7 @@ return require("packer").startup(
     use "tpope/vim-commentary"
 
     -- themeing, ui
+    use {"kyazdani42/nvim-web-devicons"}
     use {"lifepillar/vim-gruvbox8"}
     use {
       "norcalli/nvim-colorizer.lua",
@@ -49,15 +50,26 @@ return require("packer").startup(
     use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
+      config = function()
+        require("_treesitter")
+      end,
       requires = {
         "nvim-treesitter/nvim-treesitter-textobjects"
       }
     }
 
     -- lsp
-    use "neovim/nvim-lspconfig"
+    use {
+      "neovim/nvim-lspconfig",
+      config = function()
+        require("_lsp")
+      end
+    }
     use {
       "hrsh7th/nvim-compe",
+      config = function()
+        require("_completion")
+      end,
       requires = {
         "hrsh7th/vim-vsnip"
       }
@@ -73,6 +85,9 @@ return require("packer").startup(
 
     use {
       "junegunn/fzf.vim",
+      config = function()
+        require("_fzf")
+      end,
       requires = {
         "junegunn/fzf",
         "ojroques/nvim-lspfuzzy"
@@ -82,16 +97,9 @@ return require("packer").startup(
     -- file explorer
     use {
       "kyazdani42/nvim-tree.lua",
-      opt = true,
-      requires = {
-        "kyazdani42/nvim-web-devicons"
-      }
-    }
-
-    -- formatter
-    use {
-      "mhartington/formatter.nvim",
-      opt = true
+      config = function()
+        require("_tree")
+      end
     }
 
     -- js,ts,jsx

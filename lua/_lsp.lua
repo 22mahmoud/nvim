@@ -3,6 +3,8 @@ local nlua = require("nlua.lsp.nvim")
 local util = require("lspconfig/util")
 local map = vim.api.nvim_set_keymap
 
+require "_diagnostic"
+
 local mapper = function(mode, key, result)
   map(
     mode,

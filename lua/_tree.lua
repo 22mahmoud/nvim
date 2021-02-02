@@ -1,6 +1,3 @@
-vim.cmd [[packadd nvim-tree.lua]]
-vim.cmd [[packadd nvim-web-devicons]]
-
 local map = vim.fn.nvim_set_keymap
 
 local g = vim.g
