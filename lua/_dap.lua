@@ -55,5 +55,10 @@ map("n", "<F10>", [[:lua require('dap').step_over()<CR>]], opts)
 map("n", "<F11>", [[:lua require('dap').step_into()<CR>]], opts)
 map("n", "<F12>", [[:lua require('dap').step_out()<CR>]], opts)
 map("n", "<leader>tb", [[:lua require('dap').toggle_breakpoint()<CR>]], opts)
-map("n", "<leader>lp", [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], opts)
+map(
+  "n",
+  "<leader>lp",
+  [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
+  opts
+)
 map("n", "<leader>dr", [[:lua require('dap').repl.open()<CR>]], opts)

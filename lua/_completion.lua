@@ -16,5 +16,10 @@ require("compe").setup {
 }
 
 map("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
-map("i", "<CR>", "compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })", {silent = true, expr = true})
+map(
+  "i",
+  "<CR>",
+  "compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })",
+  {silent = true, expr = true}
+)
 map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})

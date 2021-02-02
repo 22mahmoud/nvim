@@ -102,7 +102,17 @@ return require("packer").startup(
     use "christoomey/vim-tmux-navigator"
 
     -- git
-    use "tpope/vim-fugitive"
+    use {
+      "tpope/vim-fugitive",
+      config = function()
+        vim.api.nvim_set_keymap(
+          "n",
+          "<leader>gs",
+          ":Gstatus<CR>",
+          {noremap = true, silent = true}
+        )
+      end
+    }
     use {
       "lewis6991/gitsigns.nvim",
       requires = {

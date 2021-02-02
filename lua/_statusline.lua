@@ -4,7 +4,9 @@ local line = [[]]
 
 -- file path
 line = line .. [[%#TermCursor#]]
-line = line .. [[ %{luaeval("require('nvim-web-devicons').get_icon(vim.fn.expand('%:e')) or '' ")} ]]
+line =
+  line ..
+  [[ %{luaeval("require('nvim-web-devicons').get_icon(vim.fn.expand('%:e')) or '' ")} ]]
 line = line .. [[%2{&modified ? '● ' : ''}]]
 line = line .. [[%{expand('%:~:.')} ]] -- relative filepath
 line = line .. [[%#StatusLine#]]

@@ -55,4 +55,10 @@ local options = {
   softtabstop = 2
 }
 
+-- use volta(a node version manager) as node provider
+if vim.fn.executable("volta") then
+  vim.g.node_host_prog =
+    vim.fn.trim(vim.fn.system("volta which neovim-node-host"))
+end
+
 apply_options(options)
