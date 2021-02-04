@@ -155,5 +155,36 @@ return require("packer").startup(
         require("_dap")
       end
     }
+
+    use {
+      "junegunn/goyo.vim",
+      requires = {
+        {
+          "junegunn/limelight.vim",
+          config = function()
+            vim.g.limelight_conceal_ctermfg = "gray"
+            vim.g.limelight_conceal_ctermfg = 240
+            vim.g.limelight_conceal_guifg = "DarkGray"
+            vim.g.limelight_conceal_guifg = "#777777"
+            vim.cmd [[autocmd! User GoyoEnter Limelight]]
+            vim.cmd [[autocmd! User GoyoLeave Limelight!]]
+          end
+        }
+      }
+    }
+
+    use {
+      "plasticboy/vim-markdown",
+      requires = {
+        {"godlygeek/tabular"}
+      },
+      config = function()
+        vim.g.vim_markdown_folding_disabled = 1
+        vim.g.vim_markdown_fenced_languages = {
+          "js=javascript",
+          "jsx=javascriptreact"
+        }
+      end
+    }
   end
 )

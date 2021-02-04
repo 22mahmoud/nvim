@@ -53,6 +53,7 @@ local options = {
   shiftwidth = 2, -- set indentation width
   timeoutlen = 400, -- faster timeout wait time
   updatetime = 100, -- set faster update time,
+  conceallevel = 2
 }
 
 -- use volta(a node version manager) as node provider
