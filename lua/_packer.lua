@@ -62,7 +62,7 @@ return require("packer").startup(
     use {
       "neovim/nvim-lspconfig",
       config = function()
-        require("_lsp")
+        require("lsp")
       end
     }
     use {
