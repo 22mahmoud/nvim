@@ -11,7 +11,7 @@ require("compe").setup {
     buffer = true,
     vsnip = true,
     nvim_lsp = true,
-    nvim_lua = false
+    nvim_lua = true
   }
 }
 
