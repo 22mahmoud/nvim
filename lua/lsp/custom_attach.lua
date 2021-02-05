@@ -9,11 +9,7 @@ local mapper = function(mode, key, result)
   )
 end
 
-local function lsp_mapping(client)
-  if client.resolved_capabilities.code_action then
-    mapper("n", "ga", "vim.lsp.buf.code_action()")
-  end
-
+local function custom_attach(client)
   if client.resolved_capabilities.find_references then
     mapper("n", "gr", "vim.lsp.buf.references()")
   end
@@ -52,4 +48,4 @@ local function lsp_mapping(client)
   mapper("n", "<leader>ds", "vim.lsp.diagnostic.show_line_diagnostics()")
 end
 
-return lsp_mapping
+return custom_attach

@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 local nlua = require("nlua.lsp.nvim")
 local util = require("lspconfig/util")
-local mappings = require("lsp.mappings")
+local custom_attach = require("lsp.custom_attach")
 local efmConfig = require("lsp.efm")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -11,7 +11,7 @@ nlua.setup(
   lspconfig,
   {
     on_attach = function(client)
-      mappings(client)
+      custom_attach(client)
     end,
     globals = {"use"}
   }
@@ -21,76 +21,76 @@ local servers = {}
 
 servers.bashls = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.vimls = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.tsserver = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
     client.resolved_capabilities.document_formatting = false
   end
 }
 
 servers.jsonls = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
     client.resolved_capabilities.document_formatting = false
   end
 }
 
 servers.clangd = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.svelte = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.jedi_language_server = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.intelephense = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.dockerls = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.html = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
     client.resolved_capabilities.document_formatting = false
   end
 }
 
 servers.vuels = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
 servers.cssls = {
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
     client.resolved_capabilities.document_formatting = false
   end
 }
@@ -99,7 +99,7 @@ servers.gopls = {
   cmd = {"gopls", "serve"},
   settings = {gopls = {analyses = {unusedparams = true}, staticcheck = true}},
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
   end
 }
 
@@ -112,7 +112,7 @@ servers.tsserver = {
     vim.fn.getcwd()
   ),
   on_attach = function(client)
-    mappings(client)
+    custom_attach(client)
     client.resolved_capabilities.document_formatting = false
   end
 }

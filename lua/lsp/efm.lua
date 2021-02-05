@@ -1,5 +1,5 @@
 local util = require("lspconfig/util")
-local mappings = require("lsp.mappings")
+local mappings = require("lsp.custom_attach")
 
 local prettier = {
   formatCommand = "./node_modules/.bin/prettier --stdin --stdin-filepath ${INPUT}",
