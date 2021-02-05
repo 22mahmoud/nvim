@@ -10,6 +10,10 @@ local mapper = function(mode, key, result)
 end
 
 local function custom_attach(client)
+  if client.resolved_capabilities.code_action then
+    mapper("n", "ga", "vim.lsp.buf.code_action()")
+  end
+
   if client.resolved_capabilities.find_references then
     mapper("n", "gr", "vim.lsp.buf.references()")
   end
