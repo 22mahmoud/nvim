@@ -18,6 +18,8 @@ local options = {
   -- Boolean value
   autoindent = true, -- enable autoindent
   backup = false, -- disable backup
+  undofile = true,
+  undodir = "~/.config/nvim/undodir",
   cursorline = false, -- disable cursorline
   expandtab = true, -- use spaces instead of tabs
   hidden = true, -- keep hidden buffers

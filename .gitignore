@@ -1,2 +1,3 @@
 tmp
-plugin
+plugin/packer_compiled.vim
+undodir
