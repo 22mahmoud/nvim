@@ -139,21 +139,17 @@ return require("packer").startup(
       end
     }
 
+    -- debugging 
+    use {
+      "puremourning/vimspector",
+      config = function()
+        vim.cmd[[let g:vimspector_enable_mappings = 'HUMAN']]
+      end
+    }
+
     -- autopairs
     use {
       "Raimondi/delimitMate"
-    }
-
-    -- debugging
-    use {
-      "mfussenegger/nvim-dap",
-      requires = {
-        {"theHamsta/nvim-dap-virtual-text"},
-        {"nvim-telescope/telescope-dap.nvim"}
-      },
-      config = function()
-        require("_dap")
-      end
     }
 
     use {
