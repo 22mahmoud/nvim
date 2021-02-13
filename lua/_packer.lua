@@ -20,7 +20,30 @@ return require("packer").startup(
         vim.cmd [[silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)]]
       end
     }
-    use "tpope/vim-commentary"
+    use {"tpope/vim-commentary"}
+    use {
+      "tpope/vim-dadbod",
+      requires = {
+        {
+          "kristijanhusak/vim-dadbod-ui",
+          config = function()
+            vim.g.db_ui_use_nerd_fonts = true
+            vim.g.db_ui_show_database_icon = true
+            vim.api.nvim_command [[
+              hi NotificationInfo guifg=yourcolor guibg=yourcolor
+              hi NotificationWarning guifg=yourcolor guibg=yourcolor
+              hi NotificationError guifg=yourcolor guibg=yourcolor
+            ]]
+            vim.g.db_ui_table_helpers = {
+              mongodb = {
+                List = "{table}.find().pretty()",
+                Count = "{table}.find().size()"
+              }
+            }
+          end
+        }
+      }
+    }
 
     -- themeing, ui
     use {"kyazdani42/nvim-web-devicons"}
@@ -139,11 +162,11 @@ return require("packer").startup(
       end
     }
 
-    -- debugging 
+    -- debugging
     use {
       "puremourning/vimspector",
       config = function()
-        vim.cmd[[let g:vimspector_enable_mappings = 'HUMAN']]
+        vim.cmd [[let g:vimspector_enable_mappings = 'HUMAN']]
       end
     }
 
