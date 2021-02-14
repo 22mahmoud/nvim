@@ -164,9 +164,12 @@ return require("packer").startup(
 
     -- debugging
     use {
-      "puremourning/vimspector",
+      "mfussenegger/nvim-dap",
+      requires = {
+        {"theHamsta/nvim-dap-virtual-text"}
+      },
       config = function()
-        vim.cmd [[let g:vimspector_enable_mappings = 'HUMAN']]
+        require("_dap")
       end
     }
 
