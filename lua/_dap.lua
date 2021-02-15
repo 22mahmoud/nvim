@@ -37,17 +37,17 @@ dap.configurations.javascriptreact = javascript
 
 -- mappings
 local opts = {noremap = true, silent = true}
--- TODO: fix mappings
-map("n", "dh", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
-map("n", "nc", ":lua require'dap'.continue()<CR>", opts)
-map("n", "nn", ":lua require'dap'.step_over()<CR>", opts)
-map("n", "ni", ":lua require'dap'.step_into()<CR>", opts)
-map("n", "dr", ":lua require'dap'.repl.open({}, 'vsplit')<CR>", opts)
-map("n", "no", ":lua require'dap.ui.variables'.scopes()<CR>", opts)
-map("n", "di", ":lua require'dap.ui.variables'.visual_hover()<CR>", opts)
+map("n", "<leader>dh", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
+map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opts)
+map("n", "<leader>dl", ":lua require'dap'.step_into()<CR>", opts)
+map("n", "<leader>dk", ":lua require'dap'.step_out()<CR>", opts)
+map("n", "<leader>dj", ":lua require'dap'.step_over()<CR>", opts)
+map("n", "<leader>dr", ":lua require'dap'.repl.open({}, 'vsplit')<CR>", opts)
+map("n", "<leader>do", ":lua require'dap.ui.variables'.scopes()<CR>", opts)
+map("n", "<leader>di", ":lua require'dap.ui.variables'.visual_hover()<CR>", opts)
 map(
   "n",
-  "di",
+  "<leader>di",
   ":lua require'dap.ui.variables'.hover(function() return vim.fn.expand('<cexpr>') end)<CR>",
   opts
 )
