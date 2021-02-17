@@ -10,6 +10,13 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 nlua.setup(
   lspconfig,
   {
+    root_dir = util.root_pattern(
+      "package.json",
+      "tsconfig.json",
+      "jsconfig.json",
+      ".git",
+      vim.fn.getcwd()
+    ),
     on_attach = function(client)
       custom_attach(client)
     end,
@@ -28,13 +35,6 @@ servers.bashls = {
 servers.vimls = {
   on_attach = function(client)
     custom_attach(client)
-  end
-}
-
-servers.tsserver = {
-  on_attach = function(client)
-    custom_attach(client)
-    client.resolved_capabilities.document_formatting = false
   end
 }
 
