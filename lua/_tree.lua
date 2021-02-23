@@ -2,8 +2,11 @@ local map = vim.fn.nvim_set_keymap
 
 local g = vim.g
 
+local function get_lua_cb(cb_name)
+  return string.format(":lua require'nvim-tree'.on_keypress('%s')<CR>", cb_name)
+end
+
 g.nvim_tree_side = "left"
-g.nvim_tree_disable_keybindings = 1
 g.nvim_tree_width = 25
 g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 g.nvim_tree_auto_open = 0
@@ -35,8 +38,7 @@ g.nvim_tree_icons = {
 }
 
 g.nvim_tree_bindings = {
-  edit_split = {"<C-s>"},
-  create = {"n"}
+  ["<C-s>"] = get_lua_cb("split")
 }
 
 map("n", "<leader>e", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
