@@ -1,11 +1,11 @@
 local map = vim.api.nvim_set_keymap
 
--- Make these commonly mistyped commands still work
-map("c", "WQ", "wq", {noremap = true})
-map("c", "Wq", "wq", {noremap = true})
-map("c", "Wqa", "wqa", {noremap = true})
-map("c", "W", "w", {noremap = true})
-map("c", "Q", "q", {noremap = true})
+-- -- Make these commonly mistyped commands still work
+-- map("c", "WQ", "wq", {noremap = true})
+-- map("c", "Wq", "wq", {noremap = true})
+-- map("c", "Wqa", "wqa", {noremap = true})
+-- map("c", "W", "w", {noremap = true})
+-- map("c", "Q", "q", {noremap = true})
 
 -- better movement between windows
 map("n", "<C-h>", "<C-w><C-h>", {noremap = true})

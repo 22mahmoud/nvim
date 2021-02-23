@@ -178,6 +178,11 @@ return require("packer").startup(
       "Raimondi/delimitMate"
     }
 
+    -- api client
+    -- use {
+    --   "22mahmoud/nvim_rest"
+    -- }
+
     use {
       "junegunn/goyo.vim",
       requires = {
