@@ -3,6 +3,12 @@ local nlua = require("nlua.lsp.nvim")
 local util = require("lspconfig/util")
 local custom_attach = require("lsp.custom_attach")
 local efmConfig = require("lsp.efm")
+local lspsaga = require("lspsaga")
+local lspkind = require("lspkind")
+
+lspkind.init()
+
+lspsaga.init_lsp_saga({use_saga_diagnostic_sign = false})
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

@@ -48,6 +48,7 @@ return require("packer").startup(
     -- themeing, ui
     use {"kyazdani42/nvim-web-devicons"}
     use {"lifepillar/vim-gruvbox8"}
+    use {"bluz71/vim-moonfly-colors"}
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
@@ -69,6 +70,9 @@ return require("packer").startup(
       end
     }
 
+    use "nvim-lua/plenary.nvim"
+    use "nvim-lua/popup.nvim"
+
     -- treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
@@ -89,6 +93,9 @@ return require("packer").startup(
       end
     }
     use {
+      "glepnir/lspsaga.nvim"
+    }
+    use {
       "hrsh7th/nvim-compe",
       config = function()
         require("_completion")
@@ -97,6 +104,8 @@ return require("packer").startup(
         "hrsh7th/vim-vsnip"
       }
     }
+
+    use {"onsails/lspkind-nvim"}
 
     -- lua
     use {
@@ -107,14 +116,13 @@ return require("packer").startup(
     }
 
     use {
-      "junegunn/fzf.vim",
-      config = function()
-        require("_fzf")
-      end,
+      "nvim-telescope/telescope.nvim",
       requires = {
-        "junegunn/fzf",
-        "ojroques/nvim-lspfuzzy"
-      }
+        "nvim-telescope/telescope-fzy-native.nvim"
+      },
+      config = function()
+        require("_telescope")
+      end
     }
 
     -- file explorer
@@ -144,11 +152,9 @@ return require("packer").startup(
         )
       end
     }
+
     use {
       "lewis6991/gitsigns.nvim",
-      requires = {
-        "nvim-lua/plenary.nvim"
-      },
       config = function()
         require("gitsigns").setup()
       end
