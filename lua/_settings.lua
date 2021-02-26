@@ -1,6 +1,4 @@
-local cmd = vim.api.nvim_command
-
-vim.g.mapleader = " "
+local cmd = vim.cmd
 
 local apply_options = function(opts)
   for k, v in pairs(opts) do
@@ -14,49 +12,93 @@ local apply_options = function(opts)
   end
 end
 
-local options = {
-  -- Boolean value
-  autoindent = true, -- enable autoindent
-  backup = false, -- disable backup
+local opts = {
+  termguicolors = true,
+  hidden = true,
+  fileformats = "unix,mac,dos",
+  magic = true,
+  virtualedit = "block",
+  encoding = "utf-8",
+  viewoptions = "folds,cursor,curdir,slash,unix",
+  sessionoptions = "curdir,help,tabpages,winsize",
+  clipboard = "unnamedplus",
+  wildignorecase = true,
+  wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
+  backup = false,
+  writebackup = false,
+  swapfile = false,
   undofile = true,
   undodir = "~/.config/nvim/undodir",
-  cursorline = false, -- disable cursorline
-  expandtab = true, -- use spaces instead of tabs
-  hidden = true, -- keep hidden buffers
-  hlsearch = false, -- don't highlight matching search
-  ignorecase = true, -- case insensitive on search
-  showmode = false, -- don't show mode
-  smartcase = true, -- improve searching using '/'
-  smartindent = true, -- smarter indentation
-  smarttab = true, -- make tab behaviour smarter
-  splitbelow = true, -- split below instead of above
-  splitright = true, -- split right instead of left
-  startofline = false, -- don't go to the start of the line when moving to another file
-  swapfile = false, -- disable swapfile
-  termguicolors = true, -- truecolours for better experience
-  wrap = false, -- dont wrap lines
-  writebackup = false, -- disable backup
-  -- String value
-  completeopt = "menu,menuone,noinsert,noselect", -- better completion
-  encoding = "UTF-8", -- set encoding
-  inccommand = "split", -- incrementally show result of command
-  clipboard = "unnamedplus", -- share clipboard
-  -- Number value
-  colorcolumn = 80, -- 80 chars color column
-  laststatus = 2, -- always enable statusline
-  pumheight = 10, -- limit completion items
-  re = 0, -- set regexp engine to auto
-  scrolloff = 8, -- make scrolling better
-  sidescroll = 2, -- make scrolling better
-  sidescrolloff = 15, -- make scrolling better
-  synmaxcol = 300, -- set limit for syntax highlighting in a single line
-  tabstop = 2, -- tabsize
-  softtabstop = 2,
-  shiftwidth = 2, -- set indentation width
-  timeoutlen = 400, -- faster timeout wait time
-  updatetime = 100, -- set faster update time,
-  conceallevel = 2
+  history = 2000,
+  shada = "!,'300,<50,@100,s10,h",
+  smarttab = true,
+  shiftround = true,
+  timeout = true,
+  ttimeout = true,
+  timeoutlen = 500,
+  ttimeoutlen = 10,
+  updatetime = 100,
+  redrawtime = 1500,
+  ignorecase = true,
+  smartcase = true,
+  infercase = true,
+  incsearch = true,
+  hlsearch = false,
+  complete = ".,w,b,k",
+  inccommand = "split",
+  grepformat = "%f:%l:%c:%m",
+  grepprg = "rg\\ --hidden\\ --vimgrep\\ --smart-case\\ --",
+  breakat = [[\ \	;:,!?]],
+  startofline = false,
+  splitbelow = true,
+  splitright = true,
+  switchbuf = "useopen",
+  backspace = "indent,eol,start",
+  diffopt = "filler,iwhite,internal,algorithm:patience",
+  completeopt = "menu,menuone,noselect",
+  jumpoptions = "stack",
+  showmode = false,
+  shortmess = "aoOTIcF",
+  scrolloff = 2,
+  sidescrolloff = 5,
+  foldlevelstart = 99,
+  ruler = false,
+  list = true,
+  showtabline = 2,
+  winwidth = 30,
+  winminwidth = 10,
+  pumheight = 15,
+  helpheight = 12,
+  previewheight = 12,
+  showcmd = false,
+  cmdheight = 2,
+  cmdwinheight = 5,
+  equalalways = false,
+  laststatus = 2,
+  display = "lastline",
+  showbreak = "↳  ",
+  listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←",
+  pumblend = 10,
+  winblend = 10,
+  synmaxcol = 2500,
+  formatoptions = "1jcroql",
+  textwidth = 80,
+  expandtab = true,
+  autoindent = true,
+  tabstop = 2,
+  shiftwidth = 2,
+  softtabstop = -1,
+  breakindentopt = "shift:2,min:20",
+  wrap = false,
+  linebreak = true,
+  colorcolumn = "80",
+  foldenable = true,
+  signcolumn = "yes",
+  conceallevel = 2,
+  concealcursor = "niv"
 }
+
+vim.g.mapleader = " "
 
 -- use volta(a node version manager) as node provider
 if vim.fn.executable("volta") then
@@ -64,4 +106,4 @@ if vim.fn.executable("volta") then
     vim.fn.trim(vim.fn.system("volta which neovim-node-host"))
 end
 
-apply_options(options)
+apply_options(opts)

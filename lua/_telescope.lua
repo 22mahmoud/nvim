@@ -38,8 +38,13 @@ telescope.setup {
 }
 
 telescope.load_extension("fzy_native")
+telescope.load_extension('dap')
 
-mapper("n", "z=", "require('telescope.builtin').spell_suggest()")
+mapper(
+  "n",
+  "z=",
+  "require('telescope.builtin').spell_suggest(require('telescope.themes').get_dropdown({previewer = false}))"
+)
 mapper(
   "n",
   "<leader>p",

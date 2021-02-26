@@ -22,6 +22,6 @@ line = line .. [[%#StatusLineFiletype#]]
 
 line = line .. [[ %y ]] -- filetype
 
-o.laststatus = 2
 o.statusline = line
+o.laststatus = 2
 o.showmode = true

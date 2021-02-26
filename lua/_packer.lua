@@ -49,6 +49,19 @@ return require("packer").startup(
     use {"kyazdani42/nvim-web-devicons"}
     use {"lifepillar/vim-gruvbox8"}
     use {"bluz71/vim-moonfly-colors"}
+    use {"tjdevries/colorbuddy.nvim"}
+    use {"ishan9299/modus-theme-vim"}
+    use {"glepnir/indent-guides.nvim"}
+    use {
+      "p00f/nvim-ts-rainbow",
+      config = function()
+        require "nvim-treesitter.configs".setup {
+          rainbow = {
+            enable = true
+          }
+        }
+      end
+    }
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
@@ -67,6 +80,12 @@ return require("packer").startup(
             mode = "foreground"
           }
         }
+      end
+    }
+    use {
+      "glepnir/galaxyline.nvim",
+      config = function()
+        require("_galaxyline")
       end
     }
 
@@ -167,7 +186,8 @@ return require("packer").startup(
     use {
       "mfussenegger/nvim-dap",
       requires = {
-        {"theHamsta/nvim-dap-virtual-text"}
+        {"theHamsta/nvim-dap-virtual-text"},
+        {"nvim-telescope/telescope-dap.nvim"}
       },
       config = function()
         require("_dap")
