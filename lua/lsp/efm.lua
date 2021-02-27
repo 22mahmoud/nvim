@@ -20,36 +20,30 @@ local luafmt = {
   formatStdin = true
 }
 
+local languages = {
+  typescript = {prettier, eslint_d},
+  javascript = {prettier, eslint_d},
+  typescriptreact = {prettier, eslint_d},
+  javascriptreact = {prettier, eslint_d},
+  css = {prettier},
+  scss = {prettier},
+  json = {prettier},
+  html = {prettier},
+  lua = {luafmt}
+}
+
 local efmConfig = {
   root_dir = util.root_pattern(".git", vim.fn.getcwd()),
   on_attach = function(client)
     mappings(client)
     client.resolved_capabilities.document_formatting = true
   end,
-  filetypes = {
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "css",
-    "scss",
-    "json",
-    "html",
-    "lua"
-  },
+  filetypes = vim.tbl_keys(languages),
   init_options = {documentFormatting = true},
   settings = {
-    languages = {
-      typescript = {prettier, eslint_d},
-      javascript = {prettier, eslint_d},
-      typescriptreact = {prettier, eslint_d},
-      javascriptreact = {prettier, eslint_d},
-      css = {prettier},
-      scss = {prettier},
-      json = {prettier},
-      html = {prettier},
-      lua = {luafmt}
-    }
+    rootMarkers = {"package.json", ".git"},
+    lintDebounce = 500,
+    languages = languages
   }
 }
 

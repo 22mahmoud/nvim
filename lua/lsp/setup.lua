@@ -58,9 +58,51 @@ servers.clangd = {
 }
 
 servers.svelte = {
+  filetypes = {"svelte"},
   on_attach = function(client)
     custom_attach(client)
-  end
+    client.server_capabilities.completionProvider.triggerCharacters = {
+      ".",
+      '"',
+      "'",
+      "`",
+      "/",
+      "@",
+      "*",
+      "#",
+      "$",
+      "+",
+      "^",
+      "(",
+      "[",
+      "-",
+      ":"
+    }
+  end,
+  settings = {
+    svelte = {
+      plugin = {
+        html = {
+          completions = {
+            enable = true,
+            emmet = false
+          }
+        },
+        svelte = {
+          completions = {
+            enable = true,
+            emmet = false
+          }
+        },
+        css = {
+          completions = {
+            enable = true,
+            emmet = false
+          }
+        }
+      }
+    }
+  }
 }
 
 servers.jedi_language_server = {
@@ -110,6 +152,7 @@ servers.gopls = {
 }
 
 servers.tsserver = {
+  filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact"},
   root_dir = util.root_pattern(
     "package.json",
     "tsconfig.json",

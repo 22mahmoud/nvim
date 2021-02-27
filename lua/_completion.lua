@@ -23,3 +23,5 @@ map(
   {silent = true, expr = true}
 )
 map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
+map("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {silent = true, expr = true})
+map("i", "<C-b>", "compe#scroll({ 'delta': -4 })", {silent = true, expr = true})

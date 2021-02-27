@@ -15,6 +15,13 @@ end
 telescope.setup {
   defaults = {
     file_sorter = sorters.get_fzy_sorter,
+    generic_sorter = require "telescope.sorters".get_generic_fuzzy_sorter,
+    file_ignore_patterns = {
+      "*.git",
+      "node_modules",
+      ".cache",
+      ".next"
+    },
     mappings = {
       i = {
         ["<C-x>"] = false,
@@ -29,16 +36,12 @@ telescope.setup {
     fzy_native = {
       override_generic_sorter = false,
       override_file_sorter = true
-    },
-    fzf_writer = {
-      use_highlighter = false,
-      minimum_grep_characters = 4
     }
   }
 }
 
 telescope.load_extension("fzy_native")
-telescope.load_extension('dap')
+telescope.load_extension("dap")
 
 mapper(
   "n",

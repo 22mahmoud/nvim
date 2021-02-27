@@ -20,14 +20,29 @@ local function custom_attach(client)
 
   if has_lspsaga then
     mapper("n", "ga", "require('lspsaga.codeaction').code_action()")
+    map(
+      "v",
+      "ga",
+      "<cmd>'<,'>lua require'lspsaga.codeaction'.range_code_action()<CR>",
+      {noremap = true, silent = true}
+    )
     mapper("n", "gr", "require('lspsaga.provider').lsp_finder()")
     mapper("n", "gd", "require('lspsaga.provider').preview_definition()")
+    mapper("n", "gs", "require('lspsaga.signaturehelp').signature_help()")
     if ft ~= "vim" then
       mapper("n", "K", "require('lspsaga.hover').render_hover_doc()")
+      mapper(
+        "n",
+        "<C-f>",
+        "require('lspsaga.action').smart_scroll_with_saga(1)"
+      )
+      mapper(
+        "n",
+        "<C-b>",
+        "require('lspsaga.action').smart_scroll_with_saga(-1)"
+      )
     end
     mapper("n", "<leader>r", "require('lspsaga.rename').rename()")
-    mapper("n", "<C-f>", "require('lspsaga.action').smart_scroll_with_saga(1)")
-    mapper("n", "<C-b>", "require('lspsaga.action').smart_scroll_with_saga(-1)")
     -- diagnostic
     mapper(
       "n",

@@ -195,9 +195,7 @@ return require("packer").startup(
     }
 
     -- autopairs
-    use {
-      "Raimondi/delimitMate"
-    }
+    use {"Raimondi/delimitMate"}
 
     -- api client
     -- use {
