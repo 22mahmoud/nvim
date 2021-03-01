@@ -104,6 +104,14 @@ return require("packer").startup(
       }
     }
 
+    use {
+      "MaxMEllon/vim-jsx-pretty",
+      config = function()
+        vim.g.vim_jsx_pretty_disable_js = 1
+        vim.g.vim_jsx_pretty_disable_tsx = 1
+      end
+    }
+
     -- lsp
     use {
       "neovim/nvim-lspconfig",

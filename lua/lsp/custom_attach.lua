@@ -18,6 +18,10 @@ local function custom_attach(client)
     mapper("n", ",f", "vim.lsp.buf.formatting()")
   end
 
+  if client.resolved_capabilities.implementation then
+    mapper("n", "gD", "vim.lsp.buf.implementation()")
+  end
+
   if has_lspsaga then
     mapper("n", "ga", "require('lspsaga.codeaction').code_action()")
     map(
@@ -59,35 +63,6 @@ local function custom_attach(client)
       "<leader>dp",
       "require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()"
     )
-  else
-    if client.resolved_capabilities.code_action then
-      mapper("n", "ga", "vim.lsp.buf.code_action()")
-    end
-
-    if client.resolved_capabilities.find_references then
-      mapper("n", "gr", "vim.lsp.buf.references()")
-    end
-
-    if client.resolved_capabilities.goto_definition then
-      mapper("n", "gd", "vim.lsp.buf.definition()")
-    end
-
-    if client.resolved_capabilities.implementation then
-      mapper("n", "gD", "vim.lsp.buf.implementation()")
-    end
-
-    if client.resolved_capabilities.rename then
-      mapper("n", "<leader>r", "vim.lsp.buf.rename()")
-    end
-
-    if ft ~= "lua" then
-      mapper("n", "K", "vim.lsp.buf.hover()")
-    end
-
-    -- diagnostic
-    mapper("n", "<leader>dn", "vim.lsp.diagnostic.goto_next()")
-    mapper("n", "<leader>dp", "vim.lsp.diagnostic.goto_prev()")
-    mapper("n", "<leader>ds", "vim.lsp.diagnostic.show_line_diagnostics()")
   end
 end
 
