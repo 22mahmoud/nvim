@@ -48,20 +48,11 @@ return require("packer").startup(
     -- themeing, ui
     use {"kyazdani42/nvim-web-devicons"}
     use {"lifepillar/vim-gruvbox8"}
+    use {"glepnir/zephyr-nvim"}
     use {"bluz71/vim-moonfly-colors"}
     use {"tjdevries/colorbuddy.nvim"}
     use {"ishan9299/modus-theme-vim"}
     use {"glepnir/indent-guides.nvim"}
-    use {
-      "p00f/nvim-ts-rainbow",
-      config = function()
-        require "nvim-treesitter.configs".setup {
-          rainbow = {
-            enable = true
-          }
-        }
-      end
-    }
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
@@ -100,7 +91,8 @@ return require("packer").startup(
         require("_treesitter")
       end,
       requires = {
-        "nvim-treesitter/nvim-treesitter-textobjects"
+        {"nvim-treesitter/nvim-treesitter-textobjects"},
+        {"p00f/nvim-ts-rainbow"}
       }
     }
 

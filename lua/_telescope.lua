@@ -1,6 +1,7 @@
 local telescope = require("telescope")
 local sorters = require("telescope.sorters")
 local actions = require("telescope.actions")
+local previewers = require("telescope.previewers")
 
 local map = vim.api.nvim_set_keymap
 local mapper = function(mode, key, result)
@@ -15,7 +16,9 @@ end
 telescope.setup {
   defaults = {
     file_sorter = sorters.get_fzy_sorter,
-    generic_sorter = require "telescope.sorters".get_generic_fuzzy_sorter,
+    file_previewer = previewers.vim_buffer_cat.new,
+    grep_previewer = previewers.vim_buffer_vimgrep.new,
+    qflist_previewer = previewers.vim_buffer_qflist.new,
     file_ignore_patterns = {
       "*.git",
       "node_modules",
@@ -36,6 +39,10 @@ telescope.setup {
     fzy_native = {
       override_generic_sorter = false,
       override_file_sorter = true
+    },
+    fzf_writer = {
+      use_highlighter = false,
+      minimum_grep_characters = 4
     }
   }
 }
