@@ -26,7 +26,7 @@ nlua.setup(
     on_attach = function(client)
       custom_attach(client)
     end,
-    globals = {"use"}
+    globals = {"use", "awesome"}
   }
 )
 

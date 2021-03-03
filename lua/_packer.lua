@@ -83,24 +83,12 @@ return require("packer").startup(
     use "nvim-lua/plenary.nvim"
     use "nvim-lua/popup.nvim"
 
-    -- treesitter
-    use {
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      config = function()
-        require("_treesitter")
-      end,
-      requires = {
-        {"nvim-treesitter/nvim-treesitter-textobjects"},
-        {"p00f/nvim-ts-rainbow"}
-      }
-    }
-
+    use {"yuezk/vim-js"}
+    use {"HerringtonDarkholme/yats.vim"}
     use {
       "MaxMEllon/vim-jsx-pretty",
       config = function()
-        vim.g.vim_jsx_pretty_disable_js = 1
-        vim.g.vim_jsx_pretty_disable_tsx = 1
+        vim.g.im_jsx_pretty_colorful_config = 1
       end
     }
 

@@ -17,7 +17,7 @@ ColorUtil = {}
 ColorUtil.override_gruvbox = function()
   local highlights = {
     -- normal stuff
-    { "Normal",      { bg  = "NONE"    }},
+    { "Normal",      { bg  = "#1d2021"    }},
     { "Comment",     { gui = "italic"  }},
     { "SignColumn",  { bg  = "NONE"    }},
     { "ColorColumn", { bg  = "#3C3836" }},
