@@ -52,7 +52,18 @@ return require("packer").startup(
     use {"bluz71/vim-moonfly-colors"}
     use {"tjdevries/colorbuddy.nvim"}
     use {"ishan9299/modus-theme-vim"}
-    use {"glepnir/indent-guides.nvim"}
+    use {
+      "glepnir/indent-guides.nvim",
+      config = function()
+        require("indent_guides").setup(
+          {
+            exclude_filetypes = {
+              "zsh"
+            }
+          }
+        )
+      end
+    }
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
@@ -205,17 +216,12 @@ return require("packer").startup(
       "junegunn/goyo.vim",
       requires = {
         {
-          "junegunn/limelight.vim",
-          config = function()
-            vim.g.limelight_conceal_ctermfg = "gray"
-            vim.g.limelight_conceal_ctermfg = 240
-            vim.g.limelight_conceal_guifg = "DarkGray"
-            vim.g.limelight_conceal_guifg = "#777777"
-            vim.cmd [[autocmd! User GoyoEnter Limelight]]
-            vim.cmd [[autocmd! User GoyoLeave Limelight!]]
-          end
+          "junegunn/limelight.vim"
         }
-      }
+      },
+      config = function()
+        require("_goyo")
+      end
     }
 
     use {
