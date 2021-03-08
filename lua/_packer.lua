@@ -53,21 +53,15 @@ return require("packer").startup(
     use {"tjdevries/colorbuddy.nvim"}
     use {"ishan9299/modus-theme-vim"}
     use {
-      "glepnir/indent-guides.nvim",
+      "Yggdroot/indentLine",
       config = function()
-        require("indent_guides").setup(
-          {
-            exclude_filetypes = {
-              "zsh"
-            }
-          }
-        )
       end
     }
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
         require "colorizer".setup {
+          "*",
           css = {rgb_fn = true},
           scss = {rgb_fn = true},
           sass = {rgb_fn = true},
