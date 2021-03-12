@@ -86,13 +86,17 @@ return require("packer").startup(
     use "nvim-lua/plenary.nvim"
     use "nvim-lua/popup.nvim"
 
-    use {"yuezk/vim-js"}
-    use {"HerringtonDarkholme/yats.vim"}
+    -- treesitter
     use {
-      "MaxMEllon/vim-jsx-pretty",
+      "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate",
       config = function()
-        vim.g.im_jsx_pretty_colorful_config = 1
-      end
+        require("_treesitter")
+      end,
+      requires = {
+        {"nvim-treesitter/nvim-treesitter-textobjects"},
+        {"p00f/nvim-ts-rainbow"}
+      }
     }
 
     -- lsp
