@@ -1,4 +1,4 @@
-local map = vim.fn.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 
 local g = vim.g
 
