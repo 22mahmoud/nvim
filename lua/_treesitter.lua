@@ -18,6 +18,9 @@ require "nvim-treesitter.configs".setup {
   rainbow = {
     enable = true
   },
+  autotag = {
+    enable = true
+  },
   textobjects = {
     select = {
       enable = true,
