@@ -202,7 +202,14 @@ return require("packer").startup(
     }
 
     -- autopairs
-    use {"Raimondi/delimitMate"}
+    use {
+      "Raimondi/delimitMate",
+      config = function()
+        vim.cmd [[
+          au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
+        ]]
+      end
+    }
 
     -- api client
     -- use {
