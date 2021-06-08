@@ -57,6 +57,20 @@ servers.clangd = {
   end
 }
 
+servers.hls = {
+  on_attach = function(client)
+    custom_attach(client)
+  end,
+  root_dir = util.root_pattern(
+    "*.cabal",
+    "stack.yaml",
+    "cabal.project",
+    "package.yaml",
+    "hie.yaml",
+    vim.fn.getcwd()
+  )
+}
+
 servers.svelte = {
   filetypes = {"svelte"},
   on_attach = function(client)
