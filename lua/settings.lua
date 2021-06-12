@@ -117,7 +117,7 @@ local backup = {
   writebackup = false,
   swapfile = false,
   undofile = true,
-  undodir = "~/.local/share/nvim/undo"
+  undodir = "/home/ashraf/.local/share/nvim/undo"
 }
 
 local mouse = {
