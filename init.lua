@@ -1,2 +1,1 @@
-require('settings')
-require('mappings')
+require('ma')

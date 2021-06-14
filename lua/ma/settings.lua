@@ -21,6 +21,7 @@ local win_buff = {
   hidden = true,
   splitbelow = true,
   splitright = true,
+  scrolloff = 10
 }
 
 local grep = {
@@ -29,8 +30,9 @@ local grep = {
 }
 
 local wildmode = {
+  path = {".", "**"},
+  wildmode = {"longest:full", "full"},
   wildcharm = vim.fn.char2nr [[\<C-Z>]],
-  wildmode = 'full',
   wildoptions = 'pum',
   wildignorecase = true,
   wildignore = {
@@ -70,6 +72,7 @@ local wildmode = {
     "*/.bundle/*",
     "*.gem",
     "*/node_modules/*",
+    "*/.git/*",
     -- Temp/System
     "*.*~",
     "*~ ",
@@ -110,6 +113,8 @@ local general = {
   termguicolors = true,
   encoding = 'utf-8',
   inccommand = "split",
+  showcmd = false,
+  shada = { "!", "'1000", "<50", "s10", "h" }
 }
 
 local backup = {
