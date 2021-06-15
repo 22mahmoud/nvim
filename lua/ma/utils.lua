@@ -18,7 +18,6 @@ M._execute = function(id)
   M._store[id]()
 end
 
-
 local function has_value(tab, val)
   for _, value in ipairs(tab) do
     if value == val then
@@ -30,7 +29,7 @@ local function has_value(tab, val)
 end
 
 local function tbl_filter(func, t)
-  vim.validate{func={func,'c'},t={t,'t'}}
+  vim.validate {func = {func, "c"}, t = {t, "t"}}
 
   local out = {}
   for key, value in next, t do
@@ -43,7 +42,9 @@ local function tbl_filter(func, t)
 end
 
 local function is_map_args(value, key)
-  if type(value) ~= "boolean" then return false end
+  if type(value) ~= "boolean" then
+    return false
+  end
   local valid_args = {"buffer", "nowait", "silent", "script", "expr", "unique"}
   return has_value(valid_args, key)
 end
@@ -59,7 +60,8 @@ local function map(mode, default_options)
 
     local bufnr = extra_options.bufnr
 
-    local opts = tbl_extend(
+    local opts =
+      tbl_extend(
       "keep",
       tbl_filter(is_map_args, extra_options),
       default_options
