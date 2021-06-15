@@ -39,7 +39,7 @@ local efmConfig = {
     client.resolved_capabilities.document_formatting = true
   end,
   filetypes = vim.tbl_keys(languages),
-  init_options = {documentFormatting = true, codeAction = true},
+  init_options = {documentFormatting = true},
   settings = {
     rootMarkers = {"package.json", ".git"},
     lintDebounce = 500,

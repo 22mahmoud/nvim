@@ -114,7 +114,8 @@ local general = {
   encoding = "utf-8",
   inccommand = "split",
   showcmd = false,
-  shada = {"!", "'1000", "<50", "s10", "h"}
+  shada = {"!", "'1000", "<50", "s10", "h"},
+  completeopt = {"menuone", "noselect"}
 }
 
 local backup = {

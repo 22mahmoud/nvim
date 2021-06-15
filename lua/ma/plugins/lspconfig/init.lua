@@ -9,14 +9,15 @@ local sumneko_root_path = sumneko_client.sumneko_root_path
 
 local servers = {}
 
+-- add snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 servers.sumneko_lua = {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   on_attach = function(client, bufnr)
-    custom_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    custom_attach(client, bufnr)
   end,
   settings = {
     Lua = {
@@ -42,8 +43,8 @@ servers.sumneko_lua = {
 
 servers.tsserver = {
   on_attach = function(client, bufnr)
-    custom_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    custom_attach(client, bufnr)
   end,
   root_dir = root_pattern(
     "package.json",
@@ -56,15 +57,15 @@ servers.tsserver = {
 
 servers.html = {
   on_attach = function(client, bufnr)
-    custom_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    custom_attach(client, bufnr)
   end
 }
 
 servers.cssls = {
   on_attach = function(client, bufnr)
-    custom_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    custom_attach(client, bufnr)
   end
 }
 
