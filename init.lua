@@ -1,1 +1,1 @@
-require('ma')
+require("ma")

@@ -1,4 +1,4 @@
-vim.cmd[[colorscheme gruvbox8_hard]]
+vim.cmd [[colorscheme gruvbox8_hard]]
 
 local indentation = {
   wrap = false,
@@ -7,7 +7,7 @@ local indentation = {
   shiftwidth = 2,
   expandtab = true,
   autoindent = true,
-  shiftround = true,
+  shiftround = true
 }
 
 local timings = {
@@ -33,7 +33,7 @@ local wildmode = {
   path = {".", "**"},
   wildmode = {"longest:full", "full"},
   wildcharm = vim.fn.char2nr [[\<C-Z>]],
-  wildoptions = 'pum',
+  wildoptions = "pum",
   wildignorecase = true,
   wildignore = {
     "*.aux",
@@ -88,7 +88,7 @@ local display = {
   conceallevel = 2,
   breakindentopt = "sbr",
   linebreak = true,
-  signcolumn = 'auto',
+  signcolumn = "auto",
   ruler = false,
   colorcolumn = {"+1"},
   list = true,
@@ -105,16 +105,16 @@ local search = {
   hlsearch = false,
   incsearch = true,
   smartcase = true,
-  ignorecase = true,
+  ignorecase = true
 }
 
 local general = {
   clipboard = "unnamedplus",
   termguicolors = true,
-  encoding = 'utf-8',
+  encoding = "utf-8",
   inccommand = "split",
   showcmd = false,
-  shada = { "!", "'1000", "<50", "s10", "h" }
+  shada = {"!", "'1000", "<50", "s10", "h"}
 }
 
 local backup = {
@@ -130,7 +130,8 @@ local mouse = {
   mousefocus = true
 }
 
-local options = vim.tbl_deep_extend(
+local options =
+  vim.tbl_deep_extend(
   "force",
   indentation,
   timings,
