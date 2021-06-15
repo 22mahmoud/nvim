@@ -1,5 +1,9 @@
 vim.cmd [[colorscheme gruvbox8_hard]]
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local indentation = {
   wrap = false,
   softtabstop = 2,
