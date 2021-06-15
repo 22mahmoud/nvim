@@ -42,31 +42,6 @@ lspconfig.tsserver.setup {
   ),
 }
 
-lspconfig.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-  on_attach = custom_attach,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-        path = vim.split(package.path, ';'),
-      },
-      diagnostics = {
-        globals = {'vim', 'use'},
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        },
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
-
 lspconfig.html.setup {
   on_attach = custom_attach
 }
