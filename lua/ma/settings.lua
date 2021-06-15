@@ -123,7 +123,7 @@ local backup = {
   writebackup = false,
   swapfile = false,
   undofile = true,
-  undodir = "/home/ashraf/.local/share/nvim/undo"
+  undodir = vim.fn.stdpath("data") .. "/undo"
 }
 
 local mouse = {
