@@ -25,16 +25,25 @@ local win_buff = {
   hidden = true,
   splitbelow = true,
   splitright = true,
-  scrolloff = 10
+  scrolloff = 10,
+  equalalways = false,
+  laststatus = 2
 }
 
-local grep = {
-  grepprg = [[rg --hidden --glob "!.git" --no-heading --smart-case --vimgrep --follow $*]],
-  grepformat = {"%f:%l:%c:%m"}
-}
+local grep = {}
+if vim.fn.executable("rg") then
+  grep = {
+    grepprg = [[rg --hidden --smart-case --vimgrep]],
+    grepformat = {"%f:%l:%c:%m"}
+  }
+end
 
-local wildmode = {
-  path = {".", "**"},
+local complete = {
+  path = {".", ","},
+  completeopt = {"menuone", "noselect"},
+  complete = {".", "w", "b", "k"},
+  pumheight = 15,
+  pumblend = 10,
   wildmode = {"longest:full", "full"},
   wildcharm = vim.fn.char2nr [[\<C-Z>]],
   wildoptions = "pum",
@@ -69,7 +78,6 @@ local wildmode = {
     "*.tar.bz2",
     "*.rar",
     "*.tar.xz",
-    -- Cache
     ".sass-cache",
     "*/vendor/gems/*",
     "*/vendor/cache/*",
@@ -116,10 +124,11 @@ local general = {
   clipboard = "unnamedplus",
   termguicolors = true,
   encoding = "utf-8",
+  fileformats = {"unix", "mac", "dos"},
   inccommand = "split",
   showcmd = false,
   shada = {"!", "'1000", "<50", "s10", "h"},
-  completeopt = {"menuone", "noselect"}
+  shortmess = "aoOTIcF"
 }
 
 local backup = {
@@ -142,7 +151,7 @@ local options =
   timings,
   win_buff,
   grep,
-  wildmode,
+  complete,
   display,
   search,
   general,

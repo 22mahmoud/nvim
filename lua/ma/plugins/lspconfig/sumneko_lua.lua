@@ -32,7 +32,7 @@ local sumneko_config  = {
         path = vim.split(package.path, ";")
       },
       diagnostics = {
-        globals = {"vim", "use"}
+        globals = {"vim"}
       },
       workspace = {
         library = {

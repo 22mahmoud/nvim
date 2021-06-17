@@ -6,7 +6,9 @@ local function conf(name)
   require(fmt("ma.plugins.%s", name))
 end
 
-local function plugins()
+local function plugins(use)
+  use "wbthomason/packer.nvim"
+
   use "lifepillar/vim-gruvbox8"
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
   use "christoomey/vim-tmux-navigator"

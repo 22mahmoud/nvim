@@ -1,3 +1,4 @@
+require("ma.plugins.lspconfig.diagnostic")
 local lspconfig = require("lspconfig")
 local root_pattern = require("lspconfig/util").root_pattern
 

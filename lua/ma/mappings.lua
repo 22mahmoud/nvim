@@ -6,8 +6,9 @@ local vnoremap = utils.vnoremap
 
 vim.g.mapleader = " "
 
--- navigation
-nnoremap("<leader>p", ":find ", {silent = false})
+-- navigation & find & search
+nnoremap("<leader>p", ":find<space>", {silent = false})
+nnoremap("<leader>rg", ":grep<space>", {silent = false})
 
 -- better movement between window buffers
 nnoremap("<c-k>", "<c-w><c-k>")
@@ -25,7 +26,7 @@ vnoremap(">", ">gv")
 -- buffers
 nnoremap("<leader>bn", ":bn<cr>")
 nnoremap("<leader>bp", ":bp<cr>")
-nnoremap("<leader>bl", ":buffers<cr>")
+nnoremap("<leader>bl", ":buffers<cr>:buffer<space>")
 nnoremap("<leader>bd", ":bd!<cr>")
 
 -- quick list
