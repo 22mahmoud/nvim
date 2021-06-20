@@ -1,4 +1,8 @@
 local fmt = string.format
+local fn = vim.fn
+local empty = fn.empty
+local filter = fn.filter
+local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
 local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 local nvim_set_keymap = vim.api.nvim_set_keymap
@@ -114,6 +118,25 @@ function M.augroup(name, commands)
     )
   end
   vim.cmd("augroup END")
+end
+
+function M.toggle_qf()
+  local locations = vim.fn.getqflist()
+
+  -- if no quickfix list then do nothing
+  if vim.tbl_isempty(locations) then
+    return
+  end
+
+  if empty(filter(getwininfo(), "v:val.quickfix")) == 1 then
+    -- open qflist 100% horizontally
+    vim.cmd [[botright copen]]
+  else
+    vim.cmd [[cclose]]
+  end
+end
+
+function M._toggle_qf()
 end
 
 return M

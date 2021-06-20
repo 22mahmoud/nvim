@@ -3,6 +3,7 @@ local utils = require("ma.utils")
 local nnoremap = utils.nnoremap
 local cnoremap = utils.cnoremap
 local vnoremap = utils.vnoremap
+local toggle_qf = utils.toggle_qf
 
 vim.g.mapleader = " "
 
@@ -32,7 +33,7 @@ nnoremap("<leader>bd", ":bd!<cr>")
 -- quick list
 nnoremap("<leader>cn", ":cn<cr>")
 nnoremap("<leader>cp", ":cp<cr>")
-nnoremap("<leader>cl", ":copen<cr>", {nowait = false})
+nnoremap("<leader>cl", toggle_qf, {nowait = false})
 nnoremap("<leader>cc", ":cex []<cr>")
 
 -- better command mode navigation
