@@ -8,6 +8,34 @@ local sumneko_config = require("ma.plugins.lspconfig.sumneko_lua")
 
 local servers = {}
 
+vim.lsp.protocol.CompletionItemKind = {
+  "   (Text) ",
+  "   (Method)",
+  "   (Function)",
+  "   (Constructor)",
+  "   (Field)",
+  "  (Variable)",
+  "   (Class)",
+  " ﰮ  (Interface)",
+  "   (Module)",
+  " 襁 (Property)",
+  "   (Unit)",
+  "   (Value)",
+  " 練 (Enum)",
+  "   (Keyword)",
+  "   (Snippet)",
+  "   (Color)",
+  "   (File)",
+  "   (Reference)",
+  "   (Folder)",
+  "   (EnumMember)",
+  "   (Constant)",
+  "   (Struct)",
+  "   (Event)",
+  "   (Operator)",
+  "   (TypeParameter)"
+}
+
 -- add snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

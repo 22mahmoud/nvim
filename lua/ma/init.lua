@@ -1,4 +1,5 @@
+require("ma.plugins")
 require("ma.providers")
+require("ma.status_line")
 require("ma.settings")
 require("ma.mappings")
-require("ma.plugins")

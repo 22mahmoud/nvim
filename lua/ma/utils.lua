@@ -60,9 +60,9 @@ local function map(mode, default_options)
 
     local bufnr = extra_options.bufnr
 
-    -- if vim.fn.maparg(lhs, "n") ~= "" and bufnr then
-    --   return
-    -- end
+    if vim.fn.maparg(lhs, "n") ~= "" and bufnr then
+      return
+    end
 
     local opts =
       tbl_extend(
