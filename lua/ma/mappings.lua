@@ -7,9 +7,10 @@ local toggle_qf = utils.toggle_qf
 
 vim.g.mapleader = " "
 
--- navigation & find & search
-nnoremap("<leader>p", ":find<space>", {silent = false})
-nnoremap("<leader>rg", ":grep<space>", {silent = false})
+-- navigation & find & search (check fzf.lua)
+-- nnoremap("<leader>p", ":find<space>", {silent = false})
+-- nnoremap("<leader>rg", ":grep<space>", {silent = false})
+-- nnoremap("<leader>gw", ":grep <cword> . <cr>")
 
 -- better movement between window buffers
 nnoremap("<c-k>", "<c-w><c-k>")
@@ -27,7 +28,7 @@ vnoremap(">", ">gv")
 -- buffers
 nnoremap("<leader>bn", ":bn<cr>")
 nnoremap("<leader>bp", ":bp<cr>")
-nnoremap("<leader>bl", ":buffers<cr>:buffer<space>")
+-- nnoremap("<leader>bl", ":buffers<cr>:buffer<space>")
 nnoremap("<leader>bd", ":bd!<cr>")
 
 -- quick list

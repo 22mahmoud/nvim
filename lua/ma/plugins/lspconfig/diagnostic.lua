@@ -7,14 +7,12 @@ lsp.handlers["textDocument/publishDiagnostics"] =
     underline = true,
     signs = true,
     update_in_insert = false,
-    virtual_text = false,
-    --[[
-      virtual_text = {
-        severity_limit = "Warning",
-        spacing = 4,
-        prefix = "~"
-      }
-    --]]
+    --virtual_text = false,
+    virtual_text = {
+      severity_limit = "Warning",
+      spacing = 4,
+      prefix = "~"
+    }
   }
 )
 
@@ -37,6 +35,3 @@ sign_define(
   "LspDiagnosticsSignHint",
   {text = "", texthl = "LspDiagnosticsHint"}
 )
-
-
-

@@ -10,9 +10,15 @@ local function plugins(use)
   use "wbthomason/packer.nvim"
 
   use "lifepillar/vim-gruvbox8"
+
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
+
   use "christoomey/vim-tmux-navigator"
+
   use {"neovim/nvim-lspconfig", config = conf("lspconfig")}
+
+  use "junegunn/fzf"
+  use {"junegunn/fzf.vim", config = conf("fzf")}
 end
 
 return packer.startup(plugins)
