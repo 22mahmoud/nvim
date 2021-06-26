@@ -79,6 +79,18 @@ servers.cssls = {
   end
 }
 
+servers.bashls = {
+  on_attach = custom_attach
+}
+
+servers.clangd = {
+  on_attach = custom_attach
+}
+
+servers.pyright = {
+  on_attach = custom_attach
+}
+
 for server, config in pairs(servers) do
   lspconfig[server].setup(
     vim.tbl_deep_extend("force", {capabilities = capabilities}, config)
