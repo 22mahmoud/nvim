@@ -13,8 +13,6 @@ local function plugins(use)
 
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
 
-  use "christoomey/vim-tmux-navigator"
-
   use {"neovim/nvim-lspconfig", config = conf("lspconfig")}
 
   use "junegunn/fzf"
