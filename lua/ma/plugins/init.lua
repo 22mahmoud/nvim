@@ -1,6 +1,6 @@
-local fmt = string.format
-
 local packer = require("packer")
+
+local fmt = string.format
 
 local function conf(name)
   require(fmt("ma.plugins.%s", name))
@@ -9,7 +9,9 @@ end
 local function plugins(use)
   use "wbthomason/packer.nvim"
 
-  use "lifepillar/vim-gruvbox8"
+  use "chriskempson/base16-vim"
+  use "vim-airline/vim-airline"
+  use "vim-airline/vim-airline-themes"
 
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
 
