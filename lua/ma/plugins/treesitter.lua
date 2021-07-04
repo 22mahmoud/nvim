@@ -8,7 +8,11 @@ M.config = function()
     },
     indent = {
       enable = true
-    }
+    },
+    rainbow = {
+      enable = true
+    },
+    autotag = {enable = true}
   }
 end
 
