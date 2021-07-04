@@ -6,7 +6,11 @@ local nnoremap = utils.nnoremap
 local M = {}
 
 M.config = function()
-  neogit.setup {}
+  neogit.setup {
+    integrations = {
+      diffview = true
+    }
+  }
 
   nnoremap(
     "<leader>gs",
@@ -18,7 +22,7 @@ M.config = function()
   nnoremap(
     "<leader>gc",
     function()
-      neogit.open({ "commit" })
+      neogit.open({"commit"})
     end
   )
 

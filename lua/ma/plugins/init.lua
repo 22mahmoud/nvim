@@ -19,6 +19,7 @@ local function plugins(use)
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
 
   -- git
+  use {"https://github.com/sindrets/diffview.nvim", config = conf("diffview")}
   use {
     "lewis6991/gitsigns.nvim",
     config = conf("gitsigns"),
