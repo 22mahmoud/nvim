@@ -5,8 +5,6 @@ local augroup = utils.augroup
 vim.g.airline_theme = "base16"
 vim.cmd [[colorscheme base16-ashes]]
 
-vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
-
 augroup(
   "UserHighlights",
   {

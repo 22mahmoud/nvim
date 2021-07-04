@@ -9,7 +9,7 @@ end
 local function plugins(use)
   use "wbthomason/packer.nvim"
 
-  use "chriskempson/base16-vim"
+  use "fnune/base16-vim"
   use "vim-airline/vim-airline"
   use "vim-airline/vim-airline-themes"
 
