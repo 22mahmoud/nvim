@@ -137,7 +137,4 @@ function M.toggle_qf()
   end
 end
 
-function M._toggle_qf()
-end
-
 return M

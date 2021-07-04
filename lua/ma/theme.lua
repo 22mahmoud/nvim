@@ -3,7 +3,7 @@ local utils = require("ma.utils")
 local augroup = utils.augroup
 
 vim.g.airline_theme = "base16"
-vim.cmd [[colorscheme base16-ashes]]
+vim.cmd [[colorscheme base16-dracula]]
 
 augroup(
   "UserHighlights",

@@ -12,6 +12,10 @@ vim.g.mapleader = " "
 -- nnoremap("<leader>rg", ":grep<space>", {silent = false})
 -- nnoremap("<leader>gw", ":grep <cword> . <cr>")
 
+-- Move selected line / block of text in visual mode
+vnoremap('J', ':move \'>+1<CR>gv-gv')
+vnoremap('K', ':move \'<-2<CR>gv-gv')
+
 -- better movement between window buffers
 nnoremap("<c-k>", "<c-w><c-k>")
 nnoremap("<c-h>", "<c-w><c-h>")

@@ -8,12 +8,14 @@ end
 
 local function plugins(use)
   use "wbthomason/packer.nvim"
+  use "nvim-lua/plenary.nvim"
 
   use "fnune/base16-vim"
   use "vim-airline/vim-airline"
   use "vim-airline/vim-airline-themes"
-
   use {"nvim-treesitter/nvim-treesitter", config = conf("treesitter")}
+
+  use {"lewis6991/gitsigns.nvim", config = conf("gitsigns"), event = "BufRead"}
 
   use {"neovim/nvim-lspconfig", config = conf("lspconfig")}
 
