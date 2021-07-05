@@ -1,4 +1,4 @@
-local lsp, sign_define = vim.lsp, vim.fn.sign_define
+local lsp = vim.lsp
 
 lsp.handlers["textDocument/publishDiagnostics"] =
   lsp.with(
@@ -7,31 +7,26 @@ lsp.handlers["textDocument/publishDiagnostics"] =
     underline = true,
     signs = true,
     update_in_insert = false,
-    --virtual_text = false,
     virtual_text = {
       severity_limit = "Warning",
-      spacing = 4,
-      prefix = "~"
+      prefix = "",
+      spacing = 0
     }
   }
 )
 
-sign_define(
-  "LspDiagnosticsSignError",
-  {text = "", texthl = "LspDiagnosticsError"}
-)
+local function sign_define(name, text)
+  vim.fn.sign_define(
+    name,
+    {
+      texthl = name,
+      text = text,
+      numhl = name
+    }
+  )
+end
 
-sign_define(
-  "LspDiagnosticsSignWarning",
-  {text = "", texthl = "LspDiagnosticsWarning"}
-)
-
-sign_define(
-  "LspDiagnosticsSignInformation",
-  {text = "", texthl = "LspDiagnosticsInformation"}
-)
-
-sign_define(
-  "LspDiagnosticsSignHint",
-  {text = "", texthl = "LspDiagnosticsHint"}
-)
+sign_define("LspDiagnosticsSignError", "")
+sign_define("LspDiagnosticsSignWarning", "")
+sign_define("LspDiagnosticsSignHint", "")
+sign_define("LspDiagnosticsSignInformation", "")

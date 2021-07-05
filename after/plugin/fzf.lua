@@ -1,3 +1,7 @@
+if vim.fn.exists(':FZF') == 0 then
+  return
+end
+
 local utils = require("ma.utils")
 
 local map = vim.fn.map

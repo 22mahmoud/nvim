@@ -16,6 +16,7 @@ if empty(glob(install_path)) > 0 then
   )
 
   vim.cmd "packadd! packer.nvim"
+  require("packer").sync()
 else
   vim.cmd "packadd! packer.nvim"
 end
@@ -25,29 +26,26 @@ local function plugins(use)
   use {"wbthomason/packer.nvim", opt = true}
   use "nvim-lua/plenary.nvim"
   use "windwp/nvim-autopairs"
+  use {
+    "vim-test/vim-test",
+    cmd = {"TestFile", "TestNearest", "TestSuite", "TestFile"},
+    keys = {"<leader>tf", "<leader>tn", "<leader>ts", "<leader>tl"}
+  }
 
   -- theme & look
-  -- use "fnune/base16-vim"
   use "RRethy/nvim-base16"
   use "vim-airline/vim-airline"
   use "vim-airline/vim-airline-themes"
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    requires = {
-      "p00f/nvim-ts-rainbow",
-      "windwp/nvim-ts-autotag"
-    }
-  }
+  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  use {"windwp/nvim-ts-autotag", requires = {"nvim-treesitter/nvim-treesitter"}}
 
   -- git
-  use {"https://github.com/sindrets/diffview.nvim"}
-  use {"lewis6991/gitsigns.nvim"}
-  use {"TimUntersberger/neogit"}
+  use {"lewis6991/gitsigns.nvim", requires = {"nvim-lua/plenary.nvim"}}
 
   -- lsp
   use {
     "neovim/nvim-lspconfig",
+    event = "BufReadPre",
     config = function()
       require("ma.lspconfig")
     end
@@ -55,7 +53,7 @@ local function plugins(use)
 
   -- find
   use "junegunn/fzf"
-  use {"junegunn/fzf.vim"}
+  use "junegunn/fzf.vim"
 end
 
 require("packer").startup {

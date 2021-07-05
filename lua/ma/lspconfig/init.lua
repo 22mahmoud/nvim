@@ -1,5 +1,11 @@
+local has_lsp, lspconfig = pcall(require, "lspconfig")
+
+if not has_lsp then
+  return
+end
+
 require("ma.lspconfig.diagnostic")
-local lspconfig = require("lspconfig")
+
 local root_pattern = require("lspconfig/util").root_pattern
 
 local custom_attach = require("ma.lspconfig.custom_attach")

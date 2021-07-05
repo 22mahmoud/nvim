@@ -1,3 +1,9 @@
+local has_gitsigns = pcall(require, "gitsigns")
+
+if not has_gitsigns then
+  return
+end
+
 local gitsigns = require("gitsigns")
 local utils = require("ma.utils")
 
