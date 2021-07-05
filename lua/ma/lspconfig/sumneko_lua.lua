@@ -1,4 +1,4 @@
-local custom_attach = require("ma.plugins.lspconfig.custom_attach")
+local custom_attach = require("ma.lspconfig.custom_attach")
 
 local fmt = string.format
 local os = jit.os
@@ -19,7 +19,7 @@ local sumneko_command = function()
   }
 end
 
-local sumneko_config  = {
+local sumneko_config = {
   cmd = sumneko_command(),
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false

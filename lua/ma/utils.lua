@@ -76,7 +76,6 @@ local function map(mode, default_options)
       rhs = fmt([[<cmd>lua require("ma.utils")._execute(%s)<CR>]], fn_id)
     end
 
-
     if bufnr then
       nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
     else
