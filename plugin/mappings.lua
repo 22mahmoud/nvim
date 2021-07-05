@@ -5,8 +5,6 @@ local cnoremap = utils.cnoremap
 local vnoremap = utils.vnoremap
 local toggle_qf = utils.toggle_qf
 
-vim.g.mapleader = " "
-
 -- navigation & find & search (check fzf.lua)
 -- nnoremap("<leader>p", ":find<space>", {silent = false})
 -- nnoremap("<leader>rg", ":grep<space>", {silent = false})

@@ -2,8 +2,6 @@ local fmt = string.format
 local fn, notify = vim.fn, vim.notify
 local stdpath, system, glob, empty = fn.stdpath, fn.system, fn.glob, fn.empty
 
--- local PACKER_COMPILED_PATH = fn.stdpath "cache" .. "/packer/packer_compiled.lua"
-
 local install_path = fmt("%s/site/pack/packer/opt/packer.nvim", stdpath "data")
 
 if empty(glob(install_path)) > 0 then
