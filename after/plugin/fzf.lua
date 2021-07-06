@@ -1,4 +1,4 @@
-if vim.fn.exists(':FZF') == 0 then
+if vim.g.loaded_fzf_vim == 0 then
   return
 end
 

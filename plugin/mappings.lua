@@ -34,10 +34,10 @@ nnoremap("<leader>bp", ":bp<cr>")
 nnoremap("<leader>bd", ":bd!<cr>")
 
 -- quick list
-nnoremap("<leader>cn", ":cn<cr>")
-nnoremap("<leader>cp", ":cp<cr>")
-nnoremap("<leader>cl", toggle_qf, {nowait = false})
-nnoremap("<leader>cc", ":cex []<cr>")
+nnoremap("<leader>qn", ":cn<cr>")
+nnoremap("<leader>qp", ":cp<cr>")
+nnoremap("<leader>ql", toggle_qf, {nowait = false})
+nnoremap("<leader>qq", ":cex []<cr>")
 
 -- better command mode navigation
 cnoremap("<C-b>", "<Left>")

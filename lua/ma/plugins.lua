@@ -103,7 +103,15 @@ local function plugins(use)
 
   -- git
   use {"lewis6991/gitsigns.nvim", requires = {"nvim-lua/plenary.nvim"}}
-
+  use {
+    "rhysd/conflict-marker.vim",
+    config = function()
+      vim.g.conflict_marker_highlight_group = ""
+      vim.g.conflict_marker_enable_mappings = 0
+      vim.g.conflict_marker_begin = "^<<<<<<< .*$"
+      vim.g.conflict_marker_end = "^>>>>>>> .*$"
+    end
+  }
   -- lsp
   use {
     "neovim/nvim-lspconfig",
