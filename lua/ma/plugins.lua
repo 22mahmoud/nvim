@@ -45,7 +45,6 @@ local function plugins(use)
   -- lsp
   use {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
     config = function()
       require("ma.lspconfig")
     end

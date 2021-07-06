@@ -122,7 +122,9 @@ local general = {
   inccommand = "split",
   showcmd = false,
   shada = {"!", "'1000", "<50", "s10", "h"},
-  shortmess = "aoOTIcF"
+  shortmess = "aoOTIcF",
+  title = true,
+  titlestring = "%<%F%=%l/%L - nvim"
 }
 
 local backup = {
