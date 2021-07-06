@@ -27,7 +27,7 @@ local shellcheck = {
 }
 
 local shfmt = {
-  formatCommand = "shfmt -",
+  formatCommand = "shfmt -ci -s -bn -i 2",
   formatStdin = true
 }
 
