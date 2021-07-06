@@ -1,4 +1,7 @@
+local utils = require("ma.utils")
+
 local lsp = vim.lsp
+local sign_define = utils.sign_define
 
 lsp.handlers["textDocument/publishDiagnostics"] =
   lsp.with(
@@ -14,17 +17,6 @@ lsp.handlers["textDocument/publishDiagnostics"] =
     }
   }
 )
-
-local function sign_define(name, text)
-  vim.fn.sign_define(
-    name,
-    {
-      texthl = name,
-      text = text,
-      numhl = name
-    }
-  )
-end
 
 sign_define("LspDiagnosticsSignError", "")
 sign_define("LspDiagnosticsSignWarning", "")

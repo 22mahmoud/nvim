@@ -98,6 +98,19 @@ M.vnoremap = map("v", noremap_opts)
 M.tnoremap = map("t", noremap_opts)
 M.cnoremap = map("c", tbl_extend("keep", {silent = false}, noremap_opts))
 
+function M.sign_define(name, text)
+  vim.fn.sign_define(
+    name,
+    {
+      texthl = name,
+      text = text,
+      numhl = name
+    }
+  )
+end
+
+
+
 function M.augroup(name, commands)
   vim.cmd("augroup " .. name)
   vim.cmd("autocmd!")
