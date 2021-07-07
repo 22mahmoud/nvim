@@ -97,6 +97,10 @@ servers.pyright = {
   on_attach = custom_attach
 }
 
+servers.vimls = {
+  on_attach = custom_attach
+}
+
 for server, config in pairs(servers) do
   lspconfig[server].setup(
     vim.tbl_deep_extend("force", {capabilities = capabilities}, config)

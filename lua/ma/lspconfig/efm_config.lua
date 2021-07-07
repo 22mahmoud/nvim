@@ -1,4 +1,3 @@
-local util = require("lspconfig/util")
 local custom_attach = require("ma.lspconfig.custom_attach")
 
 local prettier = {

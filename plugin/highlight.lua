@@ -4,7 +4,6 @@ local augroup = utils.augroup
 
 vim.opt.background = "dark"
 
-
 local function user_highlights()
   vim.cmd [[hi Normal   guibg=NONE ctermbg=NONE]]
   vim.cmd [[hi NormalNC guibg=NONE ctermbg=NONE]]
