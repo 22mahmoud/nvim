@@ -1,7 +1,3 @@
-if vim.g.loaded_fzf_vim == 0 then
-  return
-end
-
 local utils = require("ma.utils")
 
 local map = vim.fn.map
@@ -9,7 +5,6 @@ local copy = vim.fn.copy
 local setqflist = vim.fn.setqflist
 
 local nnoremap = utils.nnoremap
-local imap = utils.imap
 
 vim.env["FZF_DEFAULT_OPTS"] =
   (vim.env["FZF_DEFAULT_OPTS"] or "") .. "" .. '--bind "alt-a:select-all"'
@@ -35,5 +30,3 @@ vim.g.fzf_layout = {
 nnoremap("<leader>p", ":Files<cr>")
 nnoremap("<leader>bl", ":Buffers<cr>")
 nnoremap("<leader>rg", ":Rg!<space>", {silent = false})
-
-imap("<c-x><c-k>", "<plug>(fzf-complete-word)")

@@ -4,10 +4,6 @@ local augroup = utils.augroup
 
 vim.opt.background = "dark"
 
-vim.cmd [[let base16colorspace=256]]
-vim.cmd [[silent! colorscheme base16-dracula]]
-
-vim.g.airline_theme = "base16"
 
 local function user_highlights()
   vim.cmd [[hi Normal   guibg=NONE ctermbg=NONE]]

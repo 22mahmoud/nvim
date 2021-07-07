@@ -1,7 +1,3 @@
-if vim.fn.exists(':TestFile') == 0 then
-  return
-end
-
 local utils = require("ma.utils")
 
 local nnoremap = utils.nnoremap
