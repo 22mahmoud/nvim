@@ -11,9 +11,10 @@ vim.g.loaded_rrhelper = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.cmd [[runtime! packer/packer_compiled.lua]]
 require "ma.providers"
 require "ma.highlight"
 require "ma.settings"
 require "ma.mappings"
+
+vim.cmd [[runtime! packer/packer_compiled.lua]]
 require "ma.plugins"
