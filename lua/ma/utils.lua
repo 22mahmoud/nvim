@@ -109,8 +109,6 @@ function M.sign_define(name, text)
   )
 end
 
-
-
 function M.augroup(name, commands)
   vim.cmd("augroup " .. name)
   vim.cmd("autocmd!")

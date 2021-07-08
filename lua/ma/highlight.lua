@@ -13,14 +13,10 @@ local function user_highlights()
   vim.cmd [[hi LspReferenceRead  gui=NONE]]
   vim.cmd [[hi LspReferenceWrite gui=NONE]]
 
-  vim.cmd [[hi DiffAdd     guibg=NONE]]
-  vim.cmd [[hi DiffChange  guibg=NONE]]
-  vim.cmd [[hi DiffDelete  guibg=NONE]]
-  vim.cmd [[hi DiffAdded   guibg=NONE]]
-  vim.cmd [[hi DiffFile    guibg=NONE]]
-  vim.cmd [[hi DiffNewFile guibg=NONE]]
-  vim.cmd [[hi DiffLine    guibg=NONE]]
-  vim.cmd [[hi DiffRemoved guibg=NONE]]
+  vim.cmd [[hi GitGutterAdd           guibg=NONE]]
+  vim.cmd [[hi GitGutterChange        guibg=NONE]]
+  vim.cmd [[hi GitGutterDelete        guibg=NONE]]
+  vim.cmd [[hi GitGutterChangeDelete  guibg=NONE]]
 end
 
 user_highlights()

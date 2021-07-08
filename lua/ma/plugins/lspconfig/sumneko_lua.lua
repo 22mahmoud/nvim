@@ -1,4 +1,4 @@
-local custom_attach = require("ma.lspconfig.custom_attach")
+local custom_attach = require("ma.plugins.lspconfig.custom_attach")
 
 local fmt = string.format
 local os = jit.os
