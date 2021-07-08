@@ -41,6 +41,7 @@ return packer.startup(
       config = conf("vim-test").config
     }
 
+    use "kyazdani42/nvim-web-devicons"
     use {
       "RRethy/nvim-base16",
       config = conf("nvim-base16").config
@@ -138,6 +139,33 @@ return packer.startup(
       setup = conf("conflict-marker").setup,
       config = conf("conflict-marker").config
     }
+    use {
+      "ruifm/gitlinker.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      keys = {"<localleader>gu"},
+      config = function()
+        require("gitlinker").setup({mappings = "<localleader>gu"})
+      end
+    }
+
+    use {
+      "sindrets/diffview.nvim",
+      cmd = "DiffviewOpen",
+      module = "diffview",
+      setup = function()
+        local nnoremap = require("ma.utils").nnoremap
+
+        nnoremap("<leader>gd", "<Cmd>DiffviewOpen<CR>")
+      end,
+      config = function()
+        require("diffview").setup {
+          key_bindings = {
+            file_panel = {q = "<Cmd>DiffviewClose<CR>"},
+            view = {q = "<Cmd>DiffviewClose<CR>"}
+          }
+        }
+      end
+    }
 
     -- lsp
     use {
@@ -152,6 +180,19 @@ return packer.startup(
       requires = {"junegunn/fzf"},
       setup = conf("fzf").setup,
       config = conf("fzf").config
+    }
+
+    -- tpope
+    use "tpope/vim-eunuch"
+    use "tpope/vim-sleuth"
+    use "tpope/vim-repeat"
+    use {
+      "tpope/vim-surround",
+      config = function()
+        local xmap = require("ma.utils").xmap
+        xmap("s", "<Plug>VSurround")
+        xmap("s", "<Plug>VSurround")
+      end
     }
   end
 )
