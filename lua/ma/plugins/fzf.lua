@@ -21,7 +21,7 @@ function M.config()
   end
 
   vim.env["FZF_DEFAULT_OPTS"] =
-    (vim.env["FZF_DEFAULT_OPTS"] or "") .. "" .. '--bind "alt-a:select-all"'
+    (vim.env["FZF_DEFAULT_OPTS"] or "") .. " " .. '--bind "alt-a:select-all"'
 
   vim.g.fzf_action = {
     ["ctrl-q"] = build_quickfix_list,
