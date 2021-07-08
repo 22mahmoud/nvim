@@ -3,6 +3,8 @@ local utils = require("ma.utils")
 local nnoremap = utils.nnoremap
 local cnoremap = utils.cnoremap
 local vnoremap = utils.vnoremap
+local tnoremap = utils.tnoremap
+local inoremap = utils.inoremap
 local toggle_qf = utils.toggle_qf
 
 -- navigation & find & search (check fzf.lua)
@@ -48,3 +50,6 @@ cnoremap("<C-e>", "<End>")
 cnoremap("<C-a>", "<Home>")
 cnoremap("<C-d>", "<Del>")
 cnoremap("<C-h>", "<BS>")
+
+-- Terminal window escape
+tnoremap("<C-j><C-k>", "<C-\\><C-n>")
