@@ -180,6 +180,14 @@ return packer.startup(
       event = "BufReadPre",
       config = conf("lspconfig").config
     }
+    use {
+      "folke/trouble.nvim",
+      cmd = {"Trouble", "TroubleToggle"},
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {}
+      end
+    }
 
     use {
       "junegunn/fzf.vim",
