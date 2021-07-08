@@ -38,7 +38,7 @@ return packer.startup(
       "vim-test/vim-test",
       cmd = {"TestFile", "TestNearest", "TestSuite", "TestFile"},
       setup = conf("vim-test").setup,
-      config = conf("vim-test").config,
+      config = conf("vim-test").config
     }
 
     use {
@@ -95,6 +95,15 @@ return packer.startup(
     }
 
     use {
+      "junegunn/limelight.vim",
+      cmd = {"Limelight"},
+      config = function()
+        vim.g.limelight_conceal_ctermfg = "gray"
+        vim.g.limelight_conceal_guifg = "#777777"
+      end
+    }
+
+    use {
       "folke/zen-mode.nvim",
       cmd = "ZenMode",
       config = function()
@@ -105,7 +114,13 @@ return packer.startup(
           },
           plugins = {
             gitsigns = {enabled = false}
-          }
+          },
+          on_open = function()
+            vim.cmd [[Limelight]]
+          end,
+          on_close = function()
+            vim.cmd [[Limelight!]]
+          end
         }
       end
     }
