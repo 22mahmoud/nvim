@@ -46,6 +46,13 @@ return packer.startup(
       "RRethy/nvim-base16",
       config = conf("nvim-base16").config
     }
+    use {
+      "vim-airline/vim-airline",
+      requires = {"vim-airline/vim-airline-themes"},
+      config = function()
+        vim.g.airline_theme = "base16"
+      end
+    }
 
     use {
       "nvim-treesitter/nvim-treesitter",

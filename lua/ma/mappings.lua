@@ -52,4 +52,4 @@ cnoremap("<C-d>", "<Del>")
 cnoremap("<C-h>", "<BS>")
 
 -- Terminal window escape
-tnoremap("<C-j><C-k>", "<C-\\><C-n>")
+tnoremap("<C-x><C-o>", "<C-\\><C-n>")
