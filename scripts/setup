@@ -1,4 +1,10 @@
 #!/bin/sh
+_update_pacman_package_database() {
+  printf "[pacman]: update package database\n"
+  sudo pacman -Syy --noconfirm >/dev/null 2>&1
+  printf "[pacman]: done\n\n"
+}
+
 _install_neovim() {
   printf "[neovim]: install\n"
   sudo pacman -S neovim --noconfirm >/dev/null 2>&1
@@ -159,6 +165,8 @@ _install_shfmt() {
 
 # install or update packages
 main() {
+  _update_pacman_package_database
+
   # install or update neovim
   _install_neovim
   _install_treesitter
