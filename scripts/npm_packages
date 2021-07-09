@@ -1,0 +1,8 @@
+eslint_d
+pyright
+typescript
+typescript-language-server
+bash-language-server
+vscode-langservers-extracted
+vim-language-server
+lua-fmt

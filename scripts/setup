@@ -1,0 +1,190 @@
+#!/bin/sh
+_install_neovim() {
+  printf "[neovim]: install\n"
+  sudo pacman -S neovim --noconfirm >/dev/null 2>&1
+  printf "[neovim]: done\n\n"
+}
+
+_install_treesitter() {
+  printf "[treesitter]: install\n"
+  sudo pacman -S treesitter --noconfirm >/dev/null 2>&1
+  printf "[treesitter]: done\n\n"
+}
+
+_install_volta() {
+  [ -z "$VOLTA_HOME" ] \
+    && printf "[volta]: please set VOLTA_HOME env variable in your .zprofile"
+
+  if [ ! "$(command -v volta)" ]; then
+    printf "[volta]: install\n"
+    volta_script="$XDG_CACHE_HOME"/volta.sh
+    wget -q --show-progress https://get.volta.sh -O "$volta_script" >/dev/null 2>&1
+    chmod +x "$volta_script"
+    "$volta_script" --skip-setup >/dev/null 2>&1 && rm "$volta_script"
+    printf "[volta]: done\n\n"
+  else
+    printf "[volta]: skip already installed\n\n"
+  fi
+}
+
+_install_node() {
+  if [ ! "$(volta which node)" ]; then
+    printf "[node-lts]: install\n"
+    volta install node@lts >/dev/null 2>&1
+    printf "[node-lts]: done\n\n"
+  else
+    printf "[node]: skip already installed\n\n"
+  fi
+}
+
+_install_node_provider() {
+  printf "[node-neovim]: install\n"
+  volta install neovim >/dev/null 2>&1
+  printf "[node-neovim]: done\n\n"
+}
+
+_install_python() {
+  if [ ! "$(command -v python)" ]; then
+    printf "[python]: install\n"
+    sudo pacman -S python --noconfirm >/dev/null 2>&1
+    printf "[python]: done\n\n"
+  else
+    printf "[python]: skip already installed\n\n"
+  fi
+}
+
+_install_pip() {
+  if [ ! "$(command -v pip)" ]; then
+    printf "[python-pip]: install\n"
+    sudo pacman -S python-pip --noconfirm >/dev/null 2>&1
+    printf "[python-pip]: done\n\n"
+  else
+    printf "[python-pip]: skip already installed\n\n"
+  fi
+}
+
+_install_python_provider() {
+  printf "[python-neovim]: install\n"
+  pip3 install --upgrade neovim >/dev/null 2>&1
+  printf "[python-neovim]: done\n\n"
+}
+
+_install_ruby() {
+  if [ ! "$(command -v ruby)" ]; then
+    printf "[ruby]: install\n"
+    sudo pacman -S ruby --noconfirm >/dev/null 2>&1
+    printf "[ruby]: done\n\n"
+  else
+    printf "[ruby]: skip already installed\n\n"
+  fi
+}
+
+_install_gem() {
+  if [ ! "$(command -v gem)" ]; then
+    printf "[ruby-gem]: install\n"
+    sudo pacman -S rubygems --noconfirm >/dev/null 2>&1
+    printf "[ruby-gem]: done\n\n"
+  else
+    printf "[ruby-gem]: skip already installed\n\n"
+  fi
+}
+
+_install_ruby_provider() {
+  printf "[ruby-provider]: install\n"
+  gem install neovim >/dev/null 2>&1
+  printf "[ruby-provider]: done\n\n"
+}
+
+_install_npm_packages() {
+  printf "[npm-packages]: install\n"
+  npm_packages_file="$XDG_CONFIG_HOME/nvim/utils/npm_packages"
+  if [ -e "$npm_packages_file" ]; then
+    xargs volta install <"$npm_packages_file" >/dev/null 2>&1
+    printf "[npm-packages]: done\n"
+  else
+    printf "[npm-packages]: %s not found\n" "$npm_packages_file"
+  fi
+}
+
+_install_sumneko_lua() {
+  printf "[lsp-sumneko]: install\n"
+  sumneko_path="$XDG_CACHE_HOME/nvim/lspconfig/sumneko_lua/lua-language-server"
+  if [ -e "$sumneko_path" ]; then
+    (
+      cd "$sumneko_path" \
+        && git pull origin master
+      git submodule update --remote --merge
+    ) >/dev/null 2>&1
+  else
+    mkdir -p "$sumneko_path"
+    (
+      cd "$sumneko_path" \
+        && git clone --depth=1 https://github.com/sumneko/lua-language-server .
+      git submodule update --init --recursive
+    ) >/dev/null 2>&1
+  fi
+
+  (
+    cd "$sumneko_path/3rd/luamake" \
+      && ./compile/install.sh
+    cd ../.. \
+      && ./3rd/luamake/luamake rebuild
+  ) >/dev/null 2>&1
+  printf "[lsp-sumneko]: done\n"
+}
+
+_install_efm() {
+  printf "[efm]: install\n"
+  sudo pacman -S efm-langserver --noconfirm >/dev/null 2>&1
+  printf "[efm]: done\n\n"
+}
+
+_install_clangd() {
+  printf "[clangd]: install\n"
+  sudo pacman -S clang --noconfirm >/dev/null 2>&1
+  printf "[clangd]: done\n\n"
+}
+
+_install_shellcheck() {
+  printf "[shellcheck]: install\n"
+  sudo pacman -S shellcheck --noconfirm >/dev/null 2>&1
+  printf "[shellcheck]: done\n\n"
+}
+
+_install_shfmt() {
+  printf "[shfmt]: install\n"
+  sudo pacman -S shfmt --noconfirm >/dev/null 2>&1
+  printf "[shfmt]: done\n\n"
+}
+
+# install or update packages
+main() {
+  # install or update neovim
+  _install_neovim
+  _install_treesitter
+
+  # install node provider
+  _install_volta
+  _install_node
+  _install_node_provider
+
+  # install python provider
+  _install_python
+  _install_pip
+  _install_python_provider
+
+  # install ruby provider
+  _install_ruby
+  _install_gem
+  _install_ruby_provider
+
+  # lsp servers & utils
+  _install_sumneko_lua
+  _install_efm
+  _install_clangd
+  _install_shellcheck
+  _install_shfmt
+  _install_npm_packages
+}
+
+main
