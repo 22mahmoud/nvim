@@ -102,6 +102,8 @@ return packer.startup(
       end
     }
 
+    use {"npxbr/glow.nvim", cmd = {"Glow"}}
+
     use {
       "junegunn/limelight.vim",
       cmd = {"Limelight"},
