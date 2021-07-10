@@ -1,25 +1,23 @@
 local M = {}
 
 function M.config()
-  print("nice")
   local gitsigns = require("gitsigns")
   local utils = require("ma.utils")
   local nnoremap = utils.nnoremap
-  text =
-    "▎",
-    gitsigns.setup {
-      signs = {
-        add = {hl = "GitGutterAdd", text = "▎"},
-        change = {hl = "GitGutterChange", text = "▎"},
-        delete = {hl = "GitGutterDelete", text = "▎"},
-        topdelete = {hl = "GitGutterDelete", text = "▎"},
-        changedelete = {hl = "GitGutterChange", text = "▎"}
-      },
-      word_diff = false,
-      numhl = false,
-      keymaps = {},
-      use_decoration_api = false
-    }
+
+  gitsigns.setup {
+    signs = {
+      add = {hl = "GitGutterAdd", text = "▎"},
+      change = {hl = "GitGutterChange", text = "▎"},
+      delete = {hl = "GitGutterDelete", text = "▎"},
+      topdelete = {hl = "GitGutterDelete", text = "▎"},
+      changedelete = {hl = "GitGutterChange", text = "▎"}
+    },
+    word_diff = false,
+    numhl = false,
+    keymaps = {},
+    use_decoration_api = false
+  }
 
   -- mappings
   local next_hunk =
