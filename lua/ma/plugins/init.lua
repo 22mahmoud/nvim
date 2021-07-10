@@ -134,6 +134,25 @@ return packer.startup(
       end
     }
 
+    use {
+      "NTBBloodbath/rest.nvim",
+      requires = {"nvim-lua/plenary.nvim"},
+      ft = {"http"},
+      keys = {"<localleader>r", "<localleader>rp"},
+      config = function()
+        local rest_nvim = require("rest-nvim")
+        rest_nvim.setup()
+        local nnoremap = require("ma.utils").nnoremap
+        nnoremap("<localleader>r", rest_nvim.run)
+        nnoremap(
+          "<localleader>rp",
+          function()
+            rest_nvim.run(true)
+          end
+        )
+      end
+    }
+
     -- git
     use {
       "lewis6991/gitsigns.nvim",
