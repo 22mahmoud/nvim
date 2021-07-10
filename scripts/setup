@@ -103,7 +103,7 @@ _install_ruby_provider() {
 
 _install_npm_packages() {
   printf "[npm-packages]: install\n"
-  npm_packages_file="$XDG_CONFIG_HOME/nvim/utils/npm_packages"
+  npm_packages_file="$XDG_CONFIG_HOME/nvim/scripts/npm_packages"
   if [ -e "$npm_packages_file" ]; then
     xargs volta install <"$npm_packages_file" >/dev/null 2>&1
     printf "[npm-packages]: done\n"
