@@ -175,25 +175,6 @@ return packer.startup(
       end
     }
 
-    use {
-      "sindrets/diffview.nvim",
-      cmd = "DiffviewOpen",
-      module = "diffview",
-      setup = function()
-        local nnoremap = require("ma.utils").nnoremap
-
-        nnoremap("<leader>gd", "<Cmd>DiffviewOpen<CR>")
-      end,
-      config = function()
-        require("diffview").setup {
-          key_bindings = {
-            file_panel = {q = "<Cmd>DiffviewClose<CR>"},
-            view = {q = "<Cmd>DiffviewClose<CR>"}
-          }
-        }
-      end
-    }
-
     -- lsp
     use {
       "neovim/nvim-lspconfig",
