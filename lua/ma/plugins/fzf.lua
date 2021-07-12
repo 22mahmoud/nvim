@@ -1,18 +1,16 @@
 local M = {}
 
-function M.setup()
+function M.config()
   local utils = require("ma.utils")
+
   local nnoremap = utils.nnoremap
+  local map = vim.fn.map
+  local copy = vim.fn.copy
+  local setqflist = vim.fn.setqflist
 
   nnoremap("<leader>p", ":Files<cr>")
   nnoremap("<leader>bl", ":Buffers<cr>")
   nnoremap("<leader>rg", ":Rg!<space>", {silent = false})
-end
-
-function M.config()
-  local map = vim.fn.map
-  local copy = vim.fn.copy
-  local setqflist = vim.fn.setqflist
 
   local function build_quickfix_list(lines)
     setqflist(map(copy(lines), '{"filename": v:val}'))
@@ -22,6 +20,8 @@ function M.config()
 
   vim.env["FZF_DEFAULT_OPTS"] =
     (vim.env["FZF_DEFAULT_OPTS"] or "") .. " " .. '--bind "alt-a:select-all"'
+
+  vim.g.fzf_preview_window = "right:border-left"
 
   vim.g.fzf_action = {
     ["ctrl-q"] = build_quickfix_list,

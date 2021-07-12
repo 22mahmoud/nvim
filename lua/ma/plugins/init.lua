@@ -192,9 +192,7 @@ return packer.startup(
 
     use {
       "junegunn/fzf.vim",
-      cmd = {"Files", "FZF", "Rg"},
       requires = {"junegunn/fzf"},
-      setup = conf("fzf").setup,
       config = conf("fzf").config
     }
 
