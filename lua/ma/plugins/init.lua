@@ -46,11 +46,13 @@ return packer.startup(
       "RRethy/nvim-base16",
       config = conf("nvim-base16").config
     }
+
     use {
-      "hoob3rt/lualine.nvim",
-      requires = {"kyazdani42/nvim-web-devicons"},
-      after = "nvim-base16",
-      config = conf("lualine").config
+      "vim-airline/vim-airline",
+      requires = "vim-airline/vim-airline-themes",
+      config = function()
+        vim.g.airline_theme = "base16"
+      end
     }
 
     use {

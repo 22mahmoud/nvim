@@ -1,7 +1,8 @@
 local M = {}
 
 function M.config()
-  vim.cmd [[colorscheme base16-materia]]
+  require("ma.theme")
+  vim.cmd("colorscheme " .. vim.g.base16_theme_name)
 end
 
 return M
