@@ -124,7 +124,8 @@ return packer.startup(
             height = 0.85
           },
           plugins = {
-            gitsigns = {enabled = false}
+            gitsigns = {enabled = true},
+            tmux = {enabled = true}
           },
           on_open = function()
             vim.cmd [[Limelight]]
