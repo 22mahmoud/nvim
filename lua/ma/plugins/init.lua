@@ -194,9 +194,12 @@ return packer.startup(
     }
 
     use {
-      "junegunn/fzf.vim",
-      requires = {"junegunn/fzf"},
-      config = conf("fzf").config
+      "ibhagwan/fzf-lua",
+      config = conf("fzf").config,
+      requires = {
+        "vijaymarupudi/nvim-fzf",
+        "kyazdani42/nvim-web-devicons"
+      }
     }
 
     -- tpope
