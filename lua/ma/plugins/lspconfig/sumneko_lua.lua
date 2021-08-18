@@ -1,3 +1,4 @@
+local root_pattern = require("lspconfig/util").root_pattern
 local custom_attach = require("ma.plugins.lspconfig.custom_attach")
 
 local fmt = string.format
@@ -25,6 +26,7 @@ local sumneko_config = {
     client.resolved_capabilities.document_formatting = false
     custom_attach(client, bufnr)
   end,
+  root_dir = root_pattern(".git", vim.fn.getcwd()),
   settings = {
     Lua = {
       runtime = {
