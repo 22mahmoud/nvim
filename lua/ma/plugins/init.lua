@@ -193,22 +193,6 @@ return packer.startup(
       end
     }
 
-    -- experiment coq plugin
-    --[[
-      use {
-        "ms-jpq/coq_nvim",
-        branch = "coq",
-        event = {"InsertEnter"},
-        run = ":COQdeps",
-        setup = function()
-          vim.g.coq_settings = {
-            ["keymap.jump_to_mark"] = "<C-s>"
-          }
-        end,
-        config = 'vim.cmd "COQnow -s"'
-      }
-    --]]
-
     use {
       "ibhagwan/fzf-lua",
       config = conf("fzf").config,

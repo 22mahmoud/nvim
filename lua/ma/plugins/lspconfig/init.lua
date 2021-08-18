@@ -99,14 +99,6 @@ function M.config()
     on_attach = custom_attach
   }
 
-
-  --[[
-    require'packer'.loader'coq_nvim'
-    local function coq_setup(name, config)
-      lspconfig[name].setup(require'coq'().lsp_ensure_capabilities(config))
-    end
-  --]]
-
   for server, config in pairs(servers) do
     lspconfig[server].setup(
       vim.tbl_deep_extend("force", {capabilities = capabilities}, config)
