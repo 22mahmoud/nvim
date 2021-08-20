@@ -89,6 +89,20 @@ return packer.startup(
     }
 
     use {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      requires = {"nvim-treesitter/nvim-treesitter"},
+      after = {"nvim-comment"},
+      config = function()
+        require "nvim-treesitter.configs".setup {
+          context_commentstring = {
+            enable = true,
+            enable_autocmd = false
+          }
+        }
+      end
+    }
+
+    use {
       "norcalli/nvim-colorizer.lua",
       config = function()
         require("colorizer").setup({"*"}, {mode = "background"})
@@ -99,7 +113,14 @@ return packer.startup(
       "terrortylor/nvim-comment",
       keys = {"gc"},
       config = function()
-        require("nvim_comment").setup({create_mappings = true})
+        require("nvim_comment").setup {
+          {
+            create_mappings = true,
+            hook = function()
+              require("ts_context_commentstring.internal").update_commentstring {}
+            end
+          }
+        }
       end
     }
 
