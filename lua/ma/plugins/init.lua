@@ -29,7 +29,7 @@ packer.init {
   )
 }
 
-return packer.startup(
+return packer.startup {
   function(use)
     use "wbthomason/packer.nvim"
     use "nvim-lua/plenary.nvim"
@@ -217,13 +217,6 @@ return packer.startup(
 
     -- tpope
     use "tpope/vim-repeat"
-    use {
-      "tpope/vim-surround",
-      config = function()
-        local xmap = require("ma.utils").xmap
-        xmap("s", "<Plug>VSurround")
-        xmap("s", "<Plug>VSurround")
-      end
-    }
+    use "tpope/vim-surround"
   end
-)
+}
