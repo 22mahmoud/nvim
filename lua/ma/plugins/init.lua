@@ -184,14 +184,6 @@ return packer.startup(
       event = "BufReadPre",
       config = conf("lspconfig").config
     }
-    use {
-      "folke/trouble.nvim",
-      cmd = {"Trouble", "TroubleToggle"},
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("trouble").setup {}
-      end
-    }
 
     use {
       "ibhagwan/fzf-lua",
@@ -203,8 +195,6 @@ return packer.startup(
     }
 
     -- tpope
-    use "tpope/vim-eunuch"
-    use "tpope/vim-sleuth"
     use "tpope/vim-repeat"
     use {
       "tpope/vim-surround",
