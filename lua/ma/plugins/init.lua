@@ -32,171 +32,16 @@ packer.init {
 return packer.startup {
   function(use)
     use "wbthomason/packer.nvim"
-    use "nvim-lua/plenary.nvim"
 
-    use {
-      "vim-test/vim-test",
-      cmd = {"TestFile", "TestNearest", "TestSuite", "TestFile"},
-      setup = conf("vim-test").setup,
-      config = conf("vim-test").config
-    }
-
-    use "kyazdani42/nvim-web-devicons"
     use {
       "RRethy/nvim-base16",
       config = conf("nvim-base16").config
     }
 
     use {
-      "vim-airline/vim-airline",
-      requires = "vim-airline/vim-airline-themes",
-      config = function()
-        vim.g.airline_theme = "base16"
-      end
-    }
-
-    use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = conf("nvim-treesitter").config
-    }
-
-    use {
-      "windwp/nvim-ts-autotag",
-      event = "InsertEnter",
-      ft = {
-        "html",
-        "javascript",
-        "javascriptreact",
-        "typescriptreact",
-        "vue",
-        "svelte"
-      },
-      requires = {"nvim-treesitter/nvim-treesitter"},
-      config = function()
-        require("nvim-ts-autotag").setup()
-      end
-    }
-
-    use {
-      "windwp/nvim-autopairs",
-      event = "InsertEnter",
-      config = function()
-        require("nvim-autopairs").setup {
-          check_ts = false
-        }
-      end
-    }
-
-    use {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      requires = {"nvim-treesitter/nvim-treesitter"},
-      after = {"nvim-comment"},
-      config = function()
-        require "nvim-treesitter.configs".setup {
-          context_commentstring = {
-            enable = true,
-            enable_autocmd = false
-          }
-        }
-      end
-    }
-
-    use {
-      "norcalli/nvim-colorizer.lua",
-      config = function()
-        require("colorizer").setup({"*"}, {mode = "background"})
-      end
-    }
-
-    use {
-      "terrortylor/nvim-comment",
-      keys = {"gc"},
-      config = function()
-        require("nvim_comment").setup {
-          {
-            create_mappings = true,
-            hook = function()
-              require("ts_context_commentstring.internal").update_commentstring {}
-            end
-          }
-        }
-      end
-    }
-
-    use {"npxbr/glow.nvim", cmd = {"Glow"}}
-
-    use {
-      "junegunn/limelight.vim",
-      cmd = {"Limelight"},
-      config = function()
-        vim.g.limelight_conceal_ctermfg = "gray"
-        vim.g.limelight_conceal_guifg = "#777777"
-      end
-    }
-
-    use {
-      "folke/zen-mode.nvim",
-      cmd = "ZenMode",
-      config = function()
-        require("zen-mode").setup {
-          window = {
-            backdrop = 1,
-            height = 0.85
-          },
-          plugins = {
-            gitsigns = {enabled = true},
-            tmux = {enabled = true}
-          },
-          on_open = function()
-            vim.cmd [[Limelight]]
-          end,
-          on_close = function()
-            vim.cmd [[Limelight!]]
-          end
-        }
-      end
-    }
-
-    use {
-      "NTBBloodbath/rest.nvim",
-      requires = {"nvim-lua/plenary.nvim"},
-      ft = {"http"},
-      keys = {"<localleader>r", "<localleader>rp"},
-      config = function()
-        local rest_nvim = require("rest-nvim")
-        rest_nvim.setup()
-        local nnoremap = require("ma.utils").nnoremap
-        nnoremap("<localleader>r", rest_nvim.run)
-        nnoremap(
-          "<localleader>rp",
-          function()
-            rest_nvim.run(true)
-          end
-        )
-      end
-    }
-
-    -- git
-    use {
-      "lewis6991/gitsigns.nvim",
-      event = "BufRead",
-      requires = {"nvim-lua/plenary.nvim"},
-      config = conf("gitsigns").config
-    }
-    use {
-      "rhysd/conflict-marker.vim",
-      event = "BufRead",
-      setup = conf("conflict-marker").setup,
-      config = conf("conflict-marker").config
-    }
-    use {
-      "ruifm/gitlinker.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      keys = {"<localleader>gu"},
-      config = function()
-        require("gitlinker").setup({mappings = "<localleader>gu"})
-      end
     }
 
     -- lsp
@@ -206,17 +51,6 @@ return packer.startup {
       config = conf("lspconfig").config
     }
 
-    use {
-      "ibhagwan/fzf-lua",
-      config = conf("fzf").config,
-      requires = {
-        "vijaymarupudi/nvim-fzf",
-        "kyazdani42/nvim-web-devicons"
-      }
-    }
-
-    -- tpope
-    use "tpope/vim-repeat"
     use "tpope/vim-surround"
   end
 }
