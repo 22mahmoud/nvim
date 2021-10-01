@@ -7,10 +7,10 @@ local tnoremap = utils.tnoremap
 local inoremap = utils.inoremap
 local toggle_qf = utils.toggle_qf
 
--- navigation & find & search (check fzf.lua)
--- nnoremap("<leader>p", ":find<space>", {silent = false})
--- nnoremap("<leader>rg", ":grep<space>", {silent = false})
--- nnoremap("<leader>gw", ":grep <cword> . <cr>")
+-- navigation & find & search
+nnoremap("<leader>p", ":find<space>", {silent = false})
+nnoremap("<leader>rg", ":grep<space>", {silent = false})
+nnoremap("<leader>gw", ":grep <cword> . <cr>")
 
 -- Move selected line / block of text in visual mode
 vnoremap("J", ":move '>+1<CR>gv-gv")
@@ -32,7 +32,7 @@ vnoremap(">", ">gv")
 -- buffers
 nnoremap("<leader>bn", ":bn<cr>")
 nnoremap("<leader>bp", ":bp<cr>")
--- nnoremap("<leader>bl", ":buffers<cr>:buffer<space>")
+nnoremap("<leader>bl", ":buffers<cr>:buffer<space>")
 nnoremap("<leader>bd", ":bd!<cr>")
 
 -- quick list
