@@ -43,18 +43,53 @@ local function get_path()
   return path
 end
 
+local function modified()
+  return vim.opt.modified:get() and "●" or ""
+end
+
+local function readonly()
+  local mod = vim.opt.modifiable:get()
+  local ro = vim.opt.readonly:get()
+
+  if (mod and not ro) then
+    return ""
+  end
+
+  return (ro and mod) and "" or ""
+end
+
+local function sep(value, template)
+  if (value == "" or value == nil or not value) then
+    return ""
+  end
+
+  return fmt((template or "%s") .. " ", value)
+end
+
 function M.get_active_statusline()
   local mode = get_mode()
   local path = get_path()
+  local modified_icon = modified()
+  local readonly_icon = readonly()
 
-  return table.concat {
-    mode ~= "" and fmt("[%s] ", mode) or "",
-    path
+  local lhs =
+    table.concat {
+    sep(mode, "[%s]"),
+    sep(path),
+    sep(modified_icon),
+    sep(readonly_icon)
   }
+
+  local rhs =
+    table.concat {
+    sep("%l/%c"),
+  }
+
+  return lhs .. "%=" .. rhs
 end
 
 function M.get_inactive_statusline()
-  return "%f"
+  return [[%f %y %m]]
 end
 
 local function active()
