@@ -11,6 +11,8 @@ vim.g.loaded_rrhelper = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+_G._ = {}
+
 require "ma.providers"
 require "ma.highlight"
 require "ma.settings"
