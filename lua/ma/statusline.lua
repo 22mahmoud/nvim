@@ -27,7 +27,9 @@ end
 
 local function get_path()
   local file_name = fn.expand("%:~:.:t")
-  local base = fn.expand("%:~:.:h"):gsub("/$", "") .. "/"
+  local base = fn.expand("%:~:.:h")
+  base = (base == nil or base == ".") and "" or base:gsub("/$", "") .. "/"
+
   local path = base .. file_name
 
   if path == "/" then
@@ -82,7 +84,7 @@ function M.get_active_statusline()
 
   local rhs =
     table.concat {
-    sep("%l/%c"),
+    sep("%l/%c")
   }
 
   return lhs .. "%=" .. rhs
