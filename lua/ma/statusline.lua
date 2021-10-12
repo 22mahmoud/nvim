@@ -4,6 +4,7 @@ local augroup = utils.augroup
 local spawn = utils.spawn
 local fmt = string.format
 local fn = vim.fn
+local uv = vim.loop
 
 local M = {}
 _G._.statusline = M
@@ -83,33 +84,49 @@ local function get_lsp_diagnostics()
   }:gsub(",%s$", "") -- remove an extra ", " at the end of line
 end
 
-local function git_onread_handler(onread)
-  return function(error, data)
-    assert(not error, error)
-
-    if data then
-      vim.g.branch_name = data:gsub("\n", "")
+local function find_git_head_file_path(cb)
+  spawn(
+    "git",
+    {"rev-parse", "--absolute-git-dir"},
+    function(error, data)
+      assert(not error, error)
+      if data then
+        local head_file_path = data:gsub("\n", "") .. "/HEAD"
+        if type(cb) == "function" then
+          cb(head_file_path)
+        end
+      end
     end
+  )
+end
 
-    if type(onread) == "function" then
-      onread(vim.g.branch_name)
-    end
+local function git_get_branch_name(path)
+  local head_file_handle = io.open(path)
+
+  if not head_file_handle then
+    return
   end
+
+  local HEAD = head_file_handle:read()
+  local branch = HEAD:match("ref: refs/heads/(.+)$")
+  return branch or HEAD:sub(1, 6)
 end
 
-local function get_git_branch(onread)
-  spawn("git", {"branch", "--show-current"}, git_onread_handler(onread))
-end
+find_git_head_file_path(
+  function(path)
+    vim.g.branch_name = git_get_branch_name(path)
 
-local function get_git_head(onread)
-  spawn("git", {"rev-parse", "--short", "HEAD"}, git_onread_handler(onread))
-end
-
-get_git_branch(
-  function(data)
-    if (not data) then
-      get_git_head()
-    end
+    local fse = uv.new_fs_event()
+    uv.fs_event_start(
+      fse,
+      path,
+      {},
+      vim.schedule_wrap(
+        function()
+          vim.g.branch_name = git_get_branch_name(path)
+        end
+      )
+    )
   end
 )
 
