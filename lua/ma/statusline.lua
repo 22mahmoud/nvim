@@ -111,11 +111,48 @@ local function get_git_branch(onread)
   stdout:read_start(vim.schedule_wrap(onread))
 end
 
+local function get_git_head(onread)
+  local stdout = uv.new_pipe()
+  local handle = nil
+
+  handle =
+    uv.spawn(
+    "git",
+    {
+      args = {"rev-parse", "--short", "HEAD"},
+      stdio = {nil, stdout},
+      vim.schedule_wrap(
+        function()
+          stdout:read_stop()
+          if not handle:is_closing() then
+            handle:close()
+          end
+
+          if not stdout:is_closing() then
+            stdout:close()
+          end
+        end
+      )
+    }
+  )
+
+  stdout:read_start(vim.schedule_wrap(onread))
+end
+
 get_git_branch(
   function(error, data)
     assert(not error, error)
     if data then
       vim.g.branch_name = data:gsub("\n", "")
+    elseif (not data and not vim.g.branch_name) then
+      get_git_head(
+        function(head_error, head_data)
+          assert(not head_error, head_error)
+          if head_data then
+            vim.g.branch_name = head_data:gsub("\n", "")
+          end
+        end
+      )
     end
   end
 )
