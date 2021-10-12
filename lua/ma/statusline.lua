@@ -1,9 +1,9 @@
 local utils = require("ma.utils")
 
 local augroup = utils.augroup
+local spawn = utils.spawn
 local fmt = string.format
 local fn = vim.fn
-local uv = vim.loop
 
 local M = {}
 _G._.statusline = M
@@ -83,76 +83,32 @@ local function get_lsp_diagnostics()
   }:gsub(",%s$", "") -- remove an extra ", " at the end of line
 end
 
+local function git_onread_handler(onread)
+  return function(error, data)
+    assert(not error, error)
+
+    if data then
+      vim.g.branch_name = data:gsub("\n", "")
+    end
+
+    if type(onread) == "function" then
+      onread(vim.g.branch_name)
+    end
+  end
+end
+
 local function get_git_branch(onread)
-  local stdout = uv.new_pipe()
-  local handle = nil
-
-  handle =
-    uv.spawn(
-    "git",
-    {
-      args = {"branch", "--show-current"},
-      stdio = {nil, stdout},
-      vim.schedule_wrap(
-        function()
-          stdout:read_stop()
-          if not handle:is_closing() then
-            handle:close()
-          end
-
-          if not stdout:is_closing() then
-            stdout:close()
-          end
-        end
-      )
-    }
-  )
-
-  stdout:read_start(vim.schedule_wrap(onread))
+  spawn("git", {"branch", "--show-current"}, git_onread_handler(onread))
 end
 
 local function get_git_head(onread)
-  local stdout = uv.new_pipe()
-  local handle = nil
-
-  handle =
-    uv.spawn(
-    "git",
-    {
-      args = {"rev-parse", "--short", "HEAD"},
-      stdio = {nil, stdout},
-      vim.schedule_wrap(
-        function()
-          stdout:read_stop()
-          if not handle:is_closing() then
-            handle:close()
-          end
-
-          if not stdout:is_closing() then
-            stdout:close()
-          end
-        end
-      )
-    }
-  )
-
-  stdout:read_start(vim.schedule_wrap(onread))
+  spawn("git", {"rev-parse", "--short", "HEAD"}, git_onread_handler(onread))
 end
 
 get_git_branch(
-  function(error, data)
-    assert(not error, error)
-    if data then
-      vim.g.branch_name = data:gsub("\n", "")
-    elseif (not data and not vim.g.branch_name) then
-      get_git_head(
-        function(head_error, head_data)
-          assert(not head_error, head_error)
-          if head_data then
-            vim.g.branch_name = head_data:gsub("\n", "")
-          end
-        end
-      )
+  function(data)
+    if (not data) then
+      get_git_head()
     end
   end
 )

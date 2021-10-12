@@ -1,5 +1,6 @@
 local fmt = string.format
 local fn = vim.fn
+local uv = vim.loop
 local empty = fn.empty
 local filter = fn.filter
 local getwininfo = fn.getwininfo
@@ -147,6 +148,34 @@ function M.toggle_qf()
   else
     vim.cmd [[cclose]]
   end
+end
+
+function M.spawn(cmd, args, onread)
+  local stdout = uv.new_pipe()
+  local handle = nil
+
+  handle =
+    uv.spawn(
+    cmd,
+    {
+      args = args,
+      stdio = {nil, stdout},
+      vim.schedule_wrap(
+        function()
+          stdout:read_stop()
+          if not handle:is_closing() then
+            handle:close()
+          end
+
+          if not stdout:is_closing() then
+            stdout:close()
+          end
+        end
+      )
+    }
+  )
+
+  stdout:read_start(vim.schedule_wrap(onread))
 end
 
 return M
