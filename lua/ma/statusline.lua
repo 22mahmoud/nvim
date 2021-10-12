@@ -109,24 +109,31 @@ local function git_get_branch_name(path)
 
   local HEAD = head_file_handle:read()
   local branch = HEAD:match("ref: refs/heads/(.+)$")
+
+  head_file_handle:close()
+
   return branch or HEAD:sub(1, 6)
+end
+
+local function watch_git_branch_change(path)
+  local fse = uv.new_fs_event()
+  uv.fs_event_start(
+    fse,
+    path,
+    {},
+    vim.schedule_wrap(
+      function()
+        vim.g.branch_name = git_get_branch_name(path)
+      end
+    )
+  )
 end
 
 find_git_head_file_path(
   function(path)
     vim.g.branch_name = git_get_branch_name(path)
 
-    local fse = uv.new_fs_event()
-    uv.fs_event_start(
-      fse,
-      path,
-      {},
-      vim.schedule_wrap(
-        function()
-          vim.g.branch_name = git_get_branch_name(path)
-        end
-      )
-    )
+    watch_git_branch_change(path)
   end
 )
 
