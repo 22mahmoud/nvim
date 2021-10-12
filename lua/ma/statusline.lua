@@ -131,7 +131,7 @@ function M.get_active_statusline()
     table.concat {
     sep(mode, "[%s]"),
     sep(path),
-    sep(vim.g.branch_name, "[%s]"),
+    sep(vim.g.branch_name, "( %s)"),
     sep(modified_icon),
     sep(readonly_icon)
   }
