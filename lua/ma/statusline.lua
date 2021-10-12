@@ -60,12 +60,26 @@ local function readonly()
   return (ro and mod) and "" or ""
 end
 
-local function sep(value, template)
-  if (value == "" or value == nil or not value) then
+local function sep(value, template, space)
+  if (value == 0 or value == "" or value == nil or not value) then
     return ""
   end
 
-  return fmt((template or "%s") .. " ", value)
+  return fmt((template or "%s") .. (space or " "), value)
+end
+
+local function get_lsp_diagnostics()
+  local e = vim.lsp.diagnostic.get_count(0, [[Error]])
+  local w = vim.lsp.diagnostic.get_count(0, [[Warning]])
+  local i = vim.lsp.diagnostic.get_count(0, [[Information]])
+  local h = vim.lsp.diagnostic.get_count(0, [[Hint]])
+
+  return table.concat {
+    sep(e, "E: %s", ", "),
+    sep(w, "W: %s", ", "),
+    sep(i, "I: %s", ", "),
+    sep(h, "H: %s", ", ")
+  }:gsub(",%s$", "") -- remove an extra ", " at the end of line
 end
 
 function M.get_active_statusline()
@@ -73,6 +87,7 @@ function M.get_active_statusline()
   local path = get_path()
   local modified_icon = modified()
   local readonly_icon = readonly()
+  local diagnostics = get_lsp_diagnostics()
 
   local lhs =
     table.concat {
@@ -84,6 +99,7 @@ function M.get_active_statusline()
 
   local rhs =
     table.concat {
+    sep(diagnostics, "[%s]"),
     sep("%l/%c")
   }
 
