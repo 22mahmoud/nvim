@@ -85,9 +85,10 @@ local function get_lsp_diagnostics()
 end
 
 local function find_git_head_file_path(cb)
+  local path = fn.expand("%:p:h")
   spawn(
     "git",
-    {"rev-parse", "--absolute-git-dir"},
+    {"-C", path, "rev-parse", "--absolute-git-dir"},
     function(error, data)
       assert(not error, error)
       if data then
@@ -115,27 +116,29 @@ local function git_get_branch_name(path)
   return branch or HEAD:sub(1, 6)
 end
 
+local fse = nil
 local function watch_git_branch_change(path)
-  local fse = uv.new_fs_event()
+  if (fse) then
+    fse:stop()
+  end
+
+  fse = uv.new_fs_event()
   uv.fs_event_start(
     fse,
     path,
     {},
     vim.schedule_wrap(
       function()
-        vim.g.branch_name = git_get_branch_name(path)
+        find_git_head_file_path(
+          function(_path)
+            vim.g.branch_name = git_get_branch_name(_path)
+            watch_git_branch_change(_path)
+          end
+        )
       end
     )
   )
 end
-
-find_git_head_file_path(
-  function(path)
-    vim.g.branch_name = git_get_branch_name(path)
-
-    watch_git_branch_change(path)
-  end
-)
 
 function M.get_active_statusline()
   local mode = get_mode()
@@ -167,6 +170,13 @@ function M.get_inactive_statusline()
 end
 
 local function active()
+  find_git_head_file_path(
+    function(path)
+      vim.g.branch_name = git_get_branch_name(path)
+      watch_git_branch_change(path)
+    end
+  )
+
   vim.opt.statusline = [[%!luaeval("_.statusline.get_active_statusline()")]]
 end
 
