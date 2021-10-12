@@ -3,6 +3,7 @@ local utils = require("ma.utils")
 local augroup = utils.augroup
 local fmt = string.format
 local fn = vim.fn
+local uv = vim.loop
 
 local M = {}
 _G._.statusline = M
@@ -82,6 +83,43 @@ local function get_lsp_diagnostics()
   }:gsub(",%s$", "") -- remove an extra ", " at the end of line
 end
 
+local function get_git_branch(onread)
+  local stdout = uv.new_pipe()
+  local handle = nil
+
+  handle =
+    uv.spawn(
+    "git",
+    {
+      args = {"branch", "--show-current"},
+      stdio = {nil, stdout},
+      vim.schedule_wrap(
+        function()
+          stdout:read_stop()
+          if not handle:is_closing() then
+            handle:close()
+          end
+
+          if not stdout:is_closing() then
+            stdout:close()
+          end
+        end
+      )
+    }
+  )
+
+  stdout:read_start(vim.schedule_wrap(onread))
+end
+
+get_git_branch(
+  function(error, data)
+    assert(not error, error)
+    if data then
+      vim.g.branch_name = data:gsub("\n", "")
+    end
+  end
+)
+
 function M.get_active_statusline()
   local mode = get_mode()
   local path = get_path()
@@ -93,6 +131,7 @@ function M.get_active_statusline()
     table.concat {
     sep(mode, "[%s]"),
     sep(path),
+    sep(vim.g.branch_name, "[%s]"),
     sep(modified_icon),
     sep(readonly_icon)
   }
