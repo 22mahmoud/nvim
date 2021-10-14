@@ -18,6 +18,4 @@ require "ma.highlight"
 require "ma.settings"
 require "ma.mappings"
 require "ma.statusline"
-
-vim.cmd [[runtime! packer/packer_compiled.lua]]
 require "ma.plugins"

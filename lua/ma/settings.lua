@@ -121,6 +121,7 @@ local general = {
   fileformats = {"unix", "mac", "dos"},
   inccommand = "split",
   showcmd = false,
+  showmode = false,
   shada = {"!", "'1000", "<50", "s10", "h"},
   shortmess = "aoOTIcF",
   title = true,
