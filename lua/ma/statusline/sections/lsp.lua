@@ -1,8 +1,10 @@
+local M = {}
+
 local statusline_utils = require("ma.statusline.utils")
 
 local block = statusline_utils.block
 
-local function get_lsp_diagnostics()
+function M.get_lsp_diagnostics()
   local get_diag_count = vim.lsp.diagnostic.get_count
 
   local e = get_diag_count(0, [[Error]])
@@ -18,6 +20,4 @@ local function get_lsp_diagnostics()
   }:gsub(",%s$", "") -- remove an extra ", " at the end of line
 end
 
-return {
-  get_lsp_diagnostics = get_lsp_diagnostics
-}
+return M

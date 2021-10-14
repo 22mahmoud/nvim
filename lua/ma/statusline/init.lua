@@ -2,7 +2,6 @@ local utils = require("ma.utils")
 local sections = require("ma.statusline.sections")
 local statusline_utils = require("ma.statusline.utils")
 
-local fmt = string.format
 local block = statusline_utils.block
 local augroup = utils.augroup
 local truncat = statusline_utils.truncat

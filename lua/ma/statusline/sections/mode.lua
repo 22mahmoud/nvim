@@ -1,3 +1,5 @@
+local M = {}
+
 local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
 local CTRL_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
 
@@ -25,12 +27,10 @@ local modes =
   }
 )
 
-local function get_mode()
+function M.get_mode()
   local mode = modes[vim.fn.mode()]
 
   return {mode.long, mode.short}
 end
 
-return {
-  get_mode = get_mode
-}
+return M
