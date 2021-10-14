@@ -1,0 +1,12 @@
+[submodule "pack/plugins/opt/nvim-lspconfig"]
+	path = pack/plugins/opt/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "pack/plugins/opt/nvim-base16"]
+	path = pack/plugins/opt/nvim-base16
+	url = https://github.com/RRethy/nvim-base16
+[submodule "pack/plugins/opt/nvim-treesitter"]
+	path = pack/plugins/opt/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "pack/plugins/opt/vim-surround"]
+	path = pack/plugins/opt/vim-surround
+	url = https://github.com/tpope/vim-surround

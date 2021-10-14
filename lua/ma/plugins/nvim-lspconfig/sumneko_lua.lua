@@ -1,5 +1,5 @@
 local root_pattern = require("lspconfig/util").root_pattern
-local custom_attach = require("ma.plugins.lspconfig.custom_attach")
+local custom_attach = require("ma.plugins.nvim-lspconfig.custom_attach")
 
 local fmt = string.format
 local os = jit.os

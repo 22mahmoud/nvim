@@ -1,14 +1,11 @@
-local M = {}
-
-function M.config()
-  require("ma.plugins.lspconfig.diagnostic")
+  require("ma.plugins.nvim-lspconfig.diagnostic")
 
   local root_pattern = require("lspconfig/util").root_pattern
   local lspconfig = require("lspconfig")
 
-  local custom_attach = require("ma.plugins.lspconfig.custom_attach")
-  local efm_config = require("ma.plugins.lspconfig.efm_config")
-  local sumneko_config = require("ma.plugins.lspconfig.sumneko_lua")
+  local custom_attach = require("ma.plugins.nvim-lspconfig.custom_attach")
+  local efm_config = require("ma.plugins.nvim-lspconfig.efm_config")
+  local sumneko_config = require("ma.plugins.nvim-lspconfig.sumneko_lua")
 
   vim.lsp.protocol.CompletionItemKind = {
     "   (Text) ",
@@ -104,6 +101,3 @@ function M.config()
       vim.tbl_deep_extend("force", {capabilities = capabilities}, config)
     )
   end
-end
-
-return M

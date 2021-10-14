@@ -1,8 +1,4 @@
-local M = {}
 
-function M.config()
-  require("ma.theme")
-  vim.cmd("colorscheme " .. vim.g.base16_theme_name)
-end
+require("ma.theme")
 
-return M
+vim.cmd("colorscheme " .. vim.g.base16_theme_name)
