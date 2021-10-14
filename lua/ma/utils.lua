@@ -1,6 +1,5 @@
 local fmt = string.format
 local fn = vim.fn
-local uv = vim.loop
 local empty = fn.empty
 local filter = fn.filter
 local getwininfo = fn.getwininfo
@@ -150,32 +149,153 @@ function M.toggle_qf()
   end
 end
 
-function M.spawn(cmd, args, onread)
-  local stdout = uv.new_pipe()
-  local handle = nil
+M.icons =
+  setmetatable(
+  {
+    -- Exact Match
+    ["gruntfile.coffee"] = "",
+    ["gruntfile.js"] = "",
+    ["gruntfile.ls"] = "",
+    ["gulpfile.coffee"] = "",
+    ["gulpfile.js"] = "",
+    ["gulpfile.ls"] = "",
+    ["mix.lock"] = "",
+    ["dropbox"] = "",
+    [".ds_store"] = "",
+    [".gitconfig"] = "",
+    [".gitignore"] = "",
+    [".gitlab-ci.yml"] = "",
+    [".bashrc"] = "",
+    [".zshrc"] = "",
+    [".vimrc"] = "",
+    [".gvimrc"] = "",
+    ["_vimrc"] = "",
+    ["_gvimrc"] = "",
+    [".bashprofile"] = "",
+    ["favicon.ico"] = "",
+    ["license"] = "",
+    ["node_modules"] = "",
+    ["react.jsx"] = "",
+    ["procfile"] = "",
+    ["dockerfile"] = "",
+    ["docker-compose.yml"] = "",
+    -- Extension
+    ["styl"] = "",
+    ["sass"] = "",
+    ["scss"] = "",
+    ["htm"] = "",
+    ["html"] = "",
+    ["slim"] = "",
+    ["ejs"] = "",
+    ["css"] = "",
+    ["less"] = "",
+    ["md"] = "",
+    ["mdx"] = "",
+    ["markdown"] = "",
+    ["rmd"] = "",
+    ["json"] = "",
+    ["js"] = "",
+    ["mjs"] = "",
+    ["jsx"] = "",
+    ["rb"] = "",
+    ["php"] = "",
+    ["py"] = "",
+    ["pyc"] = "",
+    ["pyo"] = "",
+    ["pyd"] = "",
+    ["coffee"] = "",
+    ["mustache"] = "",
+    ["hbs"] = "",
+    ["conf"] = "",
+    ["ini"] = "",
+    ["yml"] = "",
+    ["yaml"] = "",
+    ["toml"] = "",
+    ["bat"] = "",
+    ["jpg"] = "",
+    ["jpeg"] = "",
+    ["bmp"] = "",
+    ["png"] = "",
+    ["gif"] = "",
+    ["ico"] = "",
+    ["twig"] = "",
+    ["cpp"] = "",
+    ["c++"] = "",
+    ["cxx"] = "",
+    ["cc"] = "",
+    ["cp"] = "",
+    ["c"] = "",
+    ["cs"] = "",
+    ["h"] = "",
+    ["hh"] = "",
+    ["hpp"] = "",
+    ["hxx"] = "",
+    ["hs"] = "",
+    ["lhs"] = "",
+    ["lua"] = "",
+    ["java"] = "",
+    ["sh"] = "",
+    ["fish"] = "",
+    ["bash"] = "",
+    ["zsh"] = "",
+    ["ksh"] = "",
+    ["csh"] = "",
+    ["awk"] = "",
+    ["ps1"] = "",
+    ["ml"] = "λ",
+    ["mli"] = "λ",
+    ["diff"] = "",
+    ["db"] = "",
+    ["sql"] = "",
+    ["dump"] = "",
+    ["clj"] = "",
+    ["cljc"] = "",
+    ["cljs"] = "",
+    ["edn"] = "",
+    ["scala"] = "",
+    ["go"] = "",
+    ["dart"] = "",
+    ["xul"] = "",
+    ["sln"] = "",
+    ["suo"] = "",
+    ["pl"] = "",
+    ["pm"] = "",
+    ["t"] = "",
+    ["rss"] = "",
+    ["f#"] = "",
+    ["fsscript"] = "",
+    ["fsx"] = "",
+    ["fs"] = "",
+    ["fsi"] = "",
+    ["rs"] = "",
+    ["rlib"] = "",
+    ["d"] = "",
+    ["erl"] = "",
+    ["hrl"] = "",
+    ["ex"] = "",
+    ["exs"] = "",
+    ["eex"] = "",
+    ["leex"] = "",
+    ["vim"] = "",
+    ["ai"] = "",
+    ["psd"] = "",
+    ["psb"] = "",
+    ["ts"] = "",
+    ["tsx"] = "",
+    ["jl"] = "",
+    ["pp"] = "",
+    ["vue"] = "﵂",
+    ["elm"] = "",
+    ["swift"] = "",
+    ["xcplayground"] = ""
+  },
+  {
+    __index = function(table, key)
+      local ext = key:match "%.(.+)$"
 
-  handle =
-    uv.spawn(
-    cmd,
-    {
-      args = args,
-      stdio = {nil, stdout},
-      vim.schedule_wrap(
-        function()
-          stdout:read_stop()
-          if not handle:is_closing() then
-            handle:close()
-          end
-
-          if not stdout:is_closing() then
-            stdout:close()
-          end
-        end
-      )
-    }
-  )
-
-  stdout:read_start(vim.schedule_wrap(onread))
-end
+      return ext and table[ext] or ""
+    end
+  }
+)
 
 return M
