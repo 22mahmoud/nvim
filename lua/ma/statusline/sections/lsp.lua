@@ -12,12 +12,16 @@ function M.get_lsp_diagnostics()
   local i = get_diag_count(0, [[Information]])
   local h = get_diag_count(0, [[Hint]])
 
-  return table.concat {
-    block(e, "E: %s,"),
-    block(w, "W: %s,"),
-    block(i, "I: %s,"),
-    block(h, "H: %s,")
-  }:gsub(",%s$", "") -- remove an extra ", " at the end of line
+  return {
+    table.concat {
+      block(e, "E: %s,"),
+      block(w, "W: %s,"),
+      block(i, "I: %s,"),
+      block(h, "H: %s,")
+    }:gsub(",%s$", ""), -- remove an extra ", " at the end of line
+
+    block(w, "E: %s", "")
+  }
 end
 
 return M

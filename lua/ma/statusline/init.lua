@@ -28,7 +28,7 @@ function M.get_active_statusline()
 
   local rhs =
     table.concat {
-    block(diagnostics, "[%s]"),
+    block(truncat(diagnostics, 160), "[%s]"),
     block("%l|%c")
   }
 
