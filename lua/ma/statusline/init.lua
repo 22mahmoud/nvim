@@ -2,8 +2,10 @@ local utils = require("ma.utils")
 local sections = require("ma.statusline.sections")
 local statusline_utils = require("ma.statusline.utils")
 
-local augroup = utils.augroup
+local fmt = string.format
 local block = statusline_utils.block
+local augroup = utils.augroup
+local truncat = statusline_utils.truncat
 
 local M = {}
 _G._.statusline = M
@@ -14,11 +16,13 @@ function M.get_active_statusline()
   local modified_icon = sections.get_modified_icon()
   local readonly_icon = sections.get_readonly_icon()
   local diagnostics = sections.get_lsp_diagnostics()
+  local file_icon = sections.get_file_icon()
 
   local lhs =
     table.concat {
-    block(mode, "[%s]"),
-    block(path),
+    block(truncat(mode, 120), "[%s]"),
+    block(file_icon),
+    block(truncat(path, 120)),
     block(modified_icon),
     block(readonly_icon)
   }

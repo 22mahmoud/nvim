@@ -28,7 +28,7 @@ local modes =
 local function get_mode()
   local mode = modes[vim.fn.mode()]
 
-  return mode.long, mode.sort
+  return {mode.long, mode.short}
 end
 
 return {

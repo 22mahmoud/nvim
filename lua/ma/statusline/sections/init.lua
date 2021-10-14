@@ -7,5 +7,6 @@ return {
   get_path = file_section.get_path,
   get_modified_icon = file_section.get_modified_icon,
   get_readonly_icon = file_section.get_readonly_icon,
+  get_file_icon = file_section.get_file_icon,
   get_lsp_diagnostics = lsp_section.get_lsp_diagnostics
 }
