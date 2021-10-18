@@ -8,6 +8,7 @@ local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 local nvim_set_keymap = vim.api.nvim_set_keymap
 
 local M = {}
+_G._.utils = M
 
 --- Inspired by @tjdevries' astraunauta.nvim/ @TimUntersberger's config
 __KeyMapStore = __KeyMapStore or {}
@@ -53,7 +54,7 @@ local function is_map_args(value, key)
   return has_value(valid_args, key)
 end
 
-local function map(mode, default_options)
+function M.map(mode, default_options)
   return function(lhs, rhs, extra_options)
     default_options = default_options or {}
     extra_options = extra_options or {}
@@ -85,20 +86,20 @@ local function map(mode, default_options)
 end
 
 local map_opts = {noremap = false, silent = true}
-M.nmap = map("n", map_opts)
-M.imap = map("i", map_opts)
-M.vmap = map("v", map_opts)
-M.tmap = map("t", map_opts)
-M.xmap = map("x", map_opts)
-M.cmap = map("c", tbl_extend("keep", {silent = false}, map_opts))
+M.nmap = M.map("n", map_opts)
+M.imap = M.map("i", map_opts)
+M.vmap = M.map("v", map_opts)
+M.tmap = M.map("t", map_opts)
+M.xmap = M.map("x", map_opts)
+M.cmap = M.map("c", tbl_extend("keep", {silent = false}, map_opts))
 
 local noremap_opts = tbl_extend("keep", {noremap = true}, map_opts)
-M.nnoremap = map("n", noremap_opts)
-M.inoremap = map("i", noremap_opts)
-M.vnoremap = map("v", noremap_opts)
-M.tnoremap = map("t", noremap_opts)
-M.xnoremap = map("x", noremap_opts)
-M.cnoremap = map("c", tbl_extend("keep", {silent = false}, noremap_opts))
+M.nnoremap = M.map("n", noremap_opts)
+M.inoremap = M.map("i", noremap_opts)
+M.vnoremap = M.map("v", noremap_opts)
+M.tnoremap = M.map("t", noremap_opts)
+M.xnoremap = M.map("x", noremap_opts)
+M.cnoremap = M.map("c", tbl_extend("keep", {silent = false}, noremap_opts))
 
 function M.sign_define(name, text)
   vim.fn.sign_define(
@@ -106,7 +107,8 @@ function M.sign_define(name, text)
     {
       texthl = name,
       text = text,
-      numhl = name
+      numhl = '',
+      linehl = '',
     }
   )
 end

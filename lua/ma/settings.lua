@@ -160,3 +160,16 @@ local options =
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+vim.diagnostic.config({
+  severity_sort = true,
+  virtual_text = {
+    prefix = "",
+    spacing = 0
+  }
+})
+
+_.utils.sign_define("DiagnosticSignError", "")
+_.utils.sign_define("DiagnosticSignWarn", "")
+_.utils.sign_define("DiagnosticSignHint", "")
+_.utils.sign_define("DiagnosticSignInfo", "")

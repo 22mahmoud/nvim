@@ -51,5 +51,10 @@ cnoremap("<C-a>", "<Home>")
 cnoremap("<C-d>", "<Del>")
 cnoremap("<C-h>", "<BS>")
 
+-- diagnostics
+nnoremap("<leader>ds", vim.diagnostic.show_line_diagnostics)
+nnoremap("<leader>dn", vim.diagnostic.goto_next)
+nnoremap("<leader>dp", vim.diagnostic.goto_prev)
+
 -- Terminal window escape
 tnoremap("<C-x><C-o>", "<C-\\><C-n>")
