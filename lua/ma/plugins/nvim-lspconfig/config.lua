@@ -81,9 +81,14 @@ local function set_lsp_buffer_keybindings(client, bufnr, keymaps)
     for _, mapping in pairs(keybindings) do
       local lhs, rhs, capability = unpack(mapping)
 
-      if not capability or client.resolved_capabilities[capability] then
-        map(lhs, rhs, { bufnr = bufnr })
+      -- skip mapping if capability not enabled
+      if capability and not client.resolved_capabilities[capability] then
+        goto continue
       end
+
+      map(lhs, rhs, { bufnr = bufnr })
+
+      ::continue::
     end
   end
 end
