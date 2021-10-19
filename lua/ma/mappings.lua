@@ -52,9 +52,24 @@ cnoremap("<C-d>", "<Del>")
 cnoremap("<C-h>", "<BS>")
 
 -- diagnostics
-nnoremap("<leader>ds", vim.diagnostic.show_line_diagnostics)
-nnoremap("<leader>dn", vim.diagnostic.goto_next)
-nnoremap("<leader>dp", vim.diagnostic.goto_prev)
+nnoremap(
+  "<leader>ds",
+  function()
+    vim.diagnostic.open_float(0, {scope = "line"})
+  end
+)
+nnoremap(
+  "<leader>dn",
+  function()
+    vim.diagnostic.goto_next {float = false}
+  end
+)
+nnoremap(
+  "<leader>dp",
+  function()
+    vim.diagnostic.goto_prev {float = false}
+  end
+)
 
 -- Terminal window escape
 tnoremap("<C-x><C-o>", "<C-\\><C-n>")

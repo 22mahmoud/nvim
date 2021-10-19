@@ -55,7 +55,10 @@ local function is_map_args(value, key)
 end
 
 function M.map(mode, default_options)
+  if not mode then return end
   return function(lhs, rhs, extra_options)
+    if not lhs or not rhs then return end
+
     default_options = default_options or {}
     extra_options = extra_options or {}
 
