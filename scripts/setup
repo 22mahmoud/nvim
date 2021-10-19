@@ -114,30 +114,7 @@ _install_npm_packages() {
 
 _install_sumneko_lua() {
   printf "[lsp-sumneko]: install\n"
-  sumneko_path="$XDG_CACHE_HOME/nvim/lspconfig/sumneko_lua/lua-language-server"
-  if [ -e "$sumneko_path" ]; then
-    (
-      cd "$sumneko_path" \
-        && git pull origin master
-      git submodule update --remote --merge
-    ) >/dev/null 2>&1
-  else
-    mkdir -p "$sumneko_path"
-    (
-      cd "$sumneko_path" \
-        && git clone --depth=1 https://github.com/sumneko/lua-language-server .
-      git submodule update --init --recursive
-    ) >/dev/null 2>&1
-  fi
-
-  (
-    cd "$sumneko_path/3rd/luamake" \
-      && ./compile/install.sh
-    cd ../.. \
-      && ./3rd/luamake/luamake rebuild
-  ) >/dev/null 2>&1
-
-  rm "$HOME/.zshrc"
+  sudo pacman -S lua-language-server --noconfirm >/dev/null 2>&1
   printf "[lsp-sumneko]: done\n"
 }
 
