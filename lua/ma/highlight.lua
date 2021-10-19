@@ -1,8 +1,8 @@
-local utils = require("ma.utils")
+local utils = require 'ma.utils'
 
 local augroup = utils.augroup
 
-vim.opt.background = "dark"
+vim.opt.background = 'dark'
 
 local function user_highlights()
   vim.cmd [[hi Normal   guibg=NONE ctermbg=NONE]]
@@ -21,15 +21,12 @@ end
 
 user_highlights()
 
-augroup(
-  "UserHighlights",
+augroup('UserHighlights', {
   {
-    {
-      events = {"ColorScheme"},
-      targets = {"*"},
-      command = function()
-        user_highlights()
-      end
-    }
-  }
-)
+    events = { 'ColorScheme' },
+    targets = { '*' },
+    command = function()
+      user_highlights()
+    end,
+  },
+})

@@ -3,11 +3,11 @@ local fmt = string.format
 local M = {}
 
 function M.block(value, template, space)
-  if (value == 0 or value == "" or value == nil or not value) then
-    return ""
+  if value == 0 or value == '' or value == nil or not value then
+    return ''
   end
 
-  return fmt((template or "%s") .. (space or " "), value)
+  return fmt((template or '%s') .. (space or ' '), value)
 end
 
 function M.truncat(data, width)

@@ -1,5 +1,5 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
 
 -- skip vim plugins
 vim.g.did_install_default_menus = 1
@@ -13,9 +13,9 @@ vim.g.loaded_netrwPlugin = 1
 
 _G._ = {}
 
-require "ma.providers"
-require "ma.highlight"
-require "ma.settings"
-require "ma.mappings"
-require "ma.statusline"
-require "ma.plugins"
+require 'ma.providers'
+require 'ma.highlight'
+require 'ma.settings'
+require 'ma.mappings'
+require 'ma.statusline'
+require 'ma.plugins'

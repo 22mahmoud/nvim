@@ -1,6 +1,6 @@
-local utils = require("ma.utils")
-local sections = require("ma.statusline.sections")
-local statusline_utils = require("ma.statusline.utils")
+local utils = require 'ma.utils'
+local sections = require 'ma.statusline.sections'
+local statusline_utils = require 'ma.statusline.utils'
 
 local block = statusline_utils.block
 local augroup = utils.augroup
@@ -17,22 +17,20 @@ function M.get_active_statusline()
   local diagnostics = sections.get_lsp_diagnostics()
   local file_icon = sections.get_file_icon()
 
-  local lhs =
-    table.concat {
-    block(truncat(mode, 120), "[%s]"),
+  local lhs = table.concat {
+    block(truncat(mode, 120), '[%s]'),
     block(file_icon),
     block(truncat(path, 120)),
     block(modified_icon),
-    block(readonly_icon)
+    block(readonly_icon),
   }
 
-  local rhs =
-    table.concat {
-    block(truncat(diagnostics, 160), "[%s]"),
-    block("%l|%c")
+  local rhs = table.concat {
+    block(truncat(diagnostics, 160), '[%s]'),
+    block '%l|%c',
   }
 
-  return lhs .. "%=" .. rhs
+  return lhs .. '%=' .. rhs
 end
 
 function M.get_inactive_statusline()
@@ -48,21 +46,18 @@ local function inactive()
 end
 
 local function setup()
-  augroup(
-    "StatusLine",
+  augroup('StatusLine', {
     {
-      {
-        events = {"WinEnter", "BufEnter"},
-        targets = {"*"},
-        command = active
-      },
-      {
-        events = {"WinLeave", "BufLeave"},
-        targets = {"*"},
-        command = inactive
-      }
-    }
-  )
+      events = { 'WinEnter', 'BufEnter' },
+      targets = { '*' },
+      command = active,
+    },
+    {
+      events = { 'WinLeave', 'BufLeave' },
+      targets = { '*' },
+      command = inactive,
+    },
+  })
 end
 
 setup()

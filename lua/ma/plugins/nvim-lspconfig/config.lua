@@ -5,21 +5,18 @@ local function lsp_highlight_document(client)
     return
   end
 
-  _.utils.augroup(
-    "LspDocumentHighlight",
+  _.utils.augroup('LspDocumentHighlight', {
     {
-      {
-        events = {"CursorHold"},
-        targets = {"<buffer>"},
-        command = vim.lsp.buf.document_highlight
-      },
-      {
-        events = {"CursorMoved"},
-        targets = {"<buffer>"},
-        command = vim.lsp.buf.clear_references
-      }
-    }
-  )
+      events = { 'CursorHold' },
+      targets = { '<buffer>' },
+      command = vim.lsp.buf.document_highlight,
+    },
+    {
+      events = { 'CursorMoved' },
+      targets = { '<buffer>' },
+      command = vim.lsp.buf.clear_references,
+    },
+  })
 end
 
 local function lsp_code_lens_refresh(client)
@@ -27,50 +24,47 @@ local function lsp_code_lens_refresh(client)
     return
   end
 
-  _.utils.augroup(
-    "LspCodeLens",
+  _.utils.augroup('LspCodeLens', {
     {
-      {
-        events = {"BufEnter", "CursorHold", "InsertLeave"},
-        targets = {"<buffer>"},
-        command = vim.lsp.codelens.refresh
-      },
-      {
-        events = {"InsertLeave"},
-        targets = {"<buffer>"},
-        command = vim.lsp.codelens.display
-      }
-    }
-  )
+      events = { 'BufEnter', 'CursorHold', 'InsertLeave' },
+      targets = { '<buffer>' },
+      command = vim.lsp.codelens.refresh,
+    },
+    {
+      events = { 'InsertLeave' },
+      targets = { '<buffer>' },
+      command = vim.lsp.codelens.display,
+    },
+  })
 end
 
 local function setup_lsp_kind()
   vim.lsp.protocol.CompletionItemKind = {
-    "   (Text) ",
-    "   (Method)",
-    "   (Function)",
-    "   (Constructor)",
-    "   (Field)",
-    "  (Variable)",
-    "   (Class)",
-    " ﰮ  (Interface)",
-    "   (Module)",
-    " 襁 (Property)",
-    "   (Unit)",
-    "   (Value)",
-    " 練 (Enum)",
-    "   (Keyword)",
-    "   (Snippet)",
-    "   (Color)",
-    "   (File)",
-    "   (Reference)",
-    "   (Folder)",
-    "   (EnumMember)",
-    "   (Constant)",
-    "   (Struct)",
-    "   (Event)",
-    "   (Operator)",
-    "   (TypeParameter)"
+    '   (Text) ',
+    '   (Method)',
+    '   (Function)',
+    '   (Constructor)',
+    '   (Field)',
+    '  (Variable)',
+    '   (Class)',
+    ' ﰮ  (Interface)',
+    '   (Module)',
+    ' 襁 (Property)',
+    '   (Unit)',
+    '   (Value)',
+    ' 練 (Enum)',
+    '   (Keyword)',
+    '   (Snippet)',
+    '   (Color)',
+    '   (File)',
+    '   (Reference)',
+    '   (Folder)',
+    '   (EnumMember)',
+    '   (Constant)',
+    '   (Struct)',
+    '   (Event)',
+    '   (Operator)',
+    '   (TypeParameter)',
   }
 end
 
@@ -104,37 +98,35 @@ local function publishDiagnostics(error, result, ctx)
 
   local diagnostics = vim.diagnostic.get(bufnr)
 
-  vim.fn.setloclist(
-    0,
-    {},
-    "r",
-    {
-      title = "LSP errors",
-      bufnr = bufnr,
-      items = vim.diagnostic.toqflist(diagnostics)
-    }
-  )
+  vim.fn.setloclist(0, {}, 'r', {
+    title = 'LSP errors',
+    bufnr = bufnr,
+    items = vim.diagnostic.toqflist(diagnostics),
+  })
 end
 
 local function setup_lsp_handlers()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = publishDiagnostics
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = publishDiagnostics
 
-  vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"})
+  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    { border = 'single' }
+  )
 
-  vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
+  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    { border = 'single' }
+  )
 end
-
 
 function M.get_client_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
+      'documentation',
+      'detail',
+      'additionalTextEdits',
     },
   }
 
@@ -150,12 +142,12 @@ end
 function M.get_config_opts()
   return {
     on_attach = M.on_attach,
-    capabilities = M.get_client_capabilities()
+    capabilities = M.get_client_capabilities(),
   }
 end
 
 function M.setup(servers)
-  local lspconfig = require "lspconfig"
+  local lspconfig = require 'lspconfig'
 
   setup_lsp_handlers()
 
@@ -164,13 +156,7 @@ function M.setup(servers)
   local config = M.get_config_opts()
 
   for server, user_config in pairs(servers) do
-    lspconfig[server].setup(
-      vim.tbl_deep_extend(
-        "force",
-        config,
-        user_config
-      )
-    )
+    lspconfig[server].setup(vim.tbl_deep_extend('force', config, user_config))
   end
 end
 

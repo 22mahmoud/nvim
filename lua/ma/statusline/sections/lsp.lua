@@ -1,6 +1,6 @@
 local M = {}
 
-local statusline_utils = require("ma.statusline.utils")
+local statusline_utils = require 'ma.statusline.utils'
 
 local block = statusline_utils.block
 
@@ -13,14 +13,14 @@ function M.get_lsp_diagnostics()
   local h = get_diag_count(0, [[Hint]])
 
   return {
-    table.concat {
-      block(e, "E: %s,"),
-      block(w, "W: %s,"),
-      block(i, "I: %s,"),
-      block(h, "H: %s,")
-    }:gsub(",%s$", ""), -- remove an extra ", " at the end of line
+    table.concat({
+      block(e, 'E: %s,'),
+      block(w, 'W: %s,'),
+      block(i, 'I: %s,'),
+      block(h, 'H: %s,'),
+    }):gsub(',%s$', ''), -- remove an extra ", " at the end of line
 
-    block(w, "E: %s", "")
+    block(w, 'E: %s', ''),
   }
 end
 
