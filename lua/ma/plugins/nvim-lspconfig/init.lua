@@ -11,7 +11,11 @@ lsp.setup {
       Lua = {
         runtime = {
           version = 'LuaJIT',
-          path = vim.split(package.path, ';'),
+          path = vim.tbl_deep_extend(
+            'force',
+            vim.split(package.path, ';'),
+            { 'lua/?.lua', 'lua/?/init.lua' }
+          ),
         },
         diagnostics = {
           globals = { 'vim' },
