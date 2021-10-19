@@ -1,9 +1,18 @@
+local root_pattern = require('lspconfig/util').root_pattern
 local lsp = require 'ma.plugins.nvim-lspconfig.config'
 
 lsp.setup {
   html = {},
   cssls = {},
-  tsserver = {},
+  tsserver = {
+    root_dir = root_pattern(
+      'package.json',
+      'tsconfig.json',
+      'jsconfig.json',
+      '.git',
+      vim.fn.getcwd()
+    ),
+  },
   eslint = {},
   sumneko_lua = {
     cmd = { 'lua-language-server' },
