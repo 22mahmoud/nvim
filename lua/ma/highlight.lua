@@ -1,7 +1,3 @@
-local utils = require 'ma.utils'
-
-local augroup = utils.augroup
-
 vim.opt.background = 'dark'
 
 local function user_highlights()
@@ -21,7 +17,7 @@ end
 
 user_highlights()
 
-augroup('UserHighlights', {
+G.augroup('UserHighlights', {
   {
     events = { 'ColorScheme' },
     targets = { '*' },

@@ -1,7 +1,5 @@
 local M = {}
 
-local icons = require('ma.utils').icons
-
 local fn = vim.fn
 local opt = vim.opt
 
@@ -24,7 +22,7 @@ function M.get_path()
 end
 
 function M.get_file_icon()
-  return icons[fn.expand '%:t']
+  return G.icons[fn.expand '%:t']
 end
 
 function M.get_modified_icon()

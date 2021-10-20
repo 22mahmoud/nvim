@@ -1,73 +1,64 @@
-local utils = require 'ma.utils'
-
-local nnoremap = utils.nnoremap
-local cnoremap = utils.cnoremap
-local vnoremap = utils.vnoremap
-local tnoremap = utils.tnoremap
-local inoremap = utils.inoremap
-local toggle_qf = utils.toggle_qf
-
 -- navigation & find & search
-nnoremap('<leader>p', ':find<space>', { silent = false })
-nnoremap('<leader>rg', ':grep<space>', { silent = false })
-nnoremap('<leader>gw', ':grep <cword> . <cr>')
+G.nnoremap('<leader>p', ':find<space>', { silent = false })
+G.nnoremap('<leader>rg', ':grep<space>', { silent = false })
+G.nnoremap('<leader>gw', ':grep <cword> . <cr>')
 
 -- Move selected line / block of text in visual mode
-vnoremap('J', ":move '>+1<CR>gv-gv")
-vnoremap('K', ":move '<-2<CR>gv-gv")
+G.vnoremap('J', ":move '>+1<CR>gv-gv")
+G.vnoremap('K', ":move '<-2<CR>gv-gv")
 
 -- better movement between window buffers
-nnoremap('<c-k>', '<c-w><c-k>')
-nnoremap('<c-h>', '<c-w><c-h>')
-nnoremap('<c-j>', '<c-w><c-j>')
-nnoremap('<c-l>', '<c-w><c-l>')
+G.nnoremap('<c-k>', '<c-w><c-k>')
+G.nnoremap('<c-h>', '<c-w><c-h>')
+G.nnoremap('<c-j>', '<c-w><c-j>')
+G.nnoremap('<c-l>', '<c-w><c-l>')
 
 -- better yank behaviour
-nnoremap('Y', 'y$')
+G.nnoremap('Y', 'y$')
 
 -- better indenting experience
-vnoremap('<', '<gv')
-vnoremap('>', '>gv')
+G.vnoremap('<', '<gv')
+G.vnoremap('>', '>gv')
 
 -- buffers
-nnoremap('<leader>bn', ':bn<cr>')
-nnoremap('<leader>bp', ':bp<cr>')
-nnoremap('<leader>bl', ':buffers<cr>:buffer<space>')
-nnoremap('<leader>bd', ':bd!<cr>')
+G.nnoremap('<leader>bn', ':bn<cr>')
+G.nnoremap('<leader>bp', ':bp<cr>')
+G.nnoremap('<leader>bl', ':buffers<cr>:buffer<space>')
+G.nnoremap('<leader>bd', ':bd!<cr>')
 
 -- quick list
-nnoremap('<leader>qn', ':cn<cr>')
-nnoremap('<leader>qp', ':cp<cr>')
-nnoremap('<leader>ql', toggle_qf, { nowait = false })
-nnoremap('<leader>qq', ':cex []<cr>')
+G.nnoremap('<leader>qn', ':cn<cr>')
+G.nnoremap('<leader>qp', ':cp<cr>')
+G.nnoremap('<leader>ql', G.toggle_qf, { nowait = false })
+G.nnoremap('<leader>qq', ':cex []<cr>')
 
 -- better command mode navigation
-cnoremap('<C-b>', '<Left>')
-cnoremap('<C-f>', '<Right>')
-cnoremap('<C-n>', '<Down>')
-cnoremap('<C-p>', '<Up>')
-cnoremap('<C-e>', '<End>')
-cnoremap('<C-a>', '<Home>')
-cnoremap('<C-d>', '<Del>')
-cnoremap('<C-h>', '<BS>')
+G.cnoremap('<C-b>', '<Left>')
+G.cnoremap('<C-f>', '<Right>')
+G.cnoremap('<C-n>', '<Down>')
+G.cnoremap('<C-p>', '<Up>')
+G.cnoremap('<C-e>', '<End>')
+G.cnoremap('<C-a>', '<Home>')
+G.cnoremap('<C-d>', '<Del>')
+G.cnoremap('<C-h>', '<BS>')
 
 -- diagnostics
-nnoremap('<leader>ds', function()
+G.nnoremap('<leader>ds', function()
   vim.diagnostic.open_float(0, { scope = 'line' })
 end)
-nnoremap('<leader>dn', function()
+G.nnoremap('<leader>dn', function()
   vim.diagnostic.goto_next { float = false }
 end)
-nnoremap('<leader>dp', function()
+G.nnoremap('<leader>dp', function()
   vim.diagnostic.goto_prev { float = false }
 end)
 
 -- Terminal window escape
-tnoremap('<C-x><C-o>', '<C-\\><C-n>')
+G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 
 -- lsp
-_.lsp = _.lsp or {}
-_.lsp.mappings = {
+G.lsp = G.lsp or {}
+G.lsp.mappings = {
   n = {
     { ',f', vim.lsp.buf.formatting, 'document_formatting' },
     { 'gr', vim.lsp.buf.references, 'find_references' },

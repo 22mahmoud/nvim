@@ -168,7 +168,7 @@ vim.diagnostic.config {
   },
 }
 
-_.utils.sign_define('DiagnosticSignError', '')
-_.utils.sign_define('DiagnosticSignWarn', '')
-_.utils.sign_define('DiagnosticSignHint', '')
-_.utils.sign_define('DiagnosticSignInfo', '')
+G.sign_define('DiagnosticSignError', '')
+G.sign_define('DiagnosticSignWarn', '')
+G.sign_define('DiagnosticSignHint', '')
+G.sign_define('DiagnosticSignInfo', '')

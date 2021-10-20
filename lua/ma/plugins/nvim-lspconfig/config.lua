@@ -5,7 +5,7 @@ local function lsp_highlight_document(client)
     return
   end
 
-  _.utils.augroup('LspDocumentHighlight', {
+  G.augroup('LspDocumentHighlight', {
     {
       events = { 'CursorHold' },
       targets = { '<buffer>' },
@@ -24,7 +24,7 @@ local function lsp_code_lens_refresh(client)
     return
   end
 
-  _.utils.augroup('LspCodeLens', {
+  G.augroup('LspCodeLens', {
     {
       events = { 'BufEnter', 'CursorHold', 'InsertLeave' },
       targets = { '<buffer>' },
@@ -70,9 +70,9 @@ end
 
 local function set_lsp_buffer_keybindings(client, bufnr, keymaps)
   local mappings = {
-    n = _.utils.nmap,
-    i = _.utils.imap,
-    v = _.utils.vmap,
+    n = G.nmap,
+    i = G.imap,
+    v = G.vmap,
   }
 
   for mode, keybindings in pairs(keymaps) do
@@ -142,7 +142,7 @@ function M.on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   lsp_highlight_document(client)
   lsp_code_lens_refresh(client)
-  set_lsp_buffer_keybindings(client, bufnr, _.lsp.mappings)
+  set_lsp_buffer_keybindings(client, bufnr, G.lsp.mappings)
 end
 
 function M.get_config_opts()
