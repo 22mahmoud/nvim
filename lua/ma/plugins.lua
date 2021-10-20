@@ -1,9 +1,5 @@
-local fmt = string.format
-
 local function packadd(plugin)
-  vim.cmd(fmt('packadd %s', plugin))
-
-  pcall(require, fmt('ma.plugins.%s', plugin))
+  vim.cmd('packadd ' .. plugin)
 end
 
 packadd 'nvim-base16'

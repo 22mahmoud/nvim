@@ -1,5 +1,5 @@
 local root_pattern = require('lspconfig/util').root_pattern
-local lsp = require 'ma.plugins.nvim-lspconfig.config'
+local lsp = require 'ma.lsp'
 
 lsp.setup {
   html = {},
