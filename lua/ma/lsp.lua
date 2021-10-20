@@ -68,14 +68,14 @@ local function setup_lsp_kind()
   }
 end
 
-local function set_lsp_buffer_keybindings(client, bufnr, keymaps)
+local function set_lsp_buffer_keybindings(client, bufnr)
   local mappings = {
     n = G.nmap,
     i = G.imap,
     v = G.vmap,
   }
 
-  for mode, keybindings in pairs(keymaps) do
+  for mode, keybindings in pairs(G.lsp.mappings) do
     local map = mappings[mode]
 
     for _, mapping in pairs(keybindings) do
@@ -142,13 +142,16 @@ function M.on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   lsp_highlight_document(client)
   lsp_code_lens_refresh(client)
-  set_lsp_buffer_keybindings(client, bufnr, G.lsp.mappings)
+  set_lsp_buffer_keybindings(client, bufnr)
 end
 
 function M.get_config_opts()
   return {
     on_attach = M.on_attach,
     capabilities = M.get_client_capabilities(),
+    flags = {
+      debounce_text_changes = 50,
+    },
   }
 end
 
