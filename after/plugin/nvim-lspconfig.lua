@@ -127,7 +127,7 @@ lsp.setup {
           ),
         },
         diagnostics = {
-          globals = { 'vim' },
+          globals = { 'vim', 'G' },
         },
         workspace = {
           library = vim.api.nvim_get_runtime_file('', true),

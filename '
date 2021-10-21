@@ -1,0 +1,56 @@
+local M = {}
+G.comment = M
+
+function M.operator(mode)
+  if not mode then
+    vim.opt.operatorfunc = 'v:lua.G.comment.operator'
+    return 'g@'
+  end
+
+  vim.cmd(
+    string.format(
+      'lockmarks lua G.comment.toggle_lines(%d, %d)',
+      unpack(vim.api.nvim_buf_get_mark(0, mode == 'visual' and '<' or '[')),
+      unpack(vim.api.nvim_buf_get_mark(0, mode == 'visual' and '>' or ']'))
+    )
+  )
+
+  return ''
+end
+
+function M.toggle_lines(line_start, line_end)
+  print(line_start, line_end)
+
+  local comment_parts = M.parse_comment_string()
+  local lines = vim.api.nvim_buf_get_lines(0, line_start - 1, line_end, false)
+
+  for n, l in pairs(lines) do
+    lines[n] = l
+  end
+
+  vim.api.nvim_buf_set_lines(0, line_start - 1, line_end, false, lines)
+end
+
+function M.parse_comment_string()
+  local cs = vim.opt.commentstring:get()
+
+  if cs == '' then
+    vim.notify [[Option 'commentstring' is empty.]]
+    return { right = '', left = '' }
+  end
+
+  local right, left = cs:match '^%s*(.-)%s*%%s%s*(.-)%s*$'
+
+  return { right = right, left = left }
+end
+
+function M.setup()
+  G.nnoremap('gc', [[v:lua.G.comment.operator()]], { expr = true })
+  G.xnoremap('gc', [[:<c-u>lua G.comment.operator("visual")<cr>]])
+  G.nnoremap('gcc', [[v:lua.G.comment.operator() . "_"]], { expr = true })
+  G.onoremap('gc', [[<cmd>lua G.comment.textobject()<cr>]])
+end
+
+M.setup()
+
+return M
