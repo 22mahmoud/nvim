@@ -115,6 +115,7 @@ local search = {
 }
 
 local general = {
+  exrc = true,
   clipboard = 'unnamedplus',
   termguicolors = true,
   encoding = 'utf-8',
