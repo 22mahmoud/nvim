@@ -166,6 +166,7 @@ vim.diagnostic.config {
   virtual_text = {
     prefix = '',
     spacing = 0,
+    source = 'always',
   },
 }
 

@@ -5,6 +5,7 @@ lsp.setup {
   html = {},
   cssls = {},
   pyright = {},
+  vimls = {},
   tsserver = {
     on_attach = function(client, bufnr)
       lsp.on_attach(client, bufnr)

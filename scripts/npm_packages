@@ -5,4 +5,4 @@ typescript-language-server
 bash-language-server
 vscode-langservers-extracted
 vim-language-server
-lua-fmt
+vim-language-server
