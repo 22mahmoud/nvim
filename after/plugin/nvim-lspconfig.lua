@@ -6,6 +6,11 @@ lsp.setup {
   cssls = {},
   pyright = {},
   tsserver = {
+    on_attach = function(client, bufnr)
+      lsp.on_attach(client, bufnr)
+
+      client.resolved_capabilities.document_formatting = false
+    end,
     root_dir = root_pattern(
       'package.json',
       'tsconfig.json',
@@ -19,9 +24,6 @@ lsp.setup {
   efm = {
     init_options = {
       documentFormatting = true,
-      hover = true,
-      documentSymbol = true,
-      codeAction = true,
     },
   },
   yamlls = {

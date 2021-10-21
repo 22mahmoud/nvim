@@ -38,6 +38,39 @@ local function lsp_code_lens_refresh(client)
   })
 end
 
+local function floating_preview_popup()
+  local original_fn = vim.lsp.util.open_floating_preview
+
+  vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
+    local max_width = math.max(math.floor(vim.opt.columns:get() * 0.7), 80)
+    local max_height = math.max(math.floor(vim.opt.lines:get() * 0.3), 30)
+
+    local default_opts = {
+      max_width = max_width,
+      max_height = max_height,
+      separator = false,
+    }
+
+    return original_fn(
+      contents,
+      syntax,
+      vim.tbl_extend('force', opts or {}, default_opts)
+    )
+  end
+end
+
+local function floating_window_borders()
+  local original_fn = vim.lsp.util.make_floating_popup_options
+
+  vim.lsp.util.make_floating_popup_options = function(width, height, opts)
+    return original_fn(
+      width,
+      height,
+      vim.tbl_deep_extend('force', opts or {}, { border = 'single' })
+    )
+  end
+end
+
 local function setup_lsp_kind()
   vim.lsp.protocol.CompletionItemKind = {
     '   (Text) ',
@@ -110,20 +143,6 @@ local function publishDiagnostics(error, result, ctx)
   })
 end
 
-local function setup_lsp_handlers()
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = publishDiagnostics
-
-  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = 'single' }
-  )
-
-  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    { border = 'single' }
-  )
-end
-
 function M.get_client_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -150,7 +169,8 @@ function M.get_config_opts()
     on_attach = M.on_attach,
     capabilities = M.get_client_capabilities(),
     flags = {
-      debounce_text_changes = 50,
+      allow_incremental_sync = true,
+      debounce_text_changes = 150,
     },
   }
 end
@@ -158,7 +178,11 @@ end
 function M.setup(servers)
   local lspconfig = require 'lspconfig'
 
-  setup_lsp_handlers()
+  floating_preview_popup()
+
+  floating_window_borders()
+
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = publishDiagnostics
 
   setup_lsp_kind()
 
