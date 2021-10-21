@@ -7,8 +7,6 @@ local tbl_extend = vim.tbl_extend
 local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 local nvim_set_keymap = vim.api.nvim_set_keymap
 
-local M = {}
-
 G.__KeyCommandMapStore = G.__KeyCommandMapStore or {}
 G._store = G.__KeyCommandMapStore
 
@@ -132,7 +130,7 @@ function G.augroup(name, commands)
       command = fmt('lua G._execute(%s)', fn_id)
     end
     vim.cmd(
-      string.format(
+      fmt(
         'autocmd %s %s %s %s',
         table.concat(c.events, ','),
         table.concat(c.targets or {}, ','),
@@ -142,6 +140,22 @@ function G.augroup(name, commands)
     )
   end
   vim.cmd 'augroup END'
+end
+
+function G.command(args)
+  local nargs = args.nargs or 0
+  local name = args[1]
+  local rhs = args[2]
+  local types = (args.types and type(args.types) == 'table')
+      and table.concat(args.types, ' ')
+    or ''
+
+  if type(rhs) == 'function' then
+    local fn_id = G._create(rhs)
+    rhs = fmt('lua G._execute(%d%s)', fn_id, nargs > 0 and ', <f-args>' or '')
+  end
+
+  vim.cmd(fmt('command! -nargs=%s %s %s %s', nargs, types, name, rhs))
 end
 
 function G.toggle_qf()
