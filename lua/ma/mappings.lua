@@ -64,7 +64,6 @@ G.lsp.mappings = {
     { 'gr', vim.lsp.buf.references, 'find_references' },
     { 'K', vim.lsp.buf.hover, 'hover' },
     { 'gi', vim.lsp.buf.implementation, 'implementation' },
-    { 'gi', vim.lsp.buf.implementation, 'implementation' },
     { 'gd', vim.lsp.buf.definition, 'goto_definition' },
     { 'gd', vim.lsp.buf.declaration, 'declaration' },
     { 'sh', vim.lsp.buf.signature_help, 'signature_help' },
