@@ -5,4 +5,3 @@ end
 packadd 'nvim-base16'
 packadd 'nvim-treesitter'
 packadd 'nvim-lspconfig'
-packadd 'vim-surround'

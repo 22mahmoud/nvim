@@ -7,6 +7,3 @@
 [submodule "pack/plugins/opt/nvim-treesitter"]
 	path = pack/plugins/opt/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
-[submodule "pack/plugins/opt/vim-surround"]
-	path = pack/plugins/opt/vim-surround
-	url = https://github.com/tpope/vim-surround
