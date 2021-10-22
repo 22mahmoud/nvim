@@ -19,6 +19,12 @@ G._execute = function(id)
   G._store[id]()
 end
 
+function G.P(...)
+  print(vim.inspect(...))
+
+  return ...
+end
+
 local function has_value(tab, val)
   for _, value in ipairs(tab) do
     if value == val then
