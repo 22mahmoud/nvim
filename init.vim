@@ -27,6 +27,7 @@ lua << EOF
 
   require 'ma.providers'
   require 'ma.utils'
+  require 'ma.fun'
   require 'ma.highlight'
   require 'ma.settings'
   require 'ma.mappings'
