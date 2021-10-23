@@ -62,15 +62,13 @@ function G.filter(fn, xs)
 end
 
 function G.all(fn, xs)
-  local res = G.map(fn, xs)
   return G.reduce(function(acc, x)
-    return acc and x
-  end, true, res)
+    return acc and fn(x)
+  end, true, xs)
 end
 
 function G.any(fn, xs)
-  local res = G.map(fn, xs)
   return G.reduce(function(acc, x)
-    return acc or x
-  end, true, res)
+    return acc or fn(x)
+  end, true, xs)
 end
