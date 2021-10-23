@@ -6,6 +6,7 @@ local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
 local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 local nvim_set_keymap = vim.api.nvim_set_keymap
+local uv = vim.loop
 
 G.__KeyCommandMapStore = G.__KeyCommandMapStore or {}
 G._store = G.__KeyCommandMapStore
@@ -326,3 +327,74 @@ G.icons = setmetatable({
     return ext and table[ext] or ''
   end,
 })
+
+function G.run_command(user_cmd, user_opts)
+  local cmd = table.concat(
+    vim.tbl_map(vim.fn.expand, vim.split(user_cmd, ' ')),
+    ' '
+  )
+
+  local default_opts = {
+    use_stdin = false,
+    schedule = true,
+    split_lines = true,
+    on_exit = function() end,
+    on_read = function() end,
+  }
+
+  local opts = vim.tbl_extend('keep', user_opts, default_opts)
+
+  local stdout = uv.new_pipe()
+  local stderr = uv.new_pipe()
+  local stdin = opts.use_stdin and uv.new_pipe() or nil
+  local stdio = { stdin, stdout, stderr }
+
+  local handle
+
+  local function on_exit(code, signal)
+    stdout:read_stop()
+    stderr:read_stop()
+
+    stdout:close()
+    stderr:close()
+
+    if stdin then
+      stdin:shutdown()
+    end
+
+    handle:close()
+
+    if type(opts.on_exist) == 'function' then
+      opts.on_exit(code, signal)
+    end
+  end
+
+  local function on_read(error, data)
+    assert(not error, error)
+
+    if not data then
+      return
+    end
+
+    data = vim.split(data, '\n')
+
+    if type(opts.on_read) == 'function' then
+      opts.on_read(data)
+    end
+  end
+
+  handle = uv.spawn(vim.o.shell, {
+    args = {
+      vim.o.shellcmdflag,
+      cmd,
+    },
+    stdio = stdio,
+  }, vim.schedule_wrap(
+    on_exit
+  ))
+
+  uv.read_start(stdout, vim.schedule_wrap(on_read))
+  uv.read_start(stderr, vim.schedule_wrap(on_read))
+
+  return handle, stdin
+end
