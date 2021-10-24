@@ -77,7 +77,7 @@ end
 
 function M.setup()
   G.nmap('<c-j>', '<c-w>w')
-  G.nmap('<c-k>', '<c-w>w')
+  G.nmap('<c-k>', '<c-w>W')
   G.nmap('<c-l>', M.grow_master)
   G.nmap('<c-h>', M.shrink_master)
   G.nmap('<c-n>', M.new)
