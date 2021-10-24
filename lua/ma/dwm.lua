@@ -62,10 +62,10 @@ function M.on_entr()
     return
   end
 
-  if
-    vim.opt_local.filetype:get() == ''
-    or vim.opt_local.buftype:get() == 'quickfix'
-  then
+  local ft = vim.opt_local.filetype:get()
+  local buft = vim.opt_local.buftype:get()
+
+  if (ft == '' and not buft == 'terminal') or buft == 'quickfix' then
     return
   end
 
