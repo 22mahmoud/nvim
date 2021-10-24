@@ -73,12 +73,12 @@ end
 
 local function setup_lsp_kind()
   vim.lsp.protocol.CompletionItemKind = {
-    '   (Text) ',
+    '   (Text)',
     '   (Method)',
     '   (Function)',
     '   (Constructor)',
     '   (Field)',
-    '  (Variable)',
+    '   (Variable)',
     '   (Class)',
     ' ﰮ  (Interface)',
     '   (Module)',
