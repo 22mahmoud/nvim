@@ -57,15 +57,15 @@ function M.close()
   end
 end
 
+-- TODO: fix the behavior
 function M.on_entr()
-  if vim.fn.winnr '$' == 1 then
+  local buft = vim.opt_local.buftype:get()
+
+  if buft ~= '' and buft ~= 'help' and buft ~= 'terminal' then
     return
   end
 
-  local ft = vim.opt_local.filetype:get()
-  local buft = vim.opt_local.buftype:get()
-
-  if (ft == '' and not buft == 'terminal') or buft == 'quickfix' then
+  if vim.fn.winnr '$' == 1 then
     return
   end
 
