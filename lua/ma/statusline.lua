@@ -86,12 +86,16 @@ local function get_readonly_icon()
 end
 
 local function get_lsp_diagnostics()
-  local get_diag_count = vim.lsp.diagnostic.get_count
+  local get_diag_count = function(severity)
+    return #vim.diagnostic.get(0, { severity = severity })
+  end
 
-  local e = get_diag_count(0, [[Error]])
-  local w = get_diag_count(0, [[Warning]])
-  local i = get_diag_count(0, [[Information]])
-  local h = get_diag_count(0, [[Hint]])
+  local severity = vim.diagnostic.severity
+
+  local e = get_diag_count(severity.ERROR)
+  local w = get_diag_count(severity.WARN)
+  local i = get_diag_count(severity.INFO)
+  local h = get_diag_count(severity.HINT)
 
   return {
     table.concat({
