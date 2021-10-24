@@ -41,7 +41,7 @@ function M.get_lines_indent(lines)
   return G.reduce(function(acc, l)
     local _, current_indent = l:find '^%s*'
 
-    if current_indent < acc then
+    if current_indent < acc and current_indent < l:len() then
       return current_indent
     end
 
