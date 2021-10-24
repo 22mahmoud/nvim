@@ -1,5 +1,7 @@
 local M = {}
 
+local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+
 local function lsp_highlight_document(client)
   if not client.resolved_capabilities.document_highlight then
     return
@@ -66,7 +68,7 @@ local function floating_window_borders()
     return original_fn(
       width,
       height,
-      vim.tbl_deep_extend('force', opts or {}, { border = 'single' })
+      vim.tbl_deep_extend('force', opts or {}, { border = border })
     )
   end
 end
