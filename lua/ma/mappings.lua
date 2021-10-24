@@ -1,5 +1,5 @@
 -- navigation & find & search
-G.nnoremap('<leader>p', ':find<space>', { silent = false })
+G.nnoremap('<leader>p', ':new | find<space>', { silent = false })
 G.nnoremap('<leader>rg', ':grep<space>', { silent = false })
 G.nnoremap('<leader>gw', ':grep <cword> . <cr>')
 

@@ -34,5 +34,6 @@ lua << EOF
   require 'ma.commands'
   require 'ma.statusline'
   require 'ma.comment'
+  require 'ma.dwm'
   require 'ma.plugins'
 EOF
