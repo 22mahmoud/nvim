@@ -143,13 +143,16 @@ local function active()
 
   G.run_command(
     fmt(
-      'git -C %s symbolic-ref --short -q HEAD 2>/dev/null || git -C %s rev-parse --short HEAD 2>/dev/null',
+      'git -C %s symbolic-ref --short -q HEAD || git -C %s rev-parse --short HEAD',
       directory,
       directory
     ),
     {
-      on_read = function(data)
+      on_data = function(data)
         vim.g.git_head = unpack(data)
+      end,
+      on_error = function()
+        vim.g.git_head = nil
       end,
     }
   )

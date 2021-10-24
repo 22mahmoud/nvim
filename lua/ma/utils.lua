@@ -369,17 +369,32 @@ function G.run_command(user_cmd, user_opts)
     end
   end
 
-  local function on_read(error, data)
+  local function on_data(error, data)
     assert(not error, error)
 
     if not data then
       return
     end
 
-    data = vim.split(data, '\n')
+    data = vim.tbl_map(vim.trim, vim.split(vim.trim(data), '\n'))
+    -- G.P(data)
 
-    if type(opts.on_read) == 'function' then
-      opts.on_read(data)
+    if type(opts.on_data) == 'function' then
+      opts.on_data(data)
+    end
+  end
+
+  local function on_error(error, data)
+    assert(not error, error)
+
+    if not data then
+      return
+    end
+
+    data = vim.tbl_map(vim.trim, vim.split(vim.trim(data), '\n'))
+
+    if type(opts.on_error) == 'function' then
+      opts.on_error(data)
     end
   end
 
@@ -393,8 +408,8 @@ function G.run_command(user_cmd, user_opts)
     on_exit
   ))
 
-  uv.read_start(stdout, vim.schedule_wrap(on_read))
-  uv.read_start(stderr, vim.schedule_wrap(on_read))
+  uv.read_start(stdout, vim.schedule_wrap(on_data))
+  uv.read_start(stderr, vim.schedule_wrap(on_error))
 
   return handle, stdin
 end
