@@ -105,6 +105,12 @@ local display = {
     precedes = '«',
     trail = '•',
   },
+  diffopt = {
+    'vertical',
+    'algorithm:histogram',
+    'indent-heuristic',
+    'hiddenoff',
+  },
 }
 
 local search = {
