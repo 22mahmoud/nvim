@@ -123,7 +123,7 @@ function M.get_active_statusline()
     block(truncat(path, 120)),
     block(modified_icon),
     block(readonly_icon),
-    block(vim.g.git_head, '( %s)'),
+    block(vim.b.git_head, '( %s)'),
   }
 
   local rhs = table.concat {
@@ -149,10 +149,10 @@ local function active()
     ),
     {
       on_data = function(data)
-        vim.g.git_head = unpack(data)
+        vim.b.git_head = unpack(data)
       end,
       on_error = function()
-        vim.g.git_head = nil
+        vim.b.git_head = nil
       end,
     }
   )
