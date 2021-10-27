@@ -45,12 +45,13 @@ o.shortmess:append 'o'
 o.shortmess:append 't'
 o.list = true
 o.listchars = {
-  eol = '↴',
-  tab = '__',
+  eol = '↲',
+  space = '⋅',
   trail = '•',
   extends = '❯',
   precedes = '❮',
-  nbsp = '_',
+  conceal = '┊',
+  nbsp = '␣',
 }
 o.diffopt = {
   'vertical',
