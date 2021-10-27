@@ -73,7 +73,7 @@ o.splitright = true
 o.equalalways = false
 
 -- better grip with 'rg'
-if vim.fn.executable 'rg' then
+if vim.fn.executable 'rg' == 1 then
   o.grepprg = [[rg --hidden --smart-case --vimgrep]]
   o.grepformat = { '%f:%l:%c:%m' }
 end
