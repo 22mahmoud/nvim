@@ -1,172 +1,114 @@
-local indentation = {
-  wrap = false,
-  softtabstop = 2,
-  textwidth = 80,
-  shiftwidth = 2,
-  expandtab = true,
-  autoindent = true,
-  shiftround = true,
+local o = vim.opt
+
+-- base
+o.hidden = true
+o.scrolloff = 10
+o.mouse = 'a'
+o.mousefocus = true
+o.emoji = false
+o.confirm = true
+o.lazyredraw = true
+o.showcmd = false
+o.showmode = false
+o.title = true
+o.titlestring = '%<%F - nvim'
+o.exrc = true
+o.clipboard = 'unnamedplus'
+o.encoding = 'utf8'
+o.fileformats = { 'unix', 'mac', 'dos' }
+o.updatetime = 0
+o.timeout = true
+o.timeoutlen = 500
+o.ttimeoutlen = 10
+o.showtabline = 0
+o.virtualedit = 'block'
+o.viewoptions = 'cursor,folds'
+
+-- ui/display
+vim.cmd [[syntax enable]]
+vim.cmd [[filetype plugin indent on]]
+o.wrap = false
+o.termguicolors = true
+o.textwidth = 80
+o.laststatus = 2
+o.conceallevel = 2
+o.signcolumn = 'yes'
+o.colorcolumn = '+1'
+o.showmatch = true
+o.shortmess:append 'A'
+o.shortmess:append 'I'
+o.shortmess:append 'O'
+o.shortmess:append 'T'
+o.shortmess:append 'W'
+o.shortmess:append 'a'
+o.shortmess:append 'o'
+o.shortmess:append 't'
+o.list = true
+o.listchars = {
+  eol = '↴',
+  tab = '__',
+  trail = '•',
+  extends = '❯',
+  precedes = '❮',
+  nbsp = '_',
+}
+o.diffopt = {
+  'vertical',
+  'algorithm:histogram',
+  'indent-heuristic',
+  'hiddenoff',
 }
 
-local timings = {
-  updatetime = 300,
-  timeout = true,
-  timeoutlen = 500,
-  ttimeoutlen = 10,
-}
+-- indentation
+o.softtabstop = 2
+o.tabstop = 2
+o.shiftwidth = 2
+o.expandtab = true
+o.smartindent = true
 
-local win_buff = {
-  hidden = true,
-  splitbelow = true,
-  splitright = true,
-  scrolloff = 10,
-  equalalways = false,
-  laststatus = 2,
-}
+-- better split behavior
+o.splitbelow = true
+o.splitright = true
+o.equalalways = false
 
-local grep = {}
+-- better grip with 'rg'
 if vim.fn.executable 'rg' then
-  grep = {
-    grepprg = [[rg --hidden --smart-case --vimgrep]],
-    grepformat = { '%f:%l:%c:%m' },
-  }
+  o.grepprg = [[rg --hidden --smart-case --vimgrep]]
+  o.grepformat = { '%f:%l:%c:%m' }
 end
 
-local complete = {
-  path = { '.', ',' },
-  completeopt = { 'menuone', 'noselect' },
-  complete = { '.', 'w', 'b', 'k' },
-  pumheight = 15,
-  pumblend = 10,
-  wildmode = { 'longest:full', 'full' },
-  wildcharm = vim.fn.char2nr [[\<C-Z>]],
-  wildoptions = 'pum',
-  wildignorecase = true,
-  wildignore = {
-    '*.aux',
-    '*.out',
-    '*.toc',
-    '*.o',
-    '*.obj',
-    '*.dll',
-    '*.jar',
-    '*.pyc',
-    '*.rbc',
-    '*.class',
-    '*.gif',
-    '*.ico',
-    '*.jpg',
-    '*.jpeg',
-    '*.png',
-    '*.avi',
-    '*.wav',
-    '*.webm',
-    '*.eot',
-    '*.otf',
-    '*.ttf',
-    '*.woff',
-    '*.doc',
-    '*.pdf',
-    '*.zip',
-    '*.tar.gz',
-    '*.tar.bz2',
-    '*.rar',
-    '*.tar.xz',
-    '.sass-cache',
-    '*/vendor/gems/*',
-    '*/vendor/cache/*',
-    '*/.bundle/*',
-    '*.gem',
-    '*/node_modules/*',
-    '*/.git/*',
-    -- Temp/System
-    '*.*~',
-    '*~ ',
-    '*.swp',
-    '.lock',
-    '.DS_Store',
-    '._*',
-    'tags.lock',
-  },
+-- backup
+o.backup = false
+o.writebackup = false
+o.swapfile = false
+o.undofile = true
+o.undodir = vim.fn.stdpath 'data' .. '/undo'
+o.undolevels = 10000
+
+-- search
+o.incsearch = true
+o.hlsearch = false
+o.smartcase = true
+o.ignorecase = true
+
+-- completion/menus
+o.path = { '.', ',' }
+o.completeopt = { 'menuone', 'noselect', 'noinsert' }
+o.complete = { '.', 'w', 'b', 'kspell' }
+o.pumheight = 15
+o.pumblend = 10
+o.wildmode = { 'longest:full', 'full' }
+o.wildoptions = 'pum'
+o.wildignorecase = true
+o.wildignore = {
+  '*.out',
+  '*.o',
+  '*/.next/*',
+  '*/node_modules/*',
+  '*/.git/*',
 }
 
-local display = {
-  conceallevel = 2,
-  breakindentopt = 'sbr',
-  linebreak = true,
-  signcolumn = 'auto',
-  ruler = false,
-  colorcolumn = { '+1' },
-  list = true,
-  listchars = {
-    eol = '⏎',
-    tab = '• ',
-    extends = '»',
-    precedes = '«',
-    trail = '•',
-  },
-  diffopt = {
-    'vertical',
-    'algorithm:histogram',
-    'indent-heuristic',
-    'hiddenoff',
-  },
-}
-
-local search = {
-  hlsearch = false,
-  incsearch = true,
-  smartcase = true,
-  ignorecase = true,
-}
-
-local general = {
-  exrc = true,
-  clipboard = 'unnamedplus',
-  termguicolors = true,
-  encoding = 'utf-8',
-  fileformats = { 'unix', 'mac', 'dos' },
-  inccommand = 'split',
-  showcmd = false,
-  showmode = false,
-  shada = { '!', "'1000", '<50', 's10', 'h' },
-  shortmess = 'aoOTIcF',
-  title = true,
-  titlestring = '%<%F%=%l/%L - nvim',
-}
-
-local backup = {
-  backup = false,
-  writebackup = false,
-  swapfile = false,
-  undofile = true,
-  undodir = vim.fn.stdpath 'data' .. '/undo',
-}
-
-local mouse = {
-  mouse = 'a',
-  mousefocus = true,
-}
-
-local options = vim.tbl_deep_extend(
-  'force',
-  indentation,
-  timings,
-  win_buff,
-  grep,
-  complete,
-  display,
-  search,
-  general,
-  backup,
-  mouse,
-  vim.opt
-)
-
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
+-- diagnostics
 vim.diagnostic.config {
   severity_sort = true,
   virtual_text = {
