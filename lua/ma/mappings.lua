@@ -1,7 +1,7 @@
 -- navigation & find & search
 G.nnoremap('<leader>p', ':find<space>', { silent = false })
-G.nnoremap('<leader>rg', ':grep<space>', { silent = false })
-G.nnoremap('<leader>gw', ':grep <cword> . <cr>')
+G.nnoremap('<leader>rg', ':silent grep ""<left>', { silent = false })
+G.nnoremap('<leader>gw', ':silent grep <C-R>=expand("<cword>")<CR><CR>')
 
 -- Move selected line / block of text in visual mode
 G.vnoremap('J', ":move '>+1<CR>gv-gv")
@@ -23,7 +23,7 @@ G.vnoremap('>', '>gv')
 -- buffers
 G.nnoremap('<leader>bn', ':bn<cr>')
 G.nnoremap('<leader>bp', ':bp<cr>')
-G.nnoremap('<leader>bl', ':buffers<cr>:buffer<space>')
+G.nnoremap('<leader>bl', ':ls t<cr>:b<space>', { silent = false })
 G.nnoremap('<leader>bd', ':bd!<cr>')
 
 -- quick list
@@ -31,6 +31,10 @@ G.nnoremap('<leader>qn', ':cn<cr>')
 G.nnoremap('<leader>qp', ':cp<cr>')
 G.nnoremap('<leader>ql', G.toggle_qf, { nowait = false })
 G.nnoremap('<leader>qq', ':cex []<cr>')
+
+-- special remaps
+G.nnoremap('n', 'nzz')
+G.nnoremap('N', 'Nzz')
 
 -- better command mode navigation
 G.cnoremap('<C-b>', '<Left>')
@@ -66,7 +70,7 @@ G.lsp.mappings = {
     { 'gi', vim.lsp.buf.implementation, 'implementation' },
     { 'gd', vim.lsp.buf.definition, 'goto_definition' },
     { 'gd', vim.lsp.buf.declaration, 'declaration' },
-    { 'sh', vim.lsp.buf.signature_help, 'signature_help' },
+    { '<leader>sh', vim.lsp.buf.signature_help, 'signature_help' },
     { 'gW', vim.lsp.buf.workspace_symbol, 'workspace_symbol' },
     { 'ga', vim.lsp.buf.code_action, 'code_action' },
     { '<leader>l', vim.lsp.codelens.run, 'code_lens' },
