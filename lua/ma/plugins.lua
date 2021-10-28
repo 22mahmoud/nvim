@@ -65,6 +65,29 @@ function M.install()
   print 'Installing finished.'
 end
 
+function M.update()
+  print 'Updating packages...'
+
+  local output = vim.fn.system {
+    'git',
+    '-C',
+    M.root_dir,
+    'submodule',
+    'update',
+    '--remote',
+    '--init',
+    '--depth',
+    1,
+    '--recursive',
+  }
+
+  print(output)
+
+  vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
+
+  print 'Updating finished.'
+end
+
 function M.clean()
   local handle = vim.loop.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
   local function iter()
@@ -147,6 +170,11 @@ G.command {
 G.command {
   'PkgClean',
   M.clean,
+}
+
+G.command {
+  'PkgUpdate',
+  M.update,
 }
 
 return M
