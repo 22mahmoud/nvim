@@ -1,4 +1,11 @@
 lua << EOF
+  -- configure runtimepath
+  vim.opt.packpath = { vim.fn.stdpath 'data' .. '/site' }
+  vim.opt.runtimepath:remove('/usr/share/vim/vimfiles')
+  vim.opt.runtimepath:remove('/etc/xdg/nvim')
+  vim.opt.runtimepath:remove('/etc/xdg/nvim/after')
+  vim.opt.runtimepath:remove('/usr/lib/nvim')
+
   vim.g.mapleader = ' '
   vim.g.maplocalleader = ','
 

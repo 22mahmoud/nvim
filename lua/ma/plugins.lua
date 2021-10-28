@@ -135,7 +135,6 @@ function M.setup()
   M.packadd 'RRethy/nvim-base16'
   M.packadd 'nvim-treesitter/nvim-treesitter'
   M.packadd 'neovim/nvim-lspconfig'
-  -- M.packadd 'tpope/vim-surround'
 end
 
 M.setup()
