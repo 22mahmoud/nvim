@@ -70,5 +70,5 @@ end
 function G.any(fn, xs)
   return G.reduce(function(acc, x)
     return acc or fn(x)
-  end, true, xs)
+  end, false, xs)
 end
