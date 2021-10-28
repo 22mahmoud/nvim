@@ -62,6 +62,8 @@ function M.install()
 
   vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
 
+  vim.cmd 'helptags ALL'
+
   print 'Installing finished.'
 end
 
