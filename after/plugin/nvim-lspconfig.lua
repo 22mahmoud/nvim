@@ -6,6 +6,7 @@ lsp.setup {
   cssls = {},
   pyright = {},
   vimls = {},
+  bashls = {},
   tsserver = {
     on_attach = function(client, bufnr)
       lsp.on_attach(client, bufnr)
