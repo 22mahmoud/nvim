@@ -112,11 +112,7 @@ o.wildignore = {
 -- diagnostics
 vim.diagnostic.config {
   severity_sort = true,
-  virtual_text = {
-    prefix = '',
-    spacing = 0,
-    source = 'always',
-  },
+  virtual_text = false,
 }
 
 G.sign_define('DiagnosticSignError', ' ')
