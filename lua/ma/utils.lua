@@ -17,7 +17,7 @@ G._create = function(f)
 end
 
 G._execute = function(id)
-  G._store[id]()
+  return G._store[id]()
 end
 
 function G.P(...)
@@ -165,6 +165,15 @@ function G.command(args)
   end
 
   vim.cmd(fmt('command! -nargs=%s %s %s %s', nargs, types, name, rhs))
+end
+
+function G.abbrev(mode, lhs, rhs)
+  if type(rhs) == 'function' then
+    local fn_id = G._create(rhs)
+    rhs = fmt('lua G._execute(%s)', fn_id)
+  end
+
+  vim.cmd(fmt('%sabbrev <buffer> %s %s', mode, lhs, rhs))
 end
 
 function G.toggle_qf()
