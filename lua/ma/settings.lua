@@ -43,7 +43,7 @@ o.shortmess:append 'W'
 o.shortmess:append 'a'
 o.shortmess:append 'o'
 o.shortmess:append 't'
-o.list = true
+o.list = false
 o.listchars = {
   eol = '↲',
   space = '⋅',
