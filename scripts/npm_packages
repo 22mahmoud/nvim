@@ -1,4 +1,5 @@
 eslint_d
+prettier_d
 pyright
 typescript
 typescript-language-server
