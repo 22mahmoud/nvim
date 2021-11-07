@@ -1,5 +1,6 @@
 eslint_d
 prettier_d
+@tailwindcss/language-server
 pyright
 typescript
 typescript-language-server
