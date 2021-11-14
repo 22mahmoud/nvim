@@ -4,6 +4,7 @@ local lsp = require 'ma.lsp'
 lsp.setup {
   html = {},
   cssls = {},
+  ccls = {},
   pyright = {},
   vimls = {},
   bashls = {},
