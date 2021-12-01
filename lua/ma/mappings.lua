@@ -45,7 +45,7 @@ G.cnoremap('<C-h>', '<BS>')
 
 -- diagnostics
 G.nnoremap('<leader>ds', function()
-  vim.diagnostic.open_float(0, { scope = 'line' })
+  vim.diagnostic.open_float(nil, { source = 'always' })
 end)
 G.nnoremap('<leader>dn', function()
   vim.diagnostic.goto_next { float = false }
