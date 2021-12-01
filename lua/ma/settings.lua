@@ -1,7 +1,6 @@
 local o = vim.opt
 
 -- base
-o.hidden = true
 o.scrolloff = 10
 o.mouse = 'a'
 o.mousefocus = true

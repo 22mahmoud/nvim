@@ -13,9 +13,6 @@ G.nnoremap('<c-h>', '<c-w><c-h>')
 G.nnoremap('<c-j>', '<c-w><c-j>')
 G.nnoremap('<c-l>', '<c-w><c-l>')
 
--- better yank behaviour
-G.nnoremap('Y', 'y$')
-
 -- better indenting experience
 G.vnoremap('<', '<gv')
 G.vnoremap('>', '>gv')
