@@ -1,5 +1,5 @@
 eslint_d
-prettier_d
+@fsouza/prettierd
 @tailwindcss/language-server
 pyright
 typescript
