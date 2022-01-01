@@ -167,19 +167,8 @@ end
 
 M.setup()
 
-G.command {
-  'PkgInstall',
-  M.install,
-}
-
-G.command {
-  'PkgClean',
-  M.clean,
-}
-
-G.command {
-  'PkgUpdate',
-  M.update,
-}
+G.command('PkgInstall', M.install)
+G.command('PkgClean', M.clean)
+G.command('PkgUpdate', M.update)
 
 return M

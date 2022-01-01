@@ -51,15 +51,12 @@ lsp.setup {
         },
       })
 
-      G.command {
-        'TSLspOrganize',
-        function()
-          vim.lsp.buf_request(bufnr, 'workspace/executeCommand', {
-            command = '_typescript.organizeImports',
-            arguments = { vim.api.nvim_buf_get_name(bufnr) },
-          })
-        end,
-      }
+      G.command('TSLspOrganize', function()
+        vim.lsp.buf_request(bufnr, 'workspace/executeCommand', {
+          command = '_typescript.organizeImports',
+          arguments = { vim.api.nvim_buf_get_name(bufnr) },
+        })
+      end)
     end,
     root_dir = root_pattern(
       'package.json',

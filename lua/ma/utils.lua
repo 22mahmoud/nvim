@@ -90,8 +90,8 @@ function G.map(mode, default_options)
     )
 
     if type(rhs) == 'function' then
-      local fn_id = G._create(rhs)
-      rhs = fmt([[<cmd>lua G._execute(%s)<CR>]], fn_id)
+      opts.callback = rhs
+      rhs = ''
     end
 
     if bufnr then
@@ -151,20 +151,11 @@ function G.augroup(name, commands)
   vim.cmd 'augroup END'
 end
 
-function G.command(args)
-  local nargs = args.nargs or 0
-  local name = args[1]
-  local rhs = args[2]
-  local types = (args.types and type(args.types) == 'table')
-      and table.concat(args.types, ' ')
-    or ''
+function G.command(name, rhs, user_opts)
+  local default_opts = { force = true }
+  local opts = vim.tbl_extend('keep', user_opts or {}, default_opts)
 
-  if type(rhs) == 'function' then
-    local fn_id = G._create(rhs)
-    rhs = fmt('lua G._execute(%d%s)', fn_id, nargs > 0 and ', <f-args>' or '')
-  end
-
-  vim.cmd(fmt('command! -nargs=%s %s %s %s', nargs, types, name, rhs))
+  vim.api.nvim_add_user_command(name, rhs, opts)
 end
 
 function G.abbrev(mode, lhs, rhs)
@@ -413,9 +404,7 @@ function G.run_command(user_cmd, user_opts)
       cmd,
     },
     stdio = stdio,
-  }, vim.schedule_wrap(
-    on_exit
-  ))
+  }, vim.schedule_wrap(on_exit))
 
   uv.read_start(stdout, vim.schedule_wrap(on_data))
   uv.read_start(stderr, vim.schedule_wrap(on_error))
