@@ -157,11 +157,11 @@ local function active()
     }
   )
 
-  vim.opt.statusline = [[%!luaeval("G.statusline.get_active_statusline()")]]
+  vim.opt_local.statusline = [[%!luaeval("G.statusline.get_active_statusline()")]]
 end
 
 local function inactive()
-  vim.opt.statusline = [[%!luaeval("G.statusline.get_inactive_statusline()")]]
+  vim.opt_local.statusline = [[%!luaeval("G.statusline.get_inactive_statusline()")]]
 end
 
 local function setup()
