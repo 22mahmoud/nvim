@@ -1,4 +1,4 @@
-G.imap('<c-q><c-e>', '<c-v><c-a><c-]>', { bufnr = 0 })
+G.imap('<c-q><c-e>', '<c-v><c-a><c-]>', { buffer = 0 })
 
 G.abbrev('i', 'cl<c-a>', [[console.log();<esc>F(a]])
 G.abbrev('i', 'clo<c-a>', [[console.log({ \ });<esc>F\s]])

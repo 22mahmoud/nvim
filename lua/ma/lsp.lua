@@ -130,7 +130,7 @@ local function set_lsp_buffer_keybindings(client, bufnr)
         goto continue
       end
 
-      map(lhs, rhs, { bufnr = bufnr })
+      map(lhs, rhs, { buffer = bufnr })
 
       ::continue::
     end

@@ -77,28 +77,13 @@ function G.map(mode, default_options)
     default_options = default_options or {}
     extra_options = extra_options or {}
 
-    local bufnr = extra_options.bufnr
-
-    if vim.fn.maparg(lhs, 'n') ~= '' and bufnr then
-      return
-    end
-
     local opts = tbl_extend(
       'keep',
       tbl_filter(is_map_args, extra_options),
       default_options
     )
 
-    if type(rhs) == 'function' then
-      opts.callback = rhs
-      rhs = ''
-    end
-
-    if bufnr then
-      nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-    else
-      nvim_set_keymap(mode, lhs, rhs, opts)
-    end
+    vim.keymap.set(mode, lhs, rhs, opts)
   end
 end
 

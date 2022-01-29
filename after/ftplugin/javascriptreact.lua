@@ -1,6 +1,6 @@
 vim.cmd [[runtime! after/ftplugin/javascript.lua]]
 
-G.imap('<c-q><c-e>', '<c-v><c-a><c-]>', { bufnr = 0 })
+G.imap('<c-q><c-e>', '<c-v><c-a><c-]>', { buffer = 0 })
 
 G.abbrev(
   'i',
