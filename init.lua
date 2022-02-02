@@ -70,7 +70,6 @@ _G.G = {}
 
 -- Load .nvimrc manually
 require 'ma.utils'
-require 'ma.fun'
 
 local set_hl = function(...)
   vim.api.nvim_set_hl(0, ...)
@@ -101,7 +100,6 @@ require 'ma.settings'
 require 'ma.mappings'
 require 'ma.commands'
 require 'ma.statusline'
-require 'ma.comment'
 require 'ma.plugins'
 
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'

@@ -4,8 +4,6 @@ local empty = fn.empty
 local filter = fn.filter
 local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
-local nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
-local nvim_set_keymap = vim.api.nvim_set_keymap
 local uv = vim.loop
 
 G.__KeyCommandMapStore = G.__KeyCommandMapStore or {}
@@ -362,7 +360,6 @@ function G.run_command(user_cmd, user_opts)
     end
 
     data = vim.tbl_map(vim.trim, vim.split(vim.trim(data), '\n'))
-    -- G.P(data)
 
     if type(opts.on_data) == 'function' then
       opts.on_data(data)

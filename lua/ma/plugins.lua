@@ -97,9 +97,9 @@ function M.clean()
   end
 
   for name, _ in iter do
-    local exist = G.any(function(pkg)
+    local exist = #vim.tbl_filter(function(pkg)
       return pkg.plugin == name
-    end, M.plugins)
+    end, M.plugins) == 1
 
     if not exist then
       local module_name = M.plugins_dir .. name
@@ -163,6 +163,8 @@ function M.setup()
   M.packadd 'neovim/nvim-lspconfig'
 
   M.packadd 'tpope/vim-surround.git'
+  M.packadd 'tpope/vim-commentary'
+  M.packadd 'JoosepAlviste/nvim-ts-context-commentstring'
 end
 
 M.setup()
