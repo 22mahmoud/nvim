@@ -11,7 +11,6 @@ o.showcmd = false
 o.showmode = false
 o.title = true
 o.titlestring = '%<%F - nvim'
-o.exrc = true
 o.clipboard = 'unnamedplus'
 o.encoding = 'utf8'
 o.fileformats = { 'unix', 'mac', 'dos' }
