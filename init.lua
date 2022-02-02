@@ -98,7 +98,6 @@ G.augroup('UserHighlights', {
 
 require 'ma.settings'
 require 'ma.mappings'
-require 'ma.commands'
 require 'ma.statusline'
 require 'ma.plugins'
 
