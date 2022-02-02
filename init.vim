@@ -70,19 +70,19 @@ lua << EOF
   require 'ma.utils'
   require 'ma.fun'
 
+  local set_hl = function (...) 
+    vim.api.nvim_set_hl(0, ...) 
+  end
+
   local function user_highlights()
-    vim.cmd [[hi Normal   guibg=NONE ctermbg=NONE]]
-    vim.cmd [[hi NormalNC guibg=NONE ctermbg=NONE]]
+    set_hl('Normal', { bg = "NONE" })
+    set_hl('NormalNC', { bg = "NONE" })
+    set_hl('SignColumn', { bg = "NONE" })
 
-    vim.cmd [[hi SignColumn        guibg=NONE ctermbg=NONE]]
-    vim.cmd [[hi LspReferenceText  gui=NONE]]
-    vim.cmd [[hi LspReferenceRead  gui=NONE]]
-    vim.cmd [[hi LspReferenceWrite gui=NONE]]
-
-    vim.cmd [[hi GitGutterAdd           guibg=NONE]]
-    vim.cmd [[hi GitGutterChange        guibg=NONE]]
-    vim.cmd [[hi GitGutterDelete        guibg=NONE]]
-    vim.cmd [[hi GitGutterChangeDelete  guibg=NONE]]
+    set_hl("SignColumn",        { gui = "NONE"})
+    set_hl("LspReferenceText",  { gui = "NONE" })
+    set_hl("LspReferenceRead",  { gui = "NONE" })
+    set_hl("LspReferenceWrite", { gui = "NONE" })
   end
 
   G.augroup('UserHighlights', {
