@@ -66,10 +66,39 @@ else
   vim.g.loaded_ruby_provider = 0
 end
 
-_G.G = {}
-
 -- Load .nvimrc manually
-require 'ma.utils'
+local utils = require 'ma.utils'
+local tbl_extend = vim.tbl_extend
+local map_opts = { noremap = false, silent = true }
+local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
+
+_G.G = {
+  augroup = utils.augroup,
+  sign_define = utils.sign_define,
+  command = utils.command,
+  abbrev = utils.abbrev,
+  toggle_qf = utils.toggle_qf,
+  run_command = utils.run_command,
+  icons = utils.icons,
+  P = utils.P,
+  nmap = utils.map('n', map_opts),
+  imap = utils.map('i', map_opts),
+  vmap = utils.map('v', map_opts),
+  tmap = utils.map('t', map_opts),
+  xmap = utils.map('x', map_opts),
+  omap = utils.map('o', map_opts),
+  cmap = utils.map('c', tbl_extend('keep', { silent = false }, map_opts)),
+  nnoremap = utils.map('n', noremap_opts),
+  inoremap = utils.map('i', noremap_opts),
+  vnoremap = utils.map('v', noremap_opts),
+  tnoremap = utils.map('t', noremap_opts),
+  xnoremap = utils.map('x', noremap_opts),
+  onoremap = utils.map('o', noremap_opts),
+  cnoremap = utils.map(
+    'c',
+    tbl_extend('keep', { silent = false }, noremap_opts)
+  ),
+}
 
 local set_hl = function(...)
   vim.api.nvim_set_hl(0, ...)

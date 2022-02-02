@@ -6,19 +6,20 @@ local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
 local uv = vim.loop
 
-G.__KeyCommandMapStore = G.__KeyCommandMapStore or {}
-G._store = G.__KeyCommandMapStore
+local M = {}
 
-G._create = function(f)
-  table.insert(G._store, f)
-  return #G._store
+M._store = {}
+
+M._create = function(f)
+  table.insert(M._store, f)
+  return #M._store
 end
 
-G._execute = function(id)
-  return G._store[id]()
+M._execute = function(id)
+  return M._store[id]()
 end
 
-function G.P(...)
+function M.P(...)
   print(vim.inspect(...))
 
   return ...
@@ -62,7 +63,7 @@ local function is_map_args(value, key)
   return has_value(valid_args, key)
 end
 
-function G.map(mode, default_options)
+function M.map(mode, default_options)
   if not mode then
     return
   end
@@ -85,25 +86,7 @@ function G.map(mode, default_options)
   end
 end
 
-local map_opts = { noremap = false, silent = true }
-G.nmap = G.map('n', map_opts)
-G.imap = G.map('i', map_opts)
-G.vmap = G.map('v', map_opts)
-G.tmap = G.map('t', map_opts)
-G.xmap = G.map('x', map_opts)
-G.omap = G.map('o', map_opts)
-G.cmap = G.map('c', tbl_extend('keep', { silent = false }, map_opts))
-
-local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
-G.nnoremap = G.map('n', noremap_opts)
-G.inoremap = G.map('i', noremap_opts)
-G.vnoremap = G.map('v', noremap_opts)
-G.tnoremap = G.map('t', noremap_opts)
-G.xnoremap = G.map('x', noremap_opts)
-G.onoremap = G.map('o', noremap_opts)
-G.cnoremap = G.map('c', tbl_extend('keep', { silent = false }, noremap_opts))
-
-function G.sign_define(name, text)
+function M.sign_define(name, text)
   vim.fn.sign_define(name, {
     texthl = name,
     text = text,
@@ -112,14 +95,14 @@ function G.sign_define(name, text)
   })
 end
 
-function G.augroup(name, commands)
+function M.augroup(name, commands)
   vim.cmd('augroup ' .. name)
   vim.cmd 'autocmd!'
   for _, c in ipairs(commands) do
     local command = c.command
     if type(command) == 'function' then
-      local fn_id = G._create(command)
-      command = fmt('lua G._execute(%s)', fn_id)
+      local fn_id = M._create(command)
+      command = fmt('lua require("ma.utils")._execute(%s)', fn_id)
     end
     vim.cmd(
       fmt(
@@ -134,23 +117,23 @@ function G.augroup(name, commands)
   vim.cmd 'augroup END'
 end
 
-function G.command(name, rhs, user_opts)
+function M.command(name, rhs, user_opts)
   local default_opts = { force = true }
   local opts = vim.tbl_extend('keep', user_opts or {}, default_opts)
 
   vim.api.nvim_add_user_command(name, rhs, opts)
 end
 
-function G.abbrev(mode, lhs, rhs)
+function M.abbrev(mode, lhs, rhs)
   if type(rhs) == 'function' then
-    local fn_id = G._create(rhs)
-    rhs = fmt('lua G._execute(%s)', fn_id)
+    local fn_id = M._create(rhs)
+    rhs = fmt('lua require("ma.utils")._execute(%s)', fn_id)
   end
 
   vim.cmd(fmt('%sabbrev <buffer> %s %s', mode, lhs, rhs))
 end
 
-function G.toggle_qf()
+function M.toggle_qf()
   local locations = vim.fn.getqflist()
 
   -- if no quickfix list then do nothing
@@ -166,7 +149,7 @@ function G.toggle_qf()
   end
 end
 
-G.icons = setmetatable({
+M.icons = setmetatable({
   -- Exact Match
   ['gruntfile.coffee'] = '',
   ['gruntfile.js'] = '',
@@ -311,7 +294,7 @@ G.icons = setmetatable({
   end,
 })
 
-function G.run_command(user_cmd, user_opts)
+function M.run_command(user_cmd, user_opts)
   local cmd = table.concat(
     vim.tbl_map(vim.fn.expand, vim.split(user_cmd, ' ')),
     ' '
@@ -393,3 +376,5 @@ function G.run_command(user_cmd, user_opts)
 
   return handle, stdin
 end
+
+return M

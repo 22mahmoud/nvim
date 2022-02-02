@@ -3,7 +3,6 @@ local opt = vim.opt
 local fmt = string.format
 
 local M = {}
-G.statusline = M
 
 local function block(value, template, space)
   if value == 0 or value == '' or value == nil or not value then
@@ -157,11 +156,13 @@ local function active()
     }
   )
 
-  vim.opt_local.statusline = [[%!luaeval("G.statusline.get_active_statusline()")]]
+  vim.opt_local.statusline =
+    [[%!luaeval('require("ma.statusline").get_active_statusline()')]]
 end
 
 local function inactive()
-  vim.opt_local.statusline = [[%!luaeval("G.statusline.get_inactive_statusline()")]]
+  vim.opt_local.statusline =
+    [[%!luaeval('require("ma.statusline").get_inactive_statusline()')]]
 end
 
 local function setup()
@@ -180,3 +181,5 @@ local function setup()
 end
 
 setup()
+
+return M
