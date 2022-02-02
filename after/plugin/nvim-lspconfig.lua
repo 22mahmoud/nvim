@@ -1,4 +1,5 @@
 local root_pattern = require('lspconfig/util').root_pattern
+local dirname = require('lspconfig/util').path.dirname
 local lsp = require 'ma.lsp'
 
 lsp.setup {
@@ -14,7 +15,9 @@ lsp.setup {
       lsp.on_attach(client, bufnr)
 
       client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
 
+      local last
       G.augroup('TSLspImportOnCompletion', {
         {
           events = { 'CompleteDone' },
@@ -34,6 +37,14 @@ lsp.setup {
             end
 
             local item = completed_item.user_data.nvim.lsp.completion_item
+            if last == item.label then
+              return
+            end
+
+            last = item.label
+            vim.defer_fn(function()
+              last = nil
+            end, 5000)
 
             vim.lsp.buf_request(
               bufnr,
@@ -44,27 +55,37 @@ lsp.setup {
                   return
                 end
 
-                vim.lsp.util.apply_text_edits(result.additionalTextEdits, bufnr)
+                vim.lsp.util.apply_text_edits(
+                  result.additionalTextEdits,
+                  bufnr,
+                  'utf-8'
+                )
               end
             )
           end,
         },
       })
-
-      G.command('TSLspOrganize', function()
-        vim.lsp.buf_request(bufnr, 'workspace/executeCommand', {
-          command = '_typescript.organizeImports',
-          arguments = { vim.api.nvim_buf_get_name(bufnr) },
-        })
-      end)
     end,
-    root_dir = root_pattern(
-      'package.json',
-      'tsconfig.json',
-      'jsconfig.json',
-      '.git',
-      vim.fn.getcwd()
-    ),
+    root_dir = function(fname)
+      return root_pattern(
+        'tsconfig.json',
+        'package.json',
+        'jsconfig.json',
+        '.git'
+      )(fname) or dirname(fname)
+    end,
+    commands = {
+      OrganizeImports = {
+        function()
+          vim.lsp.buf_request(0, 'workspace/executeCommand', {
+            command = '_typescript.organizeImports',
+            arguments = { vim.api.nvim_buf_get_name(0) },
+          })
+        end,
+
+        description = 'Organize imports',
+      },
+    },
   },
   eslint = {},
   -- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
