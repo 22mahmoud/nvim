@@ -66,7 +66,7 @@ G.lsp.mappings = {
     { 'K', vim.lsp.buf.hover, 'hover' },
     { 'gi', vim.lsp.buf.implementation, 'implementation' },
     { 'gd', vim.lsp.buf.definition, 'goto_definition' },
-    { 'gd', vim.lsp.buf.declaration, 'declaration' },
+    { 'gD', vim.lsp.buf.declaration, 'declaration' },
     { '<leader>sh', vim.lsp.buf.signature_help, 'signature_help' },
     { 'gW', vim.lsp.buf.workspace_symbol, 'workspace_symbol' },
     { 'ga', vim.lsp.buf.code_action, 'code_action' },
