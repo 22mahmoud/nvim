@@ -377,4 +377,34 @@ function M.run_command(user_cmd, user_opts)
   return handle, stdin
 end
 
+function M.bootstrap()
+  local map_opts = { noremap = false, silent = true }
+  local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
+
+  _G.G = {
+    P = M.P,
+    icons = M.icons,
+    augroup = M.augroup,
+    sign_define = M.sign_define,
+    command = M.command,
+    abbrev = M.abbrev,
+    toggle_qf = M.toggle_qf,
+    run_command = M.run_command,
+    nmap = M.map('n', map_opts),
+    imap = M.map('i', map_opts),
+    vmap = M.map('v', map_opts),
+    tmap = M.map('t', map_opts),
+    xmap = M.map('x', map_opts),
+    omap = M.map('o', map_opts),
+    cmap = M.map('c', tbl_extend('keep', { silent = false }, map_opts)),
+    nnoremap = M.map('n', noremap_opts),
+    inoremap = M.map('i', noremap_opts),
+    vnoremap = M.map('v', noremap_opts),
+    tnoremap = M.map('t', noremap_opts),
+    xnoremap = M.map('x', noremap_opts),
+    onoremap = M.map('o', noremap_opts),
+    cnoremap = M.map('c', tbl_extend('keep', { silent = false }, noremap_opts)),
+  }
+end
+
 return M
