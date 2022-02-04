@@ -163,7 +163,10 @@ function M.setup()
   M.packadd 'neovim/nvim-lspconfig'
 
   M.packadd 'tpope/vim-surround.git'
+  M.packadd 'tpope/vim-repeat'
   M.packadd 'tpope/vim-commentary'
+  M.packadd 'jiangmiao/auto-pairs'
+
   M.packadd 'JoosepAlviste/nvim-ts-context-commentstring'
 end
 
