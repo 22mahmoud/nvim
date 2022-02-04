@@ -6,4 +6,4 @@ G.abbrev('i', 'cls<c-a>', [[console.log('');<esc>F'i]])
 
 G.abbrev('i', 'fn<c-a>', 'function () {}<esc>F(i')
 
-G.abbrev('i', 'afn<c-a>', [[const \\ = () => {}<esc>F\\s]])
+G.abbrev('i', 'afn<c-a>', [[const NAME = () => {}<esc>?NAME<esc>cw]])

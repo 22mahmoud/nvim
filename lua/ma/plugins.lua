@@ -4,7 +4,7 @@ M.plugins = {}
 M.plugins_dir = 'site/pack/plugins/opt/'
 M.root_dir = vim.fn.stdpath 'data'
 
-function M.packadd(uri)
+function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
 
   table.insert(M.plugins, {
@@ -156,24 +156,29 @@ function M.clean()
   vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
 end
 
-function M.setup()
-  M.packadd 'RRethy/nvim-base16'
-
-  M.packadd 'nvim-treesitter/nvim-treesitter'
-  M.packadd 'neovim/nvim-lspconfig'
-
-  M.packadd 'tpope/vim-surround.git'
-  M.packadd 'tpope/vim-repeat'
-  M.packadd 'tpope/vim-commentary'
-  M.packadd 'jiangmiao/auto-pairs'
-
-  M.packadd 'JoosepAlviste/nvim-ts-context-commentstring'
-end
-
-M.setup()
-
 G.command('PkgInstall', M.install)
 G.command('PkgClean', M.clean)
 G.command('PkgUpdate', M.update)
+
+function M.setup()
+  -- colors
+  M.use 'RRethy/nvim-base16'
+
+  -- lsp
+  M.use 'neovim/nvim-lspconfig'
+
+  -- treesitter
+  M.use 'nvim-treesitter/nvim-treesitter'
+  M.use 'JoosepAlviste/nvim-ts-context-commentstring'
+  M.use 'windwp/nvim-ts-autotag'
+
+  -- editor
+  M.use 'tpope/vim-surround.git'
+  M.use 'tpope/vim-repeat'
+  M.use 'tpope/vim-commentary'
+  M.use 'jiangmiao/auto-pairs'
+end
+
+M.setup()
 
 return M
