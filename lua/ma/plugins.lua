@@ -171,6 +171,7 @@ function M.setup()
   M.use 'nvim-treesitter/nvim-treesitter'
   M.use 'JoosepAlviste/nvim-ts-context-commentstring'
   M.use 'windwp/nvim-ts-autotag'
+  M.use 'nvim-treesitter/nvim-treesitter-textobjects'
 
   -- editor
   M.use 'tpope/vim-surround.git'
