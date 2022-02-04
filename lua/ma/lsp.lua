@@ -137,23 +137,6 @@ local function set_lsp_buffer_keybindings(client, bufnr)
   end
 end
 
-local function publishDiagnostics(error, result, ctx)
-  vim.lsp.diagnostic.on_publish_diagnostics(error, result, ctx)
-
-  local bufnr = vim.uri_to_bufnr(result.uri)
-  if bufnr ~= vim.api.nvim_get_current_buf() then
-    return
-  end
-
-  local diagnostics = vim.diagnostic.get(bufnr)
-
-  vim.fn.setloclist(0, {}, 'r', {
-    title = 'LSP errors',
-    bufnr = bufnr,
-    items = vim.diagnostic.toqflist(diagnostics),
-  })
-end
-
 function M.get_client_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -192,8 +175,6 @@ function M.setup(servers)
   floating_preview_popup()
 
   floating_window_borders()
-
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = publishDiagnostics
 
   setup_lsp_kind()
 
