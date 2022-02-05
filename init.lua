@@ -71,19 +71,14 @@ local utils = require 'ma.utils'
 
 utils.bootstrap()
 
-local set_hl = function(...)
-  vim.api.nvim_set_hl(0, ...)
-end
-
 local function user_highlights()
-  set_hl('Normal', { bg = 'NONE' })
-  set_hl('NormalNC', { bg = 'NONE' })
-  set_hl('SignColumn', { bg = 'NONE' })
+  vim.cmd [[hi Normal   guibg=NONE]]
+  vim.cmd [[hi NormalNC guibg=NONE]]
 
-  set_hl('SignColumn', { bg = 'NONE' })
-  set_hl('LspReferenceText', { bg = 'NONE' })
-  set_hl('LspReferenceRead', { bg = 'NONE' })
-  set_hl('LspReferenceWrite', { bg = 'NONE' })
+  vim.cmd [[hi SignColumn        guibg=NONE]]
+  vim.cmd [[hi LspReferenceText  gui=NONE]]
+  vim.cmd [[hi LspReferenceRead  gui=NONE]]
+  vim.cmd [[hi LspReferenceWrite gui=NONE]]
 end
 
 G.augroup('UserHighlights', {
