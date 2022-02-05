@@ -80,10 +80,10 @@ local function user_highlights()
   set_hl('NormalNC', { bg = 'NONE' })
   set_hl('SignColumn', { bg = 'NONE' })
 
-  set_hl('SignColumn', { gui = 'NONE' })
-  set_hl('LspReferenceText', { gui = 'NONE' })
-  set_hl('LspReferenceRead', { gui = 'NONE' })
-  set_hl('LspReferenceWrite', { gui = 'NONE' })
+  set_hl('SignColumn', { bg = 'NONE' })
+  set_hl('LspReferenceText', { bg = 'NONE' })
+  set_hl('LspReferenceRead', { bg = 'NONE' })
+  set_hl('LspReferenceWrite', { bg = 'NONE' })
 end
 
 G.augroup('UserHighlights', {
