@@ -92,6 +92,16 @@ lsp.setup {
   efm = {
     settings = ...,
     root_dir = require('lspconfig').util.root_pattern { '.git/', '.' },
+    filetypes = {
+      'javascript',
+      'javascriptreact',
+      'typescriptreact',
+      'typescript',
+      'css',
+      'lua',
+      'html',
+      'sh',
+    },
     init_options = {
       documentFormatting = true,
     },
