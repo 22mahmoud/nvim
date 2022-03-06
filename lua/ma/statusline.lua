@@ -122,7 +122,6 @@ function M.get_active_statusline()
     block(truncat(path, 120)),
     block(modified_icon),
     block(readonly_icon),
-    block(vim.b.git_head, '( %s)'),
   }
 
   local rhs = table.concat {
@@ -138,24 +137,6 @@ function M.get_inactive_statusline()
 end
 
 local function active()
-  local directory = vim.fn.expand '%:h'
-
-  G.run_command(
-    fmt(
-      'git -C %s symbolic-ref --short -q HEAD || git -C %s rev-parse --short HEAD',
-      directory,
-      directory
-    ),
-    {
-      on_data = function(data)
-        vim.b.git_head = unpack(data)
-      end,
-      on_error = function()
-        vim.b.git_head = nil
-      end,
-    }
-  )
-
   vim.opt_local.statusline =
     [[%!luaeval('require("ma.statusline").get_active_statusline()')]]
 end

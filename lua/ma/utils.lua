@@ -294,89 +294,6 @@ M.icons = setmetatable({
   end,
 })
 
-function M.run_command(user_cmd, user_opts)
-  local cmd = table.concat(
-    vim.tbl_map(vim.fn.expand, vim.split(user_cmd, ' ')),
-    ' '
-  )
-
-  local default_opts = {
-    use_stdin = false,
-    schedule = true,
-    split_lines = true,
-    on_exit = function() end,
-    on_read = function() end,
-  }
-
-  local opts = vim.tbl_extend('keep', user_opts, default_opts)
-
-  local stdout = uv.new_pipe()
-  local stderr = uv.new_pipe()
-  local stdin = opts.use_stdin and uv.new_pipe() or nil
-  local stdio = { stdin, stdout, stderr }
-
-  local handle
-
-  local function on_exit(code, signal)
-    stdout:read_stop()
-    stderr:read_stop()
-
-    stdout:close()
-    stderr:close()
-
-    if stdin then
-      stdin:shutdown()
-    end
-
-    handle:close()
-
-    if type(opts.on_exist) == 'function' then
-      opts.on_exit(code, signal)
-    end
-  end
-
-  local function on_data(error, data)
-    assert(not error, error)
-
-    if not data then
-      return
-    end
-
-    data = vim.tbl_map(vim.trim, vim.split(vim.trim(data), '\n'))
-
-    if type(opts.on_data) == 'function' then
-      opts.on_data(data)
-    end
-  end
-
-  local function on_error(error, data)
-    assert(not error, error)
-
-    if not data then
-      return
-    end
-
-    data = vim.tbl_map(vim.trim, vim.split(vim.trim(data), '\n'))
-
-    if type(opts.on_error) == 'function' then
-      opts.on_error(data)
-    end
-  end
-
-  handle = uv.spawn(vim.o.shell, {
-    args = {
-      vim.o.shellcmdflag,
-      cmd,
-    },
-    stdio = stdio,
-  }, vim.schedule_wrap(on_exit))
-
-  uv.read_start(stdout, vim.schedule_wrap(on_data))
-  uv.read_start(stderr, vim.schedule_wrap(on_error))
-
-  return handle, stdin
-end
-
 function M.bootstrap()
   local map_opts = { noremap = false, silent = true }
   local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
@@ -389,7 +306,6 @@ function M.bootstrap()
     command = M.command,
     abbrev = M.abbrev,
     toggle_qf = M.toggle_qf,
-    run_command = M.run_command,
     nmap = M.map('n', map_opts),
     imap = M.map('i', map_opts),
     vmap = M.map('v', map_opts),
