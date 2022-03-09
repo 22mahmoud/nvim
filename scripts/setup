@@ -147,7 +147,7 @@ main() {
   _update_pacman_package_database
 
   # install or update neovim
-  _install_neovim
+  # _install_neovim
   _install_treesitter
 
   # install node provider
