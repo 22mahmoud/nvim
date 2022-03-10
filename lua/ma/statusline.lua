@@ -133,7 +133,15 @@ function M.get_active_statusline()
 end
 
 function M.get_inactive_statusline()
-  return [[%f %y %m]]
+  local path = get_path()[1]
+  local modified_icon = get_modified_icon()
+  local file_icon = get_file_icon()
+
+  return table.concat {
+    block(file_icon),
+    block(path),
+    block(modified_icon),
+  }
 end
 
 local function active()
