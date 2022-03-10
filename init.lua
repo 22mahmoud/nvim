@@ -1,3 +1,5 @@
+_G.G = {}
+
 -- configure runtimepath
 vim.opt.packpath = { vim.fn.stdpath 'data' .. '/site' }
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles'
@@ -66,7 +68,6 @@ else
   vim.g.loaded_ruby_provider = 0
 end
 
-_G.G = {}
 local utils = require 'ma.utils'
 
 utils.bootstrap()
@@ -83,11 +84,9 @@ end
 
 G.augroup('UserHighlights', {
   {
-    events = { 'ColorScheme' },
-    targets = { '*' },
-    command = function()
-      user_highlights()
-    end,
+    events = 'ColorScheme',
+    targets = '*',
+    command = user_highlights,
   },
 })
 
