@@ -4,7 +4,6 @@ local empty = fn.empty
 local filter = fn.filter
 local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
-local uv = vim.loop
 
 local M = {}
 
@@ -96,25 +95,24 @@ function M.sign_define(name, text)
 end
 
 function M.augroup(name, commands)
-  vim.cmd('augroup ' .. name)
-  vim.cmd 'autocmd!'
+  local group = vim.api.nvim_create_augroup(name, { clear = true })
   for _, c in ipairs(commands) do
     local command = c.command
+
     if type(command) == 'function' then
-      local fn_id = M._create(command)
-      command = fmt('lua require("ma.utils")._execute(%s)', fn_id)
+      c.command = nil
+      c.callback = command
     end
-    vim.cmd(
-      fmt(
-        'autocmd %s %s %s %s',
-        table.concat(c.events, ','),
-        table.concat(c.targets or {}, ','),
-        table.concat(c.modifiers or {}, ' '),
-        command
-      )
+
+    vim.api.nvim_create_autocmd(
+      c.events,
+
+      tbl_extend('keep', { group = group, pattern = c.targets }, {
+        command = c.command,
+        callback = c.callback,
+      })
     )
   end
-  vim.cmd 'augroup END'
 end
 
 function M.command(name, rhs, user_opts)
