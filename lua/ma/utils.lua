@@ -119,7 +119,7 @@ function M.command(name, rhs, user_opts)
   local default_opts = { force = true }
   local opts = vim.tbl_extend('keep', user_opts or {}, default_opts)
 
-  vim.api.nvim_add_user_command(name, rhs, opts)
+  vim.api.nvim_create_user_command(name, rhs, opts)
 end
 
 function M.abbrev(mode, lhs, rhs)
