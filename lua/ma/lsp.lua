@@ -41,11 +41,6 @@ local function lsp_code_lens_refresh(client)
       targets = { '<buffer>' },
       command = vim.lsp.codelens.refresh,
     },
-    {
-      events = { 'InsertLeave' },
-      targets = { '<buffer>' },
-      command = vim.lsp.codelens.display,
-    },
   })
 end
 
