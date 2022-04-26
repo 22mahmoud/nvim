@@ -34,13 +34,9 @@ _install_volta() {
 }
 
 _install_node() {
-  if [ ! "$(volta which node)" ]; then
-    printf "[node-lts]: install\n"
-    volta install node@lts >/dev/null 2>&1
-    printf "[node-lts]: done\n\n"
-  else
-    printf "[node]: skip already installed\n\n"
-  fi
+  printf "[node-latest]: install\n"
+  volta install node@latest >/dev/null 2>&1
+  printf "[node-latest]: done\n\n"
 }
 
 _install_node_provider() {
@@ -50,23 +46,15 @@ _install_node_provider() {
 }
 
 _install_python() {
-  if [ ! "$(command -v python)" ]; then
-    printf "[python]: install\n"
-    sudo pacman -S python --noconfirm >/dev/null 2>&1
-    printf "[python]: done\n\n"
-  else
-    printf "[python]: skip already installed\n\n"
-  fi
+  printf "[python]: install\n"
+  sudo pacman -S python --noconfirm >/dev/null 2>&1
+  printf "[python]: done\n\n"
 }
 
 _install_pip() {
-  if [ ! "$(command -v pip)" ]; then
-    printf "[python-pip]: install\n"
-    sudo pacman -S python-pip --noconfirm >/dev/null 2>&1
-    printf "[python-pip]: done\n\n"
-  else
-    printf "[python-pip]: skip already installed\n\n"
-  fi
+  printf "[python-pip]: install\n"
+  sudo pacman -S python-pip --noconfirm >/dev/null 2>&1
+  printf "[python-pip]: done\n\n"
 }
 
 _install_python_provider() {
@@ -76,23 +64,15 @@ _install_python_provider() {
 }
 
 _install_ruby() {
-  if [ ! "$(command -v ruby)" ]; then
-    printf "[ruby]: install\n"
-    sudo pacman -S ruby --noconfirm >/dev/null 2>&1
-    printf "[ruby]: done\n\n"
-  else
-    printf "[ruby]: skip already installed\n\n"
-  fi
+  printf "[ruby]: install\n"
+  sudo pacman -S ruby --noconfirm >/dev/null 2>&1
+  printf "[ruby]: done\n\n"
 }
 
 _install_gem() {
-  if [ ! "$(command -v gem)" ]; then
-    printf "[ruby-gem]: install\n"
-    sudo pacman -S rubygems --noconfirm >/dev/null 2>&1
-    printf "[ruby-gem]: done\n\n"
-  else
-    printf "[ruby-gem]: skip already installed\n\n"
-  fi
+  printf "[ruby-gem]: install\n"
+  sudo pacman -S rubygems --noconfirm >/dev/null 2>&1
+  printf "[ruby-gem]: done\n\n"
 }
 
 _install_ruby_provider() {
@@ -116,6 +96,19 @@ _install_sumneko_lua() {
   printf "[lsp-sumneko]: install\n"
   sudo pacman -S lua-language-server --noconfirm >/dev/null 2>&1
   printf "[lsp-sumneko]: done\n"
+}
+
+
+_install_go() {
+  printf "[go]: install\n"
+  sudo pacman -S go --noconfirm >/dev/null 2>&1
+  printf "[go]: done\n\n"
+}
+
+_install_gopls() {
+  printf "[gopls]: install\n"
+  sudo pacman -S gopls --noconfirm >/dev/null 2>&1
+  printf "[gopls]: done\n\n"
 }
 
 _install_efm() {
@@ -169,6 +162,8 @@ main() {
   _install_sumneko_lua
   _install_efm
   _install_clangd
+  _install_go
+  _install_gopls
   _install_shellcheck
   _install_shfmt
   _install_npm_packages
