@@ -10,6 +10,7 @@ lsp.setup {
   vimls = {},
   bashls = {},
   tailwindcss = {},
+  gopls = {},
   tsserver = {
     on_attach = function(client, bufnr)
       lsp.on_attach(client, bufnr)
