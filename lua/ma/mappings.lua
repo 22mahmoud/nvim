@@ -61,7 +61,13 @@ G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 G.lsp = G.lsp or {}
 G.lsp.mappings = {
   n = {
-    { ',f', vim.lsp.buf.formatting, 'documentFormattingProvider' },
+    {
+      ',f',
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      'documentFormattingProvider',
+    },
     { 'gr', vim.lsp.buf.references, 'referencesProvider' },
     { 'K', vim.lsp.buf.hover, 'hoverProvider' },
     { 'gi', vim.lsp.buf.implementation, 'implementationProvider' },
@@ -74,7 +80,13 @@ G.lsp.mappings = {
     { '<leader>rn', vim.lsp.buf.rename, 'renameProvider' },
   },
   v = {
-    { ',f', vim.lsp.buf.range_formatting, 'documentRangeFormattingProvider' },
+    {
+      ',f',
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      'documentRangeFormattingProvider',
+    },
   },
   i = {
     { '<c-space>', vim.lsp.buf.signature_help, 'signatureHelpProvider' },
