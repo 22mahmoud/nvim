@@ -10,6 +10,7 @@ lsp.setup {
   vimls = {},
   bashls = {},
   tailwindcss = {},
+  rust_analyzer = {},
   gopls = {},
   tsserver = {
     on_attach = function(client, bufnr)
