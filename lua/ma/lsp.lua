@@ -12,7 +12,7 @@ local border = {
 }
 
 local function lsp_highlight_document(client)
-  if not client.resolved_capabilities.document_highlight then
+  if not client.server_capabilities.documentHighlightProvider then
     return
   end
 
@@ -31,7 +31,7 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_code_lens_refresh(client)
-  if not client.resolved_capabilities.code_lens then
+  if not client.server_capabilities.codeLensProvider then
     return
   end
 
@@ -121,7 +121,7 @@ local function set_lsp_buffer_keybindings(client, bufnr)
       local lhs, rhs, capability = unpack(mapping)
 
       -- skip mapping if capability not enabled
-      if capability and not client.resolved_capabilities[capability] then
+      if capability and not client.server_capabilities[capability] then
         goto continue
       end
 

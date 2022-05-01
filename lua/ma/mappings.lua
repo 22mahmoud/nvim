@@ -61,22 +61,22 @@ G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 G.lsp = G.lsp or {}
 G.lsp.mappings = {
   n = {
-    { ',f', vim.lsp.buf.formatting, 'document_formatting' },
-    { 'gr', vim.lsp.buf.references, 'find_references' },
-    { 'K', vim.lsp.buf.hover, 'hover' },
-    { 'gi', vim.lsp.buf.implementation, 'implementation' },
-    { 'gd', vim.lsp.buf.definition, 'goto_definition' },
-    { 'gD', vim.lsp.buf.declaration, 'declaration' },
-    { '<leader>sh', vim.lsp.buf.signature_help, 'signature_help' },
-    { 'gW', vim.lsp.buf.workspace_symbol, 'workspace_symbol' },
-    { 'ga', vim.lsp.buf.code_action, 'code_action' },
-    { '<leader>l', vim.lsp.codelens.run, 'code_lens' },
-    { '<leader>rn', vim.lsp.buf.rename, 'rename' },
+    { ',f', vim.lsp.buf.formatting, 'documentFormattingProvider' },
+    { 'gr', vim.lsp.buf.references, 'referencesProvider' },
+    { 'K', vim.lsp.buf.hover, 'hoverProvider' },
+    { 'gi', vim.lsp.buf.implementation, 'implementationProvider' },
+    { 'gd', vim.lsp.buf.definition, 'definitionProvider' },
+    { 'gD', vim.lsp.buf.declaration, 'declarationProvider' },
+    { '<leader>sh', vim.lsp.buf.signature_help, 'signatureHelpProvider' },
+    { 'gW', vim.lsp.buf.workspace_symbol, 'workspaceSymbolProvider' },
+    { 'ga', vim.lsp.buf.code_action, 'codeActionProvider' },
+    { '<leader>l', vim.lsp.codelens.run, 'codeLensProvider' },
+    { '<leader>rn', vim.lsp.buf.rename, 'renameProvider' },
   },
   v = {
-    { ',f', vim.lsp.buf.range_formatting, 'document_range_formatting' },
+    { ',f', vim.lsp.buf.range_formatting, 'documentRangeFormattingProvider' },
   },
   i = {
-    { '<c-space>', vim.lsp.buf.signature_help, 'signature_help' },
+    { '<c-space>', vim.lsp.buf.signature_help, 'signatureHelpProvider' },
   },
 }
