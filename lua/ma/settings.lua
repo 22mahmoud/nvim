@@ -81,7 +81,6 @@ o.backup = false
 o.writebackup = false
 o.swapfile = false
 o.undofile = true
-o.undodir = vim.fn.stdpath 'data' .. '/undo'
 o.undolevels = 10000
 
 -- search
