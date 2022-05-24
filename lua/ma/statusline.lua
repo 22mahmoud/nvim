@@ -12,12 +12,6 @@ local function block(value, template, space)
   return fmt((template or '%s') .. (space or ' '), value)
 end
 
-local function truncat(data, width)
-  local is_truncated = vim.api.nvim_win_get_width(0) < (width or -1)
-
-  return is_truncated and data[2] or data[1]
-end
-
 local function get_path()
   local file_name = fn.expand '%:~:.:t'
   local base = fn.expand '%:~:.:h'
@@ -30,10 +24,7 @@ local function get_path()
     return ''
   end
 
-  return {
-    path,
-    fn.pathshorten(path),
-  }
+  return path
 end
 
 local CTRL_S = vim.api.nvim_replace_termcodes('<C-S>', true, true, true)
@@ -62,7 +53,7 @@ local modes = setmetatable({
 local function get_mode()
   local mode = modes[vim.fn.mode()]
 
-  return { mode.long, mode.short }
+  return mode.long
 end
 
 local function get_file_icon()
@@ -96,16 +87,12 @@ local function get_lsp_diagnostics()
   local i = get_diag_count(severity.INFO)
   local h = get_diag_count(severity.HINT)
 
-  return {
-    table.concat({
-      block(e, 'E: %s,'),
-      block(w, 'W: %s,'),
-      block(i, 'I: %s,'),
-      block(h, 'H: %s,'),
-    }):gsub(',%s$', ''), -- remove an extra ", " at the end of line
-
-    block(w, 'E: %s', ''),
-  }
+  return table.concat({
+    block(e, 'E: %s,'),
+    block(w, 'W: %s,'),
+    block(i, 'I: %s,'),
+    block(h, 'H: %s,'),
+  }):gsub(',%s$', '') -- remove an extra ", " at the end of line
 end
 
 function M.get_active_statusline()
@@ -117,40 +104,24 @@ function M.get_active_statusline()
   local file_icon = get_file_icon()
 
   local lhs = table.concat {
-    block(truncat(mode, 120), '[%s]'),
+    block(mode, '[%s]'),
     block(file_icon),
-    block(truncat(path, 120)),
+    block(path),
     block(modified_icon),
     block(readonly_icon),
   }
 
   local rhs = table.concat {
-    block(truncat(diagnostics, 160), '[%s]'),
+    block(diagnostics, '[%s]'),
     block '%l|%c',
   }
 
   return lhs .. '%=' .. rhs
 end
 
-function M.get_inactive_statusline()
-  local modified_icon = get_modified_icon()
-  local file_icon = get_file_icon()
-
-  return table.concat {
-    block(file_icon),
-    block("%f"),
-    block(modified_icon),
-  }
-end
-
-local function active()
-  vim.opt_local.statusline =
+local function statusline()
+  vim.o.statusline =
     [[%!luaeval('require("ma.statusline").get_active_statusline()')]]
-end
-
-local function inactive()
-  vim.opt_local.statusline =
-    [[%!luaeval('require("ma.statusline").get_inactive_statusline()')]]
 end
 
 local function setup()
@@ -158,12 +129,7 @@ local function setup()
     {
       events = { 'WinEnter', 'BufEnter' },
       targets = { '*' },
-      command = active,
-    },
-    {
-      events = { 'WinLeave', 'BufLeave' },
-      targets = { '*' },
-      command = inactive,
+      command = statusline,
     },
   })
 end
