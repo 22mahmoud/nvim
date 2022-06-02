@@ -1,4 +1,3 @@
-local fmt = string.format
 local fn = vim.fn
 local empty = fn.empty
 local filter = fn.filter
@@ -6,17 +5,6 @@ local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
 
 local M = {}
-
-M._store = {}
-
-M._create = function(f)
-  table.insert(M._store, f)
-  return #M._store
-end
-
-M._execute = function(id)
-  return M._store[id]()
-end
 
 function M.P(...)
   print(vim.inspect(...))
@@ -120,15 +108,6 @@ function M.command(name, rhs, user_opts)
   local opts = vim.tbl_extend('keep', user_opts or {}, default_opts)
 
   vim.api.nvim_create_user_command(name, rhs, opts)
-end
-
-function M.abbrev(mode, lhs, rhs)
-  if type(rhs) == 'function' then
-    local fn_id = M._create(rhs)
-    rhs = fmt('lua require("ma.utils")._execute(%s)', fn_id)
-  end
-
-  vim.cmd(fmt('%sabbrev <buffer> %s %s', mode, lhs, rhs))
 end
 
 function M.toggle_qf()
@@ -292,31 +271,28 @@ M.icons = setmetatable({
   end,
 })
 
-function M.bootstrap()
-  local map_opts = { noremap = false, silent = true }
-  local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
+local map_opts = { noremap = false, silent = true }
+local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
 
-  G.P = M.P
-  G.icons = M.icons
-  G.augroup = M.augroup
-  G.sign_define = M.sign_define
-  G.command = M.command
-  G.abbrev = M.abbrev
-  G.toggle_qf = M.toggle_qf
-  G.nmap = M.map('n', map_opts)
-  G.imap = M.map('i', map_opts)
-  G.vmap = M.map('v', map_opts)
-  G.tmap = M.map('t', map_opts)
-  G.xmap = M.map('x', map_opts)
-  G.omap = M.map('o', map_opts)
-  G.cmap = M.map('c', tbl_extend('keep', { silent = false }, map_opts))
-  G.nnoremap = M.map('n', noremap_opts)
-  G.inoremap = M.map('i', noremap_opts)
-  G.vnoremap = M.map('v', noremap_opts)
-  G.tnoremap = M.map('t', noremap_opts)
-  G.xnoremap = M.map('x', noremap_opts)
-  G.onoremap = M.map('o', noremap_opts)
-  G.cnoremap = M.map('c', tbl_extend('keep', { silent = false }, noremap_opts))
+M.nmap = M.map('n', map_opts)
+M.imap = M.map('i', map_opts)
+M.vmap = M.map('v', map_opts)
+M.tmap = M.map('t', map_opts)
+M.xmap = M.map('x', map_opts)
+M.omap = M.map('o', map_opts)
+M.cmap = M.map('c', tbl_extend('keep', { silent = false }, map_opts))
+M.nnoremap = M.map('n', noremap_opts)
+M.inoremap = M.map('i', noremap_opts)
+M.vnoremap = M.map('v', noremap_opts)
+M.tnoremap = M.map('t', noremap_opts)
+M.xnoremap = M.map('x', noremap_opts)
+M.onoremap = M.map('o', noremap_opts)
+M.cnoremap = M.map('c', tbl_extend('keep', { silent = false }, noremap_opts))
+
+function M.bootstrap()
+  for k, v in pairs(M) do
+    G[k] = v
+  end
 end
 
 return M
