@@ -95,7 +95,7 @@ local function get_lsp_diagnostics()
   }):gsub(',%s$', '') -- remove an extra ", " at the end of line
 end
 
-function M.get_active_statusline()
+function M.get_statusline()
   local mode = get_mode()
   local path = get_path()
   local modified_icon = get_modified_icon()
@@ -119,19 +119,32 @@ function M.get_active_statusline()
   return lhs .. '%=' .. rhs
 end
 
+function M.get_winbar()
+  local path = get_path()
+  local modified_icon = get_modified_icon()
+  local file_icon = get_file_icon()
+
+  local lhs = table.concat {
+    block(' ', ' '),
+    block(file_icon),
+    block(path),
+    block(modified_icon),
+  }
+
+  return lhs
+end
+
 local function statusline()
-  vim.o.statusline =
-    [[%!luaeval('require("ma.statusline").get_active_statusline()')]]
+  vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
+end
+
+local function winbar()
+  vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
 end
 
 local function setup()
-  G.augroup('StatusLine', {
-    {
-      events = { 'WinEnter', 'BufEnter' },
-      targets = { '*' },
-      command = statusline,
-    },
-  })
+  statusline()
+  winbar()
 end
 
 setup()

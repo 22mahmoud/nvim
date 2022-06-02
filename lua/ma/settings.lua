@@ -29,7 +29,6 @@ o.wrap = false
 o.termguicolors = true
 o.textwidth = 80
 o.laststatus = 3
-o.winbar = '%f'
 o.conceallevel = 2
 o.signcolumn = 'yes'
 o.colorcolumn = '+1'
