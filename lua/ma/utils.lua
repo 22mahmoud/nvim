@@ -126,6 +126,10 @@ function M.toggle_qf()
   end
 end
 
+function M.hl(name, opts)
+  vim.api.nvim_set_hl(0, name, opts)
+end
+
 M.icons = setmetatable({
   -- Exact Match
   ['gruntfile.coffee'] = '',

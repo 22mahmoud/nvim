@@ -2,10 +2,6 @@ _G.G = {}
 
 -- configure runtimepath
 vim.opt.packpath = { vim.fn.stdpath 'data' .. '/site' }
-vim.opt.runtimepath:remove '/usr/share/vim/vimfiles'
-vim.opt.runtimepath:remove '/etc/xdg/nvim'
-vim.opt.runtimepath:remove '/etc/xdg/nvim/after'
-vim.opt.runtimepath:remove '/usr/lib/nvim'
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -74,12 +70,16 @@ utils.bootstrap()
 
 local function user_highlights()
   vim.cmd [[hi Normal   guibg=NONE]]
-  vim.cmd [[hi NormalNC guibg=NONE]]
-
-  vim.cmd [[hi SignColumn        guibg=NONE]]
-  vim.cmd [[hi LspReferenceText  gui=NONE]]
-  vim.cmd [[hi LspReferenceRead  gui=NONE]]
-  vim.cmd [[hi LspReferenceWrite gui=NONE]]
+  G.hl('NormalNC', { guibg = nil })
+  G.hl('NormalSB', { guibg = nil })
+  G.hl('NormalFloat', { guibg = nil })
+  G.hl('SignColumn', { guibg = nil })
+  G.hl('LineNr', { guibg = nil })
+  G.hl('LspReferenceText', { guibg = nil })
+  G.hl('LspReferenceRead', { guibg = nil })
+  G.hl('LspReferenceWrite', { guibg = nil })
+  G.hl('VertSplit', { guibg = nil })
+  G.hl('FloatBorder', { guibg = nil })
 end
 
 G.augroup('UserHighlights', {
