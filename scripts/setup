@@ -1,20 +1,38 @@
 #!/bin/sh
 _update_paru_package_database() {
-  printf "[paru]: update package database\n"
-  paru -Syy --noconfirm 
-  printf "[paru]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[brew]: update package database\n"
+    brew update
+    printf "[brew]: done\n\n"
+  else
+    printf "[paru]: update package database\n"
+    paru -Syy --noconfirm
+    printf "[paru]: done\n\n"
+  fi
 }
 
 _install_neovim() {
-  printf "[neovim]: install\n"
-  paru -S neovim --noconfirm 
-  printf "[neovim]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[neovim]: install\n"
+    brew install neovim
+    printf "[neovim]: done\n\n"
+  else
+    printf "[neovim]: install\n"
+    paru -S neovim --noconfirm
+    printf "[neovim]: done\n\n"
+  fi
 }
 
 _install_treesitter() {
-  printf "[treesitter]: install\n"
-  paru -S treesitter --noconfirm 
-  printf "[treesitter]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[treesitter]: install\n"
+    brew install tree-sitter
+    printf "[treesitter]: done\n\n"
+  else
+    printf "[treesitter]: install\n"
+    paru -S treesitter --noconfirm
+    printf "[treesitter]: done\n\n"
+  fi
 }
 
 _install_volta() {
@@ -24,9 +42,9 @@ _install_volta() {
   if [ ! "$(command -v volta)" ]; then
     printf "[volta]: install\n"
     volta_script="$XDG_CACHE_HOME"/volta.sh
-    wget -q --show-progress https://get.volta.sh -O "$volta_script" 
+    wget -q --show-progress https://get.volta.sh -O "$volta_script"
     chmod +x "$volta_script"
-    "$volta_script" --skip-setup  && rm "$volta_script"
+    "$volta_script" --skip-setup && rm "$volta_script"
     printf "[volta]: done\n\n"
   else
     printf "[volta]: skip already installed\n\n"
@@ -35,49 +53,73 @@ _install_volta() {
 
 _install_node() {
   printf "[node-latest]: install\n"
-  volta install node@latest 
+  volta install node@latest
   printf "[node-latest]: done\n\n"
 }
 
 _install_node_provider() {
   printf "[node-neovim]: install\n"
-  volta install neovim 
+  volta install neovim
   printf "[node-neovim]: done\n\n"
 }
 
 _install_python() {
-  printf "[python]: install\n"
-  paru -S python --noconfirm 
-  printf "[python]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    # do no thing
+    echo
+  else
+    printf "[python]: install\n"
+    paru -S python --noconfirm
+    printf "[python]: done\n\n"
+  fi
 }
 
 _install_pip() {
-  printf "[python-pip]: install\n"
-  paru -S python-pip --noconfirm 
-  printf "[python-pip]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[python-pip]: install\n"
+    python3 -m pip install --upgrade setuptools
+    python3 -m pip install --upgrade pip
+    printf "[python-pip]: done\n\n"
+  else
+    printf "[python-pip]: install\n"
+    paru -S python-pip --noconfirm
+    printf "[python-pip]: done\n\n"
+  fi
 }
 
 _install_python_provider() {
   printf "[python-neovim]: install\n"
-  pip3 install --upgrade neovim 
+  pip3 install --upgrade neovim
   printf "[python-neovim]: done\n\n"
 }
 
 _install_ruby() {
-  printf "[ruby]: install\n"
-  paru -S ruby --noconfirm 
-  printf "[ruby]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[ruby]: install\n"
+    brew install ruby
+    printf "[ruby]: done\n\n"
+  else
+    printf "[ruby]: install\n"
+    paru -S ruby --noconfirm
+    printf "[ruby]: done\n\n"
+  fi
 }
 
 _install_gem() {
-  printf "[ruby-gem]: install\n"
-  paru -S rubygems --noconfirm 
-  printf "[ruby-gem]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[ruby-gem]: install\n"
+    brew install brew-gem
+    printf "[ruby-gem]: done\n\n"
+  else
+    printf "[ruby-gem]: install\n"
+    paru -S rubygems --noconfirm
+    printf "[ruby-gem]: done\n\n"
+  fi
 }
 
 _install_ruby_provider() {
   printf "[ruby-provider]: install\n"
-  gem install neovim 
+  gem install neovim
   printf "[ruby-provider]: done\n\n"
 }
 
@@ -85,7 +127,7 @@ _install_npm_packages() {
   printf "[npm-packages]: install\n"
   npm_packages_file="$XDG_CONFIG_HOME/nvim/scripts/npm_packages"
   if [ -e "$npm_packages_file" ]; then
-    xargs volta install <"$npm_packages_file" 
+    xargs volta install <"$npm_packages_file"
     printf "[npm-packages]: done\n"
   else
     printf "[npm-packages]: %s not found\n" "$npm_packages_file"
@@ -93,46 +135,88 @@ _install_npm_packages() {
 }
 
 _install_sumneko_lua() {
-  printf "[lsp-sumneko]: install\n"
-  paru -S lua-language-server --noconfirm 
-  printf "[lsp-sumneko]: done\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[lsp-sumneko]: install\n"
+    brew install lua-language-server
+    printf "[lsp-sumneko]: done\n"
+  else
+    printf "[lsp-sumneko]: install\n"
+    paru -S lua-language-server --noconfirm
+    printf "[lsp-sumneko]: done\n"
+  fi
 }
 
-
 _install_go() {
-  printf "[go]: install\n"
-  paru -S go --noconfirm 
-  printf "[go]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[go]: install\n"
+    brew install go
+    printf "[go]: done\n\n"
+  else
+    printf "[go]: install\n"
+    paru -S go --noconfirm
+    printf "[go]: done\n\n"
+  fi
 }
 
 _install_gopls() {
-  printf "[gopls]: install\n"
-  paru -S gopls --noconfirm 
-  printf "[gopls]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[gopls]: install\n"
+    brew install gopls
+    printf "[gopls]: done\n\n"
+  else
+    printf "[gopls]: install\n"
+    paru -S gopls --noconfirm
+    printf "[gopls]: done\n\n"
+  fi
 }
 
 _install_efm() {
-  printf "[efm]: install\n"
-  paru -S efm-langserver --noconfirm 
-  printf "[efm]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[efm]: install\n"
+    brew install efm-langserver
+    printf "[efm]: done\n\n"
+  else
+    printf "[efm]: install\n"
+    paru -S efm-langserver --noconfirm
+    printf "[efm]: done\n\n"
+  fi
 }
 
 _install_clangd() {
-  printf "[clangd]: install\n"
-  paru -S clang --noconfirm 
-  printf "[clangd]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[ccls]: install\n"
+    brew install ccls
+    printf "[ccls]: done\n\n"
+  else
+    printf "[clangd]: install\n"
+    paru -S clang --noconfirm
+    printf "[clangd]: done\n\n"
+  fi
 }
 
 _install_shellcheck() {
-  printf "[shellcheck]: install\n"
-  paru -S shellcheck --noconfirm 
-  printf "[shellcheck]: done\n\n"
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[shellcheck]: install\n"
+    brew install shellcheck
+    printf "[shellcheck]: done\n\n"
+  else
+    printf "[shellcheck]: install\n"
+    paru -S shellcheck --noconfirm
+    printf "[shellcheck]: done\n\n"
+  fi
 }
 
 _install_shfmt() {
-  printf "[shfmt]: install\n"
-  paru -S shfmt --noconfirm 
-  printf "[shfmt]: done\n\n"
+
+  if [ "$(uname -s)" = Darwin ]; then
+    printf "[shfmt]: install\n"
+    brew install shfmt
+    printf "[shfmt]: done\n\n"
+  else
+    printf "[shfmt]: install\n"
+    paru -S shfmt --noconfirm
+    printf "[shfmt]: done\n\n"
+  fi
 }
 
 # install or update packages
