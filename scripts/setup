@@ -30,7 +30,7 @@ _install_treesitter() {
     printf "[treesitter]: done\n\n"
   else
     printf "[treesitter]: install\n"
-    paru -S treesitter --noconfirm
+    paru -S tree-sitter --noconfirm
     printf "[treesitter]: done\n\n"
   fi
 }
