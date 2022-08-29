@@ -6,7 +6,7 @@ _update_paru_package_database() {
     printf "[brew]: done\n\n"
   else
     printf "[paru]: update package database\n"
-    paru -Syy --noconfirm
+    paru -Syu --noconfirm
     printf "[paru]: done\n\n"
   fi
 }
@@ -18,7 +18,7 @@ _install_neovim() {
     printf "[neovim]: done\n\n"
   else
     printf "[neovim]: install\n"
-    paru -S neovim --noconfirm
+    paru --needed -S neovim --noconfirm
     printf "[neovim]: done\n\n"
   fi
 }
@@ -30,7 +30,7 @@ _install_treesitter() {
     printf "[treesitter]: done\n\n"
   else
     printf "[treesitter]: install\n"
-    paru -S tree-sitter --noconfirm
+    paru --needed -S tree-sitter --noconfirm
     printf "[treesitter]: done\n\n"
   fi
 }
@@ -69,7 +69,7 @@ _install_python() {
     echo
   else
     printf "[python]: install\n"
-    paru -S python --noconfirm
+    paru --needed -S python --noconfirm
     printf "[python]: done\n\n"
   fi
 }
@@ -82,7 +82,7 @@ _install_pip() {
     printf "[python-pip]: done\n\n"
   else
     printf "[python-pip]: install\n"
-    paru -S python-pip --noconfirm
+    paru --needed -S python-pip --noconfirm
     printf "[python-pip]: done\n\n"
   fi
 }
@@ -100,7 +100,7 @@ _install_ruby() {
     printf "[ruby]: done\n\n"
   else
     printf "[ruby]: install\n"
-    paru -S ruby --noconfirm
+    paru --needed -S ruby --noconfirm
     printf "[ruby]: done\n\n"
   fi
 }
@@ -112,7 +112,7 @@ _install_gem() {
     printf "[ruby-gem]: done\n\n"
   else
     printf "[ruby-gem]: install\n"
-    paru -S rubygems --noconfirm
+    paru --needed -S rubygems --noconfirm
     printf "[ruby-gem]: done\n\n"
   fi
 }
@@ -141,7 +141,7 @@ _install_sumneko_lua() {
     printf "[lsp-sumneko]: done\n"
   else
     printf "[lsp-sumneko]: install\n"
-    paru -S lua-language-server --noconfirm
+    paru --needed -S lua-language-server --noconfirm
     printf "[lsp-sumneko]: done\n"
   fi
 }
@@ -153,7 +153,7 @@ _install_go() {
     printf "[go]: done\n\n"
   else
     printf "[go]: install\n"
-    paru -S go --noconfirm
+    paru --needed -S go --noconfirm
     printf "[go]: done\n\n"
   fi
 }
@@ -165,7 +165,7 @@ _install_gopls() {
     printf "[gopls]: done\n\n"
   else
     printf "[gopls]: install\n"
-    paru -S gopls --noconfirm
+    paru --needed -S gopls --noconfirm
     printf "[gopls]: done\n\n"
   fi
 }
@@ -177,7 +177,7 @@ _install_efm() {
     printf "[efm]: done\n\n"
   else
     printf "[efm]: install\n"
-    paru -S efm-langserver --noconfirm
+    paru --needed -S efm-langserver --noconfirm
     printf "[efm]: done\n\n"
   fi
 }
@@ -189,7 +189,7 @@ _install_clangd() {
     printf "[ccls]: done\n\n"
   else
     printf "[clangd]: install\n"
-    paru -S clang --noconfirm
+    paru --needed -S clang --noconfirm
     printf "[clangd]: done\n\n"
   fi
 }
@@ -201,7 +201,7 @@ _install_shellcheck() {
     printf "[shellcheck]: done\n\n"
   else
     printf "[shellcheck]: install\n"
-    paru -S shellcheck --noconfirm
+    paru --needed -S shellcheck --noconfirm
     printf "[shellcheck]: done\n\n"
   fi
 }
@@ -214,7 +214,7 @@ _install_shfmt() {
     printf "[shfmt]: done\n\n"
   else
     printf "[shfmt]: install\n"
-    paru -S shfmt --noconfirm
+    paru --needed -S shfmt --noconfirm
     printf "[shfmt]: done\n\n"
   fi
 }
