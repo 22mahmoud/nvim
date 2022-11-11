@@ -14,9 +14,8 @@ lsp.setup {
       tailwindCSS = {
         experimental = {
           classRegex = {
-            "clx\\('([^)]*)\\')",
-            "cva\\('([^)]*)\\')",
-            '["\'`]([^"\'`]*).*?["\'`]',
+            { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'clx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
           },
         },
       },
@@ -38,13 +37,14 @@ lsp.setup {
           targets = { '<buffer>' },
           command = function()
             local completed_item = vim.v.completed_item
-            if not (
+            if
+              not (
                 completed_item
-                    and completed_item.user_data
-                    and completed_item.user_data.nvim
-                    and completed_item.user_data.nvim.lsp
-                    and completed_item.user_data.nvim.lsp.completion_item
-                )
+                and completed_item.user_data
+                and completed_item.user_data.nvim
+                and completed_item.user_data.nvim.lsp
+                and completed_item.user_data.nvim.lsp.completion_item
+              )
             then
               return
             end
