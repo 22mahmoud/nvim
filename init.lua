@@ -47,9 +47,8 @@ end
 -- node
 if vim.fn.executable 'neovim-node-host' then
   if vim.fn.executable 'volta' then
-    vim.g.node_host_prog = vim.fn.trim(
-      vim.fn.system 'volta which neovim-node-host'
-    )
+    vim.g.node_host_prog =
+      vim.fn.trim(vim.fn.system 'volta which neovim-node-host')
   else
     vim.g.node_host_prog = vim.fn.exepath 'neovim-node-host'
   end
@@ -98,5 +97,10 @@ require 'ma.plugins'
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'
 if vim.loop.fs_stat(local_vimrc) then
+  local source = vim.secure.read(local_vimrc)
+  if not source then
+    return
+  end
+
   vim.cmd(string.format('so %s', local_vimrc))
 end

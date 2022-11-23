@@ -21,6 +21,7 @@ o.ttimeoutlen = 10
 o.showtabline = 0
 o.virtualedit = 'block'
 o.viewoptions = 'cursor,folds'
+o.exrc = true
 
 -- ui/display
 vim.cmd [[syntax enable]]
