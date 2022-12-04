@@ -179,6 +179,7 @@ function M.setup()
   M.use 'tpope/vim-surround.git'
   M.use 'tpope/vim-repeat'
   M.use 'tpope/vim-commentary'
+  M.use 'wakatime/vim-wakatime'
 end
 
 M.setup()
