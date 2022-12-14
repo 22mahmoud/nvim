@@ -9,6 +9,15 @@ lsp.setup {
   pyright = {},
   vimls = {},
   bashls = {},
+  graphql = {
+    filetypes = {
+      'javascript',
+      'javascriptreact',
+      'typescriptreact',
+      'typescript',
+      "graphql"
+    },
+  },
   tailwindcss = {
     settings = {
       tailwindCSS = {
