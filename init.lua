@@ -48,7 +48,7 @@ end
 if vim.fn.executable 'neovim-node-host' then
   if vim.fn.executable 'volta' then
     vim.g.node_host_prog =
-      vim.fn.trim(vim.fn.system 'volta which neovim-node-host')
+    vim.fn.trim(vim.fn.system 'volta which neovim-node-host')
   else
     vim.g.node_host_prog = vim.fn.exepath 'neovim-node-host'
   end
@@ -68,17 +68,19 @@ local utils = require 'ma.utils'
 utils.bootstrap()
 
 local function user_highlights()
-  vim.cmd [[hi Normal   guibg=NONE]]
-  G.hl('NormalNC', { guibg = nil })
-  G.hl('NormalSB', { guibg = nil })
-  G.hl('NormalFloat', { guibg = nil })
-  G.hl('SignColumn', { guibg = nil })
-  G.hl('LineNr', { guibg = nil })
-  G.hl('LspReferenceText', { guibg = nil })
-  G.hl('LspReferenceRead', { guibg = nil })
-  G.hl('LspReferenceWrite', { guibg = nil })
-  G.hl('VertSplit', { guibg = nil })
-  G.hl('FloatBorder', { guibg = nil })
+  local opts = { guibg = nil }
+
+  G.hl('Normal', opts)
+  G.hl('NormalNC', opts)
+  G.hl('NormalSB', opts)
+  G.hl('NormalFloat', opts)
+  G.hl('SignColumn', opts)
+  G.hl('LineNr', opts)
+  G.hl('LspReferenceText', opts)
+  G.hl('LspReferenceRead', opts)
+  G.hl('LspReferenceWrite', opts)
+  G.hl('VertSplit', opts)
+  G.hl('FloatBorder', opts)
 end
 
 G.augroup('UserHighlights', {
