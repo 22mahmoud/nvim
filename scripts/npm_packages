@@ -3,7 +3,7 @@ eslint_d
 @tailwindcss/language-server
 pyright
 typescript
-typescript-language-server
+typescript-language-server@2.1.0
 bash-language-server
 vscode-langservers-extracted
 vim-language-server
