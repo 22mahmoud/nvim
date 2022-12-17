@@ -15,7 +15,7 @@ lsp.setup {
       'javascriptreact',
       'typescriptreact',
       'typescript',
-      "graphql"
+      'graphql',
     },
   },
   tailwindcss = {
@@ -46,14 +46,13 @@ lsp.setup {
           targets = { '<buffer>' },
           command = function()
             local completed_item = vim.v.completed_item
-            if
-              not (
+            if not (
                 completed_item
-                and completed_item.user_data
-                and completed_item.user_data.nvim
-                and completed_item.user_data.nvim.lsp
-                and completed_item.user_data.nvim.lsp.completion_item
-              )
+                    and completed_item.user_data
+                    and completed_item.user_data.nvim
+                    and completed_item.user_data.nvim.lsp
+                    and completed_item.user_data.nvim.lsp.completion_item
+                )
             then
               return
             end
@@ -123,6 +122,8 @@ lsp.setup {
       'lua',
       'html',
       'sh',
+      'json',
+      'graphql',
     },
     init_options = {
       documentFormatting = true,
@@ -142,6 +143,12 @@ lsp.setup {
     },
   },
   jsonls = {
+    on_attach = function(client, bufnr)
+      lsp.on_attach(client, bufnr)
+      -- disable formatting in favor of using efm w/ prettier
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
     settings = {
       json = {
         schemas = {

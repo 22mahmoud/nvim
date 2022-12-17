@@ -74,7 +74,7 @@ o.equalalways = false
 -- better grip with 'rg'
 if vim.fn.executable 'rg' == 1 then
   o.grepprg = [[rg --hidden --smart-case --vimgrep]]
-  o.grepformat = { '%f:%l:%c:%m' }
+  o.grepformat = { '%f:%l:%c:%m,%f:%l:%m' }
 end
 
 -- backup
@@ -93,7 +93,7 @@ o.ignorecase = true
 -- completion/menus
 o.path = { '.', ',' }
 o.completeopt = { 'menuone', 'noselect', 'noinsert' }
-o.complete = { '.', 'w', 'b', 'kspell' }
+o.complete = { '.', 'b' }
 o.pumheight = 15
 o.pumblend = 10
 o.wildmode = { 'longest:full', 'full' }
