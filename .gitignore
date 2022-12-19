@@ -1,4 +1,5 @@
 packer
 .netrwhist
 lua/ma/theme.lua
-
+spell
+.luarc.json
