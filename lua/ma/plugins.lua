@@ -4,6 +4,25 @@ M.plugins = {}
 M.plugins_dir = 'site/pack/plugins/opt/'
 M.root_dir = vim.fn.stdpath 'data'
 
+local function commit(msg)
+  vim.fn.system {
+    'git',
+    '-C',
+    M.root_dir,
+    'add',
+    '.',
+  }
+
+  vim.fn.system {
+    'git',
+    '-C',
+    M.root_dir,
+    'commit',
+    '-m',
+    msg or '[update]',
+  }
+end
+
 function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
 
@@ -45,6 +64,8 @@ function M.install()
         string.format('./%s%s', M.plugins_dir, plugin),
       }
 
+      commit('[install] ' .. plugin)
+
       print(output)
     end
   end
@@ -84,6 +105,8 @@ function M.update()
     1,
     '--recursive',
   }
+
+  commit()
 
   print(output)
 
@@ -151,6 +174,7 @@ function M.clean()
 
       package.loaded[name] = nil
 
+      commit('[clean] ' .. name .. ' removed')
       print('Cleaning ' .. name .. ' package done!')
     end
   end
