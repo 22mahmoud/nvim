@@ -125,7 +125,7 @@ G.nnoremap(',e', function()
   local uv = vim.loop
   local stdout = uv.new_pipe(false)
   local stderr = uv.new_pipe(false)
-  local result = nil
+  local result = ''
   local handle = nil
 
   handle = uv.spawn(
@@ -152,8 +152,9 @@ G.nnoremap(',e', function()
         json = data[1]
       end
 
+      local encoded_json = vim.fn.json_encode(json)
       json = vim.split(
-        vim.fn.system(string.format([[echo -E '%s' | jq "."]], json)),
+        vim.fn.system(string.format([[printf '%%s' %s | jq -M "."]], encoded_json)),
         '\n'
       )
 
@@ -188,10 +189,10 @@ G.nnoremap(',e', function()
       return
     end
 
-    result = data
+    result = result .. data
   end
 
-  -- uv.read_start(stderr, on_read_headers)
+  -- uv.read_start''stderr, on_read_headers)
   uv.read_start(stdout, on_read)
 end)
 
