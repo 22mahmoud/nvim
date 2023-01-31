@@ -48,7 +48,7 @@ end
 if vim.fn.executable 'neovim-node-host' then
   if vim.fn.executable 'volta' then
     vim.g.node_host_prog =
-    vim.fn.trim(vim.fn.system 'volta which neovim-node-host')
+      vim.fn.trim(vim.fn.system 'volta which neovim-node-host')
   else
     vim.g.node_host_prog = vim.fn.exepath 'neovim-node-host'
   end
@@ -95,6 +95,105 @@ require 'ma.settings'
 require 'ma.mappings'
 require 'ma.statusline'
 require 'ma.plugins'
+
+G.nnoremap(',e', function()
+  local api = vim.api
+  local fn = vim.fn
+  local tmp_name = 'gql_results'
+  local existing_bufnr = fn.bufnr(tmp_name)
+  local result_bufnr = existing_bufnr ~= -1 and existing_bufnr
+    or api.nvim_create_buf(false, 'nomodeline')
+
+  if existing_bufnr == -1 then
+    api.nvim_buf_set_name(result_bufnr, tmp_name)
+  end
+
+  api.nvim_buf_set_option(result_bufnr, 'modifiable', true)
+  api.nvim_buf_set_option(result_bufnr, 'buftype', 'nofile')
+  api.nvim_buf_set_option(result_bufnr, 'ft', 'httpResult')
+
+  local filename = api.nvim_buf_get_name(0)
+  local body = fn.system(
+    string.format(
+      [[jq -Mcn --arg query "$(cat %s)" '{"query":$query}']],
+      filename
+    )
+  )
+
+  local url = fn.system [[cat .graphqlrc.json | jq -Mcr ".schema" | tr -d "\n"]]
+
+  local uv = vim.loop
+  local stdout = uv.new_pipe(false)
+  local stderr = uv.new_pipe(false)
+  local result = nil
+  local handle = nil
+
+  handle = uv.spawn(
+    'curl',
+    {
+      args = { url, '-K', '.curlrc', '-d', body },
+      stdio = { nil, stdout, stderr },
+    },
+    vim.schedule_wrap(function()
+      stdout:read_stop()
+      stderr:read_stop()
+      stdout:close()
+      stderr:close()
+      handle:close()
+      api.nvim_buf_set_lines(result_bufnr, 0, -1, false, {})
+
+      local headers = nil
+      local json = nil
+      local data = fn.split(result, '\r\n\r\n')
+      if #data > 1 then
+        headers = vim.fn.split(data[1], '\r\n')
+        json = data[2]
+      else
+        json = data[1]
+      end
+
+      json = vim.split(
+        vim.fn.system(string.format([[echo -E '%s' | jq "."]], json)),
+        '\n'
+      )
+
+      if headers then
+        api.nvim_buf_set_lines(result_bufnr, 0, #headers, false, headers)
+      end
+
+      if json then
+        local line_count = vim.api.nvim_buf_line_count(result_bufnr) - 1
+        api.nvim_buf_set_lines(
+          result_bufnr,
+          line_count,
+          line_count + #json,
+          false,
+          json
+        )
+      end
+
+      if vim.fn.bufwinnr(result_bufnr) == -1 then
+        vim.cmd([[vert sb]] .. result_bufnr)
+        api.nvim_buf_set_option(result_bufnr, 'modifiable', false)
+      end
+
+      api.nvim_buf_call(result_bufnr, function()
+        fn.cursor(1, 1)
+      end)
+    end)
+  )
+
+  local function on_read(err, data)
+    if not data then
+      return
+    end
+
+    result = data
+  end
+
+  -- uv.read_start(stderr, on_read_headers)
+  uv.read_start(stdout, on_read)
+end)
 
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'
