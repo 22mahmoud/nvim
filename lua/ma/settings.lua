@@ -22,6 +22,8 @@ o.showtabline = 0
 o.virtualedit = 'block'
 o.viewoptions = 'cursor,folds'
 o.exrc = true
+o.shell = '/usr/bin/bash'
+o.ff = 'unix'
 
 -- ui/display
 vim.cmd [[syntax enable]]
