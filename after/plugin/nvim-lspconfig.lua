@@ -9,6 +9,7 @@ lsp.setup {
   pyright = {},
   vimls = {},
   bashls = {},
+  svelte = {},
   graphql = {
     filetypes = {
       'javascript',

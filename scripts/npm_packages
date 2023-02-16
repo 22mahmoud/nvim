@@ -9,3 +9,4 @@ vscode-langservers-extracted
 vim-language-server
 yaml-language-server
 graphql-language-service-cli
+svelte-language-server
