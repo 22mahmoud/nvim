@@ -87,12 +87,14 @@ local function get_lsp_diagnostics()
   local i = get_diag_count(severity.INFO)
   local h = get_diag_count(severity.HINT)
 
-  return table.concat({
-    block(e, 'E: %s,'),
-    block(w, 'W: %s,'),
-    block(i, 'I: %s,'),
-    block(h, 'H: %s,'),
-  }):gsub(',%s$', '') -- remove an extra ", " at the end of line
+  return table
+    .concat({
+      block(e, 'E: %s,'),
+      block(w, 'W: %s,'),
+      block(i, 'I: %s,'),
+      block(h, 'H: %s,'),
+    })
+    :gsub(',%s$', '') -- remove an extra ", " at the end of line
 end
 
 function M.get_statusline()
