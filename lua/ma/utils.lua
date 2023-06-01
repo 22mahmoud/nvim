@@ -12,7 +12,7 @@ function M.P(...)
   return ...
 end
 
-local function has_value(tab, val)
+function M.has_value(tab, val)
   for _, value in ipairs(tab) do
     if value == val then
       return true
@@ -22,7 +22,7 @@ local function has_value(tab, val)
   return false
 end
 
-local function tbl_filter(func, t)
+function M.tbl_filter(func, t)
   vim.validate { func = { func, 'c' }, t = { t, 't' } }
 
   local out = {}
@@ -33,6 +33,22 @@ local function tbl_filter(func, t)
   end
 
   return out
+end
+
+function M.tbl_map(tbl, f)
+  local t = {}
+  for k, v in pairs(tbl) do
+    t[k] = f(v)
+  end
+  return t
+end
+
+function M.tbl_concat(tbl1, tbl2)
+  local result = tbl1
+  for i = 1, #tbl2 do
+    result[#result + 1] = tbl2[i]
+  end
+  return result
 end
 
 local function is_map_args(value, key)
@@ -47,7 +63,7 @@ local function is_map_args(value, key)
     'expr',
     'unique',
   }
-  return has_value(valid_args, key)
+  return M.has_value(valid_args, key)
 end
 
 function M.map(mode, default_options)
@@ -65,7 +81,7 @@ function M.map(mode, default_options)
 
     local opts = tbl_extend(
       'keep',
-      tbl_filter(is_map_args, extra_options),
+      M.tbl_filter(is_map_args, extra_options),
       default_options
     )
 
@@ -82,8 +98,9 @@ function M.sign_define(name, text)
   })
 end
 
-function M.augroup(name, commands)
-  local group = vim.api.nvim_create_augroup(name, { clear = true })
+function M.augroup(name, commands, cfg)
+  local group =
+    vim.api.nvim_create_augroup(name, { clear = cfg and cfg.clear or true })
   for _, c in ipairs(commands) do
     local command = c.command
 
@@ -98,6 +115,7 @@ function M.augroup(name, commands)
       tbl_extend('keep', { group = group, pattern = c.targets }, {
         command = c.command,
         callback = c.callback,
+        once = c.once or false,
       })
     )
   end
