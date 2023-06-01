@@ -125,8 +125,7 @@ vim.diagnostic.config {
     source = 'always',
   },
 }
-
-G.sign_define('DiagnosticSignError', ' ')
-G.sign_define('DiagnosticSignWarn', ' ')
-G.sign_define('DiagnosticSignHint', ' ')
-G.sign_define('DiagnosticSignInfo', ' ')
+G.sign_define('DiagnosticSignError', ' ')
+G.sign_define('DiagnosticSignWarn', ' ')
+G.sign_define('DiagnosticSignHint', '󰌵 ')
+G.sign_define('DiagnosticSignInfo', ' ')

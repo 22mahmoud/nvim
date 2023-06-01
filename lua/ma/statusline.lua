@@ -72,7 +72,7 @@ local function get_readonly_icon()
     return ''
   end
 
-  return (ro and mod) and '' or ''
+  return (ro and mod) and '󰂭' or ''
 end
 
 local function get_lsp_diagnostics()
