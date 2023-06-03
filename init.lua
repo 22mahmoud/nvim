@@ -67,30 +67,6 @@ local utils = require 'ma.utils'
 
 utils.bootstrap()
 
-local function user_highlights()
-  local opts = { guibg = nil }
-
-  G.hl('Normal', opts)
-  G.hl('NormalNC', opts)
-  G.hl('NormalSB', opts)
-  G.hl('NormalFloat', opts)
-  G.hl('SignColumn', opts)
-  G.hl('LineNr', opts)
-  G.hl('LspReferenceText', opts)
-  G.hl('LspReferenceRead', opts)
-  G.hl('LspReferenceWrite', opts)
-  G.hl('VertSplit', opts)
-  G.hl('FloatBorder', opts)
-end
-
-G.augroup('UserHighlights', {
-  {
-    events = 'ColorScheme',
-    targets = '*',
-    command = user_highlights,
-  },
-})
-
 require 'ma.settings'
 require 'ma.mappings'
 require 'ma.statusline'

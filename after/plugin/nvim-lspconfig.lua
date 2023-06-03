@@ -1,3 +1,9 @@
+local loaded = pcall(require, 'lspconfig')
+
+if not loaded then
+  return
+end
+
 local root_pattern = require('lspconfig/util').root_pattern
 local dirname = require('lspconfig/util').path.dirname
 local lsp = require 'ma.lsp'
@@ -207,6 +213,13 @@ lsp.setup {
   },
   lua_ls = {
     cmd = { 'lua-language-server' },
+
+    on_attach = function(client, bufnr)
+      lsp.on_attach(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+
     settings = {
       Lua = {
         runtime = {

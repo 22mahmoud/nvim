@@ -190,6 +190,14 @@ function M.setup()
   -- colors
   M.use 'RRethy/nvim-base16'
 
+  -- editor
+  M.use 'tpope/vim-surround.git'
+  M.use 'tpope/vim-repeat'
+  M.use 'tpope/vim-commentary'
+  M.use 'wakatime/vim-wakatime'
+  M.use 'andweeb/presence.nvim'
+  M.use 'github/copilot.vim'
+
   -- lsp
   M.use 'neovim/nvim-lspconfig'
 
@@ -198,14 +206,6 @@ function M.setup()
   M.use 'JoosepAlviste/nvim-ts-context-commentstring'
   M.use 'windwp/nvim-ts-autotag'
   M.use 'nvim-treesitter/nvim-treesitter-textobjects'
-
-  -- editor
-  M.use 'tpope/vim-surround.git'
-  M.use 'tpope/vim-repeat'
-  M.use 'tpope/vim-commentary'
-  M.use 'wakatime/vim-wakatime'
-  M.use 'andweeb/presence.nvim'
-  M.use 'github/copilot.vim'
 end
 
 M.setup()
