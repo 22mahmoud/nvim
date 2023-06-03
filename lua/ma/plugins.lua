@@ -3,8 +3,6 @@ M.plugins = {}
 
 M.plugins_dir = 'site/pack/plugins/opt/'
 M.root_dir = vim.fn.stdpath 'data'
-M.config_dir = vim.fn.stdpath 'config' .. '/after/plugin/'
-M.config_dir = vim.fn.stdpath 'config' .. '/after/plugin/'
 
 local function commit(msg)
   vim.fn.system {
@@ -25,9 +23,8 @@ local function commit(msg)
   }
 end
 
-function M.use(uri, cfg)
+function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
-  local config = cfg or { pattern = {}, config = plugin }
 
   table.insert(M.plugins, {
     uri = uri,
@@ -39,25 +36,7 @@ function M.use(uri, cfg)
     return
   end
 
-  if #config.pattern == 0 then
-    vim.cmd('packadd ' .. plugin)
-    return
-  end
-
-  G.augroup('Packadd', {
-    {
-      events = { 'BufReadPre' },
-      targets = config.pattern,
-      command = function()
-        G.P(plugin)
-        vim.cmd('packadd ' .. plugin)
-        vim.cmd(
-          'source ' .. M.config_dir .. (config.config or plugin) .. '.lua'
-        )
-      end,
-      -- once = true,
-    },
-  }, { clear = false })
+  vim.cmd('packadd ' .. plugin)
 end
 
 function M.install()
@@ -209,23 +188,7 @@ G.command('PkgUpdate', M.update)
 
 function M.setup()
   -- colors
-  M.use('RRethy/nvim-base16', {
-    pattern = { '*.lua' },
-
-  })
-
-  -- lsp
-  M.use 'neovim/nvim-lspconfig'
-  -- M.use('ray-x/go.nvim', {
-  --   pattern = { '*.go', '*.mod' },
-  --   config = 'nvim-go',
-  -- })
-
-  -- treesitter
-  M.use 'nvim-treesitter/nvim-treesitter'
-  M.use 'JoosepAlviste/nvim-ts-context-commentstring'
-  M.use 'windwp/nvim-ts-autotag'
-  M.use 'nvim-treesitter/nvim-treesitter-textobjects'
+  M.use 'RRethy/nvim-base16'
 
   -- editor
   M.use 'tpope/vim-surround.git'
@@ -234,6 +197,15 @@ function M.setup()
   M.use 'wakatime/vim-wakatime'
   M.use 'andweeb/presence.nvim'
   M.use 'github/copilot.vim'
+
+  -- lsp
+  M.use 'neovim/nvim-lspconfig'
+
+  -- treesitter
+  M.use 'nvim-treesitter/nvim-treesitter'
+  M.use 'JoosepAlviste/nvim-ts-context-commentstring'
+  M.use 'windwp/nvim-ts-autotag'
+  M.use 'nvim-treesitter/nvim-treesitter-textobjects'
 end
 
 M.setup()

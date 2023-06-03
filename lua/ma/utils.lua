@@ -99,8 +99,13 @@ function M.sign_define(name, text)
 end
 
 function M.augroup(name, commands, cfg)
-  local group =
-    vim.api.nvim_create_augroup(name, { clear = cfg and cfg.clear or true })
+  local clear = true
+  if cfg and type(cfg.clear) == 'boolean' then
+    clear = cfg.clear
+  end
+
+  local group = vim.api.nvim_create_augroup(name, { clear = clear })
+
   for _, c in ipairs(commands) do
     local command = c.command
 
