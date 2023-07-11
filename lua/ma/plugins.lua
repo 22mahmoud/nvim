@@ -195,7 +195,6 @@ function M.setup()
   M.use 'tpope/vim-repeat'
   M.use 'tpope/vim-commentary'
   M.use 'wakatime/vim-wakatime'
-  M.use 'andweeb/presence.nvim'
   M.use 'github/copilot.vim'
 
   -- lsp

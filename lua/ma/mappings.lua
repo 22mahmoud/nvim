@@ -78,6 +78,13 @@ G.lsp.mappings = {
     { 'ga', vim.lsp.buf.code_action, 'codeActionProvider' },
     { '<leader>l', vim.lsp.codelens.run, 'codeLensProvider' },
     { '<leader>rn', vim.lsp.buf.rename, 'renameProvider' },
+    {
+      '<leader>ih',
+      function()
+        vim.lsp.inlay_hint(0, nil)
+      end,
+      'inlayHintProvider',
+    },
   },
   v = {
     {
