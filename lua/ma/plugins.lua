@@ -194,11 +194,17 @@ function M.setup()
   M.use 'tpope/vim-surround.git'
   M.use 'tpope/vim-repeat'
   M.use 'tpope/vim-commentary'
-  M.use 'wakatime/vim-wakatime'
-  M.use 'github/copilot.vim'
 
   -- lsp
   M.use 'neovim/nvim-lspconfig'
+  M.use 'neovim/nvim-lspconfig'
+  M.use 'hrsh7th/cmp-nvim-lsp'
+  M.use 'hrsh7th/cmp-buffer'
+  M.use 'hrsh7th/cmp-path'
+  M.use 'hrsh7th/cmp-cmdline'
+  M.use 'hrsh7th/nvim-cmp'
+  M.use 'hrsh7th/cmp-vsnip'
+  M.use 'hrsh7th/vim-vsnip'
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'

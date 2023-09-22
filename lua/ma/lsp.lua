@@ -1,3 +1,5 @@
+local cmp_loaded, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+
 local M = {}
 
 local border = {
@@ -133,7 +135,12 @@ local function set_lsp_buffer_keybindings(client, bufnr)
 end
 
 function M.get_client_capabilities()
+  if cmp_loaded then
+    return cmp_lsp.default_capabilities()
+  end
+
   local capabilities = vim.lsp.protocol.make_client_capabilities()
+
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
