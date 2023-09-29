@@ -284,6 +284,7 @@ lsp.setup {
       'html',
       'sh',
       'graphql',
+      'svg',
     },
     init_options = {
       documentFormatting = true,

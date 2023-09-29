@@ -89,7 +89,7 @@ _install_pip() {
 
 _install_python_provider() {
   printf "[python-neovim]: install\n"
-  pip3 install --upgrade neovim
+  pacman -S python-neovim --noconfirm
   printf "[python-neovim]: done\n\n"
 }
 
