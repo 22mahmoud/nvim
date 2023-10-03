@@ -154,7 +154,7 @@ function M.get_client_capabilities()
 end
 
 function M.on_attach(client, bufnr)
-  vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  -- vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
   lsp_highlight_document(client)
   lsp_code_lens_refresh(client)
   set_lsp_buffer_keybindings(client, bufnr)
