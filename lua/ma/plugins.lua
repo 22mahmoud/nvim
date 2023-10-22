@@ -1,37 +1,39 @@
+local fn = vim.fn
+local fmt = fmt
+
 local M = {}
-M.plugins = {}
+
+--- @type string
+M.root_dir = fn.stdpath 'data'
 
 M.plugins_dir = 'site/pack/plugins/opt/'
-M.root_dir = vim.fn.stdpath 'data'
+
+M.plugins = {}
+
+--- @param xs string[]
+local function git(xs)
+  local base = { 'git', '-C', M.root_dir }
+
+  for _, v in ipairs(xs) do
+    table.insert(base, v)
+  end
+
+  G.P(base)
+
+  return fn.system(base)
+end
 
 local function commit(msg)
-  vim.fn.system {
-    'git',
-    '-C',
-    M.root_dir,
-    'add',
-    '.',
-  }
-
-  vim.fn.system {
-    'git',
-    '-C',
-    M.root_dir,
-    'commit',
-    '-m',
-    msg or '[update]',
-  }
+  git { 'add', '.' }
+  git { 'commit', '-m', msg or '[update]' }
 end
 
 function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
 
-  table.insert(M.plugins, {
-    uri = uri,
-    plugin = plugin,
-  })
+  table.insert(M.plugins, { uri = uri, plugin = plugin })
 
-  local dir = vim.loop.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
+  local dir = vim.uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
   if not dir then
     return
   end
@@ -44,24 +46,21 @@ function M.install()
 
   for _, pkg in pairs(M.plugins) do
     local plugin, uri = pkg.plugin, pkg.uri
-    local dir = vim.loop.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
+    local dir = vim.uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
 
     if not dir then
       print('Installing ' .. uri .. '...')
 
       local git_uri = 'https://github.com/' .. uri
 
-      local output = vim.fn.system {
-        'git',
-        '-C',
-        M.root_dir,
+      local output = git {
         'submodule',
         'add',
         '-f',
         '--depth',
-        1,
+        '1',
         git_uri,
-        string.format('./%s%s', M.plugins_dir, plugin),
+        fmt('./%s%s', M.plugins_dir, plugin),
       }
 
       commit('[install] ' .. plugin)
@@ -70,17 +69,7 @@ function M.install()
     end
   end
 
-  vim.fn.system {
-    'git',
-    '-C',
-    M.root_dir,
-    'submodule',
-    'update',
-    '--init',
-    '--depth',
-    1,
-    '--recursive',
-  }
+  git { 'submodule', 'update', '--init', '--depth', '1', '--recursive' }
 
   vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
 
@@ -92,17 +81,14 @@ end
 function M.update()
   print 'Updating packages...'
 
-  local output = vim.fn.system {
-    'git',
-    '-C',
-    M.root_dir,
+  local output = git {
     'submodule',
     'update',
     '-f',
     '--remote',
     '--init',
     '--depth',
-    1,
+    '1',
     '--recursive',
   }
 
@@ -116,9 +102,10 @@ function M.update()
 end
 
 function M.clean()
-  local handle = vim.loop.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
+  local handle = vim.uv.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
+
   local function iter()
-    return vim.loop.fs_scandir_next(handle)
+    return vim.uv.fs_scandir_next(handle)
   end
 
   for name, _ in iter do
@@ -128,49 +115,18 @@ function M.clean()
 
     if not exist then
       local module_name = M.plugins_dir .. name
+      local submodule = fmt('submodule.%s', module_name)
+      local plugin_dir = fmt('%s/%s', M.root_dir, module_name)
+      local submodule_dir = fmt('%s/.git/modules/%s', M.root_dir, module_name)
+
       print('Cleaning ' .. name .. ' package...')
 
-      vim.fn.system {
-        'git',
-        '-C',
-        M.root_dir,
-        'submodule',
-        'deinit',
-        '-f',
-        module_name,
-      }
+      git { 'submodule', 'deinit', '-f', module_name }
+      git { 'rm', '--cached', module_name }
+      git { 'config', '-f', '.gitmodules', '--remove-section', submodule }
 
-      vim.fn.system {
-        'git',
-        '-C',
-        M.root_dir,
-        'rm',
-        '--cached',
-        module_name,
-      }
-
-      vim.fn.system {
-        'git',
-        '-C',
-        M.root_dir,
-        'config',
-        '-f',
-        '.gitmodules',
-        '--remove-section',
-        string.format('submodule.%s', module_name),
-      }
-
-      vim.fn.system {
-        'rm',
-        '-rf',
-        string.format('%s/%s', M.root_dir, module_name),
-      }
-
-      vim.fn.system {
-        'rm',
-        '-r',
-        string.format('%s/.git/modules/%s', M.root_dir, module_name),
-      }
+      fn.system { 'rm', '-rf', plugin_dir }
+      fn.system { 'rm', '-r', submodule_dir }
 
       package.loaded[name] = nil
 
@@ -197,14 +153,7 @@ function M.setup()
 
   -- lsp
   M.use 'neovim/nvim-lspconfig'
-  M.use 'neovim/nvim-lspconfig'
-  M.use 'hrsh7th/cmp-nvim-lsp'
-  M.use 'hrsh7th/cmp-buffer'
-  M.use 'hrsh7th/cmp-path'
-  M.use 'hrsh7th/cmp-cmdline'
-  M.use 'hrsh7th/nvim-cmp'
-  M.use 'hrsh7th/cmp-vsnip'
-  M.use 'hrsh7th/vim-vsnip'
+  M.use 'folke/neodev.nvim'
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'

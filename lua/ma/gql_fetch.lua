@@ -1,6 +1,5 @@
 local fn = vim.fn
 local api = vim.api
-local uv = vim.loop
 
 local function run()
   local tmp_name = 'gql_results'
@@ -12,8 +11,8 @@ local function run()
     api.nvim_buf_set_name(result_bufnr, tmp_name)
   end
 
-  api.nvim_buf_set_option(result_bufnr, 'buftype', 'nofile')
-  api.nvim_buf_set_option(result_bufnr, 'ft', 'httpResult')
+  api.nvim_set_option_value('buftype', 'nofile', { buf = result_bufnr })
+  api.nvim_set_option_value('ft', 'httpResult', { buf = result_bufnr })
 
   local filename = api.nvim_buf_get_name(0)
   local req_body = fn.system(
@@ -24,19 +23,13 @@ local function run()
   )
   local url = fn.system [[cat .graphqlrc.json | jq -r ".schema" | tr -d "\n"]]
 
-  local stdout = uv.new_pipe()
-  local result = ''
-  local handle
-
-  local function cb()
-    handle:close()
-    stdout:read_stop()
-    stdout:close()
+  local function on_exit(obj)
+    local result = obj.stdout
 
     api.nvim_buf_set_lines(result_bufnr, 0, -1, false, {})
 
-    local data = fn.split(result, '\r\n\r\n')
-    local headers = fn.split(data[1], '\r\n')
+    local data = fn.split(result, '\n\n')
+    local headers = fn.split(data[1], '\n')
     local encoded_json = fn.json_encode(data[2])
     local json =
       fn.split(fn.system(string.format('echo %s | jq "."', encoded_json)), '\n')
@@ -56,20 +49,11 @@ local function run()
     end
   end
 
-  handle = uv.spawn('curl', {
-    args = { url, '-K', '.curlrc', '-d', req_body },
-    stdio = { nil, stdout, nil },
-  }, vim.schedule_wrap(cb))
-
-  local function on_read(error, data)
-    if error or not data then
-      return
-    end
-
-    result = result .. data
-  end
-
-  uv.read_start(stdout, on_read)
+  vim.system(
+    { 'curl', url, '-K', '.curlrc', '-d', req_body },
+    { text = true },
+    vim.schedule_wrap(on_exit)
+  )
 end
 
 vim.keymap.set('n', ',e', run, { noremap = true })

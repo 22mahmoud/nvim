@@ -58,6 +58,7 @@ end)
 G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 
 -- lsp
+local methods = vim.lsp.protocol.Methods
 G.lsp = G.lsp or {}
 G.lsp.mappings = {
   n = {
@@ -66,24 +67,32 @@ G.lsp.mappings = {
       function()
         vim.lsp.buf.format { async = true }
       end,
-      'documentFormattingProvider',
+      methods.textDocument_formatting,
     },
-    { 'gr', vim.lsp.buf.references, 'referencesProvider' },
-    { 'K', vim.lsp.buf.hover, 'hoverProvider' },
-    { 'gi', vim.lsp.buf.implementation, 'implementationProvider' },
-    { 'gd', vim.lsp.buf.definition, 'definitionProvider' },
-    { 'gD', vim.lsp.buf.declaration, 'declarationProvider' },
-    { '<leader>sh', vim.lsp.buf.signature_help, 'signatureHelpProvider' },
-    { 'gW', vim.lsp.buf.workspace_symbol, 'workspaceSymbolProvider' },
-    { 'ga', vim.lsp.buf.code_action, 'codeActionProvider' },
-    { '<leader>l', vim.lsp.codelens.run, 'codeLensProvider' },
-    { '<leader>rn', vim.lsp.buf.rename, 'renameProvider' },
+    {
+      'gr',
+      vim.lsp.buf.references,
+      methods.textDocument_references,
+    },
+    { 'K', vim.lsp.buf.hover, methods.textDocument_hover },
+    { 'gi', vim.lsp.buf.implementation, methods.textDocument_implementation },
+    { 'gd', vim.lsp.buf.definition, methods.textDocument_definition },
+    { 'gD', vim.lsp.buf.declaration, methods.textDocument_declaration },
+    {
+      '<leader>sh',
+      vim.lsp.buf.signature_help,
+      methods.textDocument_signatureHelp,
+    },
+    { 'gW', vim.lsp.buf.workspace_symbol, methods.workspaceSymbol_resolve },
+    { 'ga', vim.lsp.buf.code_action, methods.textDocument_codeAction },
+    { '<leader>l', vim.lsp.codelens.run, methods.textDocument_codeLens },
+    { '<leader>rn', vim.lsp.buf.rename, methods.textDocument_rename },
     {
       '<leader>ih',
       function()
         vim.lsp.inlay_hint(0, nil)
       end,
-      'inlayHintProvider',
+      methods.textDocument_inlayHint,
     },
   },
   v = {
@@ -92,10 +101,14 @@ G.lsp.mappings = {
       function()
         vim.lsp.buf.format { async = true }
       end,
-      'documentRangeFormattingProvider',
+      methods.textDocument_formatting,
     },
   },
   i = {
-    { '<c-space>', vim.lsp.buf.signature_help, 'signatureHelpProvider' },
+    {
+      '<c-space>',
+      vim.lsp.buf.signature_help,
+      methods.textDocument_signatureHelp,
+    },
   },
 }

@@ -28,11 +28,17 @@ lsp.setup {
   tailwindcss = {
     settings = {
       tailwindCSS = {
+        classAttributes = {
+          'class',
+          'className',
+          'wrapperClassName',
+        },
         experimental = {
           classRegex = {
             { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
             { 'vs\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
             { 'clx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            [[class= "([^"]*)]],
           },
         },
       },
@@ -189,30 +195,15 @@ lsp.setup {
     },
   },
   lua_ls = {
-    cmd = { 'lua-language-server' },
-
     on_attach = function(client, bufnr)
       lsp.on_attach(client, bufnr)
+
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
 
     settings = {
       Lua = {
-        runtime = {
-          version = 'LuaJIT',
-          path = vim.tbl_deep_extend(
-            'force',
-            vim.split(package.path, ';'),
-            { 'lua/?.lua', 'lua/?/init.lua' }
-          ),
-        },
-        diagnostics = {
-          globals = { 'vim', 'G' },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file('', true),
-        },
         telemetry = {
           enable = false,
         },

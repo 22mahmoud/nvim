@@ -1,5 +1,7 @@
 _G.G = {}
 
+vim.loader.enable()
+
 -- configure runtimepath
 vim.opt.packpath = { vim.fn.stdpath 'data' .. '/site' }
 
@@ -8,11 +10,7 @@ vim.g.maplocalleader = ','
 
 -- skip vim plugins
 vim.g.loaded_2html_plugin = 1
-vim.g.loaded_getscript = 1
-vim.g.loaded_getscriptPlugin = 1
-vim.g.loaded_gzip = 1
 vim.g.loaded_logipat = 1
-vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwFileHandlers = 1
@@ -21,12 +19,16 @@ vim.g.loaded_netrwSettings = 1
 vim.g.loaded_rrhelper = 1
 vim.g.loaded_spellfile_plugin = 1
 vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
 vim.g.loaded_vimball = 1
 vim.g.loaded_vimballPlugin = 1
-vim.g.loaded_zip = 1
 vim.g.loaded_fzf = 1
 vim.g.loaded_zipPlugin = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_matchit = 1
 
 -- disable python2
 vim.g.python_host_skip_check = 1
@@ -75,7 +77,7 @@ require 'ma.gql_fetch'
 
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'
-if vim.loop.fs_stat(local_vimrc) then
+if vim.uv.fs_stat(local_vimrc) then
   local source = vim.secure.read(local_vimrc)
   if not source then
     return

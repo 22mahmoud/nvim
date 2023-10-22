@@ -59,6 +59,7 @@ o.diffopt = {
   'algorithm:histogram',
   'indent-heuristic',
   'hiddenoff',
+  'linematch:60',
 }
 
 -- indentation
@@ -121,11 +122,14 @@ vim.diagnostic.config {
   signs = true,
   update_in_insert = false,
   float = {
-    show_header = true,
     source = 'always',
+    style = 'minimal',
+    border = 'rounded',
+    header = '',
   },
 }
-G.sign_define('DiagnosticSignError', ' ')
-G.sign_define('DiagnosticSignWarn', ' ')
-G.sign_define('DiagnosticSignHint', '󰌵 ')
-G.sign_define('DiagnosticSignInfo', ' ')
+
+G.sign_define('DiagnosticSignError', '')
+G.sign_define('DiagnosticSignWarn', '')
+G.sign_define('DiagnosticSignHint', '')
+G.sign_define('DiagnosticSignInfo', '󰋽')

@@ -1,26 +1,16 @@
-local cmp_loaded, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+local lspconfig = require 'lspconfig'
+local methods = vim.lsp.protocol.Methods
 
 local M = {}
 
-local border = {
-  { '╭' },
-  { '─' },
-  { '╮' },
-  { '│' },
-  { '╯' },
-  { '─' },
-  { '╰' },
-  { '│' },
-}
-
 local function lsp_highlight_document(client)
-  if not client.server_capabilities.documentHighlightProvider then
+  if not client.supports_method(methods.textDocument_documentHighlight) then
     return
   end
 
   G.augroup('LspDocumentHighlight', {
     {
-      events = { 'CursorHold' },
+      events = { 'CursorHold', 'CursorHoldI' },
       targets = { '<buffer>' },
       command = vim.lsp.buf.document_highlight,
     },
@@ -33,7 +23,7 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_code_lens_refresh(client)
-  if not client.server_capabilities.codeLensProvider then
+  if not client.supports_method(methods.textDocument_codeLens) then
     return
   end
 
@@ -49,20 +39,20 @@ end
 local function floating_preview_popup()
   local original_fn = vim.lsp.util.open_floating_preview
 
-  vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
-    local max_width = math.max(math.floor(vim.opt.columns:get() * 0.7), 80)
-    local max_height = math.max(math.floor(vim.opt.lines:get() * 0.3), 30)
+  function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
+    local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
 
     local default_opts = {
       max_width = max_width,
       max_height = max_height,
-      separator = false,
     }
 
     return original_fn(
       contents,
       syntax,
-      vim.tbl_extend('force', opts or {}, default_opts)
+      vim.tbl_extend('force', opts or {}, default_opts),
+      ...
     )
   end
 end
@@ -70,11 +60,12 @@ end
 local function floating_window_borders()
   local original_fn = vim.lsp.util.make_floating_popup_options
 
-  vim.lsp.util.make_floating_popup_options = function(width, height, opts)
+  function vim.lsp.util.make_floating_popup_options(width, height, opts, ...)
     return original_fn(
       width,
       height,
-      vim.tbl_deep_extend('force', opts or {}, { border = border })
+      vim.tbl_deep_extend('force', opts or {}, { border = 'rounded' }),
+      ...
     )
   end
 end
@@ -123,7 +114,7 @@ local function set_lsp_buffer_keybindings(client, bufnr)
       local lhs, rhs, capability = unpack(mapping)
 
       -- skip mapping if capability not enabled
-      if capability and not client.server_capabilities[capability] then
+      if capability and not client.supports_method(capability) then
         goto continue
       end
 
@@ -135,10 +126,6 @@ local function set_lsp_buffer_keybindings(client, bufnr)
 end
 
 function M.get_client_capabilities()
-  if cmp_loaded then
-    return cmp_lsp.default_capabilities()
-  end
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -154,7 +141,10 @@ function M.get_client_capabilities()
 end
 
 function M.on_attach(client, bufnr)
-  -- vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  if client.supports_method(methods.textDocument_completion) then
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  end
+
   lsp_highlight_document(client)
   lsp_code_lens_refresh(client)
   set_lsp_buffer_keybindings(client, bufnr)
@@ -171,14 +161,20 @@ function M.get_config_opts()
   }
 end
 
+local function load_neodev()
+  local loaded, neodev = pcall(require, 'neodev')
+
+  if loaded then
+    neodev.setup {}
+  end
+end
+
 function M.setup(servers)
-  local lspconfig = require 'lspconfig'
-
-  floating_preview_popup()
-
-  floating_window_borders()
+  load_neodev()
 
   setup_lsp_kind()
+  floating_preview_popup()
+  floating_window_borders()
 
   local config = M.get_config_opts()
 
