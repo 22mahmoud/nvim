@@ -100,6 +100,7 @@ end
 
 function M.augroup(name, commands, cfg)
   local clear = true
+
   if cfg and type(cfg.clear) == 'boolean' then
     clear = cfg.clear
   end
@@ -114,14 +115,15 @@ function M.augroup(name, commands, cfg)
       c.callback = command
     end
 
-    vim.api.nvim_create_autocmd(
-      c.events,
+    local events = c.events
+    local once = c.once or false
 
-      tbl_extend('keep', { group = group, pattern = c.targets }, {
-        command = c.command,
-        callback = c.callback,
-        once = c.once or false,
-      })
+    c['events'] = nil
+    c['once'] = nil
+
+    vim.api.nvim_create_autocmd(
+      events,
+      tbl_extend('keep', { group = group, once = once }, c)
     )
   end
 end
@@ -151,6 +153,22 @@ end
 
 function M.hl(name, opts)
   vim.api.nvim_set_hl(0, name, opts)
+end
+
+--- Returns a function which applies `specs` on args. This function produces an object having
+-- the same structure than `specs` by mapping each property to the result of calling its
+-- associated function with the supplied arguments
+-- @name applySpec
+-- @param specs a table
+-- @return a function
+function M.applySpec(specs)
+  return function(...)
+    local spec = {}
+    for i, f in pairs(specs) do
+      spec[i] = f(...)
+    end
+    return spec
+  end
 end
 
 M.icons = setmetatable({

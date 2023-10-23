@@ -27,7 +27,7 @@ end
 G.augroup('UserHighlights', {
   {
     events = 'ColorScheme',
-    targets = '*',
+    pattern = '*',
     command = user_highlights,
   },
 })

@@ -74,6 +74,8 @@ require 'ma.mappings'
 require 'ma.statusline'
 require 'ma.plugins'
 require 'ma.gql_fetch'
+require 'ma.overrides'
+
 
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'

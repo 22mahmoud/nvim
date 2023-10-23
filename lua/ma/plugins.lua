@@ -1,5 +1,5 @@
 local fn = vim.fn
-local fmt = fmt
+local fmt = string.format
 
 local M = {}
 
@@ -17,8 +17,6 @@ local function git(xs)
   for _, v in ipairs(xs) do
     table.insert(base, v)
   end
-
-  G.P(base)
 
   return fn.system(base)
 end
@@ -154,6 +152,14 @@ function M.setup()
   -- lsp
   M.use 'neovim/nvim-lspconfig'
   M.use 'folke/neodev.nvim'
+
+  -- completion
+  M.use 'hrsh7th/nvim-cmp'
+  M.use 'hrsh7th/cmp-nvim-lsp'
+  M.use 'hrsh7th/cmp-buffer'
+  M.use 'hrsh7th/cmp-path'
+  M.use 'L3MON4D3/LuaSnip'
+  M.use 'saadparwaiz1/cmp_luasnip'
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'

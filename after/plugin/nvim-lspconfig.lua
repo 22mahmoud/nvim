@@ -11,7 +11,12 @@ local lsp = require 'ma.lsp'
 lsp.setup {
   html = {},
   cssls = {},
-  clangd = {},
+  clangd = {
+    on_attach = function(client, bufnr)
+      lsp.on_attach(client, bufnr)
+      client.server_capabilities.semanticTokensProvider = nil
+    end,
+  },
   pyright = {},
   vimls = {},
   bashls = {},
@@ -211,7 +216,7 @@ lsp.setup {
     },
   },
 
-  -- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
+  --- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
   efm = {
     settings = ...,
     root_dir = require('lspconfig').util.root_pattern { '.git/', '.' },
