@@ -1,14 +1,11 @@
 local fn = vim.fn
 local fmt = string.format
 
-local M = {}
-
---- @type string
-M.root_dir = fn.stdpath 'data'
-
-M.plugins_dir = 'site/pack/plugins/opt/'
-
-M.plugins = {}
+local M = {
+  root_dir = fn.stdpath 'data',--[[@as string]]
+  plugins_dir = 'site/pack/plugins/opt/',
+  plugins = {},
+}
 
 --- @param xs string[]
 local function git(xs)
@@ -152,14 +149,7 @@ function M.setup()
   -- lsp
   M.use 'neovim/nvim-lspconfig'
   M.use 'folke/neodev.nvim'
-
-  -- completion
-  M.use 'hrsh7th/nvim-cmp'
-  M.use 'hrsh7th/cmp-nvim-lsp'
-  M.use 'hrsh7th/cmp-buffer'
-  M.use 'hrsh7th/cmp-path'
-  M.use 'L3MON4D3/LuaSnip'
-  M.use 'saadparwaiz1/cmp_luasnip'
+  M.use 'b0o/SchemaStore.nvim'
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'

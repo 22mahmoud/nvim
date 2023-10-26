@@ -92,7 +92,18 @@ local function set_lsp_buffer_keybindings(client, bufnr)
 end
 
 function M.get_client_capabilities()
-  return require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      'documentation',
+      'detail',
+      'additionalTextEdits',
+    },
+  }
+
+  return capabilities
 end
 
 local function setup_omnifunc(client, bufnr)

@@ -6,6 +6,7 @@ end
 
 local root_pattern = require('lspconfig/util').root_pattern
 local dirname = require('lspconfig/util').path.dirname
+
 local lsp = require 'ma.lsp'
 
 lsp.setup {
@@ -52,28 +53,16 @@ lsp.setup {
   rust_analyzer = {},
   gopls = {},
   tsserver = {
-    settings = {
-      typescript = {
-        inlayHints = {
-          includeInlayParameterNameHints = 'literal',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        },
-      },
-      javascript = {
-        inlayHints = {
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        },
+    init_options = {
+      hostInfo = 'neovim',
+      preferences = {
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
       },
     },
     on_attach = function(client, bufnr)
@@ -90,18 +79,6 @@ lsp.setup {
         '.git'
       )(fname) or dirname(fname)
     end,
-    commands = {
-      OrganizeImports = {
-        function()
-          vim.lsp.buf_request(0, 'workspace/executeCommand', {
-            command = '_typescript.organizeImports',
-            arguments = { vim.api.nvim_buf_get_name(0) },
-          })
-        end,
-
-        description = 'Organize imports',
-      },
-    },
   },
   eslint = {},
 
@@ -115,87 +92,19 @@ lsp.setup {
     end,
     settings = {
       json = {
-        schemas = {
-          {
-            description = 'TypeScript compiler configuration file',
-            fileMatch = {
-              'tsconfig.json',
-              'tsconfig.*.json',
-            },
-            url = 'https://json.schemastore.org/tsconfig.json',
-          },
-          {
-            description = 'Babel configuration',
-            fileMatch = {
-              '.babelrc.json',
-              '.babelrc',
-              'babel.config.json',
-            },
-            url = 'https://json.schemastore.org/babelrc.json',
-          },
-          {
-            description = 'ESLint config',
-            fileMatch = {
-              '.eslintrc.json',
-              '.eslintrc',
-            },
-            url = 'https://json.schemastore.org/eslintrc.json',
-          },
-          {
-            description = 'Prettier config',
-            fileMatch = {
-              '.prettierrc',
-              '.prettierrc.json',
-              'prettier.config.json',
-            },
-            url = 'https://json.schemastore.org/prettierrc',
-          },
-          {
-            description = 'Stylelint config',
-            fileMatch = {
-              '.stylelintrc',
-              '.stylelintrc.json',
-              'stylelint.config.json',
-            },
-            url = 'https://json.schemastore.org/stylelintrc',
-          },
-          {
-            description = 'Json schema for properties json file for a GitHub Workflow template',
-            fileMatch = {
-              '.github/workflow-templates/**.properties.json',
-            },
-            url = 'https://json.schemastore.org/github-workflow-template-properties.json',
-          },
-          {
-            description = 'NPM configuration file',
-            fileMatch = {
-              'package.json',
-            },
-            url = 'https://json.schemastore.org/package.json',
-          },
-        },
-      },
-    },
-    setup = {
-      commands = {
-        Format = {
-          function()
-            vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line '$', 0 })
-          end,
-        },
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
       },
     },
   },
   yamlls = {
     settings = {
       yaml = {
-        hover = true,
-        completion = true,
-        validate = true,
         schemaStore = {
-          enable = true,
-          url = 'https://www.schemastore.org/api/json/catalog.json',
+          enable = false,
+          url = '',
         },
+        schemas = require('schemastore').yaml.schemas(),
       },
     },
   },
