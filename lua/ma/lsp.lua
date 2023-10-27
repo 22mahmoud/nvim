@@ -75,7 +75,7 @@ local function set_lsp_buffer_keybindings(client, bufnr)
     v = G.vmap,
   }
 
-  for mode, keybindings in pairs(G.lsp.mappings) do
+  for mode, keybindings in pairs(G.lsp_mappings) do
     local map = mappings[mode]
 
     for _, mapping in pairs(keybindings) do

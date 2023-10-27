@@ -59,8 +59,7 @@ G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 
 -- lsp
 local methods = vim.lsp.protocol.Methods
-G.lsp = G.lsp or {}
-G.lsp.mappings = {
+G.lsp_mappings = {
   n = {
     {
       ',f',
