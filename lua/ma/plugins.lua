@@ -11,11 +11,7 @@ local M = {
 local function git(xs)
   local base = { 'git', '-C', M.root_dir }
 
-  for _, v in ipairs(xs) do
-    table.insert(base, v)
-  end
-
-  return fn.system(base)
+  return fn.system(vim.list_extend(base, xs))
 end
 
 local function commit(msg)
@@ -64,12 +60,8 @@ function M.install()
     end
   end
 
-  git { 'submodule', 'update', '--init', '--depth', '1', '--recursive' }
-
   vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
-
   vim.cmd 'helptags ALL'
-
   print 'Installing finished.'
 end
 
@@ -98,6 +90,10 @@ end
 
 function M.clean()
   local handle = vim.uv.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
+
+  if not handle then
+    return
+  end
 
   local function iter()
     return vim.uv.fs_scandir_next(handle)
