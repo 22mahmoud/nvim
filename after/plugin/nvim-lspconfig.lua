@@ -6,15 +6,14 @@ end
 
 local root_pattern = require('lspconfig/util').root_pattern
 local dirname = require('lspconfig/util').path.dirname
+local ma_lsp = require 'ma.lsp'
 
-local lsp = require 'ma.lsp'
-
-lsp.setup {
+ma_lsp.setup {
   html = {},
   cssls = {},
   clangd = {
     on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
+      ma_lsp.on_attach(client, bufnr)
       client.server_capabilities.semanticTokensProvider = nil
     end,
   },
@@ -66,10 +65,23 @@ lsp.setup {
       },
     },
     on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
+      ma_lsp.on_attach(client, bufnr)
 
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
+      client.server_capabilities.codeActionProvider = {
+        codeActionKinds = {
+          '',
+          'quickfix',
+          'source',
+          'source.organizeImports',
+          'refactor',
+          'refactor.extract',
+          'refactor.inline',
+          'refactor.rewrite',
+          'source.fixAll',
+        },
+      }
     end,
     root_dir = function(fname)
       return root_pattern(
@@ -84,7 +96,7 @@ lsp.setup {
 
   jsonls = {
     on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
+      ma_lsp.on_attach(client, bufnr)
 
       -- disable formatting in favor of using efm w/ prettier
       client.server_capabilities.documentFormattingProvider = false
@@ -110,7 +122,7 @@ lsp.setup {
   },
   lua_ls = {
     on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
+      ma_lsp.on_attach(client, bufnr)
 
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false

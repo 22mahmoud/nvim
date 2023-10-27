@@ -1,6 +1,8 @@
 local lspconfig = require 'lspconfig'
 local methods = vim.lsp.protocol.Methods
 
+local cmp = require 'ma.completion'
+
 local M = {}
 
 local function lsp_highlight_document(client, bufnr)
@@ -107,9 +109,11 @@ function M.get_client_capabilities()
 end
 
 local function setup_omnifunc(client, bufnr)
-  if client.supports_method(methods.textDocument_completion) then
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  if not client.supports_method(methods.textDocument_completion) then
+    return
   end
+
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
 M.on_attach = G.applySpec {
@@ -117,6 +121,7 @@ M.on_attach = G.applySpec {
   lsp_highlight_document,
   lsp_code_lens_refresh,
   set_lsp_buffer_keybindings,
+  cmp.attach,
 }
 
 function M.get_config_opts()
