@@ -65,16 +65,14 @@ else
   vim.g.loaded_ruby_provider = 0
 end
 
-local utils = require 'ma.utils'
-
-utils.bootstrap()
-
+require 'ma.utils'
 require 'ma.settings'
 require 'ma.mappings'
 require 'ma.statusline'
-require 'ma.plugins'
 require 'ma.gql_fetch'
 require 'ma.ui'
+
+require 'ma.plugins'
 
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'

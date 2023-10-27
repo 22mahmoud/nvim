@@ -12,60 +12,6 @@ function M.P(...)
   return ...
 end
 
-function M.has_value(tab, val)
-  for _, value in ipairs(tab) do
-    if value == val then
-      return true
-    end
-  end
-
-  return false
-end
-
-function M.tbl_filter(func, t)
-  vim.validate { func = { func, 'c' }, t = { t, 't' } }
-
-  local out = {}
-  for key, value in next, t do
-    if func(value, key) then
-      out[key] = value
-    end
-  end
-
-  return out
-end
-
-function M.tbl_map(tbl, f)
-  local t = {}
-  for k, v in pairs(tbl) do
-    t[k] = f(v)
-  end
-  return t
-end
-
-function M.tbl_concat(tbl1, tbl2)
-  local result = tbl1
-  for i = 1, #tbl2 do
-    result[#result + 1] = tbl2[i]
-  end
-  return result
-end
-
-local function is_map_args(value, key)
-  if type(value) ~= 'boolean' then
-    return false
-  end
-  local valid_args = {
-    'buffer',
-    'nowait',
-    'silent',
-    'script',
-    'expr',
-    'unique',
-  }
-  return M.has_value(valid_args, key)
-end
-
 function M.map(mode, default_options)
   if not mode then
     return
@@ -79,11 +25,7 @@ function M.map(mode, default_options)
     default_options = default_options or {}
     extra_options = extra_options or {}
 
-    local opts = tbl_extend(
-      'keep',
-      M.tbl_filter(is_map_args, extra_options),
-      default_options
-    )
+    local opts = tbl_extend('keep', extra_options, default_options)
 
     vim.keymap.set(mode, lhs, rhs, opts)
   end
@@ -340,4 +282,4 @@ function M.bootstrap()
   end
 end
 
-return M
+M.bootstrap()
