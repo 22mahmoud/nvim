@@ -25,6 +25,12 @@ o.exrc = true
 o.shell = 'bash'
 o.ff = 'unix'
 
+-- o.foldenable = false
+-- o.foldmethod = 'expr'
+-- o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- o.foldtext = 'v:lua.vim.treesitter.foldtext()'
+-- o.fillchars = { foldclose = '', foldopen = '' }
+
 -- ui/display
 vim.cmd [[syntax enable]]
 vim.cmd [[filetype plugin indent on]]
@@ -54,6 +60,7 @@ o.listchars = {
   conceal = '┊',
   nbsp = '␣',
 }
+
 o.diffopt = {
   'vertical',
   'algorithm:histogram',

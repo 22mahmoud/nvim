@@ -137,11 +137,11 @@ function M.get_winbar()
 end
 
 local function statusline()
-  vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
+  vim.opt.statusline = "%!v:lua.require'ma.statusline'.get_statusline()"
 end
 
 local function winbar()
-  vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
+  vim.opt.winbar = "%!v:lua.require'ma.statusline'.get_winbar()"
 end
 
 local function setup()

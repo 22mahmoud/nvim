@@ -66,12 +66,12 @@ else
 end
 
 require 'ma.utils'
+require 'ma.plugins'
+
 require 'ma.settings'
 require 'ma.mappings'
 require 'ma.statusline'
 require 'ma.ui'
-
-require 'ma.plugins'
 
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'

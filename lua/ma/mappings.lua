@@ -24,8 +24,8 @@ G.nnoremap('<leader>bl', ':ls t<cr>:b<space>', { silent = false })
 G.nnoremap('<leader>bd', ':bd!<cr>')
 
 -- quick list
-G.nnoremap('<leader>qn', ':cn<cr>')
-G.nnoremap('<leader>qp', ':cp<cr>')
+G.nnoremap('<leader>qn', ':cn<cr>zz')
+G.nnoremap('<leader>qp', ':cp<cr>zz')
 G.nnoremap('<leader>ql', G.toggle_qf, { nowait = false })
 G.nnoremap('<leader>qq', ':cex []<cr>')
 
@@ -47,9 +47,11 @@ G.cnoremap('<C-h>', '<BS>')
 G.nnoremap('<leader>ds', function()
   vim.diagnostic.open_float(nil, { source = 'always' })
 end)
+
 G.nnoremap('<leader>dn', function()
   vim.diagnostic.goto_next { float = false }
 end)
+
 G.nnoremap('<leader>dp', function()
   vim.diagnostic.goto_prev { float = false }
 end)
