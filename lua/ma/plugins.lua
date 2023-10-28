@@ -2,7 +2,7 @@ local fn = vim.fn
 local fmt = string.format
 
 local M = {
-  root_dir = fn.stdpath 'data',--[[@as string]]
+  root_dir = fn.stdpath 'data', --[[@as string]]
   plugins_dir = 'site/pack/plugins/opt/',
   plugins = {},
 }

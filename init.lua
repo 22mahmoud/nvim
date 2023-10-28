@@ -69,7 +69,6 @@ require 'ma.utils'
 require 'ma.settings'
 require 'ma.mappings'
 require 'ma.statusline'
-require 'ma.gql_fetch'
 require 'ma.ui'
 
 require 'ma.plugins'
