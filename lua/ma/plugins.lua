@@ -1,5 +1,6 @@
 local fn = vim.fn
 local fmt = string.format
+local uv = vim.uv
 
 local M = {
   root_dir = fn.stdpath 'data', --[[@as string]]
@@ -24,7 +25,7 @@ function M.use(uri)
 
   table.insert(M.plugins, { uri = uri, plugin = plugin })
 
-  local dir = vim.uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
+  local dir = uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
   if not dir then
     return
   end
@@ -37,7 +38,7 @@ function M.install()
 
   for _, pkg in pairs(M.plugins) do
     local plugin, uri = pkg.plugin, pkg.uri
-    local dir = vim.uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
+    local dir = uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
 
     if not dir then
       print('Installing ' .. uri .. '...')
@@ -89,20 +90,20 @@ function M.update()
 end
 
 function M.clean()
-  local handle = vim.uv.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
+  local handle = uv.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
 
   if not handle then
     return
   end
 
   local function iter()
-    return vim.uv.fs_scandir_next(handle)
+    return uv.fs_scandir_next(handle)
   end
 
   for name, _ in iter do
-    local exist = #vim.tbl_filter(function(pkg)
+    local exist = vim.iter(M.plugins):find(function(pkg)
       return pkg.plugin == name
-    end, M.plugins) == 1
+    end)
 
     if not exist then
       local module_name = M.plugins_dir .. name
@@ -113,7 +114,7 @@ function M.clean()
       print('Cleaning ' .. name .. ' package...')
 
       git { 'submodule', 'deinit', '-f', module_name }
-      git { 'rm', '--cached', module_name }
+      git { 'rm', '-r', '-f', '--cached', module_name }
       git { 'config', '-f', '.gitmodules', '--remove-section', submodule }
 
       fn.system { 'rm', '-rf', plugin_dir }

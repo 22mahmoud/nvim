@@ -78,19 +78,10 @@ function M.command(name, rhs, user_opts)
 end
 
 function M.toggle_qf()
-  local locations = vim.fn.getqflist()
+  local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+  local action = qf_winid > 0 and 'cclose' or 'copen'
 
-  -- if no quickfix list then do nothing
-  if vim.tbl_isempty(locations) then
-    return
-  end
-
-  if empty(filter(getwininfo(), 'v:val.quickfix')) == 1 then
-    -- open qflist 100% horizontally
-    vim.cmd [[botright copen]]
-  else
-    vim.cmd [[cclose]]
-  end
+  vim.cmd('botright ' .. action)
 end
 
 function M.hl(name, opts)
