@@ -5,8 +5,6 @@ if not loaded then
   return
 end
 
-require('ts_context_commentstring').setup {}
-
 treesitter.setup {
   ensure_installed = 'all',
   auto_install = true,

@@ -65,6 +65,8 @@ else
   vim.g.loaded_ruby_provider = 0
 end
 
+vim.g.skip_ts_context_commentstring_module = true
+
 require 'ma.utils'
 require 'ma.plugins'
 
