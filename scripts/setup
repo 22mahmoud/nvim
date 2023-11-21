@@ -53,7 +53,7 @@ _install_volta() {
 
 _install_node() {
   printf "[node-latest]: install\n"
-  volta install node@16
+  volta install node@lts
   printf "[node-latest]: done\n\n"
 }
 
