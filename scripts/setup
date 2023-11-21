@@ -12,27 +12,27 @@ _update_paru_package_database() {
 }
 
 _install_neovim() {
+  printf "[neovim]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[neovim]: install\n"
     brew install neovim
-    printf "[neovim]: done\n\n"
   else
-    printf "[neovim]: install\n"
     paru --needed -S neovim --noconfirm
-    printf "[neovim]: done\n\n"
   fi
+
+  printf "[neovim]: done\n\n"
 }
 
 _install_treesitter() {
+  printf "[treesitter]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[treesitter]: install\n"
     brew install tree-sitter
-    printf "[treesitter]: done\n\n"
   else
-    printf "[treesitter]: install\n"
     paru --needed -S tree-sitter --noconfirm
-    printf "[treesitter]: done\n\n"
   fi
+
+  printf "[treesitter]: done\n\n"
 }
 
 _install_volta() {
@@ -75,46 +75,46 @@ _install_python() {
 }
 
 _install_pip() {
+  printf "[python-pip]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[python-pip]: install\n"
     python3 -m pip install --upgrade setuptools
     python3 -m pip install --upgrade pip
-    printf "[python-pip]: done\n\n"
   else
-    printf "[python-pip]: install\n"
     paru --needed -S python-pip --noconfirm
-    printf "[python-pip]: done\n\n"
   fi
+
+  printf "[python-pip]: done\n\n"
 }
 
 _install_python_provider() {
   printf "[python-neovim]: install\n"
-  pacman -S python-neovim --noconfirm
+  paru --needed -S python-neovim --noconfirm
   printf "[python-neovim]: done\n\n"
 }
 
 _install_ruby() {
+  printf "[ruby]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[ruby]: install\n"
     brew install ruby
-    printf "[ruby]: done\n\n"
   else
-    printf "[ruby]: install\n"
     paru --needed -S ruby --noconfirm
-    printf "[ruby]: done\n\n"
   fi
+
+  printf "[ruby]: done\n\n"
 }
 
 _install_gem() {
+  printf "[ruby-gem]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[ruby-gem]: install\n"
     brew install brew-gem
-    printf "[ruby-gem]: done\n\n"
   else
-    printf "[ruby-gem]: install\n"
     paru --needed -S rubygems --noconfirm
-    printf "[ruby-gem]: done\n\n"
   fi
+
+  printf "[ruby-gem]: done\n\n"
 }
 
 _install_ruby_provider() {
@@ -135,88 +135,87 @@ _install_npm_packages() {
 }
 
 _install_sumneko_lua() {
+  printf "[lsp-sumneko]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[lsp-sumneko]: install\n"
     brew install lua-language-server
-    printf "[lsp-sumneko]: done\n"
   else
-    printf "[lsp-sumneko]: install\n"
     paru --needed -S lua-language-server --noconfirm
-    printf "[lsp-sumneko]: done\n"
   fi
+
+  printf "[lsp-sumneko]: done\n"
 }
 
 _install_go() {
+  printf "[go]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[go]: install\n"
     brew install go
-    printf "[go]: done\n\n"
   else
-    printf "[go]: install\n"
     paru --needed -S go --noconfirm
-    printf "[go]: done\n\n"
   fi
+
+  printf "[go]: done\n\n"
 }
 
 _install_gopls() {
+  printf "[gopls]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[gopls]: install\n"
     brew install gopls
-    printf "[gopls]: done\n\n"
   else
-    printf "[gopls]: install\n"
     paru --needed -S gopls --noconfirm
-    printf "[gopls]: done\n\n"
   fi
+
+  printf "[gopls]: done\n\n"
 }
 
 _install_efm() {
+  printf "[efm]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[efm]: install\n"
     brew install efm-langserver
-    printf "[efm]: done\n\n"
   else
-    printf "[efm]: install\n"
     paru --needed -S efm-langserver --noconfirm
-    printf "[efm]: done\n\n"
   fi
+
+  printf "[efm]: done\n\n"
 }
 
 _install_clangd() {
+  printf "[ccls]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[ccls]: install\n"
     brew install ccls
-    printf "[ccls]: done\n\n"
   else
-    printf "[clangd]: install\n"
     paru --needed -S clang --noconfirm
-    printf "[clangd]: done\n\n"
   fi
+
+  printf "[clangd]: done\n\n"
 }
 
 _install_shellcheck() {
+  printf "[shellcheck]: install\n"
+
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[shellcheck]: install\n"
     brew install shellcheck
-    printf "[shellcheck]: done\n\n"
   else
-    printf "[shellcheck]: install\n"
     paru --needed -S shellcheck --noconfirm
-    printf "[shellcheck]: done\n\n"
   fi
+
+  printf "[shellcheck]: done\n\n"
 }
 
 _install_shfmt() {
+  printf "[shfmt]: install\n"
 
   if [ "$(uname -s)" = Darwin ]; then
-    printf "[shfmt]: install\n"
     brew install shfmt
-    printf "[shfmt]: done\n\n"
   else
-    printf "[shfmt]: install\n"
     paru --needed -S shfmt --noconfirm
-    printf "[shfmt]: done\n\n"
   fi
+
+  printf "[shfmt]: done\n\n"
 }
 
 # install or update packages
