@@ -1,7 +1,3 @@
-local fn = vim.fn
-local empty = fn.empty
-local filter = fn.filter
-local getwininfo = fn.getwininfo
 local tbl_extend = vim.tbl_extend
 
 local M = {}

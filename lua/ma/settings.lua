@@ -126,7 +126,6 @@ vim.diagnostic.config {
     source = 'if_many',
     format = nil,
   },
-  signs = true,
   update_in_insert = false,
   float = {
     source = 'always',
@@ -134,9 +133,12 @@ vim.diagnostic.config {
     border = 'rounded',
     header = '',
   },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.HINT] = '',
+      [vim.diagnostic.severity.INFO] = '',
+    },
+  },
 }
-
-G.sign_define('DiagnosticSignError', '')
-G.sign_define('DiagnosticSignWarn', '')
-G.sign_define('DiagnosticSignHint', '')
-G.sign_define('DiagnosticSignInfo', '')
