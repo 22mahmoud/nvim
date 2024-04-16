@@ -12,8 +12,7 @@ ma_lsp.setup {
   html = {},
   cssls = {},
   clangd = {
-    on_attach = function(client, bufnr)
-      ma_lsp.on_attach(client, bufnr)
+    on_attach = function(client)
       client.server_capabilities.semanticTokensProvider = nil
     end,
   },
@@ -21,6 +20,12 @@ ma_lsp.setup {
   vimls = {},
   bashls = {},
   svelte = {},
+  phpactor = {
+    init_options = {
+      ['language_server_phpstan.enabled'] = false,
+      ['language_server_psalm.enabled'] = false,
+    },
+  },
   graphql = {
     filetypes = {
       'javascript',
@@ -64,9 +69,7 @@ ma_lsp.setup {
         includeInlayEnumMemberValueHints = true,
       },
     },
-    on_attach = function(client, bufnr)
-      ma_lsp.on_attach(client, bufnr)
-
+    on_attach = function(client)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
       client.server_capabilities.codeActionProvider = {
@@ -95,9 +98,7 @@ ma_lsp.setup {
   eslint = {},
 
   jsonls = {
-    on_attach = function(client, bufnr)
-      ma_lsp.on_attach(client, bufnr)
-
+    on_attach = function(client)
       -- disable formatting in favor of using efm w/ prettier
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
@@ -121,9 +122,7 @@ ma_lsp.setup {
     },
   },
   lua_ls = {
-    on_attach = function(client, bufnr)
-      ma_lsp.on_attach(client, bufnr)
-
+    on_attach = function(client)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
@@ -155,6 +154,7 @@ ma_lsp.setup {
       'sh',
       'graphql',
       'svg',
+      'php',
     },
     init_options = {
       documentFormatting = true,

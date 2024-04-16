@@ -43,7 +43,8 @@ function M.augroup(name, commands, cfg)
     clear = cfg.clear
   end
 
-  local group = vim.api.nvim_create_augroup(name, { clear = clear })
+  local group = type(name) == 'number' and name
+    or vim.api.nvim_create_augroup(name, { clear = clear })
 
   for _, c in ipairs(commands) do
     local command = c.command

@@ -2,6 +2,8 @@ local lspconfig = require 'lspconfig'
 local methods = vim.lsp.protocol.Methods
 
 local cmp = require 'ma.completion'
+local augroup = vim.api.nvim_create_augroup
+local clear = vim.api.nvim_clear_autocmds
 
 local M = {}
 
@@ -10,18 +12,22 @@ local function lsp_highlight_document(client, bufnr)
     return
   end
 
-  G.augroup('LspDocumentHighlight', {
+  local group = augroup('LspDocumentHighlight', { clear = false })
+
+  clear { group = group, buffer = bufnr }
+
+  G.augroup(group, {
     {
-      events = { 'CursorHold', 'CursorHoldI' },
+      events = { 'CursorHold', 'InsertLeave', 'BufEnter' },
       buffer = bufnr,
       command = vim.lsp.buf.document_highlight,
     },
     {
-      events = { 'CursorMoved' },
+      events = { 'CursorMoved', 'InsertEnter', 'BufLeave' },
       buffer = bufnr,
       command = vim.lsp.buf.clear_references,
     },
-  })
+  }, { clear = false })
 end
 
 local function lsp_code_lens_refresh(client, bufnr)
@@ -29,13 +35,16 @@ local function lsp_code_lens_refresh(client, bufnr)
     return
   end
 
-  G.augroup('LspCodeLens', {
+  local group = augroup('LspCodeLens', { clear = false })
+
+  clear { group = group, buffer = bufnr }
+  G.augroup(group, {
     {
       events = { 'BufEnter', 'CursorHold', 'InsertLeave' },
       buffer = bufnr,
       command = vim.lsp.codelens.refresh,
     },
-  })
+  }, { clear = false })
 end
 
 local function setup_lsp_kind()
@@ -82,13 +91,9 @@ local function set_lsp_buffer_keybindings(client, bufnr)
       local lhs, rhs, capability = unpack(mapping)
 
       -- skip mapping if capability not enabled
-      if capability and not client.supports_method(capability) then
-        goto continue
+      if capability and client.supports_method(capability) then
+        map(lhs, rhs, { buffer = bufnr })
       end
-
-      map(lhs, rhs, { buffer = bufnr })
-
-      ::continue::
     end
   end
 end
@@ -116,17 +121,23 @@ local function setup_omnifunc(client, bufnr)
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
-M.on_attach = G.applySpec {
-  setup_omnifunc,
-  lsp_highlight_document,
-  lsp_code_lens_refresh,
-  set_lsp_buffer_keybindings,
-  cmp.attach,
-}
+G.augroup('UserLspAttach', {
+  {
+    events = 'LspAttach',
+    command = function(args)
+      G.applySpec {
+        setup_omnifunc,
+        lsp_highlight_document,
+        lsp_code_lens_refresh,
+        set_lsp_buffer_keybindings,
+        cmp.attach,
+      }(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+    end,
+  },
+})
 
 function M.get_config_opts()
   return {
-    on_attach = M.on_attach,
     capabilities = M.get_client_capabilities(),
     flags = {
       allow_incremental_sync = true,
