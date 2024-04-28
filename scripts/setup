@@ -29,7 +29,7 @@ _install_treesitter() {
   if [ "$(uname -s)" = Darwin ]; then
     brew install tree-sitter
   else
-    paru --needed -S tree-sitter --noconfirm
+    paru --needed -S tree-sitter tree-sitter-cli --noconfirm
   fi
 
   printf "[treesitter]: done\n\n"
