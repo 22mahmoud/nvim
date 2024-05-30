@@ -91,7 +91,7 @@ G.lsp_mappings = {
     {
       '<leader>ih',
       function()
-        vim.lsp.inlay_hint(0, nil)
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
       end,
       methods.textDocument_inlayHint,
     },

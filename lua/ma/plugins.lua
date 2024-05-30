@@ -20,6 +20,31 @@ local function commit(msg)
   git { 'commit', '-m', msg or '[update]' }
 end
 
+local function setup_git_repo()
+  fn.system { 'mkdir', '-p', M.plugins_dir }
+
+  if not uv.fs_stat(M.root_dir .. '/.git') then
+    print 'Initializing Git repository...'
+    git { 'init' }
+
+    local gitignore_path = M.root_dir .. '/.gitignore'
+    local gitignore_file = io.open(gitignore_path, 'w')
+    if gitignore_file then
+      gitignore_file:write '/*\n'
+      gitignore_file:write '!/site/\n'
+      gitignore_file:write '!/site/**\n'
+      gitignore_file:close()
+    else
+      error 'Failed to create .gitignore file'
+    end
+
+    git { 'add', '.gitignore' }
+    commit '[init] Initial commit with .gitignore'
+
+    print 'Git repository initialized with .gitignore.'
+  end
+end
+
 function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
 
@@ -34,6 +59,8 @@ function M.use(uri)
 end
 
 function M.install()
+  setup_git_repo()
+
   print 'Installing packages...'
 
   for _, pkg in pairs(M.plugins) do
@@ -135,7 +162,7 @@ G.command('PkgClean', M.clean)
 G.command('PkgUpdate', M.update)
 
 function M.setup()
-  -- colors
+  -- colors/ui
   M.use 'RRethy/nvim-base16'
 
   -- editor

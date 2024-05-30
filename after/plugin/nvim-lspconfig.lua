@@ -137,27 +137,12 @@ ma_lsp.setup {
   },
 
   --- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
-  efm = {
-    settings = ...,
-    root_dir = require('lspconfig').util.root_pattern { '.git/', '.' },
-    filetypes = {
-      'javascript',
-      'javascriptreact',
-      'typescriptreact',
-      'typescript',
-      'css',
-      'scss',
-      'json',
-      'jsonc',
-      'lua',
-      'html',
-      'sh',
-      'graphql',
-      'svg',
-      'php',
-    },
-    init_options = {
-      documentFormatting = true,
-    },
-  },
+  -- efm = {
+  --   settings = ...,
+  --   root_dir = root_pattern { '.git/', '.' },
+  --   filetypes = { ... },
+  --   init_options = {
+  --     documentFormatting = true,
+  --   },
+  -- },
 }

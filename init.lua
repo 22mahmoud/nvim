@@ -30,6 +30,8 @@ vim.g.loaded_getscript = 1
 vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_matchit = 1
 
+vim.g.markdown_recommended_style = 0
+
 -- disable python2
 vim.g.python_host_skip_check = 1
 vim.g.loaded_python_provider = 0
