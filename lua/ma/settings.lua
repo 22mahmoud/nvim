@@ -6,7 +6,7 @@ o.mouse = 'a'
 o.mousefocus = true
 o.emoji = false
 o.confirm = true
--- o.lazyredraw = true
+o.lazyredraw = true
 o.showcmd = false
 o.showmode = false
 o.title = true
@@ -32,8 +32,6 @@ o.ff = 'unix'
 -- o.fillchars = { foldclose = '', foldopen = '' }
 
 -- ui/display
-vim.cmd [[syntax enable]]
-vim.cmd [[filetype plugin indent on]]
 o.wrap = false
 o.termguicolors = true
 o.textwidth = 80
@@ -128,7 +126,7 @@ vim.diagnostic.config {
   },
   update_in_insert = false,
   float = {
-    source = 'always',
+    source = 'if_many',
     style = 'minimal',
     border = 'rounded',
     header = '',

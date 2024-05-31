@@ -3,8 +3,8 @@ local loaded = pcall(require, 'lspconfig')
 if not loaded then
   return
 end
-
 local root_pattern = require('lspconfig/util').root_pattern
+local find_git = require('lspconfig/util').find_git_ancestor
 local dirname = require('lspconfig/util').path.dirname
 local ma_lsp = require 'ma.lsp'
 
@@ -20,10 +20,15 @@ ma_lsp.setup {
   vimls = {},
   bashls = {},
   svelte = {},
+  intelephense = {
+    on_init = function(client)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end,
+  },
   phpactor = {
-    init_options = {
-      ['language_server_phpstan.enabled'] = false,
-      ['language_server_psalm.enabled'] = false,
+    handlers = {
+      ['textDocument/publishDiagnostics'] = function() end,
     },
   },
   graphql = {
@@ -69,7 +74,7 @@ ma_lsp.setup {
         includeInlayEnumMemberValueHints = true,
       },
     },
-    on_attach = function(client)
+    on_init = function(client)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
       client.server_capabilities.codeActionProvider = {
@@ -87,12 +92,9 @@ ma_lsp.setup {
       }
     end,
     root_dir = function(fname)
-      return root_pattern(
-        'tsconfig.json',
-        'package.json',
-        'jsconfig.json',
-        '.git'
-      )(fname) or dirname(fname)
+      return root_pattern('tsconfig.json', 'package.json', 'jsconfig.json')(
+        fname
+      ) or find_git(fname) or dirname(fname) or vim.fn.getcwd()
     end,
   },
   eslint = {},
@@ -137,12 +139,8 @@ ma_lsp.setup {
   },
 
   --- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
-  -- efm = {
-  --   settings = ...,
-  --   root_dir = root_pattern { '.git/', '.' },
-  --   filetypes = { ... },
-  --   init_options = {
-  --     documentFormatting = true,
-  --   },
-  -- },
+  efm = {
+    root_dir = root_pattern { '.git/', '.' },
+    init_options = { documentFormatting = true },
+  },
 }

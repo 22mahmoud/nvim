@@ -18,16 +18,16 @@ local function lsp_highlight_document(client, bufnr)
 
   G.augroup(group, {
     {
-      events = { 'CursorHold', 'InsertLeave', 'BufEnter' },
+      events = { 'CursorHold', 'CursorHoldI' },
       buffer = bufnr,
       command = vim.lsp.buf.document_highlight,
     },
     {
-      events = { 'CursorMoved', 'InsertEnter', 'BufLeave' },
+      events = { 'CursorMoved', 'CursorMovedI' },
       buffer = bufnr,
       command = vim.lsp.buf.clear_references,
     },
-  }, { clear = false })
+  })
 end
 
 local function lsp_code_lens_refresh(client, bufnr)
@@ -125,13 +125,15 @@ G.augroup('UserLspAttach', {
   {
     events = 'LspAttach',
     command = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      -- G.P('LspAttach ' .. client.name)
       G.applySpec {
         setup_omnifunc,
         lsp_highlight_document,
-        lsp_code_lens_refresh,
+        -- lsp_code_lens_refresh,
         set_lsp_buffer_keybindings,
         cmp.attach,
-      }(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+      }(client, args.buf)
     end,
   },
 })
