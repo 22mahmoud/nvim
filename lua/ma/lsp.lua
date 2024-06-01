@@ -8,9 +8,7 @@ local clear = vim.api.nvim_clear_autocmds
 local M = {}
 
 local function lsp_highlight_document(client, bufnr)
-  if not client.supports_method(methods.textDocument_documentHighlight) then
-    return
-  end
+  if not client.supports_method(methods.textDocument_documentHighlight) then return end
 
   local group = augroup('LspDocumentHighlight', { clear = false })
 
@@ -31,9 +29,7 @@ local function lsp_highlight_document(client, bufnr)
 end
 
 local function lsp_code_lens_refresh(client, bufnr)
-  if not client.supports_method(methods.textDocument_codeLens) then
-    return
-  end
+  if not client.supports_method(methods.textDocument_codeLens) then return end
 
   local group = augroup('LspCodeLens', { clear = false })
 
@@ -114,9 +110,7 @@ function M.get_client_capabilities()
 end
 
 local function setup_omnifunc(client, bufnr)
-  if not client.supports_method(methods.textDocument_completion) then
-    return
-  end
+  if not client.supports_method(methods.textDocument_completion) then return end
 
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
@@ -151,9 +145,7 @@ end
 local function load_neodev()
   local loaded, neodev = pcall(require, 'neodev')
 
-  if loaded then
-    neodev.setup {}
-  end
+  if loaded then neodev.setup {} end
 end
 
 function M.setup(servers)

@@ -5,9 +5,7 @@ local fmt = string.format
 local M = {}
 
 local function block(value, template, space)
-  if value == 0 or value == '' or value == nil or not value then
-    return ''
-  end
+  if value == 0 or value == '' or value == nil or not value then return '' end
 
   return fmt((template or '%s') .. (space or ' '), value)
 end
@@ -20,9 +18,7 @@ local function get_path()
 
   local path = base .. file_name
 
-  if path == '/' then
-    return ''
-  end
+  if path == '/' then return '' end
 
   return path
 end
@@ -45,9 +41,7 @@ local modes = setmetatable({
   ['!'] = { long = 'Shell', short = 'Sh' },
   ['t'] = { long = 'Terminal', short = 'T' },
 }, {
-  __index = function()
-    return { long = 'Unknown', short = 'U' }
-  end,
+  __index = function() return { long = 'Unknown', short = 'U' } end,
 })
 
 local function get_mode()
@@ -56,29 +50,21 @@ local function get_mode()
   return mode.long
 end
 
-local function get_file_icon()
-  return G.icons[fn.expand '%:t']
-end
+local function get_file_icon() return G.icons[fn.expand '%:t'] end
 
-local function get_modified_icon()
-  return opt.modified:get() and '●' or ''
-end
+local function get_modified_icon() return opt.modified:get() and '●' or '' end
 
 local function get_readonly_icon()
   local mod = opt.modifiable:get()
   local ro = opt.readonly:get()
 
-  if mod and not ro then
-    return ''
-  end
+  if mod and not ro then return '' end
 
   return (ro and mod) and '󰂭' or ''
 end
 
 local function get_lsp_diagnostics()
-  local get_diag_count = function(severity)
-    return #vim.diagnostic.get(0, { severity = severity })
-  end
+  local get_diag_count = function(severity) return #vim.diagnostic.get(0, { severity = severity }) end
 
   local severity = vim.diagnostic.severity
 
@@ -140,9 +126,7 @@ local function statusline()
   vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
 end
 
-local function winbar()
-  vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
-end
+local function winbar() vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}" end
 
 local function setup()
   statusline()

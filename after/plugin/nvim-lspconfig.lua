@@ -1,8 +1,6 @@
 local loaded = pcall(require, 'lspconfig')
 
-if not loaded then
-  return
-end
+if not loaded then return end
 local root_pattern = require('lspconfig/util').root_pattern
 local find_git = require('lspconfig/util').find_git_ancestor
 local dirname = require('lspconfig/util').path.dirname
@@ -12,9 +10,7 @@ ma_lsp.setup {
   html = {},
   cssls = {},
   clangd = {
-    on_attach = function(client)
-      client.server_capabilities.semanticTokensProvider = nil
-    end,
+    on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
   },
   pyright = {},
   vimls = {},
@@ -92,9 +88,10 @@ ma_lsp.setup {
       }
     end,
     root_dir = function(fname)
-      return root_pattern('tsconfig.json', 'package.json', 'jsconfig.json')(
-        fname
-      ) or find_git(fname) or dirname(fname) or vim.fn.getcwd()
+      return root_pattern('tsconfig.json', 'package.json', 'jsconfig.json')(fname)
+        or find_git(fname)
+        or dirname(fname)
+        or vim.fn.getcwd()
     end,
   },
   eslint = {},
@@ -128,7 +125,6 @@ ma_lsp.setup {
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
-
     settings = {
       Lua = {
         telemetry = {

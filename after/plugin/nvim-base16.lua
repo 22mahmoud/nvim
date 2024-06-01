@@ -1,8 +1,6 @@
 local loaded = pcall(require, 'base16-colorscheme')
 
-if not loaded then
-  return
-end
+if not loaded then return end
 
 pcall(require, 'ma.theme')
 

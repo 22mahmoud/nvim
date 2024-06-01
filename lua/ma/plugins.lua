@@ -51,9 +51,7 @@ function M.use(uri)
   table.insert(M.plugins, { uri = uri, plugin = plugin })
 
   local dir = uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
-  if not dir then
-    return
-  end
+  if not dir then return end
 
   vim.cmd('packadd ' .. plugin)
 end
@@ -119,18 +117,12 @@ end
 function M.clean()
   local handle = uv.fs_scandir(M.root_dir .. '/' .. M.plugins_dir)
 
-  if not handle then
-    return
-  end
+  if not handle then return end
 
-  local function iter()
-    return uv.fs_scandir_next(handle)
-  end
+  local function iter() return uv.fs_scandir_next(handle) end
 
   for name, _ in iter do
-    local exist = vim.iter(M.plugins):find(function(pkg)
-      return pkg.plugin == name
-    end)
+    local exist = vim.iter(M.plugins):find(function(pkg) return pkg.plugin == name end)
 
     if not exist then
       local module_name = M.plugins_dir .. name
@@ -168,7 +160,7 @@ function M.setup()
   -- editor
   M.use 'tpope/vim-surround.git'
   M.use 'tpope/vim-repeat'
-  M.use 'tpope/vim-commentary'
+  M.use 'folke/ts-comments.nvim'
 
   -- lsp
   M.use 'neovim/nvim-lspconfig'
@@ -177,7 +169,6 @@ function M.setup()
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'
-  M.use 'JoosepAlviste/nvim-ts-context-commentstring'
   M.use 'windwp/nvim-ts-autotag'
   M.use 'nvim-treesitter/nvim-treesitter-textobjects'
 end

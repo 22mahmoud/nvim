@@ -44,17 +44,11 @@ G.cnoremap('<C-d>', '<Del>')
 G.cnoremap('<C-h>', '<BS>')
 
 -- diagnostics
-G.nnoremap('<leader>ds', function()
-  vim.diagnostic.open_float(nil, { source = 'always' })
-end)
+G.nnoremap('<leader>ds', function() vim.diagnostic.open_float(nil, { source = 'always' }) end)
 
-G.nnoremap('<leader>dn', function()
-  vim.diagnostic.goto_next { float = false }
-end)
+G.nnoremap('<leader>dn', function() vim.diagnostic.goto_next { float = false } end)
 
-G.nnoremap('<leader>dp', function()
-  vim.diagnostic.goto_prev { float = false }
-end)
+G.nnoremap('<leader>dp', function() vim.diagnostic.goto_prev { float = false } end)
 
 -- Terminal window escape
 G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
@@ -65,9 +59,7 @@ G.lsp_mappings = {
   n = {
     {
       ',f',
-      function()
-        vim.lsp.buf.format { async = true }
-      end,
+      function() vim.lsp.buf.format { async = true } end,
       methods.textDocument_formatting,
     },
     {
@@ -90,18 +82,14 @@ G.lsp_mappings = {
     { '<leader>rn', vim.lsp.buf.rename, methods.textDocument_rename },
     {
       '<leader>ih',
-      function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
-      end,
+      function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {}) end,
       methods.textDocument_inlayHint,
     },
   },
   v = {
     {
       ',f',
-      function()
-        vim.lsp.buf.format { async = true }
-      end,
+      function() vim.lsp.buf.format { async = true } end,
       methods.textDocument_formatting,
     },
   },

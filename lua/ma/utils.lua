@@ -9,14 +9,10 @@ function M.P(...)
 end
 
 function M.map(mode, default_options)
-  if not mode then
-    return
-  end
+  if not mode then return end
 
   return function(lhs, rhs, extra_options)
-    if not lhs or not rhs then
-      return
-    end
+    if not lhs or not rhs then return end
 
     default_options = default_options or {}
     extra_options = extra_options or {}
@@ -39,9 +35,7 @@ end
 function M.augroup(name, commands, cfg)
   local clear = true
 
-  if cfg and type(cfg.clear) == 'boolean' then
-    clear = cfg.clear
-  end
+  if cfg and type(cfg.clear) == 'boolean' then clear = cfg.clear end
 
   local group = type(name) == 'number' and name
     or vim.api.nvim_create_augroup(name, { clear = clear })
@@ -60,10 +54,7 @@ function M.augroup(name, commands, cfg)
     c['events'] = nil
     c['once'] = nil
 
-    vim.api.nvim_create_autocmd(
-      events,
-      tbl_extend('keep', { group = group, once = once }, c)
-    )
+    vim.api.nvim_create_autocmd(events, tbl_extend('keep', { group = group, once = once }, c))
   end
 end
 
@@ -81,9 +72,7 @@ function M.toggle_qf()
   vim.cmd('botright ' .. action)
 end
 
-function M.hl(name, opts)
-  vim.api.nvim_set_hl(0, name, opts)
-end
+function M.hl(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 
 --- Returns a function which applies `specs` on args. This function produces an object having
 -- the same structure than `specs` by mapping each property to the result of calling its

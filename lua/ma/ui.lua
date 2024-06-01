@@ -10,12 +10,8 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     max_height = max_height,
   }
 
-  local buf, win = open_floating_preview(
-    contents,
-    syntax,
-    vim.tbl_extend('force', opts or {}, default_opts),
-    ...
-  )
+  local buf, win =
+    open_floating_preview(contents, syntax, vim.tbl_extend('force', opts or {}, default_opts), ...)
 
   return buf, win
 end

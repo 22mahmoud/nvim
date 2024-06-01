@@ -1,9 +1,7 @@
 ---@diagnostic disable: missing-fields
 local loaded, treesitter = pcall(require, 'nvim-treesitter.configs')
 
-if not loaded then
-  return
-end
+if not loaded then return end
 
 treesitter.setup {
   ensure_installed = 'all',
