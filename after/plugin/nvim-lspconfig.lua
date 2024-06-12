@@ -17,10 +17,11 @@ ma_lsp.setup {
   bashls = {},
   svelte = {},
   intelephense = {
-    on_init = function(client)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-    end,
+    settings = {
+      intelephense = {
+        format = { enable = false },
+      },
+    },
   },
   phpactor = {
     handlers = {
