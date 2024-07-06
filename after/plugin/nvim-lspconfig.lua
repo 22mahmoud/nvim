@@ -136,8 +136,40 @@ ma_lsp.setup {
   },
 
   --- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
-  efm = {
-    root_dir = root_pattern { '.git/', '.' },
-    init_options = { documentFormatting = true },
+  --- efm = {
+  ---   root_dir = root_pattern { '.git/', '.' },
+  ---   init_options = { documentFormatting = true },
+  --- },
+}
+
+require('conform').setup {
+  formatters_by_ft = {
+    yaml = { 'yamlfmt' },
+    lua = { 'stylua' },
+    go = { 'goimports', 'gofmt' },
+    javascript = { { 'prettierd' } },
+    html = { { 'prettierd' } },
+    css = { { 'prettierd' } },
+    typescript = { { 'prettierd' } },
+    json = { { 'prettierd' } },
+    javascriptreact = { { 'prettierd' } },
+    typescriptreact = { { 'prettierd' } },
+    sh = { { 'shfmt' } },
   },
 }
+
+require('lazydev').setup {
+  runtime = vim.env.VIMRUNTIME --[[@as string]],
+  integrations = {
+    lspconfig = true,
+    cmp = false,
+    coq = false,
+  },
+  library = {
+    { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+  },
+}
+
+require('lazydev').find_workspace(0)
+
+G.nnoremap(',f', function() require('conform').format { bufnr = 0 } end)

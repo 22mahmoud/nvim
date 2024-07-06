@@ -164,7 +164,9 @@ function M.setup()
 
   -- lsp
   M.use 'neovim/nvim-lspconfig'
-  M.use 'folke/neodev.nvim'
+  M.use 'folke/lazydev.nvim'
+  M.use 'Bilal2453/luvit-meta'
+  M.use 'stevearc/conform.nvim'
   M.use 'b0o/SchemaStore.nvim'
 
   -- treesitter
