@@ -76,8 +76,6 @@ require 'ma.mappings'
 require 'ma.statusline'
 require 'ma.ui'
 
-require('ts-comments').setup()
-
 -- Load .nvimrc manually
 local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'
 if vim.uv.fs_stat(local_vimrc) then
