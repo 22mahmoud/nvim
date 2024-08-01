@@ -70,6 +70,7 @@ vim.g.skip_ts_context_commentstring_module = true
 
 require 'ma.utils'
 require 'ma.plugins'
+require 'ma.nvim-base16'
 
 require 'ma.settings'
 require 'ma.mappings'
