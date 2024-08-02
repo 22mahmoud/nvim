@@ -38,7 +38,7 @@ local MODE_MAP = {
   ['t'] = { long = 'TERMINAL', short = 'T', color = 'StlineTerminal' },
 }
 
-local function has_text(s) return s:len() > 0 end
+local function has_text(s) return s:len() > 0 and s ~= '.' end
 
 local function build_path(tbl) return table.concat(vim.tbl_filter(has_text, tbl), '/') end
 

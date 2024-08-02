@@ -120,11 +120,10 @@ G.augroup('UserLspAttach', {
     events = 'LspAttach',
     command = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      -- G.P('LspAttach ' .. client.name)
       G.applySpec {
         setup_omnifunc,
         lsp_highlight_document,
-        -- lsp_code_lens_refresh,
+        lsp_code_lens_refresh,
         set_lsp_buffer_keybindings,
         cmp.attach,
       }(client, args.buf)
@@ -142,15 +141,7 @@ function M.get_config_opts()
   }
 end
 
-local function load_neodev()
-  local loaded, neodev = pcall(require, 'neodev')
-
-  if loaded then neodev.setup {} end
-end
-
 function M.setup(servers)
-  load_neodev()
-
   setup_lsp_kind()
 
   local config = M.get_config_opts()

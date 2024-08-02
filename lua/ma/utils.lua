@@ -92,6 +92,7 @@ end
 
 M.icons = setmetatable({
   -- Exact Match
+  ['init.lua'] = '',
   ['gruntfile.coffee'] = '',
   ['gruntfile.js'] = '',
   ['gruntfile.ls'] = '',
@@ -105,6 +106,9 @@ M.icons = setmetatable({
   ['.gitignore'] = '',
   ['.gitlab-ci.yml'] = '',
   ['.bashrc'] = '',
+  ['.profile'] = '',
+  ['.zprofile'] = '',
+  ['.zshenv'] = '',
   ['.zshrc'] = '',
   ['.vimrc'] = '',
   ['.gvimrc'] = '',
@@ -116,8 +120,9 @@ M.icons = setmetatable({
   ['node_modules'] = '',
   ['react.jsx'] = '󰜈',
   ['procfile'] = '',
-  ['dockerfile'] = '',
-  ['docker-compose.yml'] = '',
+  ['dockerfile'] = '󰡨',
+  ['docker-compose.yml'] = '󰡨',
+  ['compose.yml'] = '󰡨',
   -- Extension
   ['styl'] = '',
   ['sass'] = '',
@@ -231,7 +236,7 @@ M.icons = setmetatable({
   __index = function(table, key)
     local ext = key:match '%.(.+)$'
 
-    return ext and table[ext] or ''
+    return ext and table[ext] or '󰈔'
   end,
 })
 

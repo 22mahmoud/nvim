@@ -13,5 +13,3 @@ require('lazydev').setup {
     { path = 'luvit-meta/library', words = { 'vim%.uv' } },
   },
 }
-
-require('lazydev').find_workspace(0)
