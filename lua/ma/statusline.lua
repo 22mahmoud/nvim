@@ -125,17 +125,17 @@ function M.get_statusline()
   local diagnostics = get_lsp_diagnostics()
   local file_icon = get_file_icon()
 
-  local lhs = table.concat {
+  local lhs = table.concat ({
     block(mode, mode_color, ' %s '),
-    block(file_icon, 'StlineFileIcon', ' %s '),
-    block(path, 'StlinePath', '%s '),
+    string.len(path) > 0 and block(file_icon, 'StlineFileIcon', ' %s ') or '',
+    string.len(path) > 0 and block(path, 'StlinePath', '%s ') or block(' ', 'StlinePath', '%s'),
     block(modified_icon, 'StlineModified', '%s '),
     block(readonly_icon, 'StlineReadOnly', '%s '),
-  }
+  })
 
   local rhs = table.concat {
     diagnostics,
-    block('%l|%c', 'StlineLineCol', ' %s '),
+    block('%l:%c', mode_color, ' %s '),
   }
 
   return lhs .. '%=' .. rhs
@@ -147,8 +147,8 @@ function M.get_winbar()
   local file_icon = get_file_icon()
 
   return table.concat {
-    block(file_icon, 'WinBarFileIcon', ' %s'),
-    block(path, 'WinBarPath', ' %s '),
+    string.len(path) > 0 and block(file_icon, 'WinBarFileIcon', ' %s ') or '',
+    string.len(path) > 0 and block(path, 'WinBarPath', '%s ') or block(' ', 'WinBarPath', '%s'),
     block(modified_icon, 'WinBarModified', '%s '),
   }
 end

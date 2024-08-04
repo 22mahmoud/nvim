@@ -37,6 +37,7 @@ ma_lsp.setup {
       'graphql',
     },
   },
+  biome = {},
   tailwindcss = {
     settings = {
       tailwindCSS = {
