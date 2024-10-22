@@ -36,19 +36,15 @@ _install_treesitter() {
 }
 
 _install_volta() {
-  [ -z "$VOLTA_HOME" ] \
-    && printf "[volta]: please set VOLTA_HOME env variable in your .zprofile"
+  [ -z "$VOLTA_HOME" ] &&
+    printf "[volta]: please set VOLTA_HOME env variable in your .zprofile"
 
-  if [ ! "$(command -v volta)" ]; then
-    printf "[volta]: install\n"
-    volta_script="$XDG_CACHE_HOME"/volta.sh
-    wget -q --show-progress https://get.volta.sh -O "$volta_script"
-    chmod +x "$volta_script"
-    "$volta_script" --skip-setup && rm "$volta_script"
-    printf "[volta]: done\n\n"
-  else
-    printf "[volta]: skip already installed\n\n"
-  fi
+  printf "[volta]: install\n"
+  volta_script="$XDG_CACHE_HOME"/volta.sh
+  wget -q --show-progress https://get.volta.sh -O "$volta_script"
+  chmod +x "$volta_script"
+  "$volta_script" --skip-setup && rm "$volta_script"
+  printf "[volta]: done\n\n"
 }
 
 _install_node() {

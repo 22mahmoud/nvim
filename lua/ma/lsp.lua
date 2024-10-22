@@ -120,6 +120,17 @@ G.augroup('UserLspAttach', {
     events = 'LspAttach',
     command = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+      G.augroup('RefreshTsLsp', {
+        {
+          events = { 'BufWritePost' },
+          pattern = { '*.js', '*.ts', '*.tsx', '*.jsx' },
+          command = function(ctx)
+            if client then client.notify('$/onDidChangeTsOrJsFile', { uri = ctx.match }) end
+          end,
+        },
+      })
+
       G.applySpec {
         setup_omnifunc,
         lsp_highlight_document,

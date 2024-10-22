@@ -9,12 +9,15 @@ local ma_lsp = require 'ma.lsp'
 ma_lsp.setup {
   html = {},
   cssls = {},
+  -- htmx = {},
   clangd = {
     on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
   },
   pyright = {},
   vimls = {},
-  bashls = {},
+  bashls = {
+    filetypes = { 'bash' },
+  },
   svelte = {},
   intelephense = {
     settings = {
@@ -59,7 +62,7 @@ ma_lsp.setup {
   },
   rust_analyzer = {},
   gopls = {},
-  tsserver = {
+  ts_ls = {
     init_options = {
       hostInfo = 'neovim',
       preferences = {
@@ -136,9 +139,6 @@ ma_lsp.setup {
     },
   },
 
-  --- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
-  --- efm = {
-  ---   root_dir = root_pattern { '.git/', '.' },
-  ---   init_options = { documentFormatting = true },
-  --- },
+  -- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
+  efm = {},
 }
