@@ -1,7 +1,6 @@
 local lspconfig = require 'lspconfig'
 local methods = vim.lsp.protocol.Methods
 
-local cmp = require 'ma.completion'
 local augroup = vim.api.nvim_create_augroup
 local clear = vim.api.nvim_clear_autocmds
 
@@ -136,7 +135,6 @@ G.augroup('UserLspAttach', {
         lsp_highlight_document,
         lsp_code_lens_refresh,
         set_lsp_buffer_keybindings,
-        cmp.attach,
       }(client, args.buf)
     end,
   },

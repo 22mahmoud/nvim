@@ -87,11 +87,11 @@ G.lsp_mappings = {
     },
   },
   v = {
-    -- {
-    --   ',f',
-    --   function() vim.lsp.buf.format { async = true } end,
-    --   methods.textDocument_formatting,
-    -- },
+    {
+      ',f',
+      function() vim.lsp.buf.format { async = true } end,
+      methods.textDocument_formatting,
+    },
   },
   i = {
     {
