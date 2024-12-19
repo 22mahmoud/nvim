@@ -160,7 +160,6 @@ function M.setup()
   -- editor
   M.use 'tpope/vim-surround.git'
   M.use 'tpope/vim-repeat'
-  M.use 'folke/ts-comments.nvim'
 
   -- lsp
   M.use 'neovim/nvim-lspconfig'
@@ -173,6 +172,7 @@ function M.setup()
   M.use 'nvim-treesitter/nvim-treesitter'
   M.use 'windwp/nvim-ts-autotag'
   M.use 'nvim-treesitter/nvim-treesitter-textobjects'
+  M.use 'JoosepAlviste/nvim-ts-context-commentstring'
 end
 
 M.setup()
