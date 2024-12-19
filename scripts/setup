@@ -1,41 +1,32 @@
 #!/bin/sh
-_update_paru_package_database() {
+
+install_package() {
+  package_name=$1
+  darwin_cmd=${2:-"brew install $package_name"}
+  arch_cmd=${3:-"paru --needed -S $package_name --noconfirm"}
+
+  printf "[%s]: install\n" "$package_name"
+  if [ "$(uname -s)" = Darwin ]; then
+    eval "$darwin_cmd"
+  else
+    eval "$arch_cmd"
+  fi
+  printf "[%s]: done\n\n" "$package_name"
+}
+
+update_package_database() {
   if [ "$(uname -s)" = Darwin ]; then
     printf "[brew]: update package database\n"
     brew update
-    printf "[brew]: done\n\n"
   else
     printf "[paru]: update package database\n"
     paru -Syu --noconfirm
-    printf "[paru]: done\n\n"
-  fi
-}
-
-_install_neovim() {
-  printf "[neovim]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install neovim
-  else
-    paru --needed -S neovim --noconfirm
   fi
 
-  printf "[neovim]: done\n\n"
+  printf "[%s]: done\n\n" "$([ "$(uname -s)" = Darwin ] && echo 'brew' || echo 'paru')"
 }
 
-_install_treesitter() {
-  printf "[treesitter]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install tree-sitter
-  else
-    paru --needed -S tree-sitter tree-sitter-cli --noconfirm
-  fi
-
-  printf "[treesitter]: done\n\n"
-}
-
-_install_volta() {
+install_volta() {
   [ -z "$VOLTA_HOME" ] &&
     printf "[volta]: please set VOLTA_HOME env variable in your .zprofile"
 
@@ -47,79 +38,24 @@ _install_volta() {
   printf "[volta]: done\n\n"
 }
 
-_install_node() {
-  printf "[node-latest]: install\n"
+install_node_packages() {
+  printf "[node]: install packages\n"
   volta install node@lts
-  printf "[node-latest]: done\n\n"
-}
-
-_install_node_provider() {
-  printf "[node-neovim]: install\n"
   volta install neovim
-  printf "[node-neovim]: done\n\n"
+  printf "[node]: done\n\n"
 }
 
-_install_python() {
-  if [ "$(uname -s)" = Darwin ]; then
-    # do no thing
-    echo
-  else
-    printf "[python]: install\n"
-    paru --needed -S python --noconfirm
-    printf "[python]: done\n\n"
-  fi
-}
-
-_install_pip() {
-  printf "[python-pip]: install\n"
-
+install_python_packages() {
   if [ "$(uname -s)" = Darwin ]; then
     python3 -m pip install --upgrade setuptools
     python3 -m pip install --upgrade pip
   else
-    paru --needed -S python-pip --noconfirm
+    install_package "python-pip"
   fi
-
-  printf "[python-pip]: done\n\n"
+  install_package "python-neovim"
 }
 
-_install_python_provider() {
-  printf "[python-neovim]: install\n"
-  paru --needed -S python-neovim --noconfirm
-  printf "[python-neovim]: done\n\n"
-}
-
-_install_ruby() {
-  printf "[ruby]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install ruby
-  else
-    paru --needed -S ruby --noconfirm
-  fi
-
-  printf "[ruby]: done\n\n"
-}
-
-_install_gem() {
-  printf "[ruby-gem]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install brew-gem
-  else
-    paru --needed -S rubygems --noconfirm
-  fi
-
-  printf "[ruby-gem]: done\n\n"
-}
-
-_install_ruby_provider() {
-  printf "[ruby-provider]: install\n"
-  gem install neovim
-  printf "[ruby-provider]: done\n\n"
-}
-
-_install_npm_packages() {
+install_npm_packages() {
   printf "[npm-packages]: install\n"
   npm_packages_file="$XDG_CONFIG_HOME/nvim/scripts/npm_packages"
   if [ -e "$npm_packages_file" ]; then
@@ -130,122 +66,33 @@ _install_npm_packages() {
   fi
 }
 
-_install_sumneko_lua() {
-  printf "[lsp-sumneko]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install lua-language-server
-  else
-    paru --needed -S lua-language-server --noconfirm
-  fi
-
-  printf "[lsp-sumneko]: done\n"
-}
-
-_install_go() {
-  printf "[go]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install go
-  else
-    paru --needed -S go --noconfirm
-  fi
-
-  printf "[go]: done\n\n"
-}
-
-_install_gopls() {
-  printf "[gopls]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install gopls
-  else
-    paru --needed -S gopls --noconfirm
-  fi
-
-  printf "[gopls]: done\n\n"
-}
-
-_install_efm() {
-  printf "[efm]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install efm-langserver
-  else
-    paru --needed -S efm-langserver --noconfirm
-  fi
-
-  printf "[efm]: done\n\n"
-}
-
-_install_clangd() {
-  printf "[ccls]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install ccls
-  else
-    paru --needed -S clang --noconfirm
-  fi
-
-  printf "[clangd]: done\n\n"
-}
-
-_install_shellcheck() {
-  printf "[shellcheck]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install shellcheck
-  else
-    paru --needed -S shellcheck --noconfirm
-  fi
-
-  printf "[shellcheck]: done\n\n"
-}
-
-_install_shfmt() {
-  printf "[shfmt]: install\n"
-
-  if [ "$(uname -s)" = Darwin ]; then
-    brew install shfmt
-  else
-    paru --needed -S shfmt --noconfirm
-  fi
-
-  printf "[shfmt]: done\n\n"
-}
-
 # install or update packages
 main() {
-  _update_paru_package_database
+  update_package_database
 
-  # install or update neovim
-  # _install_neovim
-  _install_treesitter
+  install_package "tree-sitter" \
+    "brew install tree-sitter" \
+    "paru --needed -S tree-sitter tree-sitter-cli --noconfirm"
 
-  # install node provider
-  _install_volta
-  _install_node
-  _install_node_provider
+  install_volta
+  install_node_packages
+  install_python_packages
 
-  # install python provider
-  _install_python
-  _install_pip
-  _install_python_provider
+  # Ruby installation
+  install_package "ruby"
+  install_package "rubygems" "brew install brew-gem" "paru --needed -S rubygems --noconfirm"
+  gem install neovim
 
-  # install ruby provider
-  _install_ruby
-  _install_gem
-  _install_ruby_provider
+  # LSP servers and tools
+  install_package "lua-language-server"
+  install_package "efm-langserver"
+  install_package "clang" "brew install ccls"
+  install_package "go"
+  install_package "gopls"
+  install_package "shellcheck"
+  install_package "shfmt"
 
-  # lsp servers & utils
-  _install_sumneko_lua
-  _install_efm
-  _install_clangd
-  _install_go
-  _install_gopls
-  _install_shellcheck
-  _install_shfmt
-  _install_npm_packages
+  install_npm_packages
 }
 
 main
