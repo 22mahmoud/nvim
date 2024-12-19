@@ -57,11 +57,11 @@ G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 local methods = vim.lsp.protocol.Methods
 G.lsp_mappings = {
   n = {
-    {
-      ',f',
-      function() vim.lsp.buf.format { async = true } end,
-      methods.textDocument_formatting,
-    },
+    -- {
+    --   ',f',
+    --   function() vim.lsp.buf.format { async = true } end,
+    --   methods.textDocument_formatting,
+    -- },
     {
       'gr',
       vim.lsp.buf.references,
@@ -87,11 +87,11 @@ G.lsp_mappings = {
     },
   },
   v = {
-    {
-      ',f',
-      function() vim.lsp.buf.format { async = true } end,
-      methods.textDocument_formatting,
-    },
+    -- {
+    --   ',f',
+    --   function() vim.lsp.buf.format { async = true } end,
+    --   methods.textDocument_formatting,
+    -- },
   },
   i = {
     {

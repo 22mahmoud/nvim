@@ -1,7 +1,6 @@
 local fn = vim.fn
 local opt = vim.opt
 local fmt = string.format
-local api = vim.api
 
 local M = {}
 
@@ -18,14 +17,14 @@ local MODE_MAP = {
   ['n'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
   ['v'] = { long = 'VISUAL', short = 'V', color = 'StlineVisual' },
   ['V'] = { long = 'V-LINE', short = 'V-L', color = 'StlineVisual' },
-  [api.nvim_replace_termcodes('<C-V>', true, true, true)] = {
+  [vim.api.nvim_replace_termcodes('<C-V>', true, true, true)] = {
     long = 'V-BLOCK',
     short = 'V-B',
     color = 'StlineVisual',
   },
   ['s'] = { long = 'SELECT', short = 'S', color = 'StlineVisual' },
   ['S'] = { long = 'S-LINE', short = 'S-L', color = 'StlineVisual' },
-  [api.nvim_replace_termcodes('<C-S>', true, true, true)] = {
+  [vim.api.nvim_replace_termcodes('<C-S>', true, true, true)] = {
     long = 'S-BLOCK',
     short = 'S-B',
     color = 'StlineVisual',
@@ -37,6 +36,14 @@ local MODE_MAP = {
   ['!'] = { long = 'SHELL', short = 'Sh', color = 'StlineCommand' },
   ['t'] = { long = 'TERMINAL', short = 'T', color = 'StlineTerminal' },
 }
+
+local function get_hl_color(name)
+  local hl = vim.api.nvim_get_hl(0, { name = name })
+  return {
+    fg = hl.fg and string.format('#%06x', hl.fg) or nil,
+    bg = hl.bg and string.format('#%06x', hl.bg) or nil,
+  }
+end
 
 local function has_text(s) return s:len() > 0 and s ~= '.' end
 
@@ -153,28 +160,84 @@ function M.get_winbar()
   }
 end
 
-local function setup_highlights()
-  local colors = require('base16-colorscheme').colors
+function M.setup_highlights()
   local highlights = {
-    StlineNormal = { fg = colors.base00, bg = colors.base0D },
-    StlineInsert = { fg = colors.base00, bg = colors.base0B },
-    StlineVisual = { fg = colors.base00, bg = colors.base0E },
-    StlineReplace = { fg = colors.base00, bg = colors.base08 },
-    StlineCommand = { fg = colors.base00, bg = colors.base0A },
-    StlineTerminal = { fg = colors.base00, bg = colors.base0C },
-    StlineFileIcon = { fg = colors.base0D, bg = colors.base01 },
-    StlinePath = { fg = colors.base05, bg = colors.base01 },
-    StlineModified = { fg = colors.base08, bg = colors.base01 },
-    StlineReadOnly = { fg = colors.base0A, bg = colors.base01 },
-    StlineDiagError = { fg = colors.base08, bg = colors.base01 },
-    StlineDiagWarn = { fg = colors.base0A, bg = colors.base01 },
-    StlineDiagInfo = { fg = colors.base0C, bg = colors.base01 },
-    StlineDiagHint = { fg = colors.base0D, bg = colors.base01 },
-    StlineLineCol = { fg = colors.base05, bg = colors.base02 },
-    WinBarSeparator = { fg = colors.base03, bg = colors.base00 },
-    WinBarFileIcon = { fg = colors.base0D, bg = colors.base00 },
-    WinBarPath = { fg = colors.base05, bg = colors.base00 },
-    WinBarModified = { fg = colors.base08, bg = colors.base00 },
+    StlineNormal = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('Function').fg,
+    },
+    StlineInsert = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('String').fg,
+    },
+    StlineVisual = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('Type').fg,
+    },
+    StlineReplace = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('Error').fg,
+    },
+    StlineCommand = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('Special').fg,
+    },
+    StlineTerminal = {
+      fg = get_hl_color('Cursor').fg,
+      bg = get_hl_color('WarningMsg').fg,
+    },
+    StlineFileIcon = {
+      fg = get_hl_color('Function').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlinePath = {
+      fg = get_hl_color('Normal').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineModified = {
+      fg = get_hl_color('Error').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineReadOnly = {
+      fg = get_hl_color('WarningMsg').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineDiagError = {
+      fg = get_hl_color('DiagnosticError').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineDiagWarn = {
+      fg = get_hl_color('DiagnosticWarn').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineDiagInfo = {
+      fg = get_hl_color('DiagnosticInfo').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineDiagHint = {
+      fg = get_hl_color('DiagnosticHint').fg,
+      bg = get_hl_color('ColorColumn').bg,
+    },
+    StlineLineCol = {
+      fg = get_hl_color('NormalFloat').fg,
+      bg = get_hl_color('CursorLine').bg,
+    },
+    WinBarSeparator = {
+      fg = get_hl_color('NonText').fg,
+      bg = get_hl_color('Normal').bg,
+    },
+    WinBarFileIcon = {
+      fg = get_hl_color('Function').fg,
+      bg = get_hl_color('Normal').bg,
+    },
+    WinBarPath = {
+      fg = get_hl_color('Normal').fg,
+      bg = get_hl_color('Normal').bg,
+    },
+    WinBarModified = {
+      fg = get_hl_color('Error').fg,
+      bg = get_hl_color('Normal').bg,
+    },
   }
 
   for group, color in pairs(highlights) do
@@ -183,7 +246,7 @@ local function setup_highlights()
 end
 
 local function setup()
-  setup_highlights()
+  M.setup_highlights()
   vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
   vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
 end

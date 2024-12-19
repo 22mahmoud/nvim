@@ -1,14 +1,20 @@
 local loaded = pcall(require, 'lspconfig')
-
 if not loaded then return end
-local root_pattern = require('lspconfig/util').root_pattern
-local find_git = require('lspconfig/util').find_git_ancestor
-local dirname = require('lspconfig/util').path.dirname
+
 local ma_lsp = require 'ma.lsp'
+local root_pattern = require('lspconfig/util').root_pattern
+
+local dirname = vim.fs.dirname
+
+local function find_git(fname)
+  return dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
+end
 
 ma_lsp.setup {
   html = {},
   cssls = {},
+  jdtls = {},
+  astro = {},
   -- htmx = {},
   clangd = {
     on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
@@ -99,6 +105,7 @@ ma_lsp.setup {
         or vim.fn.getcwd()
     end,
   },
+
   eslint = {},
 
   jsonls = {
@@ -138,7 +145,4 @@ ma_lsp.setup {
       },
     },
   },
-
-  -- @see https://github.com/22mahmoud/dotfiles/blob/main/efm-langserver/.config/efm-langserver/config.yaml
-  efm = {},
 }

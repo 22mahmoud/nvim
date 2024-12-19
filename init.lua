@@ -78,10 +78,11 @@ require 'ma.statusline'
 require 'ma.ui'
 
 -- Load .nvimrc manually
-local local_vimrc = vim.fn.getcwd() .. '/.nvimrc.lua'
+local project_marker = { '.nvimrc.lua' }
+local project_root = vim.fs.root(0, project_marker)
+local local_vimrc = project_root .. '/.nvimrc.lua'
 if vim.uv.fs_stat(local_vimrc) then
   local source = vim.secure.read(local_vimrc)
   if not source then return end
-
   vim.cmd(string.format('so %s', local_vimrc))
 end

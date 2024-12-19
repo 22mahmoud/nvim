@@ -7,7 +7,7 @@ local clear = vim.api.nvim_clear_autocmds
 local M = {}
 
 local function lsp_highlight_document(client, bufnr)
-  if not client.supports_method(methods.textDocument_documentHighlight) then return end
+  if not client:supports_method(methods.textDocument_documentHighlight, bufnr) then return end
 
   local group = augroup('LspDocumentHighlight', { clear = false })
 
@@ -28,7 +28,7 @@ local function lsp_highlight_document(client, bufnr)
 end
 
 local function lsp_code_lens_refresh(client, bufnr)
-  if not client.supports_method(methods.textDocument_codeLens) then return end
+  if not client:supports_method(methods.textDocument_codeLens, bufnr) then return end
 
   local group = augroup('LspCodeLens', { clear = false })
 
@@ -86,7 +86,7 @@ local function set_lsp_buffer_keybindings(client, bufnr)
       local lhs, rhs, capability = unpack(mapping)
 
       -- skip mapping if capability not enabled
-      if capability and client.supports_method(capability) then
+      if capability and client:supports_method(capability, bufnr) then
         map(lhs, rhs, { buffer = bufnr })
       end
     end
@@ -109,7 +109,7 @@ function M.get_client_capabilities()
 end
 
 local function setup_omnifunc(client, bufnr)
-  if not client.supports_method(methods.textDocument_completion) then return end
+  if not client:supports_method(methods.textDocument_completion, bufnr) then return end
 
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
@@ -119,13 +119,14 @@ G.augroup('UserLspAttach', {
     events = 'LspAttach',
     command = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
       G.augroup('RefreshTsLsp', {
         {
           events = { 'BufWritePost' },
           pattern = { '*.js', '*.ts', '*.tsx', '*.jsx' },
           command = function(ctx)
-            if client then client.notify('$/onDidChangeTsOrJsFile', { uri = ctx.match }) end
+            if client then client:notify('$/onDidChangeTsOrJsFile', { uri = ctx.match }) end
           end,
         },
       })
@@ -156,7 +157,10 @@ function M.setup(servers)
   local config = M.get_config_opts()
 
   for server, user_config in pairs(servers) do
-    lspconfig[server].setup(vim.tbl_deep_extend('force', config, user_config))
+    local enabled = true
+    if user_config.enable ~= nil then enabled = user_config.enable end
+
+    if enabled then lspconfig[server].setup(vim.tbl_deep_extend('force', config, user_config)) end
   end
 end
 

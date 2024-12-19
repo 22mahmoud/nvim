@@ -144,6 +144,7 @@ M.icons = setmetatable({
   ['mjs'] = '',
   ['jsx'] = '',
   ['rb'] = '',
+  ['astro'] = '',
   ['php'] = '',
   ['py'] = '',
   ['pyc'] = '',

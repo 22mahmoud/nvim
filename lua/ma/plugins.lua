@@ -167,6 +167,7 @@ function M.setup()
   M.use 'folke/lazydev.nvim'
   M.use 'Bilal2453/luvit-meta'
   M.use 'b0o/SchemaStore.nvim'
+  M.use 'stevearc/conform.nvim'
 
   -- treesitter
   M.use 'nvim-treesitter/nvim-treesitter'
