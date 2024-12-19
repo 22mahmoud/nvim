@@ -69,18 +69,17 @@ end
 vim.g.skip_ts_context_commentstring_module = true
 
 require 'ma.utils'
+require 'ma.statusline'
 require 'ma.plugins'
 require 'ma.nvim-base16'
-
 require 'ma.settings'
 require 'ma.mappings'
-require 'ma.statusline'
 require 'ma.ui'
 
--- Load .nvimrc manually
+-- load .nvimrc manually
 local project_marker = { '.nvimrc.lua' }
 local project_root = vim.fs.root(0, project_marker)
-local local_vimrc = project_root .. '/.nvimrc.lua'
+local local_vimrc = vim.fs.joinpath(project_root or '~', '.nvimrc.lua')
 if vim.uv.fs_stat(local_vimrc) then
   local source = vim.secure.read(local_vimrc)
   if not source then return end
