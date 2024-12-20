@@ -9,6 +9,20 @@ local function find_git(fname)
   return dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
 end
 
+local function get_json_schemas()
+  local lodaded_schemastore, schemastore = pcall(require, 'schemastore')
+  if not lodaded_schemastore then return end
+
+  return schemastore.json.schemas()
+end
+
+local function get_yaml_schemas()
+  local lodaded_schemastore, schemastore = pcall(require, 'schemastore')
+  if not lodaded_schemastore then return end
+
+  return schemastore.yaml.schemas()
+end
+
 local servers = {
   html = {},
   cssls = {},
@@ -115,7 +129,7 @@ local servers = {
     end,
     settings = {
       json = {
-        schemas = require('schemastore').json.schemas(),
+        schemas = get_json_schemas(),
         validate = { enable = true },
       },
     },
@@ -127,7 +141,7 @@ local servers = {
           enable = false,
           url = '',
         },
-        schemas = require('schemastore').yaml.schemas(),
+        schemas = get_yaml_schemas(),
       },
     },
   },
