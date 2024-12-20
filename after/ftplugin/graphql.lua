@@ -1,3 +1,3 @@
-local gql = require 'ma.gql_fetch'
+local gql = require 'ma.gql-fetch'
 
 G.nnoremap(',e', gql.run)
