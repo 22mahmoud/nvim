@@ -48,15 +48,16 @@ o.shortmess:append 'W'
 o.shortmess:append 'a'
 o.shortmess:append 'o'
 o.shortmess:append 't'
-o.list = false
+o.list = true
 o.listchars = {
-  eol = '↲',
-  space = '⋅',
   trail = '•',
-  extends = '❯',
-  precedes = '❮',
-  conceal = '┊',
+  tab = '» ',
   nbsp = '␣',
+  -- eol = '↲',
+  -- space = '⋅',
+  -- extends = '❯',
+  -- precedes = '❮',
+  -- conceal = '┊',
 }
 
 o.diffopt = {

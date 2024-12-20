@@ -4,9 +4,9 @@ _G.G = {}
 
 require 'ma.utils'
 require 'ma.global'
-require 'ma.providers'
 require 'ma.settings'
 require 'ma.mappings'
+require 'ma.autocmds'
 require 'ma.lsp'
 require 'ma.statusline'
 require 'ma.plugins'

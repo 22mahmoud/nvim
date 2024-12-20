@@ -20,6 +20,41 @@ local function commit(msg)
   git { 'commit', '-m', msg or '[update]' }
 end
 
+function M.update_luarc()
+  local luarc_path = fn.expand '~/.config/nvim/.luarc.json'
+  local plugin_paths = {}
+
+  local base_plugin_dir = '$XDG_DATA_HOME/nvim/' .. M.plugins_dir
+  for _, plugin in ipairs(M.plugins) do
+    table.insert(plugin_paths, base_plugin_dir .. M.plugins_dir .. plugin.plugin .. '/lua')
+  end
+
+  local luarc_template = {
+    ['$schema'] = 'https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json',
+    ['hint.arrayIndex'] = 'Disable',
+    ['runtime.version'] = 'LuaJIT',
+    diagnostics = { disable = { 'missing-fields' } },
+    hint = { setType = true, enable = true },
+    telemetry = { enable = false },
+    workspace = {
+      library = vim.list_extend({ '$VIMRUNTIME/lua', '${3rd}/luv/library' }, plugin_paths),
+      checkThirdParty = false,
+    },
+    ['runtime.path'] = {
+      'lua',
+      'lua/?.lua',
+      'lua/?/init.lua',
+      '?.lua',
+      '?/init.lua',
+      '$XDG_DATA_HOME/nvim/site',
+    },
+  }
+
+  local json = vim.json.encode(luarc_template)
+  fn.writefile({ json }, luarc_path)
+  print 'Successfully regenerated and formatted .luarc.json with plugin paths.'
+end
+
 local function setup_git_repo()
   fn.system { 'mkdir', '-p', M.plugins_dir }
 
@@ -47,6 +82,9 @@ end
 
 function M.use(uri)
   local plugin = string.match(uri, '[^/]+$')
+
+  local plugin_names = vim.tbl_map(function(p) return p.plugin end, M.plugins)
+  if vim.tbl_contains(plugin_names, plugin) then return end
 
   table.insert(M.plugins, { uri = uri, plugin = plugin })
 
@@ -85,9 +123,11 @@ function M.install()
       print(output)
     end
   end
-
-  vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
+  --
   vim.cmd 'helptags ALL'
+
+  M.update_luarc()
+
   print 'Installing finished.'
 end
 
@@ -108,8 +148,6 @@ function M.update()
   commit()
 
   print(output)
-
-  vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
 
   print 'Updating finished.'
 end
@@ -146,7 +184,7 @@ function M.clean()
     end
   end
 
-  vim.cmd [[so ~/.config/nvim/lua/ma/plugins.lua]]
+  M.update_luarc()
 end
 
 G.command('PkgInstall', M.install)
