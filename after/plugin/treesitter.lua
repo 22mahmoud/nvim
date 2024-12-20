@@ -15,6 +15,22 @@ if loaded_ts_autotag then
   }
 end
 
+local loaded_ts_context_commentstring = pcall(require, 'ts_context_commentstring')
+
+if loaded_ts_context_commentstring then
+  require('ts_context_commentstring').setup {
+    enable_autocmd = false,
+  }
+
+  local get_option = vim.filetype.get_option
+
+  vim.filetype.get_option = function(filetype, option)
+    return option == 'commentstring'
+        and require('ts_context_commentstring.internal').calculate_commentstring()
+      or get_option(filetype, option)
+  end
+end
+
 treesitter.setup {
   ensure_installed = 'all',
   auto_install = true,
@@ -24,9 +40,6 @@ treesitter.setup {
     disable = { 'dockerfile' },
   },
   indent = {
-    enable = true,
-  },
-  context_commentstring = {
     enable = true,
   },
   incremental_selection = {

@@ -246,7 +246,6 @@ function M.setup_highlights()
 end
 
 local function setup()
-  M.setup_highlights()
   vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
   vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
 end

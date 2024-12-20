@@ -1,7 +1,6 @@
-local loaded = pcall(require, 'lspconfig')
+local loaded, lspconfig = pcall(require, 'lspconfig')
 if not loaded then return end
 
-local ma_lsp = require 'ma.lsp'
 local root_pattern = require('lspconfig/util').root_pattern
 
 local dirname = vim.fs.dirname
@@ -10,7 +9,7 @@ local function find_git(fname)
   return dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
 end
 
-ma_lsp.setup {
+local servers = {
   html = {},
   cssls = {},
   jdtls = {},
@@ -146,3 +145,41 @@ ma_lsp.setup {
     },
   },
 }
+
+local function get_client_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      'documentation',
+      'detail',
+      'additionalTextEdits',
+    },
+  }
+
+  return capabilities
+end
+
+local function get_config_opts()
+  return {
+    capabilities = get_client_capabilities(),
+    flags = {
+      allow_incremental_sync = true,
+      debounce_text_changes = 150,
+    },
+  }
+end
+
+local function setup()
+  local config = get_config_opts()
+
+  for server, user_config in pairs(servers) do
+    local enabled = true
+    if user_config.enable ~= nil then enabled = user_config.enable end
+
+    if enabled then lspconfig[server].setup(vim.tbl_deep_extend('force', config, user_config)) end
+  end
+end
+
+setup()

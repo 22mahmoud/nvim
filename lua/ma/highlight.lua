@@ -1,5 +1,3 @@
-pcall(require, 'ma.theme')
-
 local statusline = require 'ma.statusline'
 
 local function user_highlights()
@@ -17,6 +15,8 @@ local function user_highlights()
   statusline.setup_highlights()
 end
 
+user_highlights()
+
 G.augroup('UserHighlights', {
   {
     events = 'ColorScheme',
@@ -24,8 +24,3 @@ G.augroup('UserHighlights', {
     command = user_highlights,
   },
 })
-
-local loaded = pcall(require, 'base16-colorscheme')
-if not loaded then return end
-
-vim.cmd('colorscheme ' .. (vim.g.base16_theme_name or 'base16-gruvbox-dark-hard'))

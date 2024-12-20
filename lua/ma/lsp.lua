@@ -1,10 +1,8 @@
-local lspconfig = require 'lspconfig'
 local methods = vim.lsp.protocol.Methods
 
 local augroup = vim.api.nvim_create_augroup
 local clear = vim.api.nvim_clear_autocmds
-
-local M = {}
+local open_floating_preview = vim.lsp.util.open_floating_preview
 
 local function lsp_highlight_document(client, bufnr)
   if not client:supports_method(methods.textDocument_documentHighlight, bufnr) then return end
@@ -93,21 +91,6 @@ local function set_lsp_buffer_keybindings(client, bufnr)
   end
 end
 
-function M.get_client_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      'documentation',
-      'detail',
-      'additionalTextEdits',
-    },
-  }
-
-  return capabilities
-end
-
 local function setup_omnifunc(client, bufnr)
   if not client:supports_method(methods.textDocument_completion, bufnr) then return end
 
@@ -141,27 +124,21 @@ G.augroup('UserLspAttach', {
   },
 })
 
-function M.get_config_opts()
-  return {
-    capabilities = M.get_client_capabilities(),
-    flags = {
-      allow_incremental_sync = true,
-      debounce_text_changes = 150,
-    },
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
+  local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
+
+  local default_opts = {
+    max_width = max_width,
+    max_height = max_height,
+    border = 'rounded',
   }
+
+  local buf, win =
+    open_floating_preview(contents, syntax, vim.tbl_extend('force', opts or {}, default_opts), ...)
+
+  return buf, win
 end
 
-function M.setup(servers)
-  setup_lsp_kind()
-
-  local config = M.get_config_opts()
-
-  for server, user_config in pairs(servers) do
-    local enabled = true
-    if user_config.enable ~= nil then enabled = user_config.enable end
-
-    if enabled then lspconfig[server].setup(vim.tbl_deep_extend('force', config, user_config)) end
-  end
-end
-
-return M
+setup_lsp_kind()

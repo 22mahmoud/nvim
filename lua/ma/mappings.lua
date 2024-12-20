@@ -57,11 +57,6 @@ G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
 local methods = vim.lsp.protocol.Methods
 G.lsp_mappings = {
   n = {
-    -- {
-    --   ',f',
-    --   function() vim.lsp.buf.format { async = true } end,
-    --   methods.textDocument_formatting,
-    -- },
     {
       'gr',
       vim.lsp.buf.references,
@@ -86,13 +81,7 @@ G.lsp_mappings = {
       methods.textDocument_inlayHint,
     },
   },
-  v = {
-    -- {
-    --   ',f',
-    --   function() vim.lsp.buf.format { async = true } end,
-    --   methods.textDocument_formatting,
-    -- },
-  },
+  v = {},
   i = {
     {
       '<c-space>',
