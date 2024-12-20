@@ -9,9 +9,6 @@ pkg.use 'tpope/vim-repeat'
 
 -- lsp
 pkg.use 'neovim/nvim-lspconfig'
-pkg.use 'folke/lazydev.nvim'
-pkg.use 'Bilal2453/luvit-meta'
-pkg.use 'b0o/SchemaStore.nvim'
 pkg.use 'stevearc/conform.nvim'
 
 -- treesitter

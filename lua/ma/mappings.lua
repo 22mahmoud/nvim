@@ -45,10 +45,9 @@ G.cnoremap('<C-h>', '<BS>')
 
 -- diagnostics
 G.nnoremap('<leader>ds', function() vim.diagnostic.open_float(nil, { source = 'always' }) end)
-
 G.nnoremap('<leader>dn', function() vim.diagnostic.jump { count = 1 } end)
-
 G.nnoremap('<leader>dp', function() vim.diagnostic.jump { count = -1 } end)
+G.nnoremap('<leader>dq', vim.diagnostic.setloclist)
 
 -- Terminal window escape
 G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')

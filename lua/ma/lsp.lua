@@ -124,6 +124,17 @@ G.augroup('UserLspAttach', {
   },
 })
 
+local border = {
+  { '┌', 'FloatBorder' },
+  { '─', 'FloatBorder' },
+  { '┐', 'FloatBorder' },
+  { '│', 'FloatBorder' },
+  { '┘', 'FloatBorder' },
+  { '─', 'FloatBorder' },
+  { '└', 'FloatBorder' },
+  { '│', 'FloatBorder' },
+}
+
 ---@diagnostic disable-next-line: duplicate-set-field
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
@@ -132,7 +143,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   local default_opts = {
     max_width = max_width,
     max_height = max_height,
-    border = 'rounded',
+    border = border,
   }
 
   local buf, win =

@@ -120,23 +120,21 @@ vim.diagnostic.config {
   severity_sort = true,
   underline = true,
   virtual_text = {
+    prefix = '',
     severity = nil,
     source = 'if_many',
     format = nil,
   },
   update_in_insert = false,
   float = {
-    source = 'if_many',
-    style = 'minimal',
-    border = 'rounded',
     header = '',
   },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '',
-      [vim.diagnostic.severity.WARN] = '',
-      [vim.diagnostic.severity.HINT] = '',
-      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+      [vim.diagnostic.severity.INFO] = ' ',
     },
   },
 }

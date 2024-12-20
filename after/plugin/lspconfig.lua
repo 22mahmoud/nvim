@@ -10,17 +10,29 @@ local function find_git(fname)
 end
 
 local function get_json_schemas()
-  local lodaded_schemastore, schemastore = pcall(require, 'schemastore')
-  if not lodaded_schemastore then return end
-
-  return schemastore.json.schemas()
+  return {
+    {
+      description = 'NPM configuration file',
+      fileMatch = { 'package.json' },
+      name = 'package.json',
+      url = 'https://json.schemastore.org/package.json',
+    },
+  }
 end
 
 local function get_yaml_schemas()
-  local lodaded_schemastore, schemastore = pcall(require, 'schemastore')
-  if not lodaded_schemastore then return end
-
-  return schemastore.yaml.schemas()
+  return {
+    ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = {
+      '**/docker-compose.yml',
+      '**/docker-compose.yaml',
+      '**/docker-compose.*.yml',
+      '**/docker-compose.*.yaml',
+      '**/compose.yml',
+      '**/compose.yaml',
+      '**/compose.*.yml',
+      '**/compose.*.yaml',
+    },
+  }
 end
 
 local servers = {
