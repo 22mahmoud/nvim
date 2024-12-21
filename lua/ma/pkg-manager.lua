@@ -26,7 +26,7 @@ function M.update_luarc()
 
   local base_plugin_dir = '$XDG_DATA_HOME/nvim/' .. M.plugins_dir
   for _, plugin in ipairs(M.plugins) do
-    table.insert(plugin_paths, base_plugin_dir .. M.plugins_dir .. plugin.plugin .. '/lua')
+    table.insert(plugin_paths, base_plugin_dir .. plugin.plugin .. '/lua')
   end
 
   local luarc_template = {
