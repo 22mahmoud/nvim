@@ -2,6 +2,7 @@ local pkg = require 'ma.pkg-manager'
 
 -- colors/ui
 pkg.use 'RRethy/nvim-base16'
+pkg.use 'catppuccin/nvim'
 
 -- editor
 pkg.use 'tpope/vim-surround.git'
