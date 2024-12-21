@@ -2,6 +2,10 @@ local fn = vim.fn
 local fmt = string.format
 local uv = vim.uv
 
+--- @class PluginConfig
+--- @field name string The plugin name.
+--- @field build string|nil A build command to run after installation.
+
 local M = {
   root_dir = fn.stdpath 'data', --[[@as string]]
   plugins_dir = 'site/pack/plugins/opt/',
@@ -80,13 +84,24 @@ local function setup_git_repo()
   end
 end
 
-function M.use(uri)
-  local plugin = string.match(uri, '[^/]+$')
+--- Use a plugin by URI or configuration table.
+--- @param args string|PluginConfig The plugin URI or a configuration table.
+function M.use(args)
+  local uri, build
+
+  if type(args) == 'table' then
+    uri = args.name
+    build = args.build
+  end
+
+  local plugin = string.match(type(args) == 'string' and args or uri, '[^/]+$')
+
+  if not plugin then error 'Plugin name is required' end
 
   local plugin_names = vim.tbl_map(function(p) return p.plugin end, M.plugins)
   if vim.tbl_contains(plugin_names, plugin) then return end
 
-  table.insert(M.plugins, { uri = uri, plugin = plugin })
+  table.insert(M.plugins, { uri = uri, plugin = plugin, build = build })
 
   local dir = uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
   if not dir then return end
@@ -121,9 +136,15 @@ function M.install()
       commit('[install] ' .. plugin)
 
       print(output)
+
+      if pkg.build then
+        local directory = M.root_dir .. '/' .. M.plugins_dir .. plugin
+        vim.cmd('cd ' .. directory)
+        vim.fn.system(pkg.build)
+      end
     end
   end
-  --
+
   vim.cmd 'helptags ALL'
 
   M.update_luarc()
@@ -144,6 +165,14 @@ function M.update()
     '1',
     '--recursive',
   }
+
+  for _, pkg in pairs(M.plugins) do
+    if pkg.build then
+      local directory = M.root_dir .. '/' .. M.plugins_dir .. pkg.plugin
+      vim.cmd('cd ' .. directory)
+      vim.fn.system(pkg.build)
+    end
+  end
 
   commit()
 

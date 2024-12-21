@@ -212,6 +212,7 @@ local servers = {
 }
 
 local function get_client_capabilities()
+  local has_blink, blink = pcall(require, 'blink.cmp')
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -223,7 +224,7 @@ local function get_client_capabilities()
     },
   }
 
-  return capabilities
+  return vim.tbl_deep_extend('force', capabilities, has_blink and blink.get_lsp_capabilities() or {})
 end
 
 local function get_config_opts()
