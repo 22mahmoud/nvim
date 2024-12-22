@@ -11,10 +11,9 @@ local function user_highlights()
   G.hl('NormalSB', opts)
   G.hl('NormalFloat', opts)
   G.hl('SignColumn', opts)
-  G.hl('LineNr', opts)
   G.hl('VertSplit', opts)
   G.hl('FloatBorder', opts)
-
+  --
   statusline.setup_highlights()
 end
 

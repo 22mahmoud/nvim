@@ -101,7 +101,7 @@ function M.use(args)
   local plugin_names = vim.tbl_map(function(p) return p.plugin end, M.plugins)
   if vim.tbl_contains(plugin_names, plugin) then return end
 
-  table.insert(M.plugins, { uri = uri, plugin = plugin, build = build })
+  table.insert(M.plugins, { uri = uri or args, plugin = plugin, build = build })
 
   local dir = uv.fs_stat(M.root_dir .. '/' .. M.plugins_dir .. plugin)
   if not dir then return end

@@ -1,19 +1,19 @@
-local pkg = require 'ma.pkg-manager'
+local use = require('ma.pkg-manager').use
 
 -- colors/ui
-pkg.use 'RRethy/nvim-base16'
-pkg.use 'catppuccin/nvim'
+use 'RRethy/nvim-base16'
+use 'catppuccin/nvim'
 
 -- editor
-pkg.use 'tpope/vim-surround.git'
-pkg.use 'tpope/vim-repeat'
+use 'tpope/vim-surround.git'
+use 'tpope/vim-repeat'
 
 -- lsp
-pkg.use 'neovim/nvim-lspconfig'
-pkg.use 'stevearc/conform.nvim'
+use 'neovim/nvim-lspconfig'
+use 'stevearc/conform.nvim'
 
 -- treesitter
-pkg.use 'nvim-treesitter/nvim-treesitter'
-pkg.use 'windwp/nvim-ts-autotag'
-pkg.use 'nvim-treesitter/nvim-treesitter-textobjects'
-pkg.use 'JoosepAlviste/nvim-ts-context-commentstring'
+use 'nvim-treesitter/nvim-treesitter'
+use 'windwp/nvim-ts-autotag'
+use 'nvim-treesitter/nvim-treesitter-textobjects'
+use 'JoosepAlviste/nvim-ts-context-commentstring'
