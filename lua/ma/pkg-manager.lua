@@ -2,9 +2,9 @@ local fn = vim.fn
 local fmt = string.format
 local uv = vim.uv
 
---- @class PluginConfig
---- @field name string The plugin name.
---- @field build string|nil A build command to run after installation.
+---@class PluginConfig
+---@field name string The plugin name.
+---@field build string|nil A build command to run after installation.
 
 local M = {
   root_dir = fn.stdpath 'data', --[[@as string]]
@@ -12,7 +12,7 @@ local M = {
   plugins = {},
 }
 
---- @param xs string[]
+---@param xs string[]
 local function git(xs)
   local base = { 'git', '-C', M.root_dir }
 
@@ -85,7 +85,7 @@ local function setup_git_repo()
 end
 
 --- Use a plugin by URI or configuration table.
---- @param args string|PluginConfig The plugin URI or a configuration table.
+---@param args string|PluginConfig The plugin URI or a configuration table.
 function M.use(args)
   local uri, build
 

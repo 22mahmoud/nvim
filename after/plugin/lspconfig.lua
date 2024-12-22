@@ -22,6 +22,14 @@ end
 
 local function get_yaml_schemas()
   return {
+    ['https://json.schemastore.org/github-workflow.json'] = {
+      '**/.github/workflows/*.yml',
+      '**/.github/workflows/*.yaml',
+      '**/.gitea/workflows/*.yml',
+      '**/.gitea/workflows/*.yaml',
+      '**/.forgejo/workflows/*.yml',
+      '**/.forgejo/workflows/*.yaml',
+    },
     ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = {
       '**/docker-compose.yml',
       '**/docker-compose.yaml',
@@ -224,7 +232,11 @@ local function get_client_capabilities()
     },
   }
 
-  return vim.tbl_deep_extend('force', capabilities, has_blink and blink.get_lsp_capabilities() or {})
+  return vim.tbl_deep_extend(
+    'force',
+    capabilities,
+    has_blink and blink.get_lsp_capabilities() or {}
+  )
 end
 
 local function get_config_opts()
