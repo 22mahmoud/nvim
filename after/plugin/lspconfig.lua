@@ -40,6 +40,11 @@ local function get_yaml_schemas()
       '**/compose.*.yml',
       '**/compose.*.yaml',
     },
+    ['https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json'] = {
+      '**/lazygit/config.yml',
+      'lazygit.yml',
+      '.lazygit.yml',
+    },
   }
 end
 
