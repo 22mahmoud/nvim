@@ -107,7 +107,6 @@ local servers = {
   rust_analyzer = {},
   gopls = {},
   ts_ls = {
-    enabled = false,
     init_options = {
       hostInfo = 'neovim',
       preferences = {
@@ -146,6 +145,7 @@ local servers = {
   },
 
   vtsls = {
+    enabled = false,
     filetypes = {
       'javascript',
       'javascriptreact',
@@ -214,13 +214,7 @@ local servers = {
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
-    settings = {
-      Lua = {
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
+    settings = { Lua = { telemetry = { enable = false } } },
   },
 }
 

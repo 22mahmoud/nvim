@@ -1,3 +1,4 @@
+local cmp = require 'ma.cmp'
 local methods = vim.lsp.protocol.Methods
 
 local augroup = vim.api.nvim_create_augroup
@@ -104,21 +105,12 @@ G.augroup('UserLspAttach', {
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-      G.augroup('RefreshTsLsp', {
-        {
-          events = { 'BufWritePost' },
-          pattern = { '*.js', '*.ts', '*.tsx', '*.jsx' },
-          command = function(ctx)
-            if client then client:notify('$/onDidChangeTsOrJsFile', { uri = ctx.match }) end
-          end,
-        },
-      })
-
       G.applySpec {
         setup_omnifunc,
         lsp_highlight_document,
         lsp_code_lens_refresh,
         set_lsp_buffer_keybindings,
+        cmp.attach,
       }(client, args.buf)
     end,
   },
