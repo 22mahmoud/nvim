@@ -116,10 +116,10 @@ local function get_lsp_diagnostics()
   local severity = vim.diagnostic.severity
 
   return table.concat({
-    block(get_diag_count(severity.ERROR), 'StlineDiagError', '  %s '),
-    block(get_diag_count(severity.WARN), 'StlineDiagWarn', '  %s '),
-    block(get_diag_count(severity.INFO), 'StlineDiagInfo', '  %s '),
-    block(get_diag_count(severity.HINT), 'StlineDiagHint', '  %s '),
+    block(get_diag_count(severity.ERROR), 'StlineDiagError', '  %s '),
+    block(get_diag_count(severity.WARN), 'StlineDiagWarn', '  %s '),
+    block(get_diag_count(severity.INFO), 'StlineDiagInfo', ' 󰌶 %s '),
+    block(get_diag_count(severity.HINT), 'StlineDiagHint', '  %s '),
   }, '')
 end
 

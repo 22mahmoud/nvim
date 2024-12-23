@@ -4,12 +4,12 @@ _G.G = {}
 
 require 'ma.utils'
 require 'ma.global'
-require 'ma.settings'
+require 'ma.plugins'
 require 'ma.mappings'
 require 'ma.autocmds'
 require 'ma.lsp'
 require 'ma.statusline'
-require 'ma.plugins'
+require 'ma.settings'
 require 'ma.highlight'
 
 -- load .nvimrc manually

@@ -1,6 +1,7 @@
 local use = require('ma.pkg-manager').use
 
 -- colors/ui
+use 'catgoose/nvim-colorizer.lua'
 use 'RRethy/nvim-base16'
 use 'catppuccin/nvim'
 
