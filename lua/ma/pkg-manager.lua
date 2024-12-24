@@ -60,7 +60,7 @@ function M.update_luarc()
 end
 
 local function setup_git_repo()
-  fn.system { 'mkdir', '-p', M.plugins_dir }
+  fn.system { 'mkdir', '-p', fmt('%s/%s', M.root_dir, M.plugins_dir) }
 
   if not uv.fs_stat(M.root_dir .. '/.git') then
     print 'Initializing Git repository...'
