@@ -7,6 +7,7 @@ if not loaded then return end
 local formatters_by_ft = {
   lua = { 'stylua' },
   sh = { 'shellcheck', 'shfmt' },
+  bash = { 'shfmt' },
   python = { 'black' },
   json = { 'fixjson' },
 }
