@@ -4,6 +4,7 @@ local use = require('ma.pkg-manager').use
 use 'catgoose/nvim-colorizer.lua'
 use 'RRethy/nvim-base16'
 use 'catppuccin/nvim'
+use 'folke/tokyonight.nvim'
 
 -- editor
 use 'tpope/vim-surround.git'
