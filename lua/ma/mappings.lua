@@ -21,8 +21,8 @@ map('v', '<', '<gv')
 map('v', '>', '>gv')
 
 -- buffers
-map('n', '<leader>bn', ':bn<cr>')
-map('n', '<leader>bp', ':bp<cr>')
+map('n', '<s-l>', ':bn<cr>', { silent = true })
+map('n', '<s-h>', ':bp<cr>', { silent = true })
 map('n', '<leader>bl', ':ls t<cr>:b<space>')
 map('n', '<leader>bd', ':bd!<cr>')
 
@@ -86,7 +86,7 @@ G.lsp_mappings = {
   v = {},
   i = {
     {
-      '<c-space>',
+      '<c-k>',
       vim.lsp.buf.signature_help,
       methods.textDocument_signatureHelp,
     },
