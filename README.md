@@ -17,5 +17,5 @@ mv ~/.cache/nvim{,.bak}
 git clone https://github.com/22mahmoud/nvim ~/.config/nvim
 ~/.config/nvim/scripts/setup
 nvim --noplugin +PkgInstall +qa
-nvim --noplugin +TSUpdateSync +qa
+nvim +TSUpdateSync +qa
 ```
