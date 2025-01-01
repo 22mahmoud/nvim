@@ -17,6 +17,17 @@ local function get_json_schemas()
       name = 'package.json',
       url = 'https://json.schemastore.org/package.json',
     },
+    {
+
+      name = 'GraphQL Config',
+      description = 'GraphQL Config config file',
+      fileMatch = {
+        'graphql.config.json',
+        '.graphqlrc',
+        '.graphqlrc.json',
+      },
+      url = 'https://unpkg.com/graphql-config/config-schema.json',
+    },
   }
 end
 
@@ -44,6 +55,12 @@ local function get_yaml_schemas()
       '**/lazygit/config.yml',
       'lazygit.yml',
       '.lazygit.yml',
+    },
+    ['https://unpkg.com/graphql-config/config-schema.json'] = {
+      'graphql.config.yaml',
+      'graphql.config.yml',
+      '.graphqlrc.yaml',
+      '.graphqlrc.yml',
     },
   }
 end

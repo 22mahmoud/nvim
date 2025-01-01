@@ -31,3 +31,5 @@ nvim --noplugin +PkgInstall +qa
 - 🎨 Nice Looking [statusline](https://github.com/22mahmoud/nvim/blob/master/lua/ma/statusline.lua) & winbar
 - ️🎹 Use neovim built-in vim [ins-completions](https://neovim.io/doc/user/insert.html#ins-completion), and a custom
   [script](https://github.com/22mahmoud/nvim/blob/master/lua/ma/cmp.lua) to add auto-import functionality when insert from LSP omni completion
+- 💊 a custom GraphQL client to execute `gql` queries/mutations
+    [![asciicast](https://asciinema.org/a/696741.svg)](https://asciinema.org/a/696741)

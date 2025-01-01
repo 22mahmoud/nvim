@@ -37,13 +37,11 @@ local function on_curl_complete(bufnr)
 
     local data = fn.split(result, '\n\n')
     local headers = fn.split(data[1], '\n')
-    local encoded_json = fn.json_encode(data[2])
-    local json = fn.split(fn.system(string.format('echo %s | jq "."', encoded_json)), '\n')
+    local json_lines = fn.split(fn.system({ 'jq', '-M', '.' }, data[2]), '\n')
 
     api.nvim_buf_set_lines(bufnr, 0, #headers, false, headers)
-
-    local lines_count = api.nvim_buf_line_count(bufnr) - 1
-    api.nvim_buf_set_lines(bufnr, lines_count, lines_count + #json, false, json)
+    local lines_count = api.nvim_buf_line_count(bufnr)
+    api.nvim_buf_set_lines(bufnr, lines_count, lines_count + #json_lines, false, json_lines)
 
     if fn.bufwinnr(bufnr) == -1 then vim.cmd([[vert sb ]] .. tmp_name) end
   end

@@ -33,32 +33,7 @@ if loaded_ts_context_commentstring then
 end
 
 treesitter.setup {
-  ensure_installed = {
-    'bash',
-    'c',
-    'diff',
-    'html',
-    'javascript',
-    'jsdoc',
-    'json',
-    'jsonc',
-    'lua',
-    'luadoc',
-    'luap',
-    'markdown',
-    'markdown_inline',
-    'printf',
-    'python',
-    'query',
-    'regex',
-    'toml',
-    'tsx',
-    'typescript',
-    'vim',
-    'vimdoc',
-    'xml',
-    'yaml',
-  },
+  ensure_installed = 'all',
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
