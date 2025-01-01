@@ -1,5 +1,7 @@
 ## ma.nvim
 
+![screenshot](screenshot.png)
+
 ### Requirements
 
 - Latest [neovim](https://github.com/neovim/neovim) build
