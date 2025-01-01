@@ -34,8 +34,8 @@ end
 
 treesitter.setup {
   ensure_installed = 'all',
-  auto_install = true,
-  sync_install = false,
+  auto_install = false,
+  sync_install = true,
   highlight = {
     enable = true,
     disable = { 'dockerfile' },
