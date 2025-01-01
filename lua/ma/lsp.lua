@@ -1,8 +1,11 @@
 local cmp = require 'ma.cmp'
-local methods = vim.lsp.protocol.Methods
+local utils = require 'ma.utils'
 
+local methods = vim.lsp.protocol.Methods
+local map = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local clear = vim.api.nvim_clear_autocmds
+local auclear = vim.api.nvim_clear_autocmds
 local open_floating_preview = vim.lsp.util.open_floating_preview
 
 local function lsp_highlight_document(client, bufnr)
@@ -10,35 +13,34 @@ local function lsp_highlight_document(client, bufnr)
 
   local group = augroup('LspDocumentHighlight', { clear = false })
 
-  clear { group = group, buffer = bufnr }
+  autocmd({ 'CursorHold', 'CursorHoldI' }, {
+    group = group,
+    buffer = bufnr,
+    callback = vim.lsp.buf.document_highlight,
+  })
 
-  G.augroup(group, {
-    {
-      events = { 'CursorHold', 'CursorHoldI' },
-      buffer = bufnr,
-      command = vim.lsp.buf.document_highlight,
-    },
-    {
-      events = { 'CursorMoved', 'CursorMovedI' },
-      buffer = bufnr,
-      command = vim.lsp.buf.clear_references,
-    },
+  autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+    group = group,
+    buffer = bufnr,
+    callback = vim.lsp.buf.clear_references,
+  })
+
+  autocmd({ 'LspDetach' }, {
+    group = augroup('UserLspDetach', { clear = true }),
+    callback = function(event)
+      vim.lsp.buf.clear_references()
+      auclear { group = group, buffer = event.buf }
+    end,
   })
 end
 
 local function lsp_code_lens_refresh(client, bufnr)
   if not client:supports_method(methods.textDocument_codeLens, bufnr) then return end
 
-  local group = augroup('LspCodeLens', { clear = false })
-
-  clear { group = group, buffer = bufnr }
-  G.augroup(group, {
-    {
-      events = { 'BufEnter', 'CursorHold', 'InsertLeave' },
-      buffer = bufnr,
-      command = vim.lsp.codelens.refresh,
-    },
-  }, { clear = false })
+  autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+    buffer = bufnr,
+    callback = vim.lsp.codelens.refresh,
+  })
 end
 
 local function setup_lsp_kind()
@@ -72,21 +74,14 @@ local function setup_lsp_kind()
 end
 
 local function set_lsp_buffer_keybindings(client, bufnr)
-  local mappings = {
-    n = G.nmap,
-    i = G.imap,
-    v = G.vmap,
-  }
-
   for mode, keybindings in pairs(G.lsp_mappings) do
-    local map = mappings[mode]
-
     for _, mapping in pairs(keybindings) do
       local lhs, rhs, capability = unpack(mapping)
 
       -- skip mapping if capability not enabled
       if capability and client:supports_method(capability, bufnr) then
-        map(lhs, rhs, { buffer = bufnr })
+        ---@diagnostic disable-next-line: param-type-mismatch
+        map(mode, lhs, rhs, { buffer = bufnr })
       end
     end
   end
@@ -98,22 +93,20 @@ local function setup_omnifunc(client, bufnr)
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
-G.augroup('UserLspAttach', {
-  {
-    events = 'LspAttach',
-    command = function(args)
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+autocmd({ 'LspAttach' }, {
+  group = augroup('UserLspAttach', {}),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-      G.applySpec {
-        setup_omnifunc,
-        lsp_highlight_document,
-        lsp_code_lens_refresh,
-        set_lsp_buffer_keybindings,
-        cmp.attach,
-      }(client, args.buf)
-    end,
-  },
+    utils.applySpec {
+      setup_omnifunc,
+      lsp_highlight_document,
+      lsp_code_lens_refresh,
+      set_lsp_buffer_keybindings,
+      cmp.attach,
+    }(client, args.buf)
+  end,
 })
 
 local border = {

@@ -1,3 +1,4 @@
+local cmd = vim.api.nvim_create_user_command
 local fn = vim.fn
 local fmt = string.format
 local uv = vim.uv
@@ -216,8 +217,8 @@ function M.clean()
   M.update_luarc()
 end
 
-G.command('PkgInstall', M.install)
-G.command('PkgClean', M.clean)
-G.command('PkgUpdate', M.update)
+cmd('PkgInstall', M.install, {})
+cmd('PkgUpdate', M.update, {})
+cmd('PkgClean', M.clean, {})
 
 return M

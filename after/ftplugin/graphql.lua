@@ -1,3 +1,3 @@
 local gql = require 'ma.gql-fetch'
 
-G.nnoremap(',e', gql.run)
+vim.keymap.set('n', ',e', gql.run)

@@ -1,56 +1,59 @@
+local utils = require 'ma.utils'
+local map = vim.keymap.set
+
 -- navigation & find & search
-G.nnoremap('<leader>p', ':find<space>', { silent = false })
-G.nnoremap('<leader>rg', [[:silent grep ''<left>]], { silent = false })
-G.nnoremap('<leader>gw', ':silent grep <C-R>=expand("<cword>")<CR><CR>')
+map('n', '<leader>p', ':find<space>')
+map('n', '<leader>rg', [[:silent grep ''<left>]])
+map('n', '<leader>gw', ':silent grep <C-R>=expand("<cword>")<CR><CR>')
 
 -- Move selected line / block of text in visual mode
-G.vnoremap('J', ":move '>+1<CR>gv-gv")
-G.vnoremap('K', ":move '<-2<CR>gv-gv")
+map('v', 'J', ":move '>+1<CR>gv-gv")
+map('v', 'K', ":move '<-2<CR>gv-gv")
 
 -- better movement between window buffers
-G.nnoremap('<c-k>', '<c-w><c-k>')
-G.nnoremap('<c-h>', '<c-w><c-h>')
-G.nnoremap('<c-j>', '<c-w><c-j>')
-G.nnoremap('<c-l>', '<c-w><c-l>')
+map('n', '<c-k>', '<c-w><c-k>')
+map('n', '<c-h>', '<c-w><c-h>')
+map('n', '<c-j>', '<c-w><c-j>')
+map('n', '<c-l>', '<c-w><c-l>')
 
 -- better indenting experience
-G.vnoremap('<', '<gv')
-G.vnoremap('>', '>gv')
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 
 -- buffers
-G.nnoremap('<leader>bn', ':bn<cr>')
-G.nnoremap('<leader>bp', ':bp<cr>')
-G.nnoremap('<leader>bl', ':ls t<cr>:b<space>', { silent = false })
-G.nnoremap('<leader>bd', ':bd!<cr>')
+map('n', '<leader>bn', ':bn<cr>')
+map('n', '<leader>bp', ':bp<cr>')
+map('n', '<leader>bl', ':ls t<cr>:b<space>')
+map('n', '<leader>bd', ':bd!<cr>')
 
 -- quick list
-G.nnoremap('<leader>qn', ':cn<cr>zz')
-G.nnoremap('<leader>qp', ':cp<cr>zz')
-G.nnoremap('<leader>ql', G.toggle_qf, { nowait = false })
-G.nnoremap('<leader>qq', ':cex []<cr>')
+map('n', '<leader>qn', ':cn<cr>zz')
+map('n', '<leader>qp', ':cp<cr>zz')
+map('n', '<leader>ql', utils.toggle_qf, { nowait = false })
+map('n', '<leader>qq', ':cex []<cr>')
 
 -- special remaps
-G.nnoremap('n', 'nzz')
-G.nnoremap('N', 'Nzz')
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
 
 -- better command mode navigation
-G.cnoremap('<C-b>', '<Left>')
-G.cnoremap('<C-f>', '<Right>')
-G.cnoremap('<C-n>', '<Down>')
-G.cnoremap('<C-p>', '<Up>')
-G.cnoremap('<C-e>', '<End>')
-G.cnoremap('<C-a>', '<Home>')
-G.cnoremap('<C-d>', '<Del>')
-G.cnoremap('<C-h>', '<BS>')
+map('c', '<C-b>', '<Left>')
+map('c', '<C-f>', '<Right>')
+map('c', '<C-n>', '<Down>')
+map('c', '<C-p>', '<Up>')
+map('c', '<C-e>', '<End>')
+map('c', '<C-a>', '<Home>')
+map('c', '<C-d>', '<Del>')
+map('c', '<C-h>', '<BS>')
 
 -- diagnostics
-G.nnoremap('<leader>ds', function() vim.diagnostic.open_float(nil, { source = 'always' }) end)
-G.nnoremap('<leader>dn', function() vim.diagnostic.jump { count = 1 } end)
-G.nnoremap('<leader>dp', function() vim.diagnostic.jump { count = -1 } end)
-G.nnoremap('<leader>dq', vim.diagnostic.setloclist)
+map('n', '<leader>ds', function() vim.diagnostic.open_float(nil, { source = 'always' }) end)
+map('n', '<leader>dn', function() vim.diagnostic.jump { count = 1 } end)
+map('n', '<leader>dp', function() vim.diagnostic.jump { count = -1 } end)
+map('n', '<leader>dq', vim.diagnostic.setloclist)
 
 -- Terminal window escape
-G.tnoremap('<C-x><C-o>', '<C-\\><C-n>')
+map('t', '<C-x><C-o>', '<C-\\><C-n>')
 
 -- lsp
 local methods = vim.lsp.protocol.Methods

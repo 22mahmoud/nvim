@@ -1,68 +1,9 @@
-local tbl_extend = vim.tbl_extend
-
 local M = {}
 
-function M.P(...)
+function G.P(...)
   print(vim.inspect(...))
 
   return ...
-end
-
-function M.map(mode, default_options)
-  if not mode then return end
-
-  return function(lhs, rhs, extra_options)
-    if not lhs or not rhs then return end
-
-    default_options = default_options or {}
-    extra_options = extra_options or {}
-
-    local opts = tbl_extend('keep', extra_options, default_options)
-
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-end
-
-function M.sign_define(name, text)
-  vim.fn.sign_define(name, {
-    texthl = name,
-    text = text,
-    numhl = '',
-    linehl = '',
-  })
-end
-
-function M.augroup(name, commands, cfg)
-  local clear = true
-
-  if cfg and type(cfg.clear) == 'boolean' then clear = cfg.clear end
-
-  local group = type(name) == 'number' and name
-    or vim.api.nvim_create_augroup(name, { clear = clear })
-
-  for _, c in ipairs(commands) do
-    local command = c.command
-
-    if type(command) == 'function' then
-      c.command = nil
-      c.callback = command
-    end
-
-    local events = c.events
-    local once = c.once or false
-
-    c['events'] = nil
-    c['once'] = nil
-
-    vim.api.nvim_create_autocmd(events, tbl_extend('keep', { group = group, once = once }, c))
-  end
-end
-
-function M.command(name, rhs, user_opts)
-  local default_opts = { force = true }
-  local opts = vim.tbl_extend('keep', user_opts or {}, default_opts)
-
-  vim.api.nvim_create_user_command(name, rhs, opts)
 end
 
 function M.toggle_qf()
@@ -71,8 +12,6 @@ function M.toggle_qf()
 
   vim.cmd('botright ' .. action)
 end
-
-function M.hl(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 
 --- Returns a function which applies `specs` on args. This function produces an object having
 -- the same structure than `specs` by mapping each property to the result of calling its
@@ -90,7 +29,7 @@ function M.applySpec(specs)
   end
 end
 
-M.icons = setmetatable({
+G.icons = setmetatable({
   -- Exact Match
   ['init.lua'] = '',
   ['gruntfile.coffee'] = '',
@@ -243,28 +182,4 @@ M.icons = setmetatable({
   end,
 })
 
-local map_opts = { noremap = false, silent = true }
-local noremap_opts = tbl_extend('keep', { noremap = true }, map_opts)
-
-M.nmap = M.map('n', map_opts)
-M.imap = M.map('i', map_opts)
-M.vmap = M.map('v', map_opts)
-M.tmap = M.map('t', map_opts)
-M.xmap = M.map('x', map_opts)
-M.omap = M.map('o', map_opts)
-M.cmap = M.map('c', tbl_extend('keep', { silent = false }, map_opts))
-M.nnoremap = M.map('n', noremap_opts)
-M.inoremap = M.map('i', noremap_opts)
-M.vnoremap = M.map('v', noremap_opts)
-M.tnoremap = M.map('t', noremap_opts)
-M.xnoremap = M.map('x', noremap_opts)
-M.onoremap = M.map('o', noremap_opts)
-M.cnoremap = M.map('c', tbl_extend('keep', { silent = false }, noremap_opts))
-
-function M.bootstrap()
-  for k, v in pairs(M) do
-    G[k] = v
-  end
-end
-
-M.bootstrap()
+return M

@@ -58,12 +58,10 @@ local function on_complete_done()
 end
 
 function M.attach(client, bufnr)
-  G.augroup('TSLspImportOnCompletion', {
-    {
-      events = 'CompleteDonePre',
-      buffer = bufnr,
-      command = on_complete_done,
-    },
+  vim.api.nvim_create_autocmd({ 'CompleteDonePre' }, {
+    group = vim.api.nvim_create_augroup('TSLspImportOnCompletion', {}),
+    buffer = bufnr,
+    callback = on_complete_done,
   })
 end
 

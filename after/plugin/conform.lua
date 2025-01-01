@@ -94,4 +94,4 @@ conform.setup {
   log_level = vim.log.levels.DEBUG,
 }
 
-G.nnoremap(',f', conform.format)
+vim.keymap.set('n',',f', conform.format)
