@@ -6,6 +6,16 @@ function G.P(...)
   return ...
 end
 
+function G.root_dir(markers)
+  return function(cb)
+    local project_root = vim.fs.root(0, markers)
+
+    if not project_root then return end
+
+    cb(project_root)
+  end
+end
+
 function M.toggle_qf()
   local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
   local action = qf_winid > 0 and 'cclose' or 'copen'

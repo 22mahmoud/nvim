@@ -9,9 +9,20 @@ require 'ma.plugins'
 require 'ma.settings'
 require 'ma.mappings'
 require 'ma.autocmds'
-require 'ma.lsp'
 require 'ma.statusline'
 require 'ma.highlight'
+local lsp = require 'ma.lsp'
+
+lsp.setup {
+  'ts_ls',
+  'biome',
+  'jsonls',
+  'yamlls',
+  'tailwindcss',
+  'graphql',
+  'lua_ls',
+  'efm',
+}
 
 -- load .nvimrc manually
 local project_marker = { '.nvimrc.lua' }

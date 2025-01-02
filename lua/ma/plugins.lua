@@ -11,8 +11,6 @@ use 'tpope/vim-surround.git'
 use 'tpope/vim-repeat'
 
 -- lsp
-use 'neovim/nvim-lspconfig'
-use 'stevearc/conform.nvim'
 
 -- treesitter
 use 'nvim-treesitter/nvim-treesitter'

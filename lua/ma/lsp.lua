@@ -1,14 +1,15 @@
-local cmp = require 'ma.cmp'
 local utils = require 'ma.utils'
 
+local M = {}
+
 local methods = vim.lsp.protocol.Methods
-local map = vim.keymap.set
+local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local auclear = vim.api.nvim_clear_autocmds
 local open_floating_preview = vim.lsp.util.open_floating_preview
 
-local function lsp_highlight_document(client, bufnr)
+function M.lsp_highlight_document(client, bufnr)
   if not client:supports_method(methods.textDocument_documentHighlight, bufnr) then return end
 
   local group = augroup('LspDocumentHighlight', { clear = false })
@@ -34,7 +35,7 @@ local function lsp_highlight_document(client, bufnr)
   })
 end
 
-local function lsp_code_lens_refresh(client, bufnr)
+function M.lsp_code_lens_refresh(client, bufnr)
   if not client:supports_method(methods.textDocument_codeLens, bufnr) then return end
 
   autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
@@ -43,7 +44,7 @@ local function lsp_code_lens_refresh(client, bufnr)
   })
 end
 
-local function setup_lsp_kind()
+function M.setup_lsp_kind()
   vim.lsp.protocol.CompletionItemKind = {
     '󰉿 (Text)',
     '󰆧 (Method)',
@@ -73,7 +74,7 @@ local function setup_lsp_kind()
   }
 end
 
-local function set_lsp_buffer_keybindings(client, bufnr)
+function M.set_lsp_buffer_keybindings(client, bufnr)
   for mode, keybindings in pairs(G.lsp_mappings) do
     for _, mapping in pairs(keybindings) do
       local lhs, rhs, capability = unpack(mapping)
@@ -81,60 +82,87 @@ local function set_lsp_buffer_keybindings(client, bufnr)
       -- skip mapping if capability not enabled
       if capability and client:supports_method(capability, bufnr) then
         ---@diagnostic disable-next-line: param-type-mismatch
-        map(mode, lhs, rhs, { buffer = bufnr })
+        keymap(mode, lhs, rhs, { buffer = bufnr })
       end
     end
   end
 end
 
-local function setup_omnifunc(client, bufnr)
+function M.setup_cmp(client, bufnr)
   if not client:supports_method(methods.textDocument_completion, bufnr) then return end
 
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  vim.lsp.completion.enable(true, client.id, bufnr)
 end
 
-autocmd({ 'LspAttach' }, {
-  group = augroup('UserLspAttach', {}),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    utils.applySpec {
-      setup_omnifunc,
-      lsp_highlight_document,
-      lsp_code_lens_refresh,
-      set_lsp_buffer_keybindings,
-      cmp.attach,
-    }(client, args.buf)
-  end,
-})
-
-local border = {
-  { '┌', 'FloatBorder' },
-  { '─', 'FloatBorder' },
-  { '┐', 'FloatBorder' },
-  { '│', 'FloatBorder' },
-  { '┘', 'FloatBorder' },
-  { '─', 'FloatBorder' },
-  { '└', 'FloatBorder' },
-  { '│', 'FloatBorder' },
-}
-
----@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
-  local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
-
-  local default_opts = {
-    max_width = max_width,
-    max_height = max_height,
-    border = border,
+function M.override_floating_preview()
+  local border = {
+    { '┌', 'FloatBorder' },
+    { '─', 'FloatBorder' },
+    { '┐', 'FloatBorder' },
+    { '│', 'FloatBorder' },
+    { '┘', 'FloatBorder' },
+    { '─', 'FloatBorder' },
+    { '└', 'FloatBorder' },
+    { '│', 'FloatBorder' },
   }
 
-  local buf, win =
-    open_floating_preview(contents, syntax, vim.tbl_extend('force', opts or {}, default_opts), ...)
+  ---@diagnostic disable-next-line: duplicate-set-field
+  function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
+    local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
 
-  return buf, win
+    local default_opts = {
+      max_width = max_width,
+      max_height = max_height,
+      border = border,
+    }
+
+    local buf, win = open_floating_preview(
+      contents,
+      syntax,
+      vim.tbl_extend('force', opts or {}, default_opts),
+      ...
+    )
+
+    return buf, win
+  end
 end
 
-setup_lsp_kind()
+function M.get_client_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      'documentation',
+      'detail',
+      'additionalTextEdits',
+    },
+  }
+end
+
+function M.setup(servers)
+  M.override_floating_preview()
+  M.setup_lsp_kind()
+
+  vim.lsp.config('*', { capabilities = M.get_client_capabilities(), root_markers = { '.git' } })
+
+  autocmd({ 'LspAttach' }, {
+    group = augroup('UserLspAttach', {}),
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+      utils.applySpec {
+        M.setup_cmp,
+        M.lsp_highlight_document,
+        M.lsp_code_lens_refresh,
+        M.set_lsp_buffer_keybindings,
+      }(client, args.buf)
+    end,
+  })
+
+  vim.lsp.enable(servers)
+end
+
+return M
