@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
   cmd = { 'biome', 'lsp-proxy' },
   root_dir = G.root_dir { 'biome.json', 'biome.jsonc' },

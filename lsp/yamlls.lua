@@ -12,26 +12,27 @@ local function get_yaml_schemas()
       '**/docker-compose.yml',
       '**/docker-compose.yaml',
       '**/docker-compose.*.yml',
-      '**/docker-compose.*.yaml',
-      '**/compose.yml',
-      '**/compose.yaml',
-      '**/compose.*.yml',
-      '**/compose.*.yaml',
-    },
-    ['https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json'] = {
-      '**/lazygit/config.yml',
-      'lazygit.yml',
-      '.lazygit.yml',
-    },
-    ['https://unpkg.com/graphql-config/config-schema.json'] = {
-      'graphql.config.yaml',
-      'graphql.config.yml',
-      '.graphqlrc.yaml',
-      '.graphqlrc.yml',
+      settings = {
+        Lua = {
+          runtime = {
+            version = 'LuaJit',
+          },
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file('', true),
+          },
+          telemetry = {
+            enable = false,
+          },
+        },
+      },
     },
   }
 end
 
+---@type vim.lsp.Config
 return {
   cmd = { 'yaml-language-server', '--stdio' },
   root_markers = { '.git' },

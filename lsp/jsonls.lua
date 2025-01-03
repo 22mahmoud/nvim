@@ -7,7 +7,6 @@ local function get_json_schemas()
       url = 'https://json.schemastore.org/package.json',
     },
     {
-
       name = 'GraphQL Config',
       description = 'GraphQL Config config file',
       fileMatch = {
@@ -20,6 +19,7 @@ local function get_json_schemas()
   }
 end
 
+---@type vim.lsp.Config
 return {
   cmd = { 'vscode-json-language-server', '--stdio' },
   root_markers = { '.git' },

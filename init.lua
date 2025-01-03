@@ -1,5 +1,6 @@
 vim.loader.enable()
 vim.go.packpath = vim.fn.stdpath 'data' .. '/site'
+
 _G.G = {}
 
 require 'ma.utils'

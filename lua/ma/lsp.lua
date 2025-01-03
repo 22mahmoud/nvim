@@ -3,7 +3,6 @@ local utils = require 'ma.utils'
 local M = {}
 
 local methods = vim.lsp.protocol.Methods
-local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local auclear = vim.api.nvim_clear_autocmds
@@ -51,16 +50,18 @@ end
 ---@param client vim.lsp.Client
 ---@param bufnr number
 function M.set_lsp_buffer_keybindings(client, bufnr)
+  local keymap = function(mode, lhs, rhs) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr }) end
+
   if client:supports_method(methods.textDocument_formatting) then
-    keymap('n', ',f', function() vim.lsp.buf.format { bufnr = bufnr, id = client.id } end)
+    keymap('n', ',f', vim.lsp.buf.format)
   end
 
   if client:supports_method(methods.textDocument_signatureHelp) then
-    keymap('n', 'gs', function() vim.lsp.buf.signature_help { bufnr = bufnr, id = client.id } end)
+    keymap('n', 'gs', vim.lsp.buf.signature_help)
   end
 
   if client:supports_method(methods.textDocument_declaration) then
-    keymap('n', 'gD', function() vim.lsp.buf.declaration { bufnr = bufnr, id = client.id } end)
+    keymap('n', 'gD', vim.lsp.buf.declaration)
   end
 end
 

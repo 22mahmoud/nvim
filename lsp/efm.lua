@@ -79,6 +79,7 @@ for _, ft in ipairs(eslint_supported) do
   table.insert(languages[ft], eslintd)
 end
 
+---@type vim.lsp.Config
 return {
   cmd = { 'efm-langserver' },
   filetypes = vim.tbl_keys(languages),
