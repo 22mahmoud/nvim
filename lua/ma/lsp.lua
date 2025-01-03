@@ -9,6 +9,8 @@ local augroup = vim.api.nvim_create_augroup
 local auclear = vim.api.nvim_clear_autocmds
 local open_floating_preview = vim.lsp.util.open_floating_preview
 
+---@param client vim.lsp.Client
+---@param bufnr number
 function M.lsp_highlight_document(client, bufnr)
   if not client:supports_method(methods.textDocument_documentHighlight, bufnr) then return end
 
@@ -35,6 +37,8 @@ function M.lsp_highlight_document(client, bufnr)
   })
 end
 
+---@param client vim.lsp.Client
+---@param bufnr number
 function M.lsp_code_lens_refresh(client, bufnr)
   if not client:supports_method(methods.textDocument_codeLens, bufnr) then return end
 
@@ -44,50 +48,35 @@ function M.lsp_code_lens_refresh(client, bufnr)
   })
 end
 
-function M.setup_lsp_kind()
-  vim.lsp.protocol.CompletionItemKind = {
-    '󰉿 (Text)',
-    '󰆧 (Method)',
-    '󰊕 (Function)',
-    ' (Constructor)',
-    '󰜢 (Field)',
-    '󰀫 (Variable)',
-    '󰠱 (Class)',
-    ' (Interface)',
-    ' (Module)',
-    '󰜢 (Property)',
-    '󰑭 (Unit)',
-    '󰎠 (Value)',
-    ' (Enum)',
-    '󰌋 (Keyword)',
-    ' (Snippet)',
-    '󰏘 (Color)',
-    '󰈙 (File)',
-    '󰈇 (Reference)',
-    '󰉋 (Folder)',
-    ' (EnumMember)',
-    '󰏿 (Constant)',
-    '󰙅 (Struct)',
-    ' (Event)',
-    '󰆕 (Operator)',
-    '  (TypeParameter)',
-  }
-end
-
+---@param client vim.lsp.Client
+---@param bufnr number
 function M.set_lsp_buffer_keybindings(client, bufnr)
-  for mode, keybindings in pairs(G.lsp_mappings) do
-    for _, mapping in pairs(keybindings) do
-      local lhs, rhs, capability = unpack(mapping)
+  if client:supports_method(methods.textDocument_formatting) then
+    keymap('n', ',f', function() vim.lsp.buf.format { bufnr = bufnr, id = client.id } end)
+  end
 
-      -- skip mapping if capability not enabled
-      if capability and client:supports_method(capability, bufnr) then
-        ---@diagnostic disable-next-line: param-type-mismatch
-        keymap(mode, lhs, rhs, { buffer = bufnr })
-      end
-    end
+  if client:supports_method(methods.textDocument_signatureHelp) then
+    keymap('n', 'gs', function() vim.lsp.buf.signature_help { bufnr = bufnr, id = client.id } end)
+  end
+
+  if client:supports_method(methods.textDocument_declaration) then
+    keymap('n', 'gD', function() vim.lsp.buf.declaration { bufnr = bufnr, id = client.id } end)
   end
 end
 
+---@param client vim.lsp.Client
+---@param bufnr number
+function M.auto_format_on_save(client, bufnr)
+  if client:supports_method 'textDocument/formatting' then
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = bufnr,
+      callback = function() vim.lsp.buf.format { bufnr = bufnr, id = client.id } end,
+    })
+  end
+end
+
+---@param client vim.lsp.Client
+---@param bufnr number
 function M.setup_cmp(client, bufnr)
   if not client:supports_method(methods.textDocument_completion, bufnr) then return end
 
@@ -142,6 +131,36 @@ function M.get_client_capabilities()
   }
 end
 
+function M.setup_lsp_kind()
+  vim.lsp.protocol.CompletionItemKind = {
+    '󰉿 (Text)',
+    '󰆧 (Method)',
+    '󰊕 (Function)',
+    ' (Constructor)',
+    '󰜢 (Field)',
+    '󰀫 (Variable)',
+    '󰠱 (Class)',
+    ' (Interface)',
+    ' (Module)',
+    '󰜢 (Property)',
+    '󰑭 (Unit)',
+    '󰎠 (Value)',
+    ' (Enum)',
+    '󰌋 (Keyword)',
+    ' (Snippet)',
+    '󰏘 (Color)',
+    '󰈙 (File)',
+    '󰈇 (Reference)',
+    '󰉋 (Folder)',
+    ' (EnumMember)',
+    '󰏿 (Constant)',
+    '󰙅 (Struct)',
+    ' (Event)',
+    '󰆕 (Operator)',
+    '  (TypeParameter)',
+  }
+end
+
 function M.setup(servers)
   M.override_floating_preview()
   M.setup_lsp_kind()
@@ -153,11 +172,14 @@ function M.setup(servers)
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
+      if not client or not args.buf then return end
+
       utils.applySpec {
         M.setup_cmp,
         M.lsp_highlight_document,
         M.lsp_code_lens_refresh,
         M.set_lsp_buffer_keybindings,
+        M.auto_format_on_save,
       }(client, args.buf)
     end,
   })

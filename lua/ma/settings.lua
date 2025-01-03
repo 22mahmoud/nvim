@@ -101,7 +101,7 @@ o.ignorecase = true
 
 -- completion/menus
 o.path = { '.', ',' }
-o.completeopt = { 'menuone', 'noselect', 'noinsert' }
+o.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect' }
 o.complete = { '.', 'b' }
 o.pumheight = 30
 o.pumblend = 5

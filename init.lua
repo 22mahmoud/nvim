@@ -22,6 +22,7 @@ lsp.setup {
   'graphql',
   'lua_ls',
   'efm',
+  'ccls',
 }
 
 -- load .nvimrc manually
