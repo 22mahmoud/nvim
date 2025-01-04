@@ -25,6 +25,7 @@ lsp.setup {
   'efm',
   'ccls',
   'bashls',
+  'gopls',
 }
 
 -- load .nvimrc manually

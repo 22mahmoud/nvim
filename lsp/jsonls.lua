@@ -16,6 +16,29 @@ local function get_json_schemas()
       },
       url = 'https://unpkg.com/graphql-config/config-schema.json',
     },
+    {
+      description = 'ESLint configuration files',
+      fileMatch = { '.eslintrc', '.eslintrc.json' },
+      name = '.eslintrc',
+      url = 'https://json.schemastore.org/eslintrc.json',
+    },
+    {
+      description = '.prettierrc configuration file',
+      fileMatch = { '.prettierrc', '.prettierrc.json' },
+      name = 'prettierrc.json',
+      url = 'https://json.schemastore.org/prettierrc.json',
+      versions = {
+        ['1.8.2'] = 'https://json.schemastore.org/prettierrc-1.8.2.json',
+        ['2.8.8'] = 'https://json.schemastore.org/prettierrc-2.8.8.json',
+        ['3.0.0'] = 'https://json.schemastore.org/prettierrc.json',
+      },
+    },
+    {
+      description = 'TypeScript compiler configuration file',
+      fileMatch = { 'tsconfig*.json' },
+      name = 'tsconfig.json',
+      url = 'https://json.schemastore.org/tsconfig.json',
+    },
   }
 end
 

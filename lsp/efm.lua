@@ -5,6 +5,7 @@ local black = require 'ma.efm.black'
 local biome = require 'ma.efm.biome'
 local prettierd = require 'ma.efm.prettier_d'
 local eslintd = require 'ma.efm.eslint_d'
+local gofmt = require 'ma.efm.gofmt'
 
 local biome_supported = vim.g.biome_supported
   or {
@@ -63,6 +64,7 @@ local languages = {
   sh = { shellcheck, shfmt },
   zsh = { shfmt },
   python = { black },
+  go = { gofmt },
 }
 
 for _, ft in ipairs(biome_supported) do
