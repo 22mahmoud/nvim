@@ -1,3 +1,4 @@
+---@type EfmLanguage
 return {
   formatCommand = table.concat({
     'biome',

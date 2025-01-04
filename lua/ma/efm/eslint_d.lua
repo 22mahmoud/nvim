@@ -1,3 +1,4 @@
+---@type EfmLanguage
 return {
   prefix = 'eslint_d',
   lintSource = 'efm/eslint_d',

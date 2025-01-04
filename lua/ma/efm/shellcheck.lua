@@ -1,3 +1,4 @@
+---@type EfmLanguage
 return {
   prefix = 'shellcheck',
   lintSource = 'efm/shellcheck',

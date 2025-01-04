@@ -1,3 +1,4 @@
+---@type EfmLanguage
 return {
   formatCanRange = true,
   formatCommand = table.concat({
