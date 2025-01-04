@@ -61,6 +61,7 @@ local eslint_supported = vim.g.eslint_supported
 local languages = {
   lua = { stylua },
   sh = { shellcheck, shfmt },
+  zsh = { shfmt },
   python = { black },
 }
 

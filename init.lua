@@ -24,6 +24,7 @@ lsp.setup {
   'lua_ls',
   'efm',
   'ccls',
+  'bashls',
 }
 
 -- load .nvimrc manually
