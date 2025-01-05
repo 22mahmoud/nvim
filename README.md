@@ -35,5 +35,5 @@ nvim --noplugin +PkgInstall +qa
   [script](https://github.com/22mahmoud/nvim/blob/8a4e98dd572db66ba7b035a769ce8a423c8f67b6/lua/ma/cmp.lua) to add auto-import functionality when insert from LSP omni completion~~
   and the built-in neovim [lsp compleitions](https://github.com/22mahmoud/nvim/blob/8a4e98dd572db66ba7b035a769ce8a423c8f67b6/lua/ma/cmp.lua).
 - 💊 a custom GraphQL client to execute `gql` queries/mutations with the keymap
-  <kbd>Ctrl</kbd> + <kbd>e</kbd>
+  <kbd>,</kbd> + <kbd>e</kbd>
   [![asciicast](https://asciinema.org/a/696741.svg)](https://asciinema.org/a/696741)
