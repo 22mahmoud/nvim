@@ -2,17 +2,9 @@ vim.loader.enable()
 vim.go.packpath = vim.fn.stdpath 'data' .. '/site'
 
 _G.G = {}
-
-require 'ma.utils'
 require 'ma.options'
-require 'ma.mappings'
-require 'ma.providers'
-require 'ma.plugins'
-require 'ma.autocmds'
-require 'ma.statusline'
-require 'ma.highlight'
 
-require('ma.lsp').setup {
+local servers = {
   'ts_ls',
   'biome',
   'jsonls',
@@ -26,4 +18,12 @@ require('ma.lsp').setup {
   'gopls',
 }
 
+require 'ma.utils'
+require 'ma.options'
+require('ma.lsp').setup(servers)
+require 'ma.mappings'
+require 'ma.autocmds'
+require 'ma.statusline'
+require 'ma.providers'
+require 'ma.plugins'
 require 'ma.exrc'
