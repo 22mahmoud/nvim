@@ -5,6 +5,7 @@ _G.G = {}
 
 require 'ma.utils'
 require 'ma.options'
+require 'ma.mappings'
 require 'ma.providers'
 require 'ma.plugins'
 require 'ma.autocmds'

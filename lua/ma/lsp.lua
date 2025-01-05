@@ -1,5 +1,7 @@
 local utils = require 'ma.utils'
 
+local cmd = vim.api.nvim_create_user_command
+
 local M = {}
 
 local methods = vim.lsp.protocol.Methods
@@ -187,5 +189,10 @@ function M.setup(servers)
 
   vim.lsp.enable(servers)
 end
+
+cmd('LspReload', function()
+  vim.lsp.stop_client(vim.lsp.get_clients())
+  vim.cmd [[edit!]]
+end, {})
 
 return M
