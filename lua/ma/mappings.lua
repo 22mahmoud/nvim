@@ -1,4 +1,5 @@
 local utils = require 'ma.utils'
+
 local keymap = vim.keymap.set
 
 -- navigation & find & search
