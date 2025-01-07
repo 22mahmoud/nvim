@@ -12,22 +12,18 @@ local function get_yaml_schemas()
       '**/docker-compose.yml',
       '**/docker-compose.yaml',
       '**/docker-compose.*.yml',
-      settings = {
-        Lua = {
-          runtime = {
-            version = 'LuaJit',
-          },
-          diagnostics = {
-            globals = { 'vim' },
-          },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file('', true),
-          },
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
+      '**/docker-compose.*.yaml',
+      '**/compose.yml',
+      '**/compose.yaml',
+      '**/compose.*.yml',
+      '**/compose.*.yaml',
+    },
+    ['https://unpkg.com/graphql-config/config-schema.json'] = {
+      'graphql.config.yaml',
+      'graphql.config.yml',
+      '.graphqlrc',
+      '.graphqlrc.yaml',
+      '.graphqlrc.yml',
     },
   }
 end
