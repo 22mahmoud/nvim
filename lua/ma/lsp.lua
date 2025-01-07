@@ -70,7 +70,7 @@ end
 ---@param client vim.lsp.Client
 ---@param bufnr number
 function M.auto_format_on_save(client, bufnr)
-  if client:supports_method 'textDocument/formatting' then
+  if client:supports_method(methods.textDocument_formatting) then
     vim.api.nvim_create_autocmd('BufWritePre', {
       buffer = bufnr,
       callback = function() vim.lsp.buf.format { bufnr = bufnr, id = client.id } end,
