@@ -7,6 +7,9 @@ require 'ma.options'
 local servers = {
   'ts_ls',
   'biome',
+  'html',
+  'cssls',
+  'css_variables',
   'jsonls',
   'yamlls',
   'tailwindcss',

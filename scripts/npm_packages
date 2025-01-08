@@ -14,3 +14,4 @@ fixjson
 @astrojs/language-server
 eslint_d
 prettier
+css-variables-language-server

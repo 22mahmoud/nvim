@@ -12,6 +12,13 @@ return {
   lintStdin = true,
   lintFormats = { '%f(%l,%c): %trror %m', '%f(%l,%c): %tarning %m' },
   lintIgnoreExitCode = true,
+  formatCommand = table.concat({
+    'eslint_d',
+    '--fix-to-stdout',
+    '--stdin-filename ${INPUT}',
+    '--stdin',
+  }, ' '),
+  formatStdin = true,
   rootMarkers = {
     '.eslintrc',
     '.eslintrc.cjs',

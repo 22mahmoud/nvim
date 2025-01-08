@@ -168,7 +168,10 @@ function M.setup(servers)
   M.override_floating_preview()
   M.setup_lsp_kind()
 
-  vim.lsp.config('*', { capabilities = M.get_client_capabilities(), root_markers = { '.git' } })
+  vim.lsp.config('*', {
+    capabilities = M.get_client_capabilities(),
+    root_markers = { '.git', 'package.json' },
+  })
 
   autocmd({ 'LspAttach' }, {
     group = augroup('UserLspAttach', {}),
