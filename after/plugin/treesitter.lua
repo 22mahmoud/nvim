@@ -33,7 +33,7 @@ end
 
 treesitter.setup {
   ensure_installed = 'all',
-  highlight = { enable = true },
+  highlight = { enable = true, disable = { 'dockerfile' } },
   indent = { enable = true },
   incremental_selection = {
     enable = true,

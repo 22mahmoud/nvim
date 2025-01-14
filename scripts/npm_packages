@@ -15,3 +15,5 @@ fixjson
 eslint_d
 prettier
 css-variables-language-server
+dockerfile-language-server-nodejs
+@microsoft/compose-language-service

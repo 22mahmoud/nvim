@@ -19,6 +19,7 @@ local servers = {
   'ccls',
   'bashls',
   'gopls',
+  'dockerls',
 }
 
 require 'ma.utils'
