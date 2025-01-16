@@ -17,3 +17,6 @@ use 'nvim-treesitter/nvim-treesitter'
 use 'windwp/nvim-ts-autotag'
 use 'nvim-treesitter/nvim-treesitter-textobjects'
 use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+-- misc.
+use 'wakatime/vim-wakatime'
