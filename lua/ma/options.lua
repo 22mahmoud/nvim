@@ -44,6 +44,8 @@ o.virtualedit = 'block'
 o.updatetime = 200
 o.timeoutlen = 300
 o.colorcolumn = '80'
+vim.opt.grepprg =
+  [[rg --hidden --glob "!.git" --glob "!**/node_modules/**" --glob "!**/*.lock" --no-heading --smart-case --vimgrep --follow]]
 
 -- ui/display
 o.wrap = false
