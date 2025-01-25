@@ -7,6 +7,7 @@ vim.filetype.add {
   filename = {
     ['.swcrc'] = 'jsonc',
     ['biome.json'] = 'jsonc',
+    ['bun.lock'] = 'jsonc',
   },
   pattern = {
     ['tsconfig*.json'] = 'jsonc',

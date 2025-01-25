@@ -73,6 +73,7 @@ G.icons = setmetatable({
   ['dockerfile'] = '󰡨',
   ['docker-compose.yml'] = '󰡨',
   ['compose.yml'] = '󰡨',
+  ['bun.lock'] = '',
   -- Extension
   ['styl'] = '',
   ['sass'] = '',
@@ -89,6 +90,7 @@ G.icons = setmetatable({
   ['markdown'] = '',
   ['rmd'] = '',
   ['json'] = '',
+  ['jsonc'] = '',
   ['js'] = '',
   ['mjs'] = '',
   ['jsx'] = '',

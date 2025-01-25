@@ -185,7 +185,7 @@ function M.setup(servers)
         M.lsp_highlight_document,
         M.lsp_code_lens_refresh,
         M.set_lsp_buffer_keybindings,
-        M.auto_format_on_save,
+        -- M.auto_format_on_save,
       }(client, args.buf)
     end,
   })
