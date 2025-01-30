@@ -5,6 +5,7 @@ vim.filetype.add {
     eta = 'html',
   },
   filename = {
+    ['wrangler.json'] = 'jsonc',
     ['.swcrc'] = 'jsonc',
     ['biome.json'] = 'jsonc',
     ['bun.lock'] = 'jsonc',
