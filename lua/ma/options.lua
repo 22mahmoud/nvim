@@ -104,14 +104,13 @@ o.wildignore = {
 vim.diagnostic.config {
   severity_sort = true,
   underline = true,
-  virtual_lines = true,
-  virtual_text = false,
-  -- virtual_text = {
-  --   prefix = '',
-  --   severity = nil,
-  --   source = 'if_many',
-  --   format = nil,
-  -- },
+  -- virtual_lines = { current_line = true },
+  virtual_text = {
+    prefix = '',
+    severity = nil,
+    source = 'if_many',
+    format = nil,
+  },
   update_in_insert = false,
   float = {
     header = '',
