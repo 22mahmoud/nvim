@@ -20,6 +20,10 @@ return {
   }, ' '),
   formatStdin = true,
   rootMarkers = {
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.ts',
+    'eslint.config.mts',
     '.eslintrc',
     '.eslintrc.cjs',
     '.eslintrc.js',

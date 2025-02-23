@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
   cmd = { 'vscode-html-language-server', '--stdio' },
-  filetypes = { 'html', 'templ' },
+  filetypes = { 'typescript', 'html', 'templ' },
   settings = {},
   init_options = {
     provideFormatter = false,
