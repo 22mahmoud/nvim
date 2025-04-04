@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
   cmd = { 'biome', 'lsp-proxy' },
-  root_dir = G.root_dir { 'biome.json', 'biome.jsonc' },
+  root_dir = vim.fs.root(0, { 'biome.json', 'biome.jsonc' }),
   filetypes = {
     'astro',
     'css',

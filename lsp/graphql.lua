@@ -2,7 +2,7 @@
 return {
   cmd = { 'graphql-lsp', 'server', '-m', 'stream' },
   filetypes = { 'graphql', 'typescriptreact', 'javascriptreact' },
-  root_dir = G.root_dir {
+  root_dir = vim.fs.root(0, {
     '.graphqlrc.json',
     '.graphqlrc.jsonc',
 
@@ -13,5 +13,5 @@ return {
     'graphql.config.js',
     'graphql.config.ts',
     'graphql.config.mjs',
-  },
+  }),
 }
