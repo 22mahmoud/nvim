@@ -10,8 +10,6 @@ use 'folke/tokyonight.nvim'
 use 'tpope/vim-surround.git'
 use 'tpope/vim-repeat'
 
--- lsp
-
 -- treesitter
 use 'nvim-treesitter/nvim-treesitter'
 use 'windwp/nvim-ts-autotag'
