@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
   cmd = { 'biome', 'lsp-proxy' },
-  root_markers = { 'biome.json', 'biome.jsonc' },
+  root_dir = G.root_dir { 'biome.json', 'biome.jsonc' },
   filetypes = {
     'astro',
     'css',

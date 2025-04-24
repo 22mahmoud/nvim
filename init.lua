@@ -20,6 +20,7 @@ local servers = {
   'bashls',
   'gopls',
   'dockerls',
+  'phpactor',
 }
 
 require 'ma.utils'
