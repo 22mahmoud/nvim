@@ -65,6 +65,16 @@ o.listchars = {
   -- conceal = '┊',
 }
 
+require('vim._extui').enable {
+  enable = true,
+  msg = {
+    pos = 'cmd',
+    -- box = {
+    --   timeout = 4000, -- Time a message is visible.
+    -- },
+  },
+}
+
 -- indentation
 o.tabstop = 2
 o.shiftwidth = 2
