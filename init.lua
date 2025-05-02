@@ -1,9 +1,6 @@
 vim.loader.enable()
 vim.go.packpath = vim.fn.stdpath 'data' .. '/site'
 
-_G.G = {}
-require 'ma.options'
-
 local servers = {
   'ts_ls',
   'biome',
@@ -23,6 +20,9 @@ local servers = {
   'phpactor',
 }
 
+_G.G = {}
+
+require 'ma.options'
 require 'ma.utils'
 require 'ma.options'
 require('ma.lsp').setup(servers)
