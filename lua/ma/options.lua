@@ -65,15 +65,15 @@ o.listchars = {
   -- conceal = '┊',
 }
 
-require('vim._extui').enable {
-  enable = true,
-  msg = {
-    pos = 'cmd',
-    -- box = {
-    --   timeout = 4000, -- Time a message is visible.
-    -- },
-  },
-}
+-- require('vim._extui').enable {
+--   enable = true,
+--   msg = {
+--     pos = 'cmd',
+--     box = {
+--       timeout = 4000,
+--     },
+--   },
+-- }
 
 -- indentation
 o.tabstop = 2
