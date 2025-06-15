@@ -64,7 +64,7 @@ local languages = {
   lua = { stylua },
   sh = { shellcheck, shfmt },
   zsh = { shfmt },
-  python = { black },
+  -- python = { black },
   go = { gofmt },
   php = { phpstan },
 }

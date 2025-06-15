@@ -19,6 +19,8 @@ local servers = {
   'dockerls',
   'phpactor',
   'taplo',
+  'pyright',
+  'ruff',
 }
 
 _G.G = {}

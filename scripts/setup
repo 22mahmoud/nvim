@@ -93,6 +93,8 @@ main() {
   install_package "shfmt"
   install_package "php"
   install_package "taplo"
+  install_package "pyright"
+  install_package "ruff"
 
   install_npm_packages
 }
