@@ -92,6 +92,7 @@ main() {
   install_package "shellcheck"
   install_package "shfmt"
   install_package "php"
+  install_package "taplo"
 
   install_npm_packages
 }

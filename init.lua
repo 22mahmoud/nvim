@@ -18,6 +18,7 @@ local servers = {
   'gopls',
   'dockerls',
   'phpactor',
+  'taplo',
 }
 
 _G.G = {}

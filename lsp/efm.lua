@@ -6,6 +6,7 @@ local biome = require 'ma.efm.biome'
 local prettierd = require 'ma.efm.prettier_d'
 local eslintd = require 'ma.efm.eslint_d'
 local gofmt = require 'ma.efm.gofmt'
+local phpstan = require 'ma.efm.phpstan'
 
 local biome_supported = vim.g.biome_supported
   or {
@@ -65,6 +66,7 @@ local languages = {
   zsh = { shfmt },
   python = { black },
   go = { gofmt },
+  php = { phpstan },
 }
 
 for _, ft in ipairs(biome_supported) do
