@@ -107,6 +107,7 @@ o.wildignore = {
   '*.o',
   '*/.next/*',
   '*/node_modules/*',
+  '*/__pycache__/*',
   '*/.git/*',
 }
 
