@@ -25,6 +25,14 @@ local function get_yaml_schemas()
       '.graphqlrc.yaml',
       '.graphqlrc.yml',
     },
+    ['https://json.schemastore.org/pre-commit-config.json'] = {
+      '.pre-commit-config.yml',
+      '.pre-commit-config.yaml',
+    },
+    ['https://json.schemastore.org/pre-commit-hooks.json'] = {
+      '.pre-commit-hooks.yml',
+      '.pre-commit-hooks.yaml',
+    },
   }
 end
 
