@@ -21,6 +21,7 @@ local servers = {
   'taplo',
   'pyright',
   'ruff',
+  'djlsp',
 }
 
 _G.G = {}

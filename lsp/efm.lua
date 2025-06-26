@@ -1,12 +1,13 @@
 local stylua = require 'ma.efm.stylua'
 local shellcheck = require 'ma.efm.shellcheck'
 local shfmt = require 'ma.efm.shfmt'
-local black = require 'ma.efm.black'
+-- local black = require 'ma.efm.black'
 local biome = require 'ma.efm.biome'
 local prettierd = require 'ma.efm.prettier_d'
 local eslintd = require 'ma.efm.eslint_d'
 local gofmt = require 'ma.efm.gofmt'
 local phpstan = require 'ma.efm.phpstan'
+local djlint = require 'ma.efm.djlint'
 
 local biome_supported = vim.g.biome_supported
   or {
@@ -64,7 +65,7 @@ local languages = {
   lua = { stylua },
   sh = { shellcheck, shfmt },
   zsh = { shfmt },
-  -- python = { black },
+  htmldjango = { djlint },
   go = { gofmt },
   php = { phpstan },
 }
