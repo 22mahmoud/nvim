@@ -33,6 +33,7 @@ end
 
 treesitter.setup {
   ensure_installed = 'all',
+  ignore_install = { 'ipkg' },
   highlight = { enable = true, disable = { 'dockerfile' } },
   indent = { enable = true },
   incremental_selection = {
@@ -51,6 +52,8 @@ treesitter.setup {
       keymaps = {
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
       },
     },
     move = {
