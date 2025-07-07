@@ -1,3 +1,5 @@
+local cmd = vim.api.nvim_create_user_command
+
 vim.pack.add {
   -- colors/ui
   'https://github.com/catgoose/nvim-colorizer.lua',
@@ -18,3 +20,5 @@ vim.pack.add {
   -- misc.
   'https://github.com/wakatime/vim-wakatime',
 }
+
+cmd('PkgUpdate', function() vim.pack.update() end, {})
