@@ -78,6 +78,15 @@ function M.auto_format_on_save(client, bufnr)
   end
 end
 
+---@param client vim.lsp.Client
+---@param bufnr number
+function M.setup_cmp(client, bufnr)
+  if not client:supports_method(methods.textDocument_completion, bufnr) then return end
+
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  vim.lsp.completion.enable(true, client.id, bufnr)
+end
+
 function M.override_floating_preview()
   local border = {
     { '┌', 'FloatBorder' },
@@ -172,6 +181,7 @@ function M.setup(servers)
       if not client or not args.buf then return end
 
       utils.applySpec {
+        M.setup_cmp,
         M.lsp_highlight_document,
         M.lsp_code_lens_refresh,
         M.set_lsp_buffer_keybindings,
