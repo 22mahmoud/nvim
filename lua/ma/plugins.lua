@@ -17,9 +17,6 @@ vim.pack.add {
   'https://github.com/windwp/nvim-ts-autotag',
   'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
-
-  -- misc.
-  'https://github.com/wakatime/vim-wakatime',
 }
 
-cmd('PkgUpdate', function() vim.pack.update() end, {})
+cmd('PkgUpdate', function() vim.pack.update(nil, { force = true }) end, {})
