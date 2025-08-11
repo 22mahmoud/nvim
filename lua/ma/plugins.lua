@@ -10,6 +10,7 @@ vim.pack.add {
   -- editor
   'https://github.com/tpope/vim-surround.git',
   'https://github.com/tpope/vim-repeat',
+  'https://github.com/stevearc/oil.nvim',
 
   -- treesitter
   'https://github.com/nvim-treesitter/nvim-treesitter',
