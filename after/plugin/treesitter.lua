@@ -31,6 +31,8 @@ if loaded_ts_context_commentstring then
   end
 end
 
+vim.treesitter.language.register('bash', 'dotenv')
+
 treesitter.setup {
   ensure_installed = 'all',
   ignore_install = { 'ipkg' },

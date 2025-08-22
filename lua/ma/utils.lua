@@ -91,6 +91,7 @@ G.icons = setmetatable({
   ['node_modules'] = '',
   ['react.jsx'] = '󰜈',
   ['procfile'] = '',
+  ['Procfile'] = '',
   ['dockerfile'] = '󰡨',
   ['docker-compose.yml'] = '󰡨',
   ['compose.yml'] = '󰡨',
@@ -222,34 +223,34 @@ G.icons = setmetatable({
 ---@field os string|nil The operating system for which the command is specific.
 
 ---@class EfmLanguage
----@field prefix string The prefix for the language.
----@field lintFormats string[] An array of lint format strings.
----@field lintStdin boolean Whether linting supports stdin.
----@field lintOffset integer The lint offset value.
----@field lintOffsetColumns integer The lint offset for columns.
----@field lintCommand string The command used for linting.
----@field lintIgnoreExitCode boolean Whether to ignore the exit code of the lint command.
----@field lintCategoryMap table<string, string> A mapping of lint categories.
----@field lintSource string The source of linting information.
----@field lintSeverity integer The severity level for linting.
----@field lintWorkspace boolean Whether linting is workspace-based.
----@field lintAfterOpen boolean Whether linting occurs after a file is opened.
----@field lintOnSave boolean Whether linting occurs on save.
----@field formatCommand string The command used for formatting.
----@field formatCanRange boolean Whether formatting supports a range of text.
----@field formatStdin boolean Whether formatting supports stdin.
----@field symbolCommand string The command used for symbol operations.
----@field symbolStdin boolean Whether symbol operations support stdin.
----@field symbolFormats string[] An array of formats for symbols.
----@field completionCommand string The command used for autocompletion.
----@field completionStdin boolean Whether autocompletion supports stdin.
----@field hoverCommand string The command used for hover information.
----@field hoverStdin boolean Whether hover information supports stdin.
----@field hoverType string The type of hover information.
----@field hoverChars string Characters related to hover information.
----@field env string[] Environment variables for the language.
----@field rootMarkers string[] A list of markers to identify the project root.
----@field requireMarker boolean Whether a marker is required for operations.
----@field commands Command[] A list of commands associated with the language.
+---@field prefix string? The prefix for the language.
+---@field lintFormats string[]? An array of lint format strings.
+---@field lintStdin boolean? Whether linting supports stdin.
+---@field lintOffset integer? The lint offset value.
+---@field lintOffsetColumns integer?? The lint offset for columns.
+---@field lintCommand string? The command used for linting.
+---@field lintIgnoreExitCode boolean? Whether to ignore the exit code of the lint command.
+---@field lintCategoryMap table<string, string>? A mapping of lint categories.
+---@field lintSource string?? The source of linting information.
+---@field lintSeverity integer?? The severity level for linting.
+---@field lintWorkspace boolean?? Whether linting is workspace-based.
+---@field lintAfterOpen boolean?? Whether linting occurs after a file is opened.
+---@field lintOnSave boolean?? Whether linting occurs on save.
+---@field formatCommand string?? The command used for formatting.
+---@field formatCanRange boolean?? Whether formatting supports a range of text.
+---@field formatStdin boolean?? Whether formatting supports stdin.
+---@field symbolCommand string?? The command used for symbol operations.
+---@field symbolStdin boolean?? Whether symbol operations support stdin.
+---@field symbolFormats string[]?? An array of formats for symbols.
+---@field completionCommand string?? The command used for autocompletion.
+---@field completionStdin boolean?? Whether autocompletion supports stdin.
+---@field hoverCommand string?? The command used for hover information.
+---@field hoverStdin boolean?? Whether hover information supports stdin.
+---@field hoverType string?? The type of hover information.
+---@field hoverChars string? Characters related to hover information.
+---@field env string[]? Environment variables for the language.
+---@field rootMarkers string[]? A list of markers to identify the project root.
+---@field requireMarker boolean? Whether a marker is required for operations.
+---@field commands Command[]? A list of commands associated with the language.
 
 return M

@@ -1,7 +1,6 @@
 local stylua = require 'ma.efm.stylua'
 local shellcheck = require 'ma.efm.shellcheck'
 local shfmt = require 'ma.efm.shfmt'
--- local black = require 'ma.efm.black'
 local biome = require 'ma.efm.biome'
 local prettierd = require 'ma.efm.prettier_d'
 local eslintd = require 'ma.efm.eslint_d'
