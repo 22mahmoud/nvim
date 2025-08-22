@@ -17,3 +17,4 @@ prettier
 css-variables-language-server
 dockerfile-language-server-nodejs
 @microsoft/compose-language-service
+@tailwindcss/language-server

@@ -88,36 +88,17 @@ function M.setup_cmp(client, bufnr)
 end
 
 function M.override_floating_preview()
-  local border = {
-    { '┌', 'FloatBorder' },
-    { '─', 'FloatBorder' },
-    { '┐', 'FloatBorder' },
-    { '│', 'FloatBorder' },
-    { '┘', 'FloatBorder' },
-    { '─', 'FloatBorder' },
-    { '└', 'FloatBorder' },
-    { '│', 'FloatBorder' },
-  }
-
   ---@diagnostic disable-next-line: duplicate-set-field
   function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
     local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
 
-    local default_opts = {
+    local _opts = vim.tbl_extend('force', opts or {}, {
       max_width = max_width,
       max_height = max_height,
-      border = border,
-    }
+    })
 
-    local buf, win = open_floating_preview(
-      contents,
-      syntax,
-      vim.tbl_extend('force', opts or {}, default_opts),
-      ...
-    )
-
-    return buf, win
+    return open_floating_preview(contents, syntax, _opts, ...)
   end
 end
 

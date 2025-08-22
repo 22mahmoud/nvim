@@ -2,7 +2,6 @@ local cmd = vim.api.nvim_create_user_command
 
 vim.pack.add {
   -- colors/ui
-  'https://github.com/catgoose/nvim-colorizer.lua',
   'https://github.com/RRethy/nvim-base16',
   'https://github.com/catppuccin/nvim',
   'https://github.com/folke/tokyonight.nvim',
@@ -11,6 +10,10 @@ vim.pack.add {
   'https://github.com/tpope/vim-surround.git',
   'https://github.com/tpope/vim-repeat',
   'https://github.com/stevearc/oil.nvim',
+
+  -- debug
+  'https://github.com/mfussenegger/nvim-dap',
+  'https://github.com/mfussenegger/nvim-dap-python',
 
   -- treesitter
   'https://github.com/nvim-treesitter/nvim-treesitter',

@@ -32,6 +32,8 @@ vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
+o.winborder = 'single'
+
 -- base
 o.mouse = 'a'
 o.scrolloff = 10
@@ -65,15 +67,13 @@ o.listchars = {
   -- conceal = '┊',
 }
 
--- require('vim._extui').enable {
---   enable = true,
---   msg = {
---     pos = 'cmd',
---     box = {
---       timeout = 4000,
---     },
---   },
--- }
+require('vim._extui').enable {
+  enable = true,
+  msg = {
+    target = 'cmd',
+    timeout = 4000,
+  },
+}
 
 -- indentation
 o.tabstop = 2
@@ -96,7 +96,8 @@ o.smartcase = true
 o.ignorecase = true
 
 -- completion/menus
-o.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect' }
+o.completeopt = { 'menuone', 'noselect', 'fuzzy', 'nosort' }
+o.pummaxwidth = 100
 o.pumheight = 30
 o.pumblend = 5
 o.wildmode = { 'longest:full', 'full' }
