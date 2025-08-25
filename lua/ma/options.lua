@@ -32,8 +32,6 @@ vim.o.foldlevel = 99
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
-o.winborder = 'single'
-
 -- base
 o.mouse = 'a'
 o.scrolloff = 10
@@ -43,6 +41,7 @@ o.title = true
 o.titlestring = '%<%F - nvim'
 o.clipboard = 'unnamedplus'
 o.virtualedit = 'block'
+o.exrc = true
 o.updatetime = 200
 o.timeoutlen = 300
 o.colorcolumn = '80'
@@ -54,6 +53,7 @@ o.wrap = false
 o.termguicolors = true
 o.laststatus = 3
 o.signcolumn = 'yes'
+o.winborder = 'single'
 o.shortmess:append { W = true, a = true }
 o.list = true
 o.listchars = {
