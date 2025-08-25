@@ -13,7 +13,7 @@ local function get_or_create_buf()
   if existing_bufnr == -1 then api.nvim_buf_set_name(bufnr, tmp_name) end
 
   api.nvim_set_option_value('buftype', 'nofile', { buf = bufnr })
-  api.nvim_set_option_value('ft', 'httpResult', { buf = bufnr })
+  api.nvim_set_option_value('ft', 'http', { buf = bufnr })
   api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
 
   return bufnr
@@ -21,43 +21,54 @@ end
 
 local function get_req_body()
   local filename = api.nvim_buf_get_name(0)
-
-  local req_body = fn.system(
-    string.format([[jq -cMn --arg query "$(cat %s)" '{"query":$query}' | tr -d '\n']], filename)
-  )
-
-  return req_body
+  local _, lines = pcall(fn.readfile, filename)
+  return vim.json.encode { query = table.concat(lines, '\n') }
 end
 
 local function on_curl_complete(bufnr)
   return function(obj)
     local result = obj.stdout
-
     if not result then return end
 
-    local data = fn.split(result, '\n\n')
-    local headers = fn.split(data[1], '\n')
-    local json_lines = fn.split(fn.system({ 'jq', '-M', '.' }, data[2]), '\n')
+    -- Split headers and body
+    local parts = vim.split(result, '\r?\n\r?\n', { plain = false })
+    local headers = vim.split(parts[1] or '', '\n', { trimempty = true })
+    local json_lines = fn.split(fn.system({ 'jq', '-M', '.' }, parts[2]), '\n')
 
     api.nvim_buf_set_lines(bufnr, 0, #headers, false, headers)
-    local lines_count = api.nvim_buf_line_count(bufnr)
-    api.nvim_buf_set_lines(bufnr, lines_count, lines_count + #json_lines, false, json_lines)
+    api.nvim_buf_set_lines(bufnr, -1, -1, false, { '' })
+    api.nvim_buf_set_lines(bufnr, -1, -1, false, json_lines)
 
-    if fn.bufwinnr(bufnr) == -1 then vim.cmd([[vert sb ]] .. tmp_name) end
+    if fn.bufwinnr(bufnr) == -1 then vim.cmd('vert sb ' .. tmp_name) end
   end
+end
+
+local function get_schema_url()
+  local rcfile = '.graphqlrc.json'
+  local _, content = pcall(fn.readfile, rcfile)
+  local _, parsed = pcall(vim.json.decode, table.concat(content, '\n'))
+  return parsed.schema
 end
 
 function M.run()
   local bufnr = get_or_create_buf()
   local req_body = get_req_body()
+  if req_body == '' then return end
 
-  local url = fn.system [[cat .graphqlrc.json | jq -r ".schema" | tr -d "\n"]]
+  local url = get_schema_url()
+  if not url then return end
 
-  vim.system(
-    { 'curl', url, '-K', '.curlrc', '-d', req_body },
-    { text = true },
-    vim.schedule_wrap(on_curl_complete(bufnr))
-  )
+  local args = {
+    'curl',
+    '-i',
+    url,
+    '-d',
+    req_body,
+    '-K',
+    '.curlrc',
+  }
+
+  vim.system(args, { text = true }, vim.schedule_wrap(on_curl_complete(bufnr)))
 end
 
 return M
