@@ -1,4 +1,4 @@
-## ma.nvim (no plugins)
+## ma.nvim 
 
 > [!NOTE]
 > For my main config check the [master](https://github.com/22mahmoud/nvim/tree/master) branch
@@ -10,4 +10,4 @@
 ### Features
 
 - ️⛏️ Sensible configs for portable neovim config
-- 📦 No Plugins
+- 📦 using native vim.pack plugin manager

@@ -1,18 +1,26 @@
 vim.loader.enable()
 
 local o = vim.opt
-local methods = vim.lsp.protocol.Methods
 local keymap = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+
+-- plugins
+vim.pack.add({
+  "https://github.com/tpope/vim-surround",
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/ellisonleao/gruvbox.nvim",
+  "https://github.com/nvim-treesitter/nvim-treesitter"
+})
 
 -- options
 vim.g.mapleader = ' '
 
+o.lazyredraw = true
+o.exrc = true
 o.mouse = 'a'
 o.confirm = true
 o.clipboard = 'unnamedplus'
 o.wrap = false
+o.winborder = 'single'
 o.signcolumn = 'yes'
 o.colorcolumn = '80'
 o.list = true
@@ -38,7 +46,8 @@ o.swapfile = false
 o.undofile = true
 o.undolevels = 10000
 
-o.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect' }
+o.completeopt = { 'menuone', 'noselect', 'fuzzy', 'nosort' }
+o.pummaxwidth = 100
 o.pumheight = 30
 o.pumblend = 5
 o.wildmode = { 'longest:full', 'full' }
@@ -105,112 +114,14 @@ keymap('n', '<leader>dn', function() vim.diagnostic.jump { count = 1 } end)
 keymap('n', '<leader>dp', function() vim.diagnostic.jump { count = -1 } end)
 keymap('n', '<leader>dq', vim.diagnostic.setloclist)
 
--- lsp
-vim.lsp.config('lua_ls', {
-  cmd = { 'lua-language-server' },
-  root_markers = {
-    '.luarc.json',
-    '.luarc.jsonc',
-    '.luacheckrc',
-    '.stylua.toml',
-    'stylua.toml',
-    'selene.toml',
-    'selene.yml',
-    '.git',
-  },
-  filetypes = { 'lua' },
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJit',
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
+-- config
+vim.lsp.enable({ 'lua_ls', 'ts_ls', 'html_ls', 'css_ls', 'jsonls' })
 
-vim.lsp.config('ts_ls', {
-  cmd = { 'typescript-language-server', '--stdio' },
-  root_markers = { '.git', 'packages.json' },
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'javascript.jsx',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx',
-  }
-})
-
-vim.lsp.config('html_ls', {
-  cmd = { 'vscode-html-language-server', '--stdio' },
-  filetypes = { 'html', 'templ' },
-  settings = {},
-  init_options = {
-    provideFormatter = false,
-    embeddedLanguages = { css = true, javascript = true },
-    configurationSection = { 'html', 'css', 'javascript' },
-  },
-})
-
-vim.lsp.config('css_ls', {
-  cmd = { 'vscode-css-language-server', '--stdio' },
-  filetypes = { 'css', 'scss', 'less' },
-  init_options = { provideFormatter = false },
-  settings = {
-    css = { validate = true },
-    scss = { validate = true },
-    less = { validate = true },
-  },
-})
-
-autocmd({ 'LspAttach' }, {
-  group = augroup('UserLspAttach', {}),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    local buffer = args.buf
-
-    if not client or not buffer then return end
-
-    if client:supports_method(methods.textDocument_formatting) then
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        buffer = buffer,
-        callback = function() vim.lsp.buf.format { bufnr = buffer, id = client.id } end,
-      })
-    end
-  end,
-})
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  },
+---@diagnostic disable-next-line: missing-fields
+require("nvim-treesitter.configs").setup {
+  ensure_installed = { 'lua', 'jsonc', 'json' },
+  indent = { enable = true },
 }
 
-vim.lsp.config('*', {
-  capabilities = capabilities,
-  root_markers = { '.git', 'package.json' },
-})
-
-vim.lsp.enable({ 'lua_ls', 'ts_ls', 'html_ls', 'css_ls' })
-
--- exrc
-local rc_file_name = '.nvimrc.lua'
-local project_root = vim.fs.root(0, rc_file_name) or vim.env.HOME
-local rc_file = vim.fs.joinpath(project_root, rc_file_name)
-if vim.uv.fs_stat(rc_file) and vim.secure.read(rc_file) then
-  vim.cmd.source(rc_file)
-end
+require("gruvbox").setup({ transparent_mode = true })
+vim.cmd("colorscheme gruvbox")
