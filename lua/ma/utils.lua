@@ -24,22 +24,6 @@ function M.toggle_qf()
   vim.cmd('botright ' .. action)
 end
 
---- Returns a function which applies `specs` on args. This function produces an object having
--- the same structure than `specs` by mapping each property to the result of calling its
--- associated function with the supplied arguments
--- @name applySpec
--- @param specs a table
--- @return a function
-function M.applySpec(specs)
-  return function(...)
-    local spec = {}
-    for i, f in pairs(specs) do
-      spec[i] = f(...)
-    end
-    return spec
-  end
-end
-
 function M.root_markers_with_field(root_files, new_names, field, fname)
   local path = vim.fn.fnamemodify(fname, ':h')
   local found = vim.fs.find(new_names, { path = path, upward = true })
