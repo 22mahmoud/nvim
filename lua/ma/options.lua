@@ -1,8 +1,8 @@
 local o = vim.opt
 local g = vim.g
 
-g.mapleader = ' '
-g.maplocalleader = ','
+g.mapleader = vim.keycode '<space>'
+g.maplocalleader = vim.keycode ','
 
 -- skip vim plugins
 g.loaded_2html_plugin = 1
