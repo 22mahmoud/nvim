@@ -2,8 +2,7 @@
 return {
   formatCommand = table.concat({
     'biome',
-    'check',
-    '--apply',
+    'format',
     "--stdin-file-path '${INPUT}'",
   }, ' '),
   formatStdin = true,
