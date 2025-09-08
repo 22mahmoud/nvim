@@ -1,6 +1,5 @@
 @fsouza/prettierd
 @tailwindcss/language-server
-pyright
 typescript
 typescript-language-server
 bash-language-server

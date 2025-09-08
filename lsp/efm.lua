@@ -7,6 +7,7 @@ local eslintd = require 'ma.efm.eslint_d'
 local gofmt = require 'ma.efm.gofmt'
 local phpstan = require 'ma.efm.phpstan'
 local djlint = require 'ma.efm.djlint'
+local fixjson = require 'ma.efm.fixjson'
 
 local biome_supported = vim.g.biome_supported
   or {
@@ -60,6 +61,8 @@ local eslint_supported = vim.g.eslint_supported
     'markdown',
   }
 
+local json = { fixjson }
+
 local languages = {
   lua = { stylua },
   sh = { shellcheck, shfmt },
@@ -67,6 +70,8 @@ local languages = {
   htmldjango = { djlint },
   go = { gofmt },
   php = { phpstan },
+  json = json,
+  jsonc = json,
 }
 
 for _, ft in ipairs(biome_supported) do
