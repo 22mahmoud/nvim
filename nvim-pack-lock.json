@@ -1,0 +1,30 @@
+{
+  "plugins": {
+    "nvim": {
+      "rev": "234fc04"
+    },
+    "nvim-base16": {
+      "rev": "658bc3d"
+    },
+    "nvim-dap": {
+      "rev": "e97dc47"
+    },
+    "nvim-dap-python": {
+      "rev": "64652d1"
+    },
+    "nvim-treesitter": [],
+    "nvim-treesitter-textobjects": {
+      "rev": "5ca4aaa"
+    },
+    "nvim-ts-autotag": [],
+    "nvim-ts-context-commentstring": [],
+    "oil.nvim": {
+      "rev": "7e1cd77"
+    },
+    "tokyonight.nvim": {
+      "rev": "5da1b76"
+    },
+    "vim-repeat": [],
+    "vim-surround": []
+  }
+}
