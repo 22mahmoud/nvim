@@ -1,30 +1,52 @@
 {
   "plugins": {
     "nvim": {
-      "rev": "234fc04"
+      "rev": "da33755d00e09bff2473978910168ff9ea5dc453",
+      "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-base16": {
-      "rev": "658bc3d"
+      "rev": "a0d0806ae75ef1ef97d9fc650d96f1f28db241a5",
+      "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
-      "rev": "e97dc47"
+      "rev": "b38f7d30366d9169d0a623c4c85fbcf99d8d58bb",
+      "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
-      "rev": "64652d1"
+      "rev": "64652d1ae1db80870d9aac7132d76e37acd86a26",
+      "src": "https://github.com/mfussenegger/nvim-dap-python"
     },
-    "nvim-treesitter": [],
+    "nvim-treesitter": {
+      "rev": "42fc28ba918343ebfd5565147a42a26580579482",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
     "nvim-treesitter-textobjects": {
-      "rev": "5ca4aaa"
+      "rev": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
-    "nvim-ts-autotag": [],
-    "nvim-ts-context-commentstring": [],
+    "nvim-ts-autotag": {
+      "rev": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc",
+      "src": "https://github.com/windwp/nvim-ts-autotag"
+    },
+    "nvim-ts-context-commentstring": {
+      "rev": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f",
+      "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+    },
     "oil.nvim": {
-      "rev": "7e1cd77"
+      "rev": "7e1cd7703ff2924d7038476dcbc04b950203b902",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
     "tokyonight.nvim": {
-      "rev": "5da1b76"
+      "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
+      "src": "https://github.com/folke/tokyonight.nvim"
     },
-    "vim-repeat": [],
-    "vim-surround": []
+    "vim-repeat": {
+      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
+      "src": "https://github.com/tpope/vim-repeat"
+    },
+    "vim-surround": {
+      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
+      "src": "https://github.com/tpope/vim-surround.git"
+    }
   }
 }

@@ -26,7 +26,6 @@ local servers = {
 
 _G.G = {}
 
-require 'ma.options'
 require 'ma.utils'
 require 'ma.options'
 require('ma.lsp').setup(servers)
