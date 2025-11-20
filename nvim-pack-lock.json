@@ -5,11 +5,11 @@
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-base16": {
-      "rev": "a0d0806ae75ef1ef97d9fc650d96f1f28db241a5",
+      "rev": "a7bd57b4ab216b9e327076036228a52793baade8",
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
-      "rev": "b38f7d30366d9169d0a623c4c85fbcf99d8d58bb",
+      "rev": "5860c7c501eb428d3137ee22c522828d20cca0b3",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
