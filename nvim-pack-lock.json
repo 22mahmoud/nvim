@@ -1,11 +1,11 @@
 {
   "plugins": {
     "nvim": {
-      "rev": "da33755d00e09bff2473978910168ff9ea5dc453",
+      "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09",
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-base16": {
-      "rev": "a7bd57b4ab216b9e327076036228a52793baade8",
+      "rev": "e05bcb99951d8ae4ecbf4ae053922fd2be6263a5",
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
@@ -18,7 +18,8 @@
     },
     "nvim-treesitter": {
       "rev": "42fc28ba918343ebfd5565147a42a26580579482",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'master'"
     },
     "nvim-treesitter-textobjects": {
       "rev": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef",

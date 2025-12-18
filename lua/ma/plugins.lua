@@ -16,7 +16,7 @@ vim.pack.add {
   'https://github.com/mfussenegger/nvim-dap-python',
 
   -- treesitter
-  'https://github.com/nvim-treesitter/nvim-treesitter',
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
   'https://github.com/windwp/nvim-ts-autotag',
   'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
