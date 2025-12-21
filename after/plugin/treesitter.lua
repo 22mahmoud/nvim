@@ -1,17 +1,18 @@
-local loaded, treesitter = pcall(require, 'nvim-treesitter')
+local loaded, ts = pcall(require, 'nvim-treesitter')
 if not loaded then return end
 
 vim.treesitter.language.register('bash', 'dotenv')
 
-treesitter.setup {
+ts.setup {
   install_dir = vim.fn.stdpath 'data' .. '/site',
 }
 
-local languages = {
+local parsers = {
   'bash',
   'c',
   'diff',
   'html',
+  'http',
   'javascript',
   'jsdoc',
   'json',
@@ -32,19 +33,33 @@ local languages = {
   'vimdoc',
   'xml',
   'yaml',
+  'make',
+  'css',
+  'dockerfile',
+  'gitcommit',
+  'go',
+  'gomod',
+  'gosum',
 }
 
-treesitter.install(languages)
+ts.install(parsers)
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = languages,
-  callback = function()
-    vim.treesitter.start()
+  group = vim.api.nvim_create_augroup('ma_treesitter', { clear = true }),
+  callback = function(event)
+    local bufnr = event.buf
+    local filetype = event.match
 
-    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    vim.wo[0][0].foldmethod = 'expr'
+    local parser_name = vim.treesitter.language.get_lang(filetype)
+    if not parser_name then return end
 
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    local parser_exists = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+    if not parser_exists then return end
+
+    vim.treesitter.start(bufnr, parser_name)
+    vim.wo.foldmethod = 'expr'
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
 })
 
