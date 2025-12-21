@@ -7,7 +7,7 @@ vim.pack.add {
   'https://github.com/folke/tokyonight.nvim',
 
   -- editor
-  'https://github.com/tpope/vim-surround.git',
+  'https://github.com/kylechui/nvim-surround',
   'https://github.com/tpope/vim-repeat',
   'https://github.com/stevearc/oil.nvim',
 
@@ -18,7 +18,7 @@ vim.pack.add {
   -- treesitter
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
   'https://github.com/windwp/nvim-ts-autotag',
-  'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'master' },
   'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
 }
 
