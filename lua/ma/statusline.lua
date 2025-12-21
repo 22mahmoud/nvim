@@ -106,9 +106,8 @@ end
 local function get_file_icon() return G.icons[fn.expand '%:t'] end
 local function get_modified_icon() return opt.modified:get() and '●' or '' end
 local function get_readonly_icon()
-  local mod, ro = opt.modifiable:get(), opt.readonly:get()
-  if mod and not ro then return '' end
-  return (ro and mod) and '󰂭' or ''
+  if opt.readonly:get() or not opt.modifiable:get() then return '󰂭' end
+  return ''
 end
 
 local function get_lsp_diagnostics()
