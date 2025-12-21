@@ -27,10 +27,9 @@ g.loaded_getscriptPlugin = 1
 g.loaded_matchit = 1
 
 -- fold
-vim.o.foldenable = true
-vim.o.foldlevel = 99
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+o.foldenable = true
+o.foldlevel = 99
+o.foldmethod = 'indent'
 
 -- base
 o.mouse = 'a'
@@ -65,6 +64,15 @@ o.listchars = {
   -- extends = '❯',
   -- precedes = '❮',
   -- conceal = '┊',
+}
+
+o.fillchars = {
+  foldopen = '',
+  foldclose = '',
+  fold = ' ',
+  foldsep = ' ',
+  diff = '╱',
+  eob = ' ',
 }
 
 require('vim._extui').enable {

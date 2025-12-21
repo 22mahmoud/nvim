@@ -86,5 +86,3 @@ if loaded_ts_autotag then
     },
   }
 end
-
--- TODO: implment ts-context-commentstring

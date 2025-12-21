@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "mini.comment": {
-      "rev": "a0c721115faff8d05505c0a12dab410084d9e536",
-      "src": "https://github.com/nvim-mini/mini.comment"
-    },
     "nvim": {
       "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09",
       "src": "https://github.com/catppuccin/nvim"
@@ -25,7 +21,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "8cdffc6d334731ce3703b6d870a5a34fd878208a",
+      "rev": "6e42d823ce0a5a76180c473c119c7677738a09d1",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -37,10 +33,6 @@
     "nvim-ts-autotag": {
       "rev": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc",
       "src": "https://github.com/windwp/nvim-ts-autotag"
-    },
-    "nvim-ts-context-commentstring": {
-      "rev": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f",
-      "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
     },
     "oil.nvim": {
       "rev": "3b249b71957ee35d5adbfb21f77992809a4c4683",

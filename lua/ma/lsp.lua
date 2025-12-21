@@ -6,6 +6,29 @@ local open_floating_preview = vim.lsp.util.open_floating_preview
 
 local M = {}
 
+local servers = {
+  'ts_ls',
+  'biome',
+  'html',
+  'cssls',
+  'css_variables',
+  'jsonls',
+  'yamlls',
+  'tailwindcss',
+  'graphql',
+  'lua_ls',
+  'efm',
+  'ccls',
+  'bashls',
+  'gopls',
+  'dockerls',
+  'phpactor',
+  'taplo',
+  'pyright',
+  'ruff',
+  'djlsp',
+}
+
 ---@param client vim.lsp.Client
 ---@param bufnr number
 function M.lsp_highlight_document(client, bufnr)
@@ -146,7 +169,7 @@ function M.setup_lsp_kind()
   }
 end
 
-function M.setup(servers)
+function M.setup()
   vim.lsp.util.open_floating_preview = M.open_floating_preview
   M.setup_lsp_kind()
 
@@ -177,8 +200,13 @@ function M.setup(servers)
 end
 
 cmd('LspReload', function()
-  vim.lsp.stop_client(vim.lsp.get_clients())
+  for _, client in ipairs(vim.lsp.get_clients()) do
+    client:stop()
+  end
+
   vim.cmd [[edit!]]
 end, {})
+
+M.setup()
 
 return M
