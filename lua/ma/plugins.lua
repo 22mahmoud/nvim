@@ -16,10 +16,9 @@ vim.pack.add {
   'https://github.com/mfussenegger/nvim-dap-python',
 
   -- treesitter
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
   'https://github.com/windwp/nvim-ts-autotag',
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'master' },
-  'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
 }
 
 cmd('PkgUpdate', function() vim.pack.update(nil, { force = true }) end, {})

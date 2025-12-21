@@ -29,8 +29,8 @@ g.loaded_matchit = 1
 -- fold
 vim.o.foldenable = true
 vim.o.foldlevel = 99
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- base
 o.mouse = 'a'

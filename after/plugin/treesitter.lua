@@ -1,11 +1,69 @@
----@diagnostic disable: missing-fields
-local loaded, treesitter = pcall(require, 'nvim-treesitter.configs')
+local loaded, treesitter = pcall(require, 'nvim-treesitter')
 if not loaded then return end
 
-local loaded_ts_autotag = pcall(require, 'nvim-ts-autotag')
+vim.treesitter.language.register('bash', 'dotenv')
 
+treesitter.setup {
+  install_dir = vim.fn.stdpath 'data' .. '/site',
+}
+
+local languages = {
+  'bash',
+  'c',
+  'diff',
+  'html',
+  'javascript',
+  'jsdoc',
+  'json',
+  'jsonc',
+  'lua',
+  'luadoc',
+  'luap',
+  'markdown',
+  'markdown_inline',
+  'printf',
+  'python',
+  'query',
+  'regex',
+  'toml',
+  'tsx',
+  'typescript',
+  'vim',
+  'vimdoc',
+  'xml',
+  'yaml',
+}
+
+treesitter.install(languages)
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = languages,
+  callback = function()
+    vim.treesitter.start()
+
+    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo[0][0].foldmethod = 'expr'
+
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
+local loaded_textobjects, textobjects = pcall(require, 'nvim-treesitter-textobjects')
+if loaded_textobjects then
+  local select = require 'nvim-treesitter-textobjects.select'
+  local keymap = function(rhs, lhs) vim.keymap.set({ 'x', 'o' }, rhs, lhs) end
+
+  textobjects.setup {}
+
+  keymap('af', function() select.select_textobject('@function.outer', 'textobjects') end)
+  keymap('if', function() select.select_textobject('@function.inner', 'textobjects') end)
+  keymap('ac', function() select.select_textobject('@class.outer', 'textobjects') end)
+  keymap('ic', function() select.select_textobject('@class.inner', 'textobjects') end)
+end
+
+local loaded_ts_autotag, autotag = pcall(require, 'nvim-ts-autotag')
 if loaded_ts_autotag then
-  require('nvim-ts-autotag').setup {
+  autotag.setup {
     opts = {
       enable_close = true,
       enable_rename = true,
@@ -14,73 +72,4 @@ if loaded_ts_autotag then
   }
 end
 
-local loaded_ts_context_commentstring = pcall(require, 'ts_context_commentstring')
-
-if loaded_ts_context_commentstring then
-  require('ts_context_commentstring').setup {
-    enable_autocmd = false,
-  }
-
-  local get_option = vim.filetype.get_option
-
-  ---@diagnostic disable-next-line: duplicate-set-field
-  vim.filetype.get_option = function(filetype, option)
-    return option == 'commentstring'
-        and require('ts_context_commentstring.internal').calculate_commentstring()
-      or get_option(filetype, option)
-  end
-end
-
-vim.treesitter.language.register('bash', 'dotenv')
-
-treesitter.setup {
-  ensure_installed = 'all',
-  ignore_install = { 'ipkg' },
-  highlight = { enable = true, disable = { 'dockerfile' } },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<CR>',
-      node_incremental = '<CR>',
-      scope_incremental = '<TAB>',
-      node_decremental = '<BS>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        [']f'] = '@function.outer',
-        [']c'] = '@class.outer',
-        [']a'] = '@parameter.inner',
-      },
-      goto_next_end = {
-        [']F'] = '@function.outer',
-        [']C'] = '@class.outer',
-        [']A'] = '@parameter.inner',
-      },
-      goto_previous_start = {
-        ['[f'] = '@function.outer',
-        ['[c'] = '@class.outer',
-        ['[a'] = '@parameter.inner',
-      },
-      goto_previous_end = {
-        ['[F'] = '@function.outer',
-        ['[C'] = '@class.outer',
-        ['[A'] = '@parameter.inner',
-      },
-    },
-  },
-}
+-- TODO: implment ts-context-commentstring
