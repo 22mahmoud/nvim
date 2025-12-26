@@ -9,7 +9,7 @@
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
-      "rev": "5860c7c501eb428d3137ee22c522828d20cca0b3",
+      "rev": "818cd8787a77a97703eb1d9090543a374f79a9ac",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
@@ -26,7 +26,7 @@
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "e91c585ac0ee760198dabc1fad2e6227effdcd5e",
+      "rev": "f7122acf1bd2c9e4626651ad33bf5944be9d9392",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },

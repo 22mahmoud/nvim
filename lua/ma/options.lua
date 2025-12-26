@@ -4,6 +4,8 @@ local g = vim.g
 g.mapleader = vim.keycode '<space>'
 g.maplocalleader = vim.keycode ','
 
+vim.cmd 'syntax off'
+
 -- skip vim plugins
 g.loaded_2html_plugin = 1
 g.loaded_logipat = 1
