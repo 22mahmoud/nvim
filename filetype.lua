@@ -3,7 +3,7 @@ vim.filetype.add {
     ejs = 'html',
     edge = 'html',
     eta = 'html',
-    env = "dotenv",
+    env = 'dotenv',
   },
   filename = {
     ['wrangler.json'] = 'jsonc',
