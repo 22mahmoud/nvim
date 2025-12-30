@@ -8,6 +8,7 @@ local gofmt = require 'ma.efm.gofmt'
 local phpstan = require 'ma.efm.phpstan'
 local djlint = require 'ma.efm.djlint'
 local fixjson = require 'ma.efm.fixjson'
+local gdscript_formatter = require 'ma.efm.gdscript_formatter'
 
 local biome_supported = vim.g.biome_supported
   or {
@@ -72,6 +73,9 @@ local languages = {
   php = { phpstan },
   json = json,
   jsonc = json,
+  gdscript = { gdscript_formatter },
+  gd = { gdscript_formatter },
+  gdscript3 = { gdscript_formatter },
 }
 
 for _, ft in ipairs(biome_supported) do

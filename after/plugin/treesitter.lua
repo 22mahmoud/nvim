@@ -7,43 +7,7 @@ ts.setup {
   install_dir = vim.fn.stdpath 'data' .. '/site',
 }
 
-local parsers = {
-  'bash',
-  'zsh',
-  'c',
-  'diff',
-  'html',
-  'http',
-  'javascript',
-  'jsdoc',
-  'json',
-  'jsonc',
-  'lua',
-  'luadoc',
-  'luap',
-  'markdown',
-  'markdown_inline',
-  'printf',
-  'python',
-  'query',
-  'regex',
-  'toml',
-  'tsx',
-  'typescript',
-  'vim',
-  'vimdoc',
-  'xml',
-  'yaml',
-  'make',
-  'css',
-  'dockerfile',
-  'gitcommit',
-  'go',
-  'gomod',
-  'gosum',
-}
-
-ts.install(parsers)
+ts.install { 'stable', 'unstable' }
 
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('ma_treesitter', { clear = true }),
