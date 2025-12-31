@@ -21,7 +21,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "36fcb4a4238928f0b627e1ab84ade0acc1facc2c",
+      "rev": "c6dd314086f7b471bf6c9110092a94ce1c06d220",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -35,7 +35,7 @@
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "oil.nvim": {
-      "rev": "bbfa7cba85967dc9dbfe0ca486fd4b17084bf846",
+      "rev": "81b8a91735ad5cd24a6b3137f14a89f19176364f",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "tokyonight.nvim": {
