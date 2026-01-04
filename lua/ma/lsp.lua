@@ -27,7 +27,8 @@ local servers = {
   'pyright',
   'ruff',
   'djlsp',
-  'gdscript'
+  'gdscript',
+  'tinymist',
 }
 
 ---@param client vim.lsp.Client

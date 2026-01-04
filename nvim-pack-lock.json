@@ -1,15 +1,15 @@
 {
   "plugins": {
     "nvim": {
-      "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09",
+      "rev": "6efc53e42cfc97700f19043105bf73ba83c4ae7d",
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-base16": {
-      "rev": "e05bcb99951d8ae4ecbf4ae053922fd2be6263a5",
+      "rev": "e6b3b10263288096653c3cfbcb144790874ef1a7",
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
-      "rev": "818cd8787a77a97703eb1d9090543a374f79a9ac",
+      "rev": "7bb46cc612bb127d7b0e3e9ed695267d830824ec",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
@@ -21,12 +21,12 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "c6dd314086f7b471bf6c9110092a94ce1c06d220",
+      "rev": "300b906a9514d5e0ce02911d371445382fe35a31",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "ecd03f5811eb5c66d2fa420b79121b866feecd82",
+      "rev": "28a3494c075ef0f353314f627546537e43c09592",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
