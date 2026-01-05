@@ -1,6 +1,7 @@
 local fn = vim.fn
 local opt = vim.opt
 local fmt = string.format
+local api = vim.api
 
 local M = {}
 
@@ -11,20 +12,24 @@ local SPECIAL_FILENAME_PATTERNS = {
   '^error%.[jt]sx?$',
   '^layout%.[jt]sx?$',
   '^opengraph%-image%.[jt]sx?$',
+  '^loading%.[jt]sx?$',
+  '^not%-found%.[jt]sx?$',
+  '^template%.[jt]sx?$',
+  '^default%.[jt]sx?$',
 }
 
 local MODE_MAP = {
   ['n'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
   ['v'] = { long = 'VISUAL', short = 'V', color = 'StlineVisual' },
   ['V'] = { long = 'V-LINE', short = 'V-L', color = 'StlineVisual' },
-  [vim.api.nvim_replace_termcodes('<C-V>', true, true, true)] = {
+  [api.nvim_replace_termcodes('<C-V>', true, true, true)] = {
     long = 'V-BLOCK',
     short = 'V-B',
     color = 'StlineVisual',
   },
   ['s'] = { long = 'SELECT', short = 'S', color = 'StlineVisual' },
   ['S'] = { long = 'S-LINE', short = 'S-L', color = 'StlineVisual' },
-  [vim.api.nvim_replace_termcodes('<C-S>', true, true, true)] = {
+  [api.nvim_replace_termcodes('<C-S>', true, true, true)] = {
     long = 'S-BLOCK',
     short = 'S-B',
     color = 'StlineVisual',
@@ -35,40 +40,51 @@ local MODE_MAP = {
   ['r'] = { long = 'PROMPT', short = 'P', color = 'StlineCommand' },
   ['!'] = { long = 'SHELL', short = 'Sh', color = 'StlineCommand' },
   ['t'] = { long = 'TERMINAL', short = 'T', color = 'StlineTerminal' },
+  ['nt'] = { long = 'NORMAL', short = 'N-T', color = 'StlineNormal' },
+  ['niI'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
+  ['niR'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
+  ['niV'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
+}
+
+-- Cache for performance
+local cache = {
+  devicons_ok = nil,
+  devicons = nil,
 }
 
 local function get_hl_color(name)
-  local hl = vim.api.nvim_get_hl(0, { name = name })
+  local hl = api.nvim_get_hl(0, { name = name, link = false })
   return {
-    fg = hl.fg and string.format('#%06x', hl.fg) or nil,
-    bg = hl.bg and string.format('#%06x', hl.bg) or nil,
+    fg = hl.fg and fmt('#%06x', hl.fg) or nil,
+    bg = hl.bg and fmt('#%06x', hl.bg) or nil,
   }
 end
 
-local function has_text(s) return s:len() > 0 and s ~= '.' end
+local function has_text(s) return s and s:len() > 0 and s ~= '.' end
 
 local function build_path(tbl) return table.concat(vim.tbl_filter(has_text, tbl), '/') end
 
 local function block(value, highlight, template)
   if not value or value == 0 or value == '' then return '' end
   local text = fmt(template or '%s', value)
-  return highlight and string.format('%%#%s#%s%%*', highlight, text) or text
+  return highlight and fmt('%%#%s#%s%%*', highlight, text) or text
 end
 
 local function shorten_path(path)
   return build_path(
-    vim.tbl_map(function(dir_name) return dir_name:sub(1, 1) end, vim.split(path, '/'))
+    vim.tbl_map(
+      function(dir_name) return dir_name:sub(1, 1) end,
+      vim.split(path, '/', { plain = true })
+    )
   )
 end
 
 local function is_special_filename(file_name)
-  return vim.tbl_contains(
-    vim.tbl_map(
-      function(pattern) return file_name:match(pattern) ~= nil end,
-      SPECIAL_FILENAME_PATTERNS
-    ),
-    true
-  )
+  for _, pattern in ipairs(SPECIAL_FILENAME_PATTERNS) do
+    if file_name:match(pattern) then return true end
+  end
+
+  return false
 end
 
 local function get_long_path()
@@ -83,7 +99,7 @@ local function get_compact_path()
 
   if full_path == '.' or full_path == '' then return file_name end
 
-  local path_parts = vim.split(full_path, '/')
+  local path_parts = vim.split(full_path, '/', { plain = true })
   local path_length = #path_parts
 
   if is_special_filename(file_name) and path_length > 0 then
@@ -98,20 +114,40 @@ local function get_compact_path()
 end
 
 local function get_mode()
-  local current_mode = vim.fn.mode()
+  local current_mode = fn.mode()
   local mode = MODE_MAP[current_mode] or { long = 'UNKNOWN', short = 'U', color = 'StlineNormal' }
   return mode.long, mode.color
 end
 
-local function get_file_icon() return G.icons[fn.expand '%:t'] end
-local function get_modified_icon() return opt.modified:get() and '●' or '' end
+local function get_file_icon()
+  -- Lazy load nvim-web-devicons
+  if cache.devicons_ok == nil then
+    cache.devicons_ok, cache.devicons = pcall(require, 'nvim-web-devicons')
+  end
+
+  if not cache.devicons_ok then return nil end
+
+  local bufname = api.nvim_buf_get_name(0)
+  if bufname == '' then return nil end
+
+  local filename = fn.fnamemodify(bufname, ':t')
+  local extension = fn.fnamemodify(bufname, ':e')
+
+  return cache.devicons.get_icon(filename, extension, { default = true })
+end
+
+local function get_modified_icon() return vim.bo.modified and '●' or '' end
+
 local function get_readonly_icon()
-  if opt.readonly:get() or not opt.modifiable:get() then return '󰂭' end
+  if vim.bo.readonly or not vim.bo.modifiable then return '󰌾' end
   return ''
 end
 
 local function get_lsp_diagnostics()
+  if not vim.diagnostic.is_enabled { bufnr = 0 } then return '' end
+
   local function get_diag_count(severity) return #vim.diagnostic.get(0, { severity = severity }) end
+
   local severity = vim.diagnostic.severity
 
   return table.concat({
@@ -131,18 +167,18 @@ function M.get_statusline()
   local diagnostics = get_lsp_diagnostics()
   local file_icon = get_file_icon()
 
-  local lhs = table.concat {
+  local lhs = table.concat({
     block(mode, mode_color, ' %s '),
     string.len(path) > 0 and block(file_icon, 'StlineFileIcon', ' %s ') or '',
     string.len(path) > 0 and block(path, 'StlinePath', '%s ') or block(' ', 'StlinePath', '%s'),
     block(modified_icon, 'StlineModified', '%s '),
     block(readonly_icon, 'StlineReadOnly', '%s '),
-  }
+  }, '')
 
-  local rhs = table.concat {
+  local rhs = table.concat({
     diagnostics,
     block('%l:%c', mode_color, ' %s '),
-  }
+  }, '')
 
   return lhs .. '%=' .. rhs
 end
@@ -152,11 +188,11 @@ function M.get_winbar()
   local modified_icon = get_modified_icon()
   local file_icon = get_file_icon()
 
-  return table.concat {
+  return table.concat({
     string.len(path) > 0 and block(file_icon, 'WinBarFileIcon', ' %s ') or '',
     string.len(path) > 0 and block(path, 'WinBarPath', '%s ') or block(' ', 'WinBarPath', '%s'),
     block(modified_icon, 'WinBarModified', '%s '),
-  }
+  }, '')
 end
 
 function M.setup_highlights()
@@ -164,26 +200,36 @@ function M.setup_highlights()
     StlineNormal = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('Function').fg,
+      bold = true,
     },
     StlineInsert = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('String').fg,
+      bold = true,
     },
     StlineVisual = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('Type').fg,
+      bold = true,
     },
     StlineReplace = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('Error').fg,
+      bold = true,
     },
     StlineCommand = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('Special').fg,
+      bold = true,
     },
     StlineTerminal = {
       fg = get_hl_color('Cursor').fg,
       bg = get_hl_color('WarningMsg').fg,
+      bold = true,
+    },
+    StlineGitBranch = {
+      fg = get_hl_color('Special').fg,
+      bg = get_hl_color('ColorColumn').bg,
     },
     StlineFileIcon = {
       fg = get_hl_color('Function').fg,
@@ -217,14 +263,6 @@ function M.setup_highlights()
       fg = get_hl_color('DiagnosticHint').fg,
       bg = get_hl_color('ColorColumn').bg,
     },
-    StlineLineCol = {
-      fg = get_hl_color('NormalFloat').fg,
-      bg = get_hl_color('CursorLine').bg,
-    },
-    WinBarSeparator = {
-      fg = get_hl_color('NonText').fg,
-      bg = get_hl_color('Normal').bg,
-    },
     WinBarFileIcon = {
       fg = get_hl_color('Function').fg,
       bg = get_hl_color('Normal').bg,
@@ -240,13 +278,13 @@ function M.setup_highlights()
   }
 
   for group, color in pairs(highlights) do
-    vim.api.nvim_set_hl(0, group, color)
+    api.nvim_set_hl(0, group, color)
   end
 end
 
 local function setup()
-  vim.opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
-  vim.opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
+  opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
+  opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
 end
 
 setup()
