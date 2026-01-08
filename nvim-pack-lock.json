@@ -1,11 +1,11 @@
 {
   "plugins": {
     "nvim": {
-      "rev": "6efc53e42cfc97700f19043105bf73ba83c4ae7d",
+      "rev": "beaf41a30c26fd7d6c386d383155cbd65dd554cd",
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-base16": {
-      "rev": "e6b3b10263288096653c3cfbcb144790874ef1a7",
+      "rev": "c2f8107967f7b32e6de511f060def3a78c151436",
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
@@ -21,7 +21,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "b033ab331ca0bccbd93c3c2b4f886fdfc09abec0",
+      "rev": "2ba5ec184609a96b513bf4c53a20512d64e27f39",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
