@@ -47,7 +47,7 @@ o.updatetime = 200
 o.timeoutlen = 300
 o.colorcolumn = '80'
 vim.opt.grepprg =
-  [[rg --hidden --glob "!.git" --glob "!**/node_modules/**" --glob "!**/*.lock" --no-heading --smart-case --vimgrep --follow]]
+  [[rg --hidden --glob "!.git" --glob "!**/node_modules/**" --glob "!**/*.lock" --glob "!**/*.uid" --glob "!**/*.import" --glob "!**/*.tscn"  --no-heading --smart-case --vimgrep --follow]]
 
 -- ui/display
 o.wrap = false
@@ -120,6 +120,8 @@ o.wildignore = {
   '*/node_modules/*',
   '*/__pycache__/*',
   '*/.git/*',
+  '*.uid',
+  '*.import',
 }
 
 -- diagnostics

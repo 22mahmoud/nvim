@@ -7,7 +7,8 @@ local open_floating_preview = vim.lsp.util.open_floating_preview
 local M = {}
 
 local servers = {
-  'ts_ls',
+  -- 'ts_ls',
+  'tsgo',
   'biome',
   'html',
   'cssls',
@@ -28,6 +29,7 @@ local servers = {
   'ruff',
   'djlsp',
   'gdscript',
+  'gdshader',
   'tinymist',
 }
 
@@ -113,7 +115,9 @@ function M.open_floating_preview(contents, syntax, _opts)
 end
 
 function M.get_client_capabilities()
-  return vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  return vim.tbl_deep_extend('force', capabilities, {
     textDocument = {
       completion = {
         completionItem = {

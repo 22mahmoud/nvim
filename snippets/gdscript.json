@@ -1,0 +1,205 @@
+{
+  "Func Ready": {
+    "prefix": "ready",
+    "body": ["func _ready() -> void:", "\t${1:pass}"],
+    "description": "The _ready function, called when the node is added to the scene tree."
+  },
+  "Func Process": {
+    "prefix": "process",
+    "body": ["func _process(delta: float) -> void:", "\t${1:pass}"],
+    "description": "The _process function, called every frame."
+  },
+  "Func Physics Process": {
+    "prefix": "physics",
+    "body": ["func _physics_process(delta: float) -> void:", "\t${1:pass}"],
+    "description": "The _physics_process function, called every physics frame."
+  },
+  "Func Input": {
+    "prefix": "inp",
+    "body": ["func _input(event: InputEvent) -> void:", "\t${1:pass}"],
+    "description": "The _input function, for general input events."
+  },
+  "Func Unhandled Input": {
+    "prefix": "uinp",
+    "body": [
+      "func _unhandled_input(event: InputEvent) -> void:",
+      "\t${1:pass}"
+    ],
+    "description": "The _unhandled_input function, for input events not handled by GUI/controls."
+  },
+  "Func Custom Void": {
+    "prefix": "void",
+    "body": [
+      "func ${1:function_name}(${2:parameters}) -> void:",
+      "\t${3:pass}"
+    ],
+    "description": "A custom function with a void return type."
+  },
+  "Func Custom Return": {
+    "prefix": "funcret",
+    "body": [
+      "func ${1:function_name}(${2:parameters}) -> ${3:ReturnType}:",
+      "\treturn ${4:value}$0"
+    ],
+    "description": "A custom function with an explicit return type hint (e.g., -> int) as recommended in GDScript 4."
+  },
+  "Static Func Void": {
+    "prefix": "stfunc",
+    "body": [
+      "static func ${1:function_name}(${2:parameters}) -> void:",
+      "\t$0"
+    ],
+    "description": "Define a static function with a void return type."
+  },
+  "Godot Lambda Function": {
+    "prefix": "lamb",
+    "body": ["func(${1:args}):", "\t$0"],
+    "description": "Godot 4 Anonymous Function (Lambda)"
+  },
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": "var ${1:variable_name}: ${2:Type} = ${3:default_value}$0",
+    "description": "Declares a basic, type-hinted variable with an initial value."
+  },
+  "Static Variable": {
+    "prefix": "stvar",
+    "body": "static var ${1:variable_name}: ${2:Type} = ${3:value}$0",
+    "description": "Declares a static variable belonging to the class, not instances."
+  },
+  "Export Var": {
+    "prefix": "export",
+    "body": [
+      "@export var ${1:variable_name}: ${2:Type} = ${3:default_value}$0"
+    ],
+    "description": "An exported variable (appears in the Inspector)."
+  },
+  "Variable with Getter and Setter": {
+    "prefix": ["gst", "vargetset"],
+    "body": [
+      "var ${1:variable_name}: ${2:Type}:",
+      "\tget:",
+      "\t\treturn ${1:variable_name}",
+      "\tset(value: ${2:Type}):",
+      "\t\t${1:variable_name} = value"
+    ],
+    "description": "Creates a typed variable with modern getter and setter properties."
+  },
+  "Enum Declaration": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:State} {",
+      "\t${2:IDLE},",
+      "\t${3:WALK},",
+      "\t${4:JUMP}",
+      "}"
+    ],
+    "description": "Declares an enumeration for clear, integer-based state management."
+  },
+  "OnReady Var": {
+    "prefix": "onvar",
+    "body": ["@onready var ${1:variable_name}: ${2:Type} = ${3:value}$0"],
+    "description": "An onready variable (evaluated once when the node enters the scene tree)."
+  },
+  "OnReady Get Node": {
+    "prefix": "onready",
+    "body": [
+      "@onready var ${1:variable_name}: ${2:NodeType} = $${3:node_path}$0"
+    ],
+    "description": "An onready variable using the shorthand '$' operator to get a node."
+  },
+  "GDScript Lerp": {
+    "prefix": "lerp",
+    "body": "var ${1:new_value}: float = lerp(${2:from_value}, ${3:to_value}, ${4:weight_0_to_1})$0",
+    "description": "Linearly interpolates between 'from' and 'to' values by a weighted amount 't' (float)."
+  },
+  "GDScript Clamp": {
+    "prefix": "clamp",
+    "body": "var ${1:clamped_value}: ${2:Type} = clamp(${3:value}, ${4:min_value}, ${5:max_value})$0",
+    "description": "Clamps a value to be within a minimum and maximum range."
+  },
+  "GDScript Load Resource": {
+    "prefix": "loadres",
+    "body": "var ${1:resource_name}: ${2:Resource} = load(\"res://${3:resource_path}\")$0",
+    "description": "Type-safe variable assignment using load() for a resource path."
+  },
+  "GDScript Preload Resource": {
+    "prefix": "preloadres",
+    "body": "const ${1:RESOURCE_NAME}: ${2:Resource} = preload(\"res://${3:resource_path}\")$0",
+    "description": "Type-safe constant assignment using preload() for a resource path."
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": ["if ${1:condition}:", "\t${0:pass}"],
+    "description": "Standard 'if' control flow statement."
+  },
+  "If Else Statement": {
+    "prefix": "ifelse",
+    "body": ["if ${1:condition}:", "\t${2:body}", "else:", "\t${0:pass}"],
+    "description": "Standard 'if/else' control flow statement."
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": ["for ${1:item} in ${2:collection}:", "\t${0:pass}"],
+    "description": "For-in loop for iterating over collections."
+  },
+  "Match Statement": {
+    "prefix": "match",
+    "body": [
+      "match ${1:expression_to_match}:",
+      "\t${2:pattern_1}:",
+      "\t\t${3:pass}",
+      "\t_:",
+      "\t\t${0:pass}"
+    ],
+    "description": "Match statement (like a switch/case) including a default case."
+  },
+  "Declare Signal": {
+    "prefix": "signal",
+    "body": "signal ${1:signal_name}(${2:params})$0",
+    "description": "Declares a custom signal with optional typed parameters."
+  },
+  "Signal Connect": {
+    "prefix": "sc",
+    "body": ["${1:signal_name}.connect(${2:method})"],
+    "description": "Godot 4 Signal Connect (signal.connect(method))"
+  },
+  "Await Signal": {
+    "prefix": "await",
+    "body": "await ${1:object}.${2:signal_name}",
+    "description": "Waits for a signal to be emitted (must be used in an async function)."
+  },
+  "Wait Seconds": {
+    "prefix": "waitsec",
+    "body": "await get_tree().create_timer(${1:time_in_seconds}).timeout$0",
+    "description": "Waits for a specified duration in seconds using the SceneTree timer."
+  },
+  "Wait Next Frame": {
+    "prefix": "waitframe",
+    "body": "await get_tree().process_frame$0",
+    "description": "Waits for the end of the current frame and resumes execution on the next process frame."
+  },
+  "Print to Console": {
+    "prefix": "print",
+    "body": "print(${1:message})$0",
+    "description": "Prints a message to the console with a default information level."
+  },
+  "Print Warning": {
+    "prefix": "prwarn",
+    "body": "push_warning(\"${1:Warning message}\")$0",
+    "description": "Prints a yellow warning message to the console."
+  },
+  "Print Error with Stack Trace": {
+    "prefix": "prerr",
+    "body": "push_error(\"${1:Error message}\")$0",
+    "description": "Prints a red error message to the console, including the script file and line number."
+  },
+  "Inner class": {
+    "prefix": "class",
+    "body": ["class $1 extends ${2:Reference}", "\t$3"]
+  },
+  "Class Name": {
+    "prefix": "cn",
+    "body": "class_name ${1:ClassName}",
+    "description": "Registers the script as a global class making it available without explicit loading."
+  }
+}

@@ -11,6 +11,7 @@ vim.pack.add {
   'https://github.com/kylechui/nvim-surround',
   'https://github.com/tpope/vim-repeat',
   'https://github.com/stevearc/oil.nvim',
+  'https://github.com/nvim-mini/mini.snippets',
 
   -- debug
   'https://github.com/mfussenegger/nvim-dap',
