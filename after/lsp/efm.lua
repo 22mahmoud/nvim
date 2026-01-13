@@ -1,5 +1,5 @@
 local shellcheck = require 'efmls-configs.linters.shellcheck'
-local shfmt = require 'efmls-configs.formatters.shfmt'
+local shfmt = require 'ma.efm.shfmt'
 local biome = require 'efmls-configs.formatters.biome'
 local prettierd = require 'efmls-configs.formatters.prettier_d'
 local eslintd_linter = require 'efmls-configs.linters.eslint_d'

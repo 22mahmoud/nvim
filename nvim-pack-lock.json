@@ -38,7 +38,7 @@
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "d0d12338230c1ce4ce27373f5b8d50a8c691794b",
+      "rev": "baa6b4ec28c8be5e4a96f9b1b6ae9db85ec422f8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
