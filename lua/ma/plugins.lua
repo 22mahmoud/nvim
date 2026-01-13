@@ -7,6 +7,10 @@ vim.pack.add {
   'https://github.com/folke/tokyonight.nvim',
   'https://github.com/nvim-tree/nvim-web-devicons',
 
+  -- lsp
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/creativenull/efmls-configs-nvim',
+
   -- editor
   'https://github.com/kylechui/nvim-surround',
   'https://github.com/tpope/vim-repeat',

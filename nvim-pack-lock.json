@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "efmls-configs-nvim": {
+      "rev": "2dd907fe0043b95a901a9aee814f17804aa4426d",
+      "src": "https://github.com/creativenull/efmls-configs-nvim"
+    },
     "mini.snippets": {
       "rev": "b4065ca6b33e4df2897672d3bb760cfc93f4390a",
       "src": "https://github.com/nvim-mini/mini.snippets"
@@ -19,6 +23,10 @@
     "nvim-dap-python": {
       "rev": "1808458eba2b18f178f990e01376941a42c7f93b",
       "src": "https://github.com/mfussenegger/nvim-dap-python"
+    },
+    "nvim-lspconfig": {
+      "rev": "92ee7d42320edfbb81f3cad851314ab197fa324a",
+      "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
       "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
@@ -43,7 +51,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "d278dc40f9de9980868a0a55fa666fba5e6aeacb",
+      "rev": "fbbb2a98721da86f46b06994fd3b4833b04c6e9b",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "tokyonight.nvim": {

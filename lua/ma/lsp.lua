@@ -18,6 +18,7 @@ local servers = {
   'tailwindcss',
   'graphql',
   'lua_ls',
+  'stylua',
   'efm',
   'ccls',
   'bashls',
@@ -29,7 +30,7 @@ local servers = {
   'ruff',
   'djlsp',
   'gdscript',
-  'gdshader',
+  'gdshader_lsp',
   'tinymist',
 }
 
