@@ -64,6 +64,8 @@ local function has_text(s) return s and s:len() > 0 and s ~= '.' end
 
 local function build_path(tbl) return table.concat(vim.tbl_filter(has_text, tbl), '/') end
 
+local function get_bufname() return api.nvim_buf_get_name(0) end
+
 local function block(value, highlight, template)
   if not value or value == 0 or value == '' then return '' end
   local text = fmt(template or '%s', value)
@@ -88,14 +90,20 @@ local function is_special_filename(file_name)
 end
 
 local function get_long_path()
-  local file_name = fn.expand '%:~:.:t'
-  local base = fn.expand '%:~:.:h'
+  local bufname = get_bufname()
+  if bufname == '' then return '' end
+
+  local file_name = fn.fnamemodify(bufname, ':t')
+  local base = fn.fnamemodify(bufname, ':~:.:h')
   return build_path { base, file_name }
 end
 
 local function get_compact_path()
-  local file_name = fn.expand '%:t'
-  local full_path = fn.expand '%:~:.:h'
+  local bufname = get_bufname()
+  if bufname == '' then return '' end
+
+  local file_name = fn.fnamemodify(bufname, ':t')
+  local full_path = fn.fnamemodify(bufname, ':~:.:h')
 
   if full_path == '.' or full_path == '' then return file_name end
 
@@ -114,7 +122,7 @@ local function get_compact_path()
 end
 
 local function get_mode()
-  local current_mode = fn.mode()
+  local current_mode = api.nvim_get_mode().mode
   local mode = MODE_MAP[current_mode] or { long = 'UNKNOWN', short = 'U', color = 'StlineNormal' }
   return mode.long, mode.color
 end
@@ -127,7 +135,7 @@ local function get_file_icon()
 
   if not cache.devicons_ok then return nil end
 
-  local bufname = api.nvim_buf_get_name(0)
+  local bufname = get_bufname()
   if bufname == '' then return nil end
 
   local filename = fn.fnamemodify(bufname, ':t')
@@ -146,9 +154,10 @@ end
 local function get_lsp_diagnostics()
   if not vim.diagnostic.is_enabled { bufnr = 0 } then return '' end
 
-  local function get_diag_count(severity) return #vim.diagnostic.get(0, { severity = severity }) end
-
   local severity = vim.diagnostic.severity
+  local counts = vim.diagnostic.count(0)
+
+  local function get_diag_count(level) return counts[level] or 0 end
 
   return table.concat({
     block(get_diag_count(severity.ERROR), 'StlineDiagError', '  %s '),
@@ -177,7 +186,7 @@ function M.get_statusline()
 
   local rhs = table.concat({
     diagnostics,
-    block('%l:%c', mode_color, ' %s '),
+    block('%l:%c', mode_color, '  %s '),
   }, '')
 
   return lhs .. '%=' .. rhs

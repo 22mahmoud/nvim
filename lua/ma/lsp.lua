@@ -7,8 +7,8 @@ local open_floating_preview = vim.lsp.util.open_floating_preview
 local M = {}
 
 local servers = {
-  -- 'ts_ls',
-  'tsgo',
+  'ts_ls',
+  -- 'tsgo',
   'biome',
   'html',
   'cssls',

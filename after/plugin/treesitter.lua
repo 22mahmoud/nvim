@@ -28,6 +28,21 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+local loaded_ts_commentstring, ts_commentstring = pcall(require, 'ts_context_commentstring')
+if loaded_ts_commentstring then
+  ts_commentstring.setup { enable_autocmd = false }
+
+  local get_option = vim.filetype.get_option
+
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.filetype.get_option = function(filetype, option)
+    print 'hey'
+    return option == 'commentstring'
+        and require('ts_context_commentstring.internal').calculate_commentstring()
+      or get_option(filetype, option)
+  end
+end
+
 local loaded_textobjects, textobjects = pcall(require, 'nvim-treesitter-textobjects')
 if loaded_textobjects then
   local select = require 'nvim-treesitter-textobjects.select'
