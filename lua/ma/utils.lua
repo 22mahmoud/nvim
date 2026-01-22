@@ -1,22 +1,5 @@
 local M = {}
 
-function G.P(...)
-  print(vim.inspect(...))
-
-  return ...
-end
-
-function G.root_dir(markers)
-  return function(bufnr, cb)
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    local project_root = vim.fs.root(fname, markers)
-
-    if not project_root then return end
-
-    cb(project_root)
-  end
-end
-
 function M.toggle_qf()
   local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
   local action = qf_winid > 0 and 'cclose' or 'copen'
