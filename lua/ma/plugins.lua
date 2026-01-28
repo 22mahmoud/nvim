@@ -10,6 +10,7 @@ vim.pack.add {
   -- lsp
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/creativenull/efmls-configs-nvim',
+  'https://github.com/b0o/SchemaStore.nvim',
 
   -- editor
   'https://github.com/kylechui/nvim-surround',

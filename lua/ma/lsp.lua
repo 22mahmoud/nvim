@@ -15,6 +15,7 @@ local servers = {
   'css_variables',
   'jsonls',
   'yamlls',
+  'tombi',
   'tailwindcss',
   'graphql',
   'lua_ls',
