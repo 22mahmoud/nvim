@@ -3,7 +3,7 @@ local utils = require 'ma.utils'
 local keymap = vim.keymap.set
 
 -- navigation & find & search
-keymap('n', '<leader>p', ':find<space>')
+keymap('n', '<leader>f', ':find<space>')
 keymap('n', '<leader>rg', [[:silent grep ''<left>]])
 keymap('n', '<leader>gw', ':silent grep <C-R>=expand("<cword>")<CR><CR>')
 
@@ -36,6 +36,8 @@ keymap('n', '<leader>qq', ':cex []<cr>')
 -- special remaps
 keymap('n', 'n', 'nzz')
 keymap('n', 'N', 'Nzz')
+keymap({ 'n', 'v', 'x' }, '<leader>y', '"+y')
+keymap({ 'n', 'v', 'x' }, '<leader>p', '"+p')
 
 -- better command mode navigation
 keymap('c', '<C-b>', '<Left>')

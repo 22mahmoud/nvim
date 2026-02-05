@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "55874e697fd70ce1064eb96ff5c53c9bd6172324",
+      "rev": "636519034e360b686d3e131353393382388ee5b5",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "efmls-configs-nvim": {
@@ -21,7 +21,7 @@
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-dap": {
-      "rev": "085386b9359ddf8d76ad89b98973b8e332dc5ba3",
+      "rev": "e47878dcf1ccc30136b30d19ab19fe76946d61cd",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/mfussenegger/nvim-dap-python"
     },
     "nvim-lspconfig": {
-      "rev": "54baa4beeeabed24be24379d5b3ce402fe7b5208",
+      "rev": "0480b120318ec8bab27b530ffab6ee76a8c4d806",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -37,17 +37,17 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "568ede7e79172a0fe7c9d631454a97ad968deaf2",
+      "rev": "70a9fecaf5aeae70c765d4c51a8038165a91aa06",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "52bda74e087034408e2d563cb4499c1601038f9d",
+      "rev": "a0e182ae21fda68c59d1f36c9ed45600aef50311",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
     "nvim-ts-autotag": {
-      "rev": "db15f2e0df2f5db916e511e3fffb682ef2f6354f",
+      "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-ts-context-commentstring": {
@@ -55,7 +55,7 @@
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
     },
     "nvim-web-devicons": {
-      "rev": "803353450c374192393f5387b6a0176d0972b848",
+      "rev": "746ffbb17975ebd6c40142362eee1b0249969c5c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {

@@ -59,7 +59,7 @@ install_npm_packages() {
   printf "[npm-packages]: install\n"
   npm_packages_file="$XDG_CONFIG_HOME/nvim/scripts/npm_packages"
   if [ -e "$npm_packages_file" ]; then
-    xargs volta install <"$npm_packages_file"
+    sed 's/^/npm:/' "$npm_packages_file" | xargs mise use -g
     printf "[npm-packages]: done\n"
   else
     printf "[npm-packages]: %s not found\n" "$npm_packages_file"

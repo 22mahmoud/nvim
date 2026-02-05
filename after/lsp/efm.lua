@@ -19,7 +19,7 @@ local biome_supported = vim.g.biome_supported
     'javascript',
     'javascriptreact',
     'json',
-    'jsonc',
+    -- 'jsonc',
     'svelte',
     'typescript',
     'typescriptreact',
@@ -59,7 +59,6 @@ local eslint_supported = vim.g.eslint_supported
     'svelte',
     'astro',
     'json',
-    'jsonc',
     'markdown',
   }
 
@@ -72,7 +71,6 @@ local languages = {
   go = { gofmt },
   php = { phpstan },
   json = json,
-  jsonc = json,
   gdscript = { gdscript_formatter },
   gd = { gdscript_formatter },
   gdscript3 = { gdscript_formatter },
