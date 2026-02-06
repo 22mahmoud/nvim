@@ -49,13 +49,21 @@ end
 
 ---@param client vim.lsp.Client
 ---@param bufnr number
-function M.lsp_code_lens_refresh(client, bufnr)
+function M.lsp_code_lens_enable(client, bufnr)
   if not client:supports_method(methods.textDocument_codeLens) then return end
 
   autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
     buffer = bufnr,
-    callback = vim.lsp.codelens.refresh,
+    callback = function() vim.lsp.codelens.enable(true, { bufnr = bufnr }) end,
   })
+end
+
+---@param client vim.lsp.Client
+---@param bufnr number
+function M.lsp_code_lens_disable(client, bufnr)
+  if not client:supports_method(methods.textDocument_codeLens) then return end
+
+  vim.lsp.codelens.enable(false, { bufnr = bufnr })
 end
 
 ---@param client vim.lsp.Client
@@ -196,10 +204,23 @@ function M.setup()
       for _, fn in ipairs {
         M.setup_cmp,
         M.lsp_highlight_document,
-        M.lsp_code_lens_refresh,
+        M.lsp_code_lens_enable,
         M.set_lsp_buffer_keybindings,
         M.type_formatting,
         M.auto_format_on_save,
+      } do
+        fn(client, args.buf)
+      end
+    end,
+  })
+
+  autocmd({ 'LspDetach' }, {
+    group = augroup('UserLspDetach', {}),
+    callback = function(args)
+      local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+      for _, fn in ipairs {
+        M.lsp_code_lens_enable,
       } do
         fn(client, args.buf)
       end
