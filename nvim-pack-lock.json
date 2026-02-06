@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "636519034e360b686d3e131353393382388ee5b5",
+      "rev": "ce1234aa4df6d5678bc7d4b9fd5340862519372d",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "efmls-configs-nvim": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "70a9fecaf5aeae70c765d4c51a8038165a91aa06",
+      "rev": "92c9b016d16473dabd2bf3760196cf2d928edacc",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
