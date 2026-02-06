@@ -26,22 +26,25 @@ update_package_database() {
   printf "[%s]: done\n\n" "$([ "$(uname -s)" = Darwin ] && echo 'brew' || echo 'paru')"
 }
 
-install_volta() {
-  [ -z "$VOLTA_HOME" ] &&
-    printf "[volta]: please set VOLTA_HOME env variable in your .zprofile"
-
-  printf "[volta]: install\n"
-  volta_script="$XDG_CACHE_HOME"/volta.sh
-  wget -q --show-progress https://get.volta.sh -O "$volta_script"
-  chmod +x "$volta_script"
-  "$volta_script" --skip-setup && rm "$volta_script"
-  printf "[volta]: done\n\n"
+install_mise() {
+  if command -v mise >/dev/null 2>&1; then
+    printf "[mise]: self-update\n"
+    mise self-update -y
+  else
+    printf "[mise]: install\n"
+    curl https://mise.run | sh
+  fi
+  printf "[mise]: done\n\n"
 }
 
-install_node_packages() {
-  printf "[node]: install packages\n"
-  volta install node@lts
-  volta install neovim
+install_nodejs() {
+  printf "[node]: install system packages\n"
+  install_package "nodejs" \
+    "brew install node" \
+    "paru --needed -S nodejs npm --noconfirm"
+
+  printf "[node]: install neovim npm package\n"
+  npm install -g neovim
   printf "[node]: done\n\n"
 }
 
@@ -74,18 +77,17 @@ main() {
     "brew install tree-sitter" \
     "paru --needed -S tree-sitter tree-sitter-cli --noconfirm"
 
-  install_volta
-  install_node_packages
+  install_mise
+  install_nodejs
   install_python_packages
 
   # Ruby installation
   install_package "ruby"
   install_package "rubygems" "brew install brew-gem" "paru --needed -S rubygems --noconfirm"
-  gem install neovim
+  mise use -g gem:neovim
 
   # LSP servers and tools
   install_package "lua-language-server"
-  install_package "efm-langserver"
   install_package "clang" "brew install ccls"
   install_package "go"
   install_package "gopls"
