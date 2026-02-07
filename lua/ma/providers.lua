@@ -15,7 +15,8 @@ else
 end
 
 -- node
-local node_host = vim.fn.expand '~/.local/share/npm/lib/node_modules/neovim/bin/cli.js'
+local node_host =
+  vim.fn.expand '~/.local/share/mise/installs/npm-neovim/latest/bin/neovim-node-host'
 if vim.fn.executable(node_host) == 1 then
   vim.g.node_host_prog = node_host
 else
