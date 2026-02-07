@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "ce1234aa4df6d5678bc7d4b9fd5340862519372d",
+      "rev": "ff73799fc8df725d51eada87a113581ba4d3717b",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "efmls-configs-nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/mfussenegger/nvim-dap-python"
     },
     "nvim-lspconfig": {
-      "rev": "0480b120318ec8bab27b530ffab6ee76a8c4d806",
+      "rev": "66fd02ad1c7ea31616d3ca678fa04e6d0b360824",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "92c9b016d16473dabd2bf3760196cf2d928edacc",
+      "rev": "45a07f869b0cffba342276f2c77ba7c116d35db8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
