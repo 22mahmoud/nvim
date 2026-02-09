@@ -291,11 +291,14 @@ function M.setup_highlights()
   end
 end
 
-local function setup()
+function M.setup()
+  vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
+    group = vim.api.nvim_create_augroup('UserHighlights', {}),
+    callback = function() M.setup_highlights() end,
+  })
+
   opt.statusline = "%{%v:lua.require'ma.statusline'.get_statusline()%}"
   opt.winbar = "%{%v:lua.require'ma.statusline'.get_winbar()%}"
 end
-
-setup()
 
 return M

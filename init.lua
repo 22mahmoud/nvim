@@ -10,4 +10,4 @@ require 'ma.options'
 require 'ma.lsp'
 require 'ma.mappings'
 require 'ma.autocmds'
-require 'ma.statusline'
+require('ma.statusline').setup()

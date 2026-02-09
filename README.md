@@ -2,13 +2,16 @@
 
 ![screenshot](screenshot.png)
 
+Personal Neovim config focused on built-in APIs (`vim.pack`, `vim.lsp`, treesitter) with a small plugin set.
+
 ### Requirements
 
-- Latest [neovim](https://github.com/neovim/neovim) build
-- Arch Linux (paru installed)/MacOs (brew installed)
+- Recent [Neovim](https://github.com/neovim/neovim) with `vim.pack` and `vim.lsp.config` support
+- Linux (Arch with `yay`) or macOS (with `brew`) for `scripts/setup`
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
+- `curl` + `jq` (used by the GraphQL helper)
 
-### Install config
+### Install
 
 ```sh
 mv ~/.config/nvim{,.bak}
@@ -18,19 +21,31 @@ mv ~/.cache/nvim{,.bak}
 
 git clone https://github.com/22mahmoud/nvim ~/.config/nvim
 ~/.config/nvim/scripts/setup
-nvim --noplugin +PkgInstall +qa
+nvim
+```
+
+Plugin install is handled automatically by `vim.pack` on first startup.
+
+### Update Plugins
+
+```sh
+nvim --headless "+PkgUpdate" +wqa
 ```
 
 ### Features
 
-- ️⛏️ Minimal Setup
-- 📦 Use neovim built-in vim [packages](https://neovim.io/doc/user/repeat.html#packages) to manage external plugins ~~using this
-  wrapper [pkg-manager.lua](https://github.com/22mahmoud/nvim/blob/master/lua/ma/pkg-manager.lua), so you can add new plugin with ```lua use 'neovim/lspconfig' ```~~
-  check for the installed plugins in [plugins.lua](https://github.com/22mahmoud/nvim/blob/master/lua/ma/plugins.lua) and [after/plugin](https://github.com/22mahmoud/nvim/tree/master/after/plugin) directory for their configuration
-- 🎨 Nice Looking [statusline](https://github.com/22mahmoud/nvim/blob/master/lua/ma/statusline.lua) & winbar
-- ️🎹 Use neovim built-in vim [ins-completions](https://neovim.io/doc/user/insert.html#ins-completion), ~~and a custom
-  [script](https://github.com/22mahmoud/nvim/blob/8a4e98dd572db66ba7b035a769ce8a423c8f67b6/lua/ma/cmp.lua) to add auto-import functionality when insert from LSP omni completion~~
-  and the built-in neovim [lsp compleitions](https://github.com/22mahmoud/nvim/blob/8a4e98dd572db66ba7b035a769ce8a423c8f67b6/lua/ma/cmp.lua).
-- 💊 a custom GraphQL client to execute `gql` queries/mutations with the keymap
-  <kbd>,</kbd> + <kbd>e</kbd>
+- ⛏️ Minimal Lua-first setup
+- 📦 Uses built-in Neovim package manager (`vim.pack`) via `lua/ma/plugins.lua`
+- 🧠 Built-in LSP pipeline with `vim.lsp.enable(...)` and native completion
+- 🌳 Treesitter + textobjects setup for better syntax and text objects
+- 📁 File explorer workflow via `oil.nvim` on `<leader>e`
+- 🎨 Custom statusline + winbar in `lua/ma/statusline.lua`
+- 💊 Custom GraphQL runner for `.graphql` buffers on `<kbd>,</kbd> + <kbd>e</kbd>`
   [![asciicast](https://asciinema.org/a/696741.svg)](https://asciinema.org/a/696741)
+
+### Deprecation Notes
+
+Old notes kept for historical context:
+
+- using this wrapper [pkg-manager.lua](https://github.com/22mahmoud/nvim/blob/aab4c0e97227130ca9756fb10d4f078ea806155b/lua/ma/pkg-manager.lua), so you can add new plugin with ```lua use 'neovim/lspconfig' ```
+- and a custom [script](https://github.com/22mahmoud/nvim/blob/8a4e98dd572db66ba7b035a769ce8a423c8f67b6/lua/ma/cmp.lua) to add auto-import functionality when insert from LSP omni completion

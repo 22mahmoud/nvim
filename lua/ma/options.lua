@@ -4,8 +4,6 @@ local g = vim.g
 g.mapleader = vim.keycode '<space>'
 g.maplocalleader = vim.keycode ','
 
-vim.cmd 'syntax off'
-
 -- skip vim plugins
 g.loaded_2html_plugin = 1
 g.loaded_logipat = 1
@@ -46,7 +44,7 @@ o.exrc = true
 o.updatetime = 200
 o.timeoutlen = 300
 o.colorcolumn = '80'
-vim.opt.grepprg =
+o.grepprg =
   [[rg --hidden --glob "!.git" --glob "!**/node_modules/**" --glob "!**/*.lock" --glob "!**/*.uid" --glob "!**/*.import" --glob "!**/*.tscn"  --no-heading --smart-case --vimgrep --follow]]
 
 -- ui/display
