@@ -46,12 +46,6 @@ local MODE_MAP = {
   ['niV'] = { long = 'NORMAL', short = 'N', color = 'StlineNormal' },
 }
 
--- Cache for performance
-local cache = {
-  devicons_ok = nil,
-  devicons = nil,
-}
-
 local function get_hl_color(name)
   local hl = api.nvim_get_hl(0, { name = name, link = false })
   return {
@@ -128,20 +122,29 @@ local function get_mode()
 end
 
 local function get_file_icon()
-  -- Lazy load nvim-web-devicons
-  if cache.devicons_ok == nil then
-    cache.devicons_ok, cache.devicons = pcall(require, 'nvim-web-devicons')
-  end
-
-  if not cache.devicons_ok then return nil end
+  local mini_icons_ok, mini_icons = pcall(require, 'mini.icons')
+  if not mini_icons_ok then return nil, nil end
 
   local bufname = get_bufname()
-  if bufname == '' then return nil end
+  if bufname == '' then return nil, nil end
 
-  local filename = fn.fnamemodify(bufname, ':t')
-  local extension = fn.fnamemodify(bufname, ':e')
+  local icon, hl = mini_icons.get('file', bufname)
+  return icon, hl
+end
 
-  return cache.devicons.get_icon(filename, extension, { default = true })
+local function get_icon_highlight(icon_hl, base_hl, target_hl)
+  if not icon_hl or icon_hl == '' then return base_hl end
+
+  local icon = api.nvim_get_hl(0, { name = icon_hl, link = false })
+  if not icon.fg then return base_hl end
+
+  local base = api.nvim_get_hl(0, { name = base_hl, link = false })
+  api.nvim_set_hl(0, target_hl, {
+    fg = icon.fg,
+    bg = base.bg,
+  })
+
+  return target_hl
 end
 
 local function get_modified_icon() return vim.bo.modified and '●' or '' end
@@ -174,11 +177,12 @@ function M.get_statusline()
   local modified_icon = get_modified_icon()
   local readonly_icon = get_readonly_icon()
   local diagnostics = get_lsp_diagnostics()
-  local file_icon = get_file_icon()
+  local file_icon, file_icon_hl = get_file_icon()
+  local icon_hl = get_icon_highlight(file_icon_hl, 'StlinePath', 'StlinePathIcon')
 
   local lhs = table.concat({
     block(mode, mode_color, ' %s '),
-    string.len(path) > 0 and block(file_icon, 'StlineFileIcon', ' %s ') or '',
+    string.len(path) > 0 and block(file_icon, icon_hl, ' %s ') or '',
     string.len(path) > 0 and block(path, 'StlinePath', '%s ') or block(' ', 'StlinePath', '%s'),
     block(modified_icon, 'StlineModified', '%s '),
     block(readonly_icon, 'StlineReadOnly', '%s '),
@@ -195,10 +199,11 @@ end
 function M.get_winbar()
   local path = get_compact_path()
   local modified_icon = get_modified_icon()
-  local file_icon = get_file_icon()
+  local file_icon, file_icon_hl = get_file_icon()
+  local icon_hl = get_icon_highlight(file_icon_hl, 'WinBarPath', 'WinBarPathIcon')
 
   return table.concat({
-    string.len(path) > 0 and block(file_icon, 'WinBarFileIcon', ' %s ') or '',
+    string.len(path) > 0 and block(file_icon, icon_hl, ' %s ') or '',
     string.len(path) > 0 and block(path, 'WinBarPath', '%s ') or block(' ', 'WinBarPath', '%s'),
     block(modified_icon, 'WinBarModified', '%s '),
   }, '')

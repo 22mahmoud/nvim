@@ -1,4 +1,6 @@
-## ma.nvim
+# ⚡ ma.nvim
+
+> A Lua-first Neovim config focused on performance and native APIs.
 
 ![screenshot](screenshot.png)
 
@@ -32,9 +34,9 @@ Plugin install is handled automatically by `vim.pack` on first startup.
 nvim --headless "+PkgUpdate" +wqa
 ```
 
-### Features
+### What's Included
 
-- ⛏️ Minimal Lua-first setup
+- ⚙️ Lean Lua-first setup tuned for speed
 - 📦 Uses built-in Neovim package manager (`vim.pack`) via `lua/ma/plugins.lua`
 - 🧠 Built-in LSP pipeline with `vim.lsp.enable(...)` and native completion
 - 🌳 Treesitter + textobjects setup for better syntax and text objects
