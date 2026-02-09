@@ -1,5 +1,19 @@
 ---@type vim.lsp.Config
 return {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = {
+    '.luacheckrc',
+    '.stylua.toml',
+    'stylua.toml',
+    'selene.toml',
+    'selene.yml',
+    '.emmyrc.json',
+    '.luarc.json',
+    '.luarc.jsonc',
+    '.git',
+  },
+
   on_init = function(client)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
@@ -13,6 +27,7 @@ return {
       end
     end
 
+    ---@diagnostic disable-next-line: param-type-mismatch
     client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
       runtime = {
         version = 'LuaJIT',
@@ -31,6 +46,9 @@ return {
     })
   end,
   settings = {
-    Lua = {},
+    Lua = {
+      codeLens = { enable = true },
+      hint = { enable = true, semicolon = 'Disable' },
+    },
   },
 }

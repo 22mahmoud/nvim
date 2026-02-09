@@ -1,14 +1,11 @@
-local shellcheck = require 'efmls-configs.linters.shellcheck'
+local shellcheck = require 'ma.efm.shellcheck'
 local shfmt = require 'ma.efm.shfmt'
-local biome = require 'efmls-configs.formatters.biome'
-local prettierd = require 'efmls-configs.formatters.prettier_d'
-local eslintd_linter = require 'efmls-configs.linters.eslint_d'
-local eslintd_formatter = require 'efmls-configs.formatters.eslint_d'
-local gofmt = require 'efmls-configs.formatters.gofmt'
-local phpstan = require 'efmls-configs.linters.phpstan'
-local djlint_linter = require 'efmls-configs.linters.djlint'
-local djlint_formatter = require 'efmls-configs.formatters.djlint'
-local fixjson = require 'efmls-configs.formatters.fixjson'
+local biome = require 'ma.efm.biome'
+local prettierd = require 'ma.efm.prettierd'
+local eslintd = require 'ma.efm.eslintd'
+local gofmt = require 'ma.efm.gofmt'
+local djlint = require 'ma.efm.djlint'
+local fixjson = require 'ma.efm.fixjson'
 local gdscript_formatter = require 'ma.efm.gdscript_formatter'
 
 local biome_supported = vim.g.biome_supported
@@ -67,9 +64,8 @@ local json = { fixjson }
 local languages = {
   sh = { shellcheck, shfmt },
   zsh = { shfmt },
-  htmldjango = { djlint_linter, djlint_formatter },
+  htmldjango = { djlint },
   go = { gofmt },
-  php = { phpstan },
   json = json,
   gdscript = { gdscript_formatter },
   gd = { gdscript_formatter },
@@ -88,8 +84,7 @@ end
 
 for _, ft in ipairs(eslint_supported) do
   languages[ft] = languages[ft] or {}
-  table.insert(languages[ft], eslintd_linter)
-  table.insert(languages[ft], eslintd_formatter)
+  table.insert(languages[ft], eslintd)
 end
 
 ---@type vim.lsp.Config

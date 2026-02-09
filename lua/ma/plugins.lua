@@ -1,32 +1,23 @@
 local cmd = vim.api.nvim_create_user_command
 
-vim.pack.add {
+local plugins = {
   -- colors/ui
-  'https://github.com/RRethy/nvim-base16',
-  'https://github.com/catppuccin/nvim',
-  'https://github.com/folke/tokyonight.nvim',
-  'https://github.com/nvim-tree/nvim-web-devicons',
+  { src = 'https://github.com/RRethy/nvim-base16', name = 'nvim-base16' },
+  { src = 'https://github.com/nvim-tree/nvim-web-devicons', name = 'nvim-web-devicons' },
 
-  -- lsp
-  'https://github.com/neovim/nvim-lspconfig',
-  'https://github.com/creativenull/efmls-configs-nvim',
-  'https://github.com/b0o/SchemaStore.nvim',
-
-  -- editor
-  'https://github.com/kylechui/nvim-surround',
-  'https://github.com/tpope/vim-repeat',
-  'https://github.com/stevearc/oil.nvim',
-  'https://github.com/nvim-mini/mini.snippets',
-
-  -- debug
-  'https://github.com/mfussenegger/nvim-dap',
-  'https://github.com/mfussenegger/nvim-dap-python',
+  -- editor,
+  { src = 'https://github.com/kylechui/nvim-surround', name = 'nvim-surround' },
+  { src = 'https://github.com/tpope/vim-repeat', name = 'vim-repeat' },
+  { src = 'https://github.com/stevearc/oil.nvim', name = 'nvim-oil' },
 
   -- treesitter
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
-  'https://github.com/windwp/nvim-ts-autotag',
-  'https://github.com/JoosepAlviste/nvim-ts-context-commentstring',
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', name = 'nvim-treesitter' },
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
+    name = 'nvim-treesitter-textobjects',
+  },
 }
+
+vim.pack.add(plugins)
 
 cmd('PkgUpdate', function() vim.pack.update(nil, { force = true }) end, {})

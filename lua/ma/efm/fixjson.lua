@@ -1,7 +1,7 @@
 ---@type EfmLanguage
 return {
   formatCommand = table.concat({
-    'gdscript-formatter',
+    'fixjson',
   }, ' '),
   formatStdin = true,
 }
