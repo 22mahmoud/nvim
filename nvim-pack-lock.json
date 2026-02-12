@@ -1,7 +1,7 @@
 {
   "plugins": {
     "nvim-base16": {
-      "rev": "5f140bdbb07c0767f0785c71407330c8c96e9bcf",
+      "rev": "21f2946e45cb92a336638d68c8de292fdf451d0c",
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-mini-icons": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "nvim-treesitter": {
-      "rev": "45a07f869b0cffba342276f2c77ba7c116d35db8",
+      "rev": "9f2dad22ef8bb14fd1e0a3aa8859cdc88170668b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
