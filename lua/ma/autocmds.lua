@@ -11,6 +11,8 @@ autocmd({ 'BufWritePre' }, {
   -- Remove the white space and restore the cursor position
   -- @see https://github.com/mcauley-penney/tidy.nvim/blob/main/lua/tidy/init.lua
   callback = function()
+    if vim.tbl_contains({ 'mail' }, vim.bo.filetype) then return end
+
     local pos = vim.api.nvim_win_get_cursor(0)
 
     vim.cmd [[:keepjumps keeppatterns %s/\s\+$//e]]
