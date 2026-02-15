@@ -5,7 +5,7 @@
       "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-mini-icons": {
-      "rev": "efc85e42262cd0c9e1fdbf806c25cb0be6de115c",
+      "rev": "68c178e0958d95b3977a771f3445429b1bded985",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "nvim-mini-surround": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "nvim-treesitter": {
-      "rev": "9f2dad22ef8bb14fd1e0a3aa8859cdc88170668b",
+      "rev": "4d9466677a5ceadef104eaa0fe08d60d91c4e9a7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
