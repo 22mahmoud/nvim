@@ -28,15 +28,7 @@ keymap('n', '<c-l>', '<c-w><c-l>')
 keymap('v', '<', '<gv')
 keymap('v', '>', '>gv')
 
--- buffers
-keymap('n', '<s-l>', ':bn<cr>', { silent = true })
-keymap('n', '<s-h>', ':bp<cr>', { silent = true })
-keymap('n', '<leader>bl', ':ls t<cr>:b<space>')
-keymap('n', '<leader>bd', ':bd!<cr>')
-
 -- quick list
-keymap('n', '<leader>qn', ':cn<cr>zz')
-keymap('n', '<leader>qp', ':cp<cr>zz')
 keymap('n', '<leader>ql', utils.toggle_qf, { nowait = false })
 keymap('n', '<leader>qq', ':cex []<cr>')
 

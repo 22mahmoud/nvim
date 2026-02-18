@@ -24,4 +24,4 @@ local plugins = {
 
 vim.pack.add(plugins)
 
-cmd('PkgUpdate', function() vim.pack.update(nil, { force = true }) end, {})
+cmd('PkgUpdate', function() vim.pack.update(nil, { target = 'lockfile' }) end, {})
