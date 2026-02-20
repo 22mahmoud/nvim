@@ -1,34 +1,28 @@
 {
   "plugins": {
-    "nvim-base16": {
-      "rev": "21f2946e45cb92a336638d68c8de292fdf451d0c",
-      "src": "https://github.com/RRethy/nvim-base16"
-    },
-    "nvim-mini-icons": {
+    "mini.icons": {
       "rev": "68c178e0958d95b3977a771f3445429b1bded985",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
-    "nvim-mini-surround": {
-      "rev": "d648a5601e1c48f175b07d10eba141da338a0a2a",
+    "mini.surround": {
+      "rev": "01dd2620e50ebc0f28f7d4ea2db6f846f1540c95",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
-    "nvim-oil": {
-      "rev": "f55b25e493a7df76371cfadd0ded5004cb9cd48a",
-      "src": "https://github.com/stevearc/oil.nvim"
+    "nvim-base16": {
+      "rev": "80ce668de796d1564d875a3c31822b4db3ae1d91",
+      "src": "https://github.com/RRethy/nvim-base16"
     },
     "nvim-treesitter": {
-      "rev": "4d9466677a5ceadef104eaa0fe08d60d91c4e9a7",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
-      "version": "'main'"
+      "rev": "fcd51bbe9245aa9b79a3930ed9ac42e16e1cf33f",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
       "rev": "a0e182ae21fda68c59d1f36c9ed45600aef50311",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-      "version": "'main'"
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
-    "vim-repeat": {
-      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
-      "src": "https://github.com/tpope/vim-repeat"
+    "oil.nvim": {
+      "rev": "f55b25e493a7df76371cfadd0ded5004cb9cd48a",
+      "src": "https://github.com/stevearc/oil.nvim"
     }
   }
 }
