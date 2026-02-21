@@ -10,7 +10,7 @@ local plugins = {
   gh 'nvim-mini/mini.icons',
 
   -- editor,
-  gh 'nvim-mini/mini.surround',
+  gh 'tpope/vim-surround',
   gh 'stevearc/oil.nvim',
 
   -- treesitter

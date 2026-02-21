@@ -4,10 +4,6 @@
       "rev": "68c178e0958d95b3977a771f3445429b1bded985",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
-    "mini.surround": {
-      "rev": "01dd2620e50ebc0f28f7d4ea2db6f846f1540c95",
-      "src": "https://github.com/nvim-mini/mini.surround"
-    },
     "nvim-base16": {
       "rev": "80ce668de796d1564d875a3c31822b4db3ae1d91",
       "src": "https://github.com/RRethy/nvim-base16"
@@ -23,6 +19,10 @@
     "oil.nvim": {
       "rev": "f55b25e493a7df76371cfadd0ded5004cb9cd48a",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "vim-surround": {
+      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
+      "src": "https://github.com/tpope/vim-surround"
     }
   }
 }
