@@ -12,6 +12,7 @@ local plugins = {
   -- editor,
   gh 'tpope/vim-surround',
   gh 'stevearc/oil.nvim',
+  gh 'ibhagwan/fzf-lua',
 
   -- treesitter
   gh 'nvim-treesitter/nvim-treesitter',

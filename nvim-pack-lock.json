@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "fzf-lua": {
+      "rev": "72ec224172eea757eab6b349775ad5bada7521d7",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
     "mini.icons": {
       "rev": "68c178e0958d95b3977a771f3445429b1bded985",
       "src": "https://github.com/nvim-mini/mini.icons"

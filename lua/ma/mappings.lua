@@ -10,7 +10,7 @@ keymap('n', '<leader>P', '"+P')
 keymap('x', '<leader>p', '"_d"+P')
 
 -- navigation & find & search
-keymap('n', '<leader>f', ':find<space>')
+keymap('n', '<leader>ff', ':find<space>')
 keymap('n', '<leader>rg', [[:silent grep ''<left>]])
 keymap('n', '<leader>gw', ':silent grep <C-R>=expand("<cword>")<CR><CR>')
 

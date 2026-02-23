@@ -72,6 +72,6 @@ end
 ---@field env string[]? Environment variables for the language.
 ---@field rootMarkers string[]? A list of markers to identify the project root.
 ---@field requireMarker boolean? Whether a marker is required for operations.
----@field commands Command[]? A list of commands associated with the language.
+---@field commands EfmCommand[]? A list of commands associated with the language.
 
 return M
