@@ -5,7 +5,7 @@ local keymap = vim.keymap.set
 
 fzf.setup {
   winopts = {
-    split = 'belowright new',
+    split = 'botright new',
   },
   keymap = {
     fzf = {
