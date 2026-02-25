@@ -6,6 +6,11 @@ local keymap = vim.keymap.set
 fzf.setup {
   winopts = {
     split = 'botright new',
+    ---@diagnostic disable-next-line: missing-fields
+    preview = {
+      vertical = 'down:40%',
+      horizontal = 'right:50%',
+    },
   },
   keymap = {
     fzf = {
@@ -15,5 +20,8 @@ fzf.setup {
 }
 
 keymap('n', '<leader>ff', fzf.files)
-keymap('n', '<leader>rg', fzf.live_grep)
-keymap('n', '<leader>gw', fzf.grep_cword)
+keymap('n', '<leader>fb', fzf.buffers)
+keymap('n', '<leader>fz', fzf.builtin)
+keymap('n', 'z=', fzf.spell_suggest)
+
+fzf.register_ui_select {}
