@@ -41,10 +41,8 @@ keymap('c', '<C-b>', '<Left>')
 keymap('c', '<C-f>', '<Right>')
 keymap('c', '<C-n>', '<Down>')
 keymap('c', '<C-p>', '<Up>')
-keymap('c', '<C-e>', '<End>')
 keymap('c', '<C-a>', '<Home>')
 keymap('c', '<C-d>', '<Del>')
-keymap('c', '<C-h>', '<BS>')
 
 -- diagnostics
 keymap('n', '<leader>dq', vim.diagnostic.setloclist)
