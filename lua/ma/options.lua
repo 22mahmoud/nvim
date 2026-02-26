@@ -136,6 +136,7 @@ vim.diagnostic.config {
   update_in_insert = false,
   float = {
     header = '',
+    source = 'always',
   },
   signs = {
     text = {

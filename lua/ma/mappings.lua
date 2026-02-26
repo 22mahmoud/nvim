@@ -47,9 +47,6 @@ keymap('c', '<C-d>', '<Del>')
 keymap('c', '<C-h>', '<BS>')
 
 -- diagnostics
-keymap('n', '<leader>ds', function() vim.diagnostic.open_float(nil, { source = 'always' }) end)
-keymap('n', '<leader>dn', function() vim.diagnostic.jump { count = 1 } end)
-keymap('n', '<leader>dp', function() vim.diagnostic.jump { count = -1 } end)
 keymap('n', '<leader>dq', vim.diagnostic.setloclist)
 
 -- Terminal window escape

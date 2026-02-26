@@ -22,6 +22,7 @@ fzf.setup {
 keymap('n', '<leader>ff', fzf.files)
 keymap('n', '<leader>fb', fzf.buffers)
 keymap('n', '<leader>fz', fzf.builtin)
+keymap('n', '<leader>fo', fzf.oldfiles)
 keymap('n', 'z=', fzf.spell_suggest)
 
 fzf.register_ui_select {}
