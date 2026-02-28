@@ -1,3 +1,7 @@
+> [!CAUTION]
+> This repository is archived and has been migrated to my self-hosted git server at
+> [git.mahmoudashraf.dev/22mahmoud/nvim](https://git.mahmoudashraf.dev/22mahmoud/nvim).
+
 # ⚡ ma.nvim
 
 > A Lua-first Neovim config focused on performance and native APIs.
